@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class AppInit {
 
     public static void main(String[] args) {
-        SpringApplication.run(AppInit.class,args);
+        SpringApplication.run(AppInit.class, args);
     }
 
 }

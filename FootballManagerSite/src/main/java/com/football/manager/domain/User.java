@@ -1,16 +1,18 @@
 package com.football.manager.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name ="football_manager")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private long id;
 
     @Column(name = "login", nullable = false)
@@ -60,11 +62,11 @@ public class User {
         this.email = email;
         this.name = "";
         this.surname = "";
-        this.telephoneNumber ="";
+        this.telephoneNumber = "";
         this.address = "";
         this.roleOnTheSite = RoleOnTheSite.ANONYMOUS;
         this.roleInFootball = RoleInFootball.GK;
-        this.dateOfBirth = new Date(2000,01,01);
+        this.dateOfBirth = new Date(2000, 01, 01);
         this.dateOfRegistration = new Timestamp(new Date().getTime());
     }
 
@@ -80,7 +82,9 @@ public class User {
         return login;
     }
 
-    public void setLogin(String login){this.login = login;}
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
     public String getPassword() {
         return password;
