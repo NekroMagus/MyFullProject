@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <title></title>
+</head>
+<body>
+
+<div id="authentification">
+    <form action="/action_page.php">
+        <label class="coll-25 lab" for="login">Логин</label>
+        <input class="coll-75 aut" type="text" id="login" name="login" placeholder="Введите логин..">
+
+        <label class="coll-25 lab" for="password">Пароль</label>
+        <input class="coll-75 aut" type="password" id="password" name="password" placeholder="Введите пароль..">
+
+        <input type="submit" value="Войти" id="sub">
+    </form>
+</div>
+
+
+<script type="text/javascript" src="js/js.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <title></title>
+</head>
+<body>
+<!-- menu -->
+<div id="menu">
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="#">Инфо</a></li>
+        <li style="float:right"><a class="active" href="authentication">Аутентификация</a></li>
+        <li style="float:right"><a class="active" href="registration">Регистрация</a></li>
+    </ul>
+</div>
+<!-- search -->
+<div id="search_content">
+    <form action="/action_search.php" id="form_search">
+        <input type="search" class="search_input a" placeholder="Поиск..">
+        <!-- role -->
+        <div class="a">
+            <select class="s" required>
+                <option selected disabled hidden>Возраст</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+            </select>
+        </div>
+        <!-- role -->
+        <div class="a">
+            <select class="s" required>
+                <option selected disabled hidden>Страна</option>
+                <option>Россия</option>
+                <option>Беларусь</option>
+                <option>Украина</option>
+                <option>Казахстан</option>
+                <option>США</option>
+            </select>
+        </div>
+        <!-- role -->
+        <div class="a">
+            <select class="s" required>
+                <option selected disabled hidden>Амплуа</option>
+                <option>Вратарь</option>
+                <option>ПЗ</option>
+                <option>ЦЗ</option>
+                <option>ЛЗ</option>
+                <option>ЦОП</option>
+                <option>ЦП</option>
+                <option>ЛП</option>
+                <option>ПП</option>
+                <option>ЦАП</option>
+                <option>ФРВ</option>
+                <option>ЦФД</option>
+                <option>ЛФД</option>
+                <option>ПФД</option>
+            </select>
+        </div>
+    </form>
+</div>
+<!-- add -->
+<div id="add_video">
+    <input type="button" id="add_button" value="Добавить видео">
+</div>
+
+<script type="text/javascript" src="js/js.js"></script>
+</body>
+</html>
