@@ -1,1 +1,1 @@
-# MyFullProject
+# These are full-fledged projects.
