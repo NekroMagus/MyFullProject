@@ -4,6 +4,15 @@
 # Log file
 *.log
 
+
+# idea setting
+*.iml
+*.idea
+
+# out and target files
+/out/*
+/target/*
+
 # BlueJ files
 *.ctxt
 
