@@ -1,4 +1,4 @@
-package com.football.manager.domain;
+package com.football.manager.domain.role;
 
 public enum RoleInFootball {
     GK, //GK (ГК) - Goalkeeper ( вратарь )

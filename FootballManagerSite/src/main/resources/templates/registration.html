@@ -9,7 +9,7 @@
 
 
 <div class="container">
-    <form action="/addUser" method="post">
+    <form action="/addUser" method="post" enctype="multipart/form-data">
         <div id="forma">
             <h2>Регистрационная форма</h2>
         </div>
@@ -37,7 +37,7 @@
                 <label for="photo">Фото</label>
             </div>
             <div class="col-75">
-                <input type="file" id="photo">
+                <input type="file" id="photo" name = "image" required>
             </div>
         </div>
         <!-- email -->

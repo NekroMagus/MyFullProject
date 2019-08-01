@@ -1,10 +1,13 @@
 package com.football.manager.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.football.manager.domain.role.RoleInFootball;
+import com.football.manager.domain.role.RoleOnTheSite;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -53,6 +56,12 @@ public class User {
     @Column(name = "social_network")
     private String socialNetwork;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPhoto")
+    private List<Photo> photoList = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userVideo")
+    private List<Video> videoList = new ArrayList<>();
+
     public User() {
     }
 
@@ -67,6 +76,21 @@ public class User {
         this.roleOnTheSite = RoleOnTheSite.ANONYMOUS;
         this.roleInFootball = RoleInFootball.GK;
         this.dateOfBirth = new Date(2000, 01, 01);
+        this.dateOfRegistration = new Timestamp(new Date().getTime());
+    }
+
+    public User(String login, String password, String email, String name, String surname, String telephoneNumber, String address, RoleInFootball roleInFootball, Date dateOfBirth, String socialNetwork) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.telephoneNumber = telephoneNumber;
+        this.address = address;
+        this.roleOnTheSite = RoleOnTheSite.ANONYMOUS;
+        this.roleInFootball = roleInFootball;
+        this.dateOfBirth = dateOfBirth;
+        this.socialNetwork = socialNetwork;
         this.dateOfRegistration = new Timestamp(new Date().getTime());
     }
 
@@ -172,5 +196,21 @@ public class User {
 
     public void setSocialNetwork(String socialNetwork) {
         this.socialNetwork = socialNetwork;
+    }
+
+    public List<Photo> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<Photo> photoList) {
+        this.photoList = photoList;
+    }
+
+    public List<Video> getVideoList() {
+        return videoList;
+    }
+
+    public void setVideoList(List<Video> videoList) {
+        this.videoList = videoList;
     }
 }
