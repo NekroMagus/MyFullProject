@@ -1,18 +1,15 @@
 package com.football.manager.controller;
 
-import com.football.manager.domain.Photo;
-import com.football.manager.domain.role.RoleInFootball;
 import com.football.manager.domain.User;
-import com.football.manager.service.PhotoService;
+import com.football.manager.domain.role.RoleInFootball;
 import com.football.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Date;
 
 @Controller
@@ -20,6 +17,12 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
+
+
+    @GetMapping("/registration")
+    public String registrationPage() {
+        return "registration";
+    }
 
     @PostMapping("/registration")
     public String addUser(@RequestParam("name") String name,

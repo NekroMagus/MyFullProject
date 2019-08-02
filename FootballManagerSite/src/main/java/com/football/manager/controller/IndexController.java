@@ -10,14 +10,4 @@ public class IndexController {
     public String helloPage() {
         return "index";
     }
-
-    @GetMapping("/registration")
-    public String registrationPage() {
-        return "registration";
-    }
-
-    @GetMapping("/login")
-    public String authenticationPage() {
-        return "login";
-    }
 }
