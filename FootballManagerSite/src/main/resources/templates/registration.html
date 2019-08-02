@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" th:href="@{/css/registration.css}">
+    <link rel="stylesheet" href="build/css/intlTelInput.css"> <!-- тут надо делать как в строке выше? -->
     <title></title>
 </head>
 <body>
@@ -32,14 +33,7 @@
             </div>
         </div>
         <!-- photo -->
-        <div class="row">
-            <div class="col-25">
-                <label for="photo">Фото</label>
-            </div>
-            <div class="col-75">
-                <input type="file" id="photo" name = "image" required>
-            </div>
-        </div>
+<!--          -->
         <!-- email -->
         <div class="row">
             <div class="col-25">
@@ -55,7 +49,12 @@
                 <label for="telephoneNumber">Номер телефона</label>
             </div>
             <div class="col-75">
-                <input type="tel" id="telephoneNumber" name ="telephoneNumber" placeholder="Введите номер телефона.." required>
+                <input type="tel" id="phone" placeholder="Введите номер телефона.." pattern="^[ 0-9]+$" required>
+                <script src="build/js/intlTelInput.js"></script> 
+                <script>
+                  var input = document.querySelector("#phone");
+                  window.intlTelInput(input, {separateDialCode: true});
+                </script>
             </div>
         </div>
         <!-- date -->
@@ -64,7 +63,7 @@
                 <label for="date">Дата рождения</label>
             </div>
             <div class="col-75">
-                <input type="date" id="date" name = "dateOfBirth" placeholder="Введите дату рождения.." >
+                <input type="date" id="date" name = "dateOfBirth" placeholder="Введите дату рождения.." required>
             </div>
         </div>
         <!-- place of residence -->
@@ -83,20 +82,26 @@
             </div>
             <div class="col-75">
                 <select id="roleInFootball" name = "roleInFootball" required>
-                    <option selected disabled hidden>Выберите амплуа</option>
                     <option value = "GK">Врт</option>
+                    <option value = "SW">ЦЗ</option>
                     <option value = "RB">ПЗ</option>
-                    <option>ЦЗ</option>
-                    <option>ЛЗ</option>
-                    <option>ЦОП</option>
-                    <option>ЦП</option>
-                    <option>ЛП</option>
-                    <option>ПП</option>
-                    <option>ЦАП</option>
-                    <option>ФРВ</option>
-                    <option>ЦФД</option>
-                    <option>ЛФД</option>
-                    <option>ПФД</option>
+                    <option value = "LB">ЛЗ</option>
+                    <option value = "CB">ЦЗ</option>
+                    <option value = "RWB">ЗПФ</option>
+                    <option value = "LWB">ЗЛФ</option>
+                    <option value = "CDM">ЦОПЗ</option>
+                    <option value = "RM">ППЗ</option>
+                    <option value = "CM">ЦПЗ</option>
+                    <option value = "LM">ЛПЗ</option>
+                    <option value = "RWM">ПЗПФ</option>
+                    <option value = "LWM">ПЗЛФ</option>
+                    <option value = "CAM">ЦАПЗ</option>
+                    <option value = "RF">ПН</option>
+                    <option value = "CF">СН</option>
+                    <option value = "LF">ЛН</option>
+                    <option value = "RS">ПФ</option>
+                    <option value = "LS">ЛФ</option>
+                    <option value = "ST">ЦФ</option>
                 </select>
             </div>
         </div>
@@ -133,7 +138,7 @@
                 <label for="agreement"></label>
             </div>
             <div class="col-75">
-                <input type="checkbox" id="agreement" placeholder="Введите логин.." required>
+                <input type="checkbox" id="agreement" required>
                 <label for="agreement"><a href="#openModal">Я принимаю условия соглашения</a></label>
             </div>
         </div>
