@@ -21,10 +21,7 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PhotoService photoService;
-
-    @PostMapping("/addUser")
+    @PostMapping("/registration")
     public String addUser(@RequestParam("name") String name,
                           @RequestParam("surname") String surname,
                           @RequestParam("email") String email,
@@ -34,25 +31,12 @@ public class RegistrationController {
                           @RequestParam("roleInFootball") RoleInFootball roleInFootball,
                           @RequestParam("login") String login,
                           @RequestParam("password") String password,
-                          @RequestParam("socialNetwork") String socialNetwork,
-                          @RequestParam("image") MultipartFile file
+                          @RequestParam("socialNetwork") String socialNetwork
     ) throws IOException {
 
         User user = new User(login, password, email, name, surname, telephoneNumber,
                 address, roleInFootball, dateOfBirth, socialNetwork);
 
-        if (file.getContentType().startsWith("image")) {
-            Photo photo = new Photo();
-            photo.setName(file.getOriginalFilename());
-            photo.setContent(file.getBytes());
-            photo.setType(file.getContentType());
-            photo.setDescription("");
-            photo.setUserPhoto(user);
-            user.getPhotoList().add(photo);
-            photoService.addPhoto(photo);
-        } else {
-            throw new IOException("Неверный формат файла");
-        }
         userService.addUser(user);
         return "redirect:/";
     }

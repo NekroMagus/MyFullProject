@@ -16,4 +16,7 @@ public class UserService {
     public void addUser(User user){
         dao.save(user);
     }
+
+    @Transactional
+    public User findUserByLogin(String login){return dao.findByLogin(login);}
 }
