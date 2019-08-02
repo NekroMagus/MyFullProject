@@ -11,7 +11,7 @@ public class PhotoService {
     @Autowired
     private PhotoDao photoDao;
 
-    public void saveFile(Photo photo){
+    public void addPhoto(Photo photo){
         photoDao.save(photo);
     }
 }

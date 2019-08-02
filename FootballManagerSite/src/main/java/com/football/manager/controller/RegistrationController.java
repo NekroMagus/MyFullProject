@@ -49,7 +49,7 @@ public class RegistrationController {
             photo.setDescription("");
             photo.setUserPhoto(user);
             user.getPhotoList().add(photo);
-            photoService.saveFile(photo);
+            photoService.addPhoto(photo);
         } else {
             throw new IOException("Неверный формат файла");
         }
