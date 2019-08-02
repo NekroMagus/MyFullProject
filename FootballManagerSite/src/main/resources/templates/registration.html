@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+  
     <link rel="stylesheet" th:href="@{/css/registration.css}">
     <link rel="stylesheet" th:href="@{/css/intlTelInput.css}"> <!-- так или не так? -->
+
     <title></title>
 </head>
 <body>
@@ -51,6 +53,7 @@
             <div class="col-75">
                 <input type="tel" id="telephoneNumber" name ="telephoneNumber" placeholder="Введите номер телефона.." pattern="^[ 0-9]+$" required>
                 <script th:src="@{/js/intlTelInput.js}"></script> <!-- тут тоже проверь -->
+
                 <script>
                   var input = document.querySelector("#telephoneNumber");
                   window.intlTelInput(input, {separateDialCode: true});

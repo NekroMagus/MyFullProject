@@ -16,8 +16,8 @@ public class IndexController {
         return "registration";
     }
 
-    @GetMapping("/authentication")
+    @GetMapping("/login")
     public String authenticationPage() {
-        return "authentication";
+        return "login";
     }
 }

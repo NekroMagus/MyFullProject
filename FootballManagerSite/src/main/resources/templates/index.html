@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
     <title></title>
 </head>
 <body>
@@ -11,13 +11,13 @@
     <ul>
         <li><a href="/">Главная</a></li>
         <li><a href="#">Инфо</a></li>
-        <li style="float:right"><a class="active" href="authentication">Аутентификация</a></li>
+        <li style="float:right"><a class="active" href="login">Аутентификация</a></li>
         <li style="float:right"><a class="active" href="registration">Регистрация</a></li>
     </ul>
 </div>
 <!-- search -->
 <div id="search_content">
-    <form action="/action_search.php" id="form_search">
+    <form action="/EMPTYPATH" id="form_search">
         <input type="search" class="search_input a" placeholder="Поиск..">
         <!-- role -->
         <div class="a">
