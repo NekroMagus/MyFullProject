@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" th:href="@{/css/registration.css}">
-    <link rel="stylesheet" href="build/css/intlTelInput.css">
+    <link rel="stylesheet" href="build/css/intlTelInput.css"> <!-- тут надо делать как в строке выше? -->
     <title></title>
 </head>
 <body>
@@ -50,8 +50,7 @@
             </div>
             <div class="col-75">
                 <input type="tel" id="phone" placeholder="Введите номер телефона.." pattern="^[ 0-9]+$" required>
-                <script src="build/js/intlTelInput.js"></script>
-                <script src="build/js/utils.js"></script>
+                <script src="build/js/intlTelInput.js"></script> 
                 <script>
                   var input = document.querySelector("#phone");
                   window.intlTelInput(input, {separateDialCode: true});
