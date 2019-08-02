@@ -32,7 +32,7 @@ public class RegistrationController {
                           @RequestParam("login") String login,
                           @RequestParam("password") String password,
                           @RequestParam("socialNetwork") String socialNetwork
-    ) throws IOException {
+    ) {
 
         User user = new User(login, password, email, name, surname, telephoneNumber,
                 address, roleInFootball, dateOfBirth, socialNetwork);
