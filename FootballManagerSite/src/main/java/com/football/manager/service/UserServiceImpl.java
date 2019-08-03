@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implementation of {@link com.football.manager.service.UserService} interface
+ * Implementation of {@link com.football.manager.service.UserService} interface.
  *
  * @author Igor Fliginskikh
  * @version 1.0
@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     private UserDao dao;
 
     @Transactional
-    public void addUser(User user){
+    public void saveUser(User user){
         dao.save(user);
     }
 

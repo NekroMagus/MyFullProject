@@ -3,6 +3,7 @@ package com.football.manager.controller;
 import com.football.manager.domain.User;
 import com.football.manager.domain.role.RoleInFootball;
 import com.football.manager.service.UserService;
+import com.football.manager.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
+/**
+ * Controller for
+ *
+ * @author Igor Fliginkikh
+ * @version 1.0
+ */
+
 @Controller
 public class RegistrationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
+    @Autowired
+    public RegistrationController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/registration")
     public String registrationPage() {
@@ -40,7 +51,7 @@ public class RegistrationController {
         User user = new User(login, password, email, name, surname, telephoneNumber,
                 address, roleInFootball, dateOfBirth, socialNetwork);
 
-        userService.addUser(user);
+        userService.saveUser(user);
         return "redirect:/";
     }
 }
