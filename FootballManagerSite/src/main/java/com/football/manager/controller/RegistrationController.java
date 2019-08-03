@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 
 /**
- * Controller for
+ * Controller for registration page.
  *
  * @author Igor Fliginkikh
  * @version 1.0

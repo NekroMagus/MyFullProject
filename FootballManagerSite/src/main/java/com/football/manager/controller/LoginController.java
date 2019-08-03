@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Controller for registration page.
+ * Controller for login page.
  *
  * @author Igor Fliginskikh
  * @version 1.0
