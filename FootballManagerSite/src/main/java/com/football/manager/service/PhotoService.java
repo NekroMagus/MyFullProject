@@ -1,17 +1,14 @@
 package com.football.manager.service;
 
-import com.football.manager.dao.PhotoDao;
 import com.football.manager.domain.Photo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class PhotoService {
+/**
+ * Service for {@link com.football.manager.domain.Photo}.
+ *
+ * @author Igor Fliginskikh
+ * @version 1.0
+ */
 
-    @Autowired
-    private PhotoDao photoDao;
-
-    public void addPhoto(Photo photo){
-        photoDao.save(photo);
-    }
+public interface PhotoService {
+    void addPhoto(Photo photo);
 }

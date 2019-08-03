@@ -8,6 +8,7 @@ import javax.persistence.*;
  * @author Igor Fliginskikh
  * @version 1.0
  */
+
 @Entity
 @Table(name = "user_photo")
 public class Photo {
