@@ -2,6 +2,13 @@ package com.football.manager.domain;
 
 import javax.persistence.*;
 
+/**
+ * Simple JavaBean object that represent a Youtube video link of {@link com.football.manager.domain.User}
+ *
+ * @author Igor Fliginskikh
+ * @version 1.0
+ */
+
 @Entity
 @Table(name= "user_video")
 public class Video {

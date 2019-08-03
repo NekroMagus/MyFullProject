@@ -1,5 +1,12 @@
 package com.football.manager.domain.role;
 
+/**
+ * This is enum that represents role in football of {@link com.football.manager.domain.User}
+ *
+ * @author Igor Fliginskikh
+ * @version 1.0
+ */
+
 public enum RoleInFootball {
     GK, //GK (ГК) - Goalkeeper ( вратарь )
     SW, //SW (ЦЗ) - Free Defender ( свободный защитник )
