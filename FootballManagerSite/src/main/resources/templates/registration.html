@@ -16,98 +16,7 @@
         <div id="forma">
             <h2>Регистрационная форма</h2>
         </div>
-        <!-- name -->
-        <div class="row">
-            <div class="col-25">
-                <label for="name">Имя</label>
-            </div>
-            <div class="col-75">
-                <input type="text" id="name" name = "name" placeholder="Введите имя.." required>
-            </div>
-        </div>
-        <!-- surname -->
-        <div class="row">
-            <div class="col-25">
-                <label for="surname">Фамилия</label>
-            </div>
-            <div class="col-75">
-                <input type="text" id="surname" name ="surname" placeholder="Введите фамилию.." required>
-            </div>
-        </div>
-        <!-- photo -->
-<!--          -->
-        <!-- email -->
-        <div class="row">
-            <div class="col-25">
-                <label for="email">Email</label>
-            </div>
-            <div class="col-75">
-                <input type="email" id="email" name ="email" placeholder="Введите email.." required>
-            </div>
-        </div>
-        <!-- number phone -->
-        <div class="row">
-            <div class="col-25">
-                <label for="telephoneNumber">Номер телефона</label>
-            </div>
-            <div class="col-75">
-                <input type="tel" id="telephoneNumber" name ="telephoneNumber" placeholder="Введите номер телефона.." pattern="^[ 0-9]+$" required>
-                <script th:src="@{/js/intlTelInput.js}"></script> <!-- тут тоже проверь -->
-
-                <script>
-                  var input = document.querySelector("#telephoneNumber");
-                  window.intlTelInput(input, {separateDialCode: true});
-                </script>
-            </div>
-        </div>
-        <!-- date -->
-        <div class="row">
-            <div class="col-25">
-                <label for="date">Дата рождения</label>
-            </div>
-            <div class="col-75">
-                <input type="date" id="date" name = "dateOfBirth" placeholder="Введите дату рождения.." required>
-            </div>
-        </div>
-        <!-- place of residence -->
-        <div class="row">
-            <div class="col-25">
-                <label for="address">Место проживания</label>
-            </div>
-            <div class="col-75">
-                <input type="text" id="address" name = "address" placeholder="Введите место проживания.." required>
-            </div>
-        </div>
-        <!-- role -->
-        <div class="row">
-            <div class="col-25">
-                <label for="roleInFootball">Амплуа</label>
-            </div>
-            <div class="col-75">
-                <select id="roleInFootball" name = "roleInFootball" required>
-                    <option value = "GK">Врт</option>
-                    <option value = "SW">ЦЗ</option>
-                    <option value = "RB">ПЗ</option>
-                    <option value = "LB">ЛЗ</option>
-                    <option value = "CB">ЦЗ</option>
-                    <option value = "RWB">ЗПФ</option>
-                    <option value = "LWB">ЗЛФ</option>
-                    <option value = "CDM">ЦОПЗ</option>
-                    <option value = "RM">ППЗ</option>
-                    <option value = "CM">ЦПЗ</option>
-                    <option value = "LM">ЛПЗ</option>
-                    <option value = "RWM">ПЗПФ</option>
-                    <option value = "LWM">ПЗЛФ</option>
-                    <option value = "CAM">ЦАПЗ</option>
-                    <option value = "RF">ПН</option>
-                    <option value = "CF">СН</option>
-                    <option value = "LF">ЛН</option>
-                    <option value = "RS">ПФ</option>
-                    <option value = "LS">ЛФ</option>
-                    <option value = "ST">ЦФ</option>
-                </select>
-            </div>
-        </div>
+        
         <!-- login -->
         <div class="row">
             <div class="col-25">
@@ -124,15 +33,6 @@
             </div>
             <div class="col-75">
                 <input type="password" id="password" name = "password" placeholder="Введите пароль.." required>
-            </div>
-        </div>
-        <!-- link to social network -->
-        <div class="row">
-            <div class="col-25">
-                <label for="socialNetwork">Ссылка на соц сеть</label>
-            </div>
-            <div class="col-75">
-                <input type="url" id="socialNetwork" name="socialNetwork" placeholder="Вставте ссылку на вашу соц сеть..">
             </div>
         </div>
         <!-- agreement -->
