@@ -6,6 +6,8 @@ body {
 
 * {
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
 }
 
 input[type=text], input[type=file], input[type=email], input[type=tel],
@@ -38,10 +40,12 @@ input[type=submit]:hover {
 }
 
 .container {
+    width: 600px;
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
     box-shadow: 0 0 5px black;
+    margin-top: 170px;
 }
 
 .col-25 {
@@ -99,11 +103,8 @@ input[type=submit]:hover {
     position: relative;
     margin: 10% auto;
     padding: 5px 20px 13px 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     background: #fff;
-    background: -moz-linear-gradient(#fff, #999);
-    background: -webkit-linear-gradient(#fff, #999);
-    background: -o-linear-gradient(#fff, #999);
 }
 
 .close {
