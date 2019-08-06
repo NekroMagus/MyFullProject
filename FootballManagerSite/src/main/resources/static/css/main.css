@@ -30,29 +30,7 @@ body {
 }
 
 /*search*/
-
-#search_content {
-    height: 50px;
-    margin-top: 3px;
-}
-
-.search_input {
-    width: 200px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.a {
-    float: left;
-}
-
-.s {
-    width: 200px;
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+/* xxx */
 
 /*add video button*/
 
@@ -129,4 +107,3 @@ body {
     padding-top: 10px;
     color: black;
 }
-
