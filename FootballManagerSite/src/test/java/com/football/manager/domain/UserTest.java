@@ -11,14 +11,14 @@ import static org.junit.Assert.*;
 
 public class UserTest {
     private User user = new User();
-    private User fullUser = new User("login", "password", "email");
+    private User fullUser = new User("username", "password");
 
     @Test
     public void userTest() {
         user.setId(1);
         assertEquals(1, user.getId());
-        user.setLogin("123");
-        assertEquals("123", user.getLogin());
+        user.setUsername("123");
+        assertEquals("123", user.getUsername());
         user.setPassword("1");
         assertEquals("1", user.getPassword());
         user.setEmail("1@examplemail.com");

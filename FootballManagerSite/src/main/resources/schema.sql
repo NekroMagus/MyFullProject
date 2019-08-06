@@ -1,9 +1,9 @@
 CREATE TABLE users
 (
   id                   BIGINT PRIMARY KEY AUTO_INCREMENT,
-  login                varchar(32) NOT NULL,
-  password             varchar(32) NOT NULL,
-  email                varchar(64) NOT NULL,
+  username             varchar(32)  NOT NULL,
+  password             varchar(255) NOT NULL,
+  email                varchar(64),
   name                 varchar(32),
   surname              varchar(32),
   telephone_number     varchar(18),
@@ -14,7 +14,8 @@ CREATE TABLE users
   date_of_birth        DATE,
   date_of_registration DATETIME,
   social_network       VARCHAR(128)
-);
+) DEFAULT CHARACTER SET utf8
+  COLLATE utf8_general_ci;
 
 CREATE TABLE user_photo
 (

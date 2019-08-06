@@ -13,7 +13,7 @@ import java.util.List;
  * Simple JavaBean domain object that represents a User.
  *
  * @author Igor Fliginskikh
- * @version 1.0
+ * @version 1.01
  */
 
 @Entity
@@ -25,8 +25,8 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "login", nullable = false)
-    private String login;
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -72,10 +72,10 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password, String email) {
-        this.login = login;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
-        this.email = email;
+        this.email = "";
         this.name = "";
         this.surname = "";
         this.telephoneNumber = "";
@@ -84,21 +84,7 @@ public class User {
         this.roleInFootball = RoleInFootball.GK;
         this.dateOfBirth = new Date(2000, 01, 01);
         this.dateOfRegistration = new Timestamp(new Date().getTime());
-    }
-
-    public User(String login, String password, String email, String name, String surname, String telephoneNumber, String address, RoleInFootball roleInFootball, Date dateOfBirth, String socialNetwork) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.surname = surname;
-        this.telephoneNumber = telephoneNumber;
-        this.address = address;
-        this.roleOnTheSite = RoleOnTheSite.ANONYMOUS;
-        this.roleInFootball = roleInFootball;
-        this.dateOfBirth = dateOfBirth;
-        this.socialNetwork = socialNetwork;
-        this.dateOfRegistration = new Timestamp(new Date().getTime());
+        this.socialNetwork = "";
     }
 
     public long getId() {
@@ -109,12 +95,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

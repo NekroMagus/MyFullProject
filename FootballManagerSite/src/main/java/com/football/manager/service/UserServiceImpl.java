@@ -24,6 +24,8 @@ public class UserServiceImpl implements UserService{
         dao.save(user);
     }
 
-    @Transactional
-    public User findUserByLogin(String login){return dao.findByLogin(login);}
+    @Override
+    public User findUserByUsername(String username) {
+        return dao.findByUsername(username);
+    }
 }
