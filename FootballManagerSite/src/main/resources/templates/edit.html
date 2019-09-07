@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Skideo</title>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+
+    <link rel="icon" type="image/png" href="#"/>
+    <link rel="apple-touch-icon-precomposed" href="#"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sniglet&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-grid.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+<header style="background: #000;">
+
+    <button class="btn btn-register open-modal diplay-none">Вход/Регистрация</button>
+    <div class="container">
+
+        <div class="mobile-menu">
+            <div id="hamburger" class="hamburger-icon-wrapper">
+                <span class="hamburger-icon"></span>
+            </div>
+            <div class="hamburger-menu">
+                <button class="btn btn-register open-modal">Вход/Регистрация</button>
+                <div id="menu" class="hamburger-menu-list">
+
+                    <ul class="navbar--list">
+                        <li class="navbar--list-item active"><a href="/">Главная</a></li>
+                        <li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
+                        <li class="navbar--list-item"><a href="#">Достижения</a></li>
+                        <li class="navbar--list-item"><a href="#">Регистрация</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <div class="navbar--logo">
+                <img class="navbar--logo--img" src="/static/images/kick-white.png" alt="">
+                <a href="#"><b>Skideo</b></a>
+            </div>
+
+            <ul class="navbar--list">
+                <li class="navbar--list-item active"><a href="/">Главная</a></li>
+                <li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
+                <li class="navbar--list-item"><a href="#">Достижения</a></li>
+                <li class="navbar--list-item"><a href="#">Регистрация</a></li>
+            </ul>
+
+            <div class="navbar--social">
+                <a href="#"><i class="fa fa-vk navbar--social--icon" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-facebook-official navbar--social--icon" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram navbar--social--icon" aria-hidden="true"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+<section class="edit">
+    <div class="container center">
+        <div class="col-md-6 no-padding">
+            <h1 class="edit-title">Основное</h1>
+            <form action="#" method="post" onsubmit="save()">
+                <div class="input edit">
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Имя:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="INPUT_FIELD" placeholder="Ваше имя"/>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Фамилия:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="INPUT_FIELD" placeholder="Ваша фамилия"/>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Ваше фото:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="file" id="file-input" name="INPUT_FIELD" accept="image/*"/>
+                            <span id="output"></span>
+                            <label class="file-input" type="file" accept="image/*" for="file-input"><b>Выберите файл</b></label>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">
+                                    <p>Амплуа:</p></label>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <select class="custom-select" name="INPUT_FIELD" id="inputGroupSelect01">
+                                <option selected>Ничего не выбрано</option>
+                                <option value="GK">Вратарь</option>
+                                <option value="SW">Свободный защитник</option>
+                                <option value="RB">Правый защитник</option>
+                                <option value="LB">Левый защитник</option>
+                                <option value="CB">Центр защитник</option>
+                                <option value="RBW">Правый атакующий защитник</option>
+                                <option value="LBW">Левый атакующий защитник</option>
+                                <option value="CDM">Опорный/оборонительный полузащитник</option>
+                                <option value="RM">Правый полузащитник</option>
+                                <option value="CM">Центральный полузащитник</option>
+                                <option value="LM">Левый полузащитник</option>
+                                <option value="RMM">Правый атакующий полузащитник</option>
+                                <option value="LMM">Левый атакующий полузащитник</option>
+                                <option value="CAM">Центральный атакующий полузащитник</option>
+                                <option value="RF">Правый отянутый форвард</option>
+                                <option value="CF">Центральный отянутый форвард</option>
+                                <option value="LF">Левый отянутый форвард</option>
+                                <option value="RS">Правый конечный форвард</option>
+                                <option value="LS">Левый конечный форвард</option>
+                                <option value="ST">Центр форвард</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>E-mail:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="email" name="INPUT_FIELD" placeholder="Ваш E-mail"/>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Телефон:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="tel" name="INPUT_FIELD" placeholder="Ваш телефон"/>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Дата рождения:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="date" name="INPUT_FIELD" placeholder="Дата рождения"/>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Страна:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="INPUT_FIELD" placeholder="Ваша страна"/>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Город:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="INPUT_FIELD" placeholder="Ваш город"/>
+                        </div>
+                    </div>
+                    <div class="blockinput">
+                        <div class="col-4 col-md-4">
+                            <p>Вы в соц. сети:</p>
+                        </div>
+                        <div class="col-8">
+                            <input type="url" name="INPUT_FIELD" placeholder="Ваша соц. сеть"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="push20"></div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-save">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+
+        <div class="footer--logo">
+            <img class="footer--logo--img" src="/static/images/kick-white.png" alt="">
+            <a href="#"><b>Skideo</b></a>
+        </div>
+        <div class="navbar">
+            <ul class="footer--navbar--list">
+                <li class="navbar--list-item active"><a href="/">Главная</a></li>
+                <li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
+                <li class="navbar--list-item"><a href="#">Достижения</a></li>
+                <li class="navbar--list-item"><a href="#">Регистрация</a></li>
+            </ul>
+        </div>
+        <div class="footer--navbar--social ">
+            <a href="#"><i class="fa fa-vk navbar--social--icon" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-facebook-official navbar--social--icon" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-instagram navbar--social--icon" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</footer>
+
+<div class="modal-overlay">
+    <div class="modal">
+        <a class="close-modal">
+            <svg viewBox="0 0 20 20">
+                <path fill="#000000"
+                      d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+            </svg>
+        </a>
+        <div class="modal-content">
+            <div class="text-center">
+                <h2>Регистрация</h2>
+                <div class="push20"></div>
+            </div>
+            <form action="#" method="post" onsubmit="complete()">
+                <div class="input">
+                    <div class="blockinput">
+                        <h4>E-mail<span class="red f16">*</span></h4>
+                        <input type="email" placeholder="Ваш E-mail*" name="INPUT_FIELD"/>
+                    </div>
+                    <div class="push20"></div>
+                    <div class="blockinput">
+                        <h4>Пароль<span class="red f16">*</span></h4>
+                        <input type="password" placeholder="Ваш пароль*" name="INPUT_FIELD"/>
+                    </div>
+                </div>
+                <div class="push20"></div>
+                <h3>Прикрепить видео</h3>
+                <button class="load-video">
+                    <input type="file" id="file-input" name="INPUT_FIELD" accept="video/*"/>
+                    <span id="output"></span>
+                    <label class="file-input" type="file" accept="image/*" for="file-input">
+                        <i class="fa fa-cloud-upload" aria-hidden="true" style="font-size:16px;"></i>
+                        <b>Выберите файл</b></label>
+                </button>
+                <small><span class="red f16">*</span>
+                    - поля, обязательные для заполнения
+                </small>
+                <div class="push20"></div>
+                <button type="submit" class="btn btn-send">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/importScripts ::importScripts"/>
+</body>
+</html>

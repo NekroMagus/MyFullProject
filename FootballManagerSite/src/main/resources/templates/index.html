@@ -1,27 +1,96 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" th:href="@{static/css/main.css}"/>
-    <title></title>
+    <title>Skideo</title>
+    <div th:replace="fragments/head :: head-class"/>
 </head>
 <body>
-<!-- menu -->
-<div id="menu">
-    <ul>
-        <li><a href="/">Главная</a></li>
-        <li><a href="#">Инфо</a></li>
-        <li style="float:right"><a class="active" href="login">Аутентификация</a></li>
-        <li style="float:right"><a class="active" href="registration">Регистрация</a></li>
-    </ul>
-</div>
-<!-- search -->
 
-<!-- add -->
-<div id="add_video">
-    <input type="button" id="add_button" value="Добавить видео">
-</div>
 
-<script type="text/javascript" src="js/js.js"></script>
+<div th:replace="fragments/header :: header-class"/>
+
+<section class="slide-section">
+    <div class="overlay">
+        <div class="container">
+            <div class="content">
+                <h1 class="content--title">Skideo</h1>
+                <p class="content--text">Upload your skills and get a chance</p>
+                <button class="btn open-modal">Добавить видео</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="partner">
+    <div class="container">
+        <img class="partner-img" src="/static/images/kick.png" alt="">
+        <h2 class="partner-title"><b>Наши партнеры</b></h2>
+        <div class="partner-border">
+            <div class="border"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="card-img" src="/static/images/Liverpool.jpg" alt="">
+                <div class="card-body">
+                    <div class="card-title"><b>Liverpool</b></div>
+                    <div class="card-text">Хочешь попасть в академию Liverpool?</div>
+                    <div class="card-content">Тогда отправляй нам свои видео скиллы,и может именно ты станешь тем самым
+                        счастливчиком!
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <img class="card-img" src="/static/images/Juventus.jpg" alt="">
+                <div class="card-body">
+                    <div class="card-title"><b>Juventus</b></div>
+                    <div class="card-text">Хочешь попасть в академию Juventus?</div>
+                    <div class="card-content">Тогда отправляй нам свои видео скиллы,и может именно ты станешь тем самым
+                        счастливчиком!
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <img class="card-img" src="/static/images/Real_madrid.jpg" alt="">
+                <div class="card-body">
+                    <div class="card-title"><b>Real Madrid</b></div>
+                    <div class="card-text">Хочешь попасть в академию Real Madrid?</div>
+                    <div class="card-content">Тогда отправляй нам свои видео скиллы,и может именно ты станешь тем самым
+                        счастливчиком!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="start">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="start-img" src="/static/images/kick.png" alt="">
+                <h2 class="start-title"><b>Все начинается с мечты!</b></h2>
+                <div class="start-border">
+                    <div class="border"></div>
+                </div>
+                <p>Привет! Ты мечтаешь стать крутым футболистом, играть в академии топовых клубов или выступать за
+                    сборную своей страны? А может быть просто хочешь показать себя? Мы поможем тебе в этом! Используй
+                    наше приложение(доступно в App Store и Google Play), чтобы показать, на что ты способен,
+                    соревноваться с другими пользователями или найти новых друзей по интересам! Возможно,
+                    профессиональный тренер или скаут увидит твой профиль и выберет именно тебя</p>
+            </div>
+            <div class="col-md-6">
+                <img class="w-100" src="/static/images/011-min.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="fragments/footer :: footer-class"/>
+
+<div th:replace="fragments/modalRegAuth :: modalRegAuth"/>
+
+<div th:replace="fragments/importScripts :: importScripts"/>
+
 </body>
 </html>

@@ -3,11 +3,14 @@ package com.football.manager.controller;
 import com.football.manager.domain.User;
 import com.football.manager.service.UserService;
 import com.football.manager.service.UserServiceImpl;
+import com.football.manager.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Controller for registration page.
@@ -22,6 +25,9 @@ public class RegistrationController {
     private final UserService userService;
 
     @Autowired
+    private UserValidator userValidator;
+
+    @Autowired
     public RegistrationController(UserServiceImpl userService) {
         this.userService = userService;
     }
@@ -32,8 +38,15 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@RequestParam("username") String username, @RequestParam("password") String password) {
-        User user = new User(username, password);
+    public String addUser(@ModelAttribute("userForm") @Valid User userForm,
+                          BindingResult bindingResult, Model model) {
+
+        userValidator.validate(userForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
+            return "registration";
+        }
+        User user = new User(userForm.getUsername(),userForm.getPassword());
         userService.saveUser(user);
         return "redirect:/";
     }

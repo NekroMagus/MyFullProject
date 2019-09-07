@@ -31,7 +31,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "name")
@@ -205,5 +205,26 @@ public class User {
 
     public void setVideoList(List<Video> videoList) {
         this.videoList = videoList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", roleOnTheSite=" + roleOnTheSite +
+                ", roleInFootball=" + roleInFootball +
+                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfRegistration=" + dateOfRegistration +
+                ", socialNetwork='" + socialNetwork + '\'' +
+                ", photoList=" + photoList +
+                ", videoList=" + videoList +
+                '}';
     }
 }

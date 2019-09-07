@@ -37,7 +37,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         Set<GrantedAuthority> grantedAuthority = new HashSet<>();
         grantedAuthority.add(new SimpleGrantedAuthority(RoleOnTheSite.ANONYMOUS.name()));
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),encoder.encode(user.getPassword()),grantedAuthority);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),grantedAuthority);
     }
 }
