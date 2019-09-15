@@ -2,7 +2,7 @@ package com.football.manager.controller;
 
 import com.football.manager.domain.User;
 import com.football.manager.service.UserService;
-import com.football.manager.service.UserServiceImpl;
+import com.football.manager.service.impl.UserServiceImpl;
 import com.football.manager.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -5,7 +5,6 @@
 
     <header style="background: #000;">
 
-        <button class="btn btn-register open-modal diplay-none">Вход/Регистрация</button>
         <div class="container">
 
             <div class="mobile-menu">
@@ -17,10 +16,10 @@
                     <div id="menu" class="hamburger-menu-list">
 
                         <ul class="navbar--list">
-                            <li class="navbar--list-item active"><a href="/">Главная</a></li>
+                            <li class="navbar--list-item active"><a href="#">Главная</a></li>
                             <li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
                             <li class="navbar--list-item"><a href="#">Достижения</a></li>
-                            <li class="navbar--list-item"><a href="#">Регистрация</a></li>
+                            <li class="navbar--list-item"><a href="edit.html">Регистрация</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,10 +32,10 @@
                 </div>
 
                 <ul class="navbar--list">
-                    <li class="navbar--list-item active"><a href="/">Главная</a></li>
+                    <li class="navbar--list-item active"><a href="#">Главная</a></li>
                     <li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
                     <li class="navbar--list-item"><a href="#">Достижения</a></li>
-                    <li class="navbar--list-item"><a href="#">Регистрация</a></li>
+                    <li class="navbar--list-item"><a href="edit.html">Регистрация</a></li>
                 </ul>
 
                 <div class="navbar--social">
@@ -45,10 +44,19 @@
                     <a href="#"><i class="fa fa-instagram navbar--social--icon" aria-hidden="true"></i></a>
                 </div>
 
-            </div>
+                <button class="btn btn-register open-modal diplay-none">Вход/Регистрация</button>
 
+                <div class="d-none">
+                    <form action="#" method="post">
+                        <a href="" style="color:#fff">[[output_field]]</a>
+                        <button type="submit" style="">Выйти</button>
+                    </form>
+                </div>
+
+            </div>
         </div>
     </header>
+
 </div>
 </body>
 </html>

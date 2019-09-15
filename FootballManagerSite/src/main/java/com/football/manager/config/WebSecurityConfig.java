@@ -1,7 +1,6 @@
 package com.football.manager.config;
 
-import com.football.manager.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.football.manager.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/registration", "/login", "/static/**","/profile/**").permitAll()
+                .antMatchers("/","/registration", "/login", "/static/**","/profile/**","/search").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

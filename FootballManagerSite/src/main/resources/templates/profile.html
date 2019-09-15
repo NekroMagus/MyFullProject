@@ -9,92 +9,115 @@
 
 <div th:replace="fragments/header2 :: header2"/>
 
-
 <section class="profile">
-    <div class="container center">
-        <div class="col-md-6">
-            <form action="#" method="get">
-                <h1 class="profile-title">Мой профиль</h1>
-                <img class="w-100" src="/static/images/index.jpg" alt="">
-                <h2 class="profile_name">Имя и Фамилия [[output_field]]</h2>
-                <div class="blockoutput">
-                    <div class="col-4 col-md-4">
-                        <div class="input-group-prepend">
-                            <p>Амплуа:</p>
+    <div class="container no-padding">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form action="#" method="get">
+                    <div class="profile-container">
+                        <div class="profile-container-title">
+                            <div class="profile_block text-center">
+                                <img src="/static/images/index.jpg" alt="">
+                                <div class="profile_inicial">
+                                    <h2 class="profile_name">Имя Фамилия [[output_field]]</h2>
+                                    <p class="profile_country">Город [[output_field]]</p>
+                                </div>
+                            </div>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <h1 class="profile-title">Обо мне</h1>
+                                <a class="profile_edit" href="edit.html">Ред. профиль</a>
+                            </div>
+                        </div>
+                        <div class="profile-container-body">
+                            <div class="profile-container-body-content">
+                                <div class="blockoutput">
+                                    <div class="col-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <p>Амплуа:</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>[[output_field]]</p>
+                                    </div>
+                                </div>
+                                <div class="blockoutput">
+                                    <div class="col-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <p>E-mail:</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>[[output_field]]</p>
+                                    </div>
+                                </div>
+                                <div class="blockoutput">
+                                    <div class="col-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <p>Телефон:</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>[[output_field]]</p>
+                                    </div>
+                                </div>
+                                <div class="blockoutput">
+                                    <div class="col-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <p>Дата рождения:</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>[[output_field]]</p>
+                                    </div>
+                                </div>
+                                <div class="blockoutput">
+                                    <div class="col-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <p>Страна:</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>[[output_field]]</p>
+                                    </div>
+                                </div>
+                                <div class="blockoutput">
+                                    <div class="col-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <p>Город:</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>[[output_field]]</p>
+                                    </div>
+                                </div>
+                                <div class="blockoutput">
+                                    <div class="col-6 col-md-6">
+                                        <div class="input-group-prepend">
+                                            <p>Вы в соц. сети:</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <p>[[output_field]]</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <p>[[output_field]]</p>
-                    </div>
-                </div>
-                <div class="blockoutput">
-                    <div class="col-4 col-md-4">
-                        <div class="input-group-prepend">
-                            <p>E-mail:</p>
+                </form>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-videos">
+                    <a href="">
+                        <p class="btn-text">Мои видео</p>
+                        <div class="circle">
+                            <div class="triangle"></div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <p>[[output_field]]</p>
-                    </div>
+                    </a>
                 </div>
-                <div class="blockoutput">
-                    <div class="col-4 col-md-4">
-                        <div class="input-group-prepend">
-                            <p>Телефон:</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <p>[[output_field]]</p>
-                    </div>
-                </div>
-                <div class="blockoutput">
-                    <div class="col-4 col-md-4">
-                        <div class="input-group-prepend">
-                            <p>Дата рождения:</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <p>[[output_field]]</p>
-                    </div>
-                </div>
-                <div class="blockoutput">
-                    <div class="col-4 col-md-4">
-                        <div class="input-group-prepend">
-                            <p>Страна:</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <p>[[output_field]]</p>
-                    </div>
-                </div>
-                <div class="blockoutput">
-                    <div class="col-4 col-md-4">
-                        <div class="input-group-prepend">
-                            <p>Город:</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <p>[[output_field]]</p>
-                    </div>
-                </div>
-                <div class="blockoutput">
-                    <div class="col-4 col-md-4">
-                        <div class="input-group-prepend">
-                            <p>Вы в соц. сети:</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <p>[[output_field]]</p>
-                    </div>
-                </div>
-                <div class="push20"></div>
-                <div class="d-flex text-center">
-                    <a class="btn btn-video" href="">Мои видео</a>
-                    <a class="btn btn-save" href="/profile/edit">Редактировать</a>
-                </div>
-
-            </form>
+            </div>
         </div>
+    </div>
     </div>
 </section>
 

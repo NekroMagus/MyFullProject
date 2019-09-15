@@ -1,7 +1,8 @@
-package com.football.manager.service;
+package com.football.manager.service.impl;
 
 import com.football.manager.dao.UserDao;
 import com.football.manager.domain.User;
+import com.football.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao dao;

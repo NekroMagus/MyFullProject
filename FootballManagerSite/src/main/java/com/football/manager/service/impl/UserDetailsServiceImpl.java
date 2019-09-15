@@ -1,7 +1,8 @@
-package com.football.manager.service;
+package com.football.manager.service.impl;
 
 import com.football.manager.domain.User;
 import com.football.manager.domain.role.RoleOnTheSite;
+import com.football.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

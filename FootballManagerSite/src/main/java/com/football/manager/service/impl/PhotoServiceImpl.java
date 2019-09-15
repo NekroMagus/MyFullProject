@@ -1,7 +1,8 @@
-package com.football.manager.service;
+package com.football.manager.service.impl;
 
 import com.football.manager.dao.PhotoDao;
 import com.football.manager.domain.Photo;
+import com.football.manager.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
