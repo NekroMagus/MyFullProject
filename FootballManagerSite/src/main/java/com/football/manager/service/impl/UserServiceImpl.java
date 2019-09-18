@@ -24,8 +24,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     @Transactional
     public void saveUser(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        dao.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void updateUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);
     }
