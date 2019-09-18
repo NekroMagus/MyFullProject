@@ -5,6 +5,7 @@ import com.football.manager.model.role.RoleOnTheSite;
 import org.junit.Test;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -35,8 +36,8 @@ public class UserTest {
         assertEquals(RoleOnTheSite.ADMIN, user.getRoleOnTheSite());
         fullUser.setRoleInFootball(RoleInFootball.CAM);
         assertEquals(RoleInFootball.CAM, fullUser.getRoleInFootball());
-        user.setDateOfBirth(new Date(1990, 12, 12));
-        assertEquals(new Date(1990, 12, 12), user.getDateOfBirth());
+        user.setDateOfBirth(LocalDate.of(1990,12,12));
+        assertEquals(LocalDate.of(1990,12,12), user.getDateOfBirth());
         Timestamp time = new Timestamp(new Date().getTime());
         user.setDateOfRegistration(time);
         assertEquals(time, user.getDateOfRegistration());
