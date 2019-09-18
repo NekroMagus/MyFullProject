@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,10 @@ public class ProfileController {
     }
 
     @GetMapping
-    public String getProfile() {
+    public String getProfile(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("currentUser", user);
         return "profile";
     }
 
@@ -38,28 +42,31 @@ public class ProfileController {
     public String editProfile(@ModelAttribute User user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User updUser = userService.findUserByEmail(auth.getName());
-        if (user.getName() != null) {
+        if (!user.getName().equals("")) {
             updUser.setName(user.getName());
         }
-        if (user.getSurname() != null) {
+        if (!user.getSurname().equals("")) {
             updUser.setSurname(user.getSurname());
         }
         if (user.getRoleInFootball() != null) {
             updUser.setRoleInFootball(user.getRoleInFootball());
         }
-        if (user.getTelephoneNumber() != null) {
+        if (!user.getTelephoneNumber().equals("")) {
             updUser.setTelephoneNumber(user.getTelephoneNumber());
         }
         if (user.getDateOfBirth() != null) {
             updUser.setDateOfBirth(user.getDateOfBirth());
         }
-        if (user.getCountry() != null) {
+        if (!user.getCountry().equals("")) {
             updUser.setCountry(user.getCountry());
         }
-        if (user.getSocialNetwork() != null) {
+        if(!user.getCity().equals("")) {
+            updUser.setCity(user.getCity());
+        }
+        if (!user.getSocialNetwork().equals("")) {
             updUser.setSocialNetwork(user.getSocialNetwork());
         }
         userService.updateUser(updUser);
-        return "redirect:/profile/edit";
+        return "redirect:/profile";
     }
 }
