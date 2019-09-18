@@ -1,13 +1,13 @@
 CREATE TABLE users
 (
   id                   BIGINT PRIMARY KEY AUTO_INCREMENT,
-  username             varchar(32)  NOT NULL,
-  password             varchar(255) NOT NULL,
-  email                varchar(64),
-  name                 varchar(32),
-  surname              varchar(32),
-  telephone_number     varchar(18),
-  address              varchar(256),
+  email                VARCHAR(64)  NOT NULL,
+  password             VARCHAR(255) NOT NULL,
+  name                 VARCHAR(64),
+  surname              VARCHAR(64),
+  telephone_number     VARCHAR(18),
+  country              VARCHAR(64),
+  city                 VARCHAR(256),
   role_on_the_site     ENUM ('ANONYMOUS','USER','ADMIN'),
   role_in_football     ENUM ('GK','SW','RB','LB','CB','RBW','LBW','CDM','RM','CM',
     'LM','RMM','LMM','CAM','RF','CF','LF','RS','LS','ST'),
@@ -20,9 +20,9 @@ CREATE TABLE users
 CREATE TABLE user_photo
 (
   id          BIGINT      NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  name        varchar(64) NOT NULL,
-  type        varchar(32) NOT NULL,
-  description varchar(1024),
+  name        VARCHAR(64) NOT NULL,
+  type        VARCHAR(32) NOT NULL,
+  description VARCHAR(1024),
   content     LONGBLOB    NOT NULL
 );
 
