@@ -3,7 +3,7 @@ package com.football.manager.model;
 import javax.persistence.*;
 
 /**
- * Simple JavaBean object that represents a Photo files of {@link com.football.manager.model.User}.
+ * Simple JavaBean domain object that represents a Photo files of {@link com.football.manager.model.User}.
  *
  * @author Igor Fliginskikh
  * @version 1.0
