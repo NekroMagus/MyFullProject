@@ -3,6 +3,8 @@ package com.football.manager.controller;
 import com.football.manager.model.User;
 import com.football.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,8 +35,9 @@ public class ProfileController {
     }
 
     @PostMapping("/edit")
-    public String editProfile(@ModelAttribute("user") User user) {
-        User updUser = userService.findUserByEmail(user.getEmail());
+    public String editProfile(@ModelAttribute User user) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User updUser = userService.findUserByEmail(auth.getName());
         if (user.getName() != null) {
             updUser.setName(user.getName());
         }
@@ -57,6 +60,6 @@ public class ProfileController {
             updUser.setSocialNetwork(user.getSocialNetwork());
         }
         userService.updateUser(updUser);
-        return "redirect:/edit";
+        return "redirect:/profile/edit";
     }
 }
