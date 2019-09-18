@@ -17,8 +17,8 @@ public class UserTest {
     public void userTest() {
         user.setId(1);
         assertEquals(1, user.getId());
-        user.setUsername("123");
-        assertEquals("123", user.getUsername());
+        user.setCountry("123");
+        assertEquals("123", user.getCountry());
         user.setPassword("1");
         assertEquals("1", user.getPassword());
         user.setEmail("1@examplemail.com");
@@ -29,8 +29,8 @@ public class UserTest {
         assertEquals("surname", user.getSurname());
         user.setTelephoneNumber("number");
         assertEquals("number", user.getTelephoneNumber());
-        user.setAddress("address");
-        assertEquals("address", user.getAddress());
+        user.setCity("address");
+        assertEquals("address", user.getCity());
         user.setRoleOnTheSite(RoleOnTheSite.ADMIN);
         assertEquals(RoleOnTheSite.ADMIN, user.getRoleOnTheSite());
         fullUser.setRoleInFootball(RoleInFootball.CAM);
