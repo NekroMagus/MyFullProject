@@ -25,14 +25,11 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "name")
     private String name;
@@ -43,8 +40,11 @@ public class User {
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "city")
+    private String city;
 
     @Column(name = "role_on_the_site")
     @Enumerated(value = EnumType.STRING)
@@ -72,20 +72,21 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
-        this.email = "";
         this.name = "";
         this.surname = "";
         this.telephoneNumber = "";
-        this.address = "";
+        this.country = "";
+        this.city = "";
         this.roleOnTheSite = RoleOnTheSite.ANONYMOUS;
         this.roleInFootball = RoleInFootball.GK;
         this.dateOfBirth = new Date(2000, 01, 01);
         this.dateOfRegistration = new Timestamp(new Date().getTime());
         this.socialNetwork = "";
     }
+
 
     public long getId() {
         return id;
@@ -95,12 +96,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -109,14 +110,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getName() {
@@ -143,12 +136,20 @@ public class User {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCountry() {
+        return country;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public RoleOnTheSite getRoleOnTheSite() {
@@ -207,24 +208,4 @@ public class User {
         this.videoList = videoList;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", roleOnTheSite=" + roleOnTheSite +
-                ", roleInFootball=" + roleInFootball +
-                ", dateOfBirth=" + dateOfBirth +
-                ", dateOfRegistration=" + dateOfRegistration +
-                ", socialNetwork='" + socialNetwork + '\'' +
-                ", photoList=" + photoList +
-                ", videoList=" + videoList +
-                '}';
-    }
 }
