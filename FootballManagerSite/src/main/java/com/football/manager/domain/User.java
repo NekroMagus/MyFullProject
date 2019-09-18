@@ -13,7 +13,7 @@ import java.util.List;
  * Simple JavaBean domain object that represents a User.
  *
  * @author Igor Fliginskikh
- * @version 1.01
+ * @version 1.0
  */
 
 @Entity

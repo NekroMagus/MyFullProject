@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * Controller for registration page.
  *
  * @author Igor Fliginkikh
- * @version 1.01
+ * @version 1.0
  */
 
 @Controller
@@ -38,14 +38,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm,
-                          BindingResult bindingResult, Model model) {
-
-        userValidator.validate(userForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
-            return "registration";
-        }
+    public String addUser(@ModelAttribute("userForm") User userForm) {
         User user = new User(userForm.getUsername(),userForm.getPassword());
         userService.saveUser(user);
         return "redirect:/";
