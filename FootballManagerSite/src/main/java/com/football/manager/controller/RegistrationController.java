@@ -35,8 +35,10 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") User userForm) {
-        User user = new User(userForm.getEmail(),userForm.getPassword());
-        userService.saveUser(user);
+        if (userService.findUserByEmail(userForm.getEmail()) == null) {
+            User user = new User(userForm.getEmail(), userForm.getPassword());
+            userService.saveUser(user);
+        }
         return "redirect:/";
     }
 }
