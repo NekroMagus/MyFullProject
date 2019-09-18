@@ -1,7 +1,7 @@
-package com.football.manager.service.impl;
+package com.football.manager.security;
 
-import com.football.manager.domain.User;
-import com.football.manager.domain.role.RoleOnTheSite;
+import com.football.manager.model.User;
+import com.football.manager.model.role.RoleOnTheSite;
 import com.football.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,8 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +36,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         Set<GrantedAuthority> grantedAuthority = new HashSet<>();
         grantedAuthority.add(new SimpleGrantedAuthority(RoleOnTheSite.ANONYMOUS.name()));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),grantedAuthority);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),grantedAuthority);
     }
 }

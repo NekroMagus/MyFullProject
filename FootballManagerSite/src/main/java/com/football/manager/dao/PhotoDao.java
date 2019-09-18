@@ -1,6 +1,6 @@
 package com.football.manager.dao;
 
-import com.football.manager.domain.Photo;
+import com.football.manager.model.Photo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

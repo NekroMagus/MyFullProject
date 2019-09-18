@@ -1,7 +1,7 @@
 package com.football.manager.service.impl;
 
 import com.football.manager.dao.VideoDao;
-import com.football.manager.domain.Video;
+import com.football.manager.model.Video;
 import com.football.manager.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.football.manager.service;
 
 /**
- * Service for {@link com.football.manager.domain.Video}.
+ * Service for {@link com.football.manager.model.Video}.
  *
  * @author Igor Fliginskikh
  * @version 1.0

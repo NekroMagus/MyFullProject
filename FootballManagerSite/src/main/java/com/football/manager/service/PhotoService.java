@@ -1,9 +1,9 @@
 package com.football.manager.service;
 
-import com.football.manager.domain.Photo;
+import com.football.manager.model.Photo;
 
 /**
- * Service for {@link com.football.manager.domain.Photo}.
+ * Service for {@link com.football.manager.model.Photo}.
  *
  * @author Igor Fliginskikh
  * @version 1.0

@@ -1,9 +1,9 @@
-package com.football.manager.domain;
+package com.football.manager.model;
 
 import javax.persistence.*;
 
 /**
- * Simple JavaBean object that represent a Youtube video link of {@link com.football.manager.domain.User}.
+ * Simple JavaBean object that represent a Youtube video link of {@link com.football.manager.model.User}.
  *
  * @author Igor Fliginskikh
  * @version 1.0

@@ -1,6 +1,6 @@
 package com.football.manager.dao;
 
-import com.football.manager.domain.Video;
+import com.football.manager.model.Video;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

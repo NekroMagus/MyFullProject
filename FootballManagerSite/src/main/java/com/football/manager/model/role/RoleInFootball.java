@@ -1,7 +1,7 @@
-package com.football.manager.domain.role;
+package com.football.manager.model.role;
 
 /**
- * This is enum that represents role in football of {@link com.football.manager.domain.User}.
+ * This is enum that represents role in football of {@link com.football.manager.model.User}.
  *
  * @author Igor Fliginskikh
  * @version 1.0

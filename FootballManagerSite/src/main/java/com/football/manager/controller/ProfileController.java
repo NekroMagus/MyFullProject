@@ -1,6 +1,6 @@
 package com.football.manager.controller;
 
-import com.football.manager.domain.User;
+import com.football.manager.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

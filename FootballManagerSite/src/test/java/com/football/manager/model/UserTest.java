@@ -1,7 +1,7 @@
-package com.football.manager.domain;
+package com.football.manager.model;
 
-import com.football.manager.domain.role.RoleInFootball;
-import com.football.manager.domain.role.RoleOnTheSite;
+import com.football.manager.model.role.RoleInFootball;
+import com.football.manager.model.role.RoleOnTheSite;
 import org.junit.Test;
 
 import java.sql.Timestamp;
