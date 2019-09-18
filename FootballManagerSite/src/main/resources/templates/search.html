@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Skideo</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="description" content="">
+
+	<link rel="icon" type="image/png" href="#" />
+	<link rel="apple-touch-icon-precomposed" href="#"/>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Sniglet&display=swap" rel="stylesheet"> 
+	<link href="/static/css/style.css" rel="stylesheet">
+	<link href="/static/css/bootstrap-grid.css" rel="stylesheet">
+	<link href="/static/css/tabs.css" rel="stylesheet">
+	<link href="/static/css/search.css" rel="stylesheet">
+	<link href="/static/css/dropdown.css" rel="stylesheet">
+	<link href="/static/css/jquery-ui.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+	<header style="background: #000;">
+
+		<div class="container">
+
+			<div class="mobile-menu">
+				<div id="hamburger" class="hamburger-icon-wrapper">
+					<span class="hamburger-icon"></span>
+				</div>
+				<div class="hamburger-menu">
+					<button class="btn btn-register open-modal">Вход/Регистрация</button>
+					<div id="menu" class="hamburger-menu-list">
+
+						<ul class="navbar--list">
+							<li class="navbar--list-item active"><a href="#">Главная</a></li>
+							<li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
+							<li class="navbar--list-item"><a href="#">Достижения</a></li>
+							<li class="navbar--list-item"><a href="../skideo-master/temlates/edit.html">Регистрация</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="navbar">
+				<div class="navbar--logo">
+					<img class="navbar--logo--img" src="../static/images/kick-white.png" alt="">
+					<a href="#"><b>Skideo</b></a>
+				</div>
+
+				<ul class="navbar--list">
+					<li class="navbar--list-item active"><a href="#">Главная</a></li>
+					<li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
+					<li class="navbar--list-item"><a href="#">Достижения</a></li>
+					<li class="navbar--list-item"><a href="../skideo-master/temlates/edit.html">Регистрация</a></li>
+				</ul>
+
+				<div class="navbar--social">
+					<a href="#"><i class="fa fa-vk navbar--social--icon" aria-hidden="true"></i></a>
+					<a href="#"><i class="fa fa-facebook-official navbar--social--icon" aria-hidden="true"></i></a>
+					<a href="#"><i class="fa fa-instagram navbar--social--icon" aria-hidden="true"></i></a>
+				</div>
+
+				<button class="btn btn-register open-modal diplay-none">Вход/Регистрация</button>
+
+				<div class="d-none">
+					<form action="#" method="get">
+						<a href="" style="color:#fff">[[output_field]]</a>
+						<button type="submit" style="">Выйти</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</header>
+
+
+
+	<section class="search">
+		<div class="container">
+			<h1 class="title-search">Поиск</h1>
+			<div class="search-block">
+				<form class="search-form"  method="get">
+					<input type="search" placeholder="Поиск">
+					<button class="btn btn-search" type="submit">Искать</button>
+				</form>
+			</div>
+			<div class="row filters-list">
+				<div class="col-xl-3 col-6 ">
+					<div class="filters-list-item dropdown">
+						<a class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Возраст
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+							<div id="polzunok"></div>
+							<form class="form" metod="">
+								<div class="filter_slider" >
+									от
+									<input type="text" id="min" value="3" name="f_[[+name]][from]" style="width:50px;" />
+									до
+									<input type="text" id="max" value="18" name="f_[[+name]][to]" style="width:50px;" />
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-3 col-6 ">
+					<div class="filters-list-item dropdown">
+						<a class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Страна
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+							<div class="form" metod="">
+								<input type="text" name="INPUT_FIELD" placeholder="Введите название страны">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-3 col-6 ">
+					<div class="filters-list-item dropdown">
+						<a class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Амплуа
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+							<form class="form" metod="">
+								<div class="d-flex" >
+									<input id="amplua-1" type="checkbox" value="GK">
+									<label for="amplua-1">Вратарь</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-2" type="checkbox" value="SW">
+									<label for="amplua-2">Свободный защитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-3" type="checkbox" value="RB">
+									<label for="amplua-3">Правый защитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-4" type="checkbox" value="LB">
+									<label for="amplua-4">Левый защитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-5" type="checkbox" value="CB">
+									<label for="amplua-5">Центр защитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-6" type="checkbox" value="RBW">
+									<label for="amplua-6">Правый атакующий защитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-7" type="checkbox" value="LBW">
+									<label for="amplua-7">Левый атакующий защитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-8" type="checkbox" value="CDM">
+									<label for="amplua-8">Опорный/оборонительный полузащитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-9" type="checkbox" value="RM">
+									<label for="amplua-9">Правый полузащитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-10" type="checkbox" value="CM">
+									<label for="amplua-10">Центральный полузащитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-11" type="checkbox" value="LM">
+									<label for="amplua-11">Левый полузащитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-12" type="checkbox" value="RMM">
+									<label for="amplua-12">Правый атакующий полузащитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-13" type="checkbox" value="LMM">
+									<label for="amplua-13">Левый атакующий полузащитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-14" type="checkbox" value="CAM">
+									<label for="amplua-14">Центральный атакующий полузащитник</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-15" type="checkbox" value="RF">
+									<label for="amplua-15">Правый отянутый форвард</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-16" type="checkbox" value="CF">
+									<label for="amplua-16">Центральный отянутый форвард</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-17" type="checkbox" value="LF">
+									<label for="amplua-17">Левый отянутый форвард</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-18" type="checkbox" value="RS">
+									<label for="amplua-18">Правый конечный форвард</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-19" type="checkbox" value="LS">
+									<label for="amplua-19">Левый конечный форвард</label>
+								</div>
+								<div class="d-flex">
+									<input id="amplua-20" type="checkbox" value="ST">
+									<label for="amplua-20">Центр форвард</label>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="result">
+	<div class="container">
+		<form action="" method="get">
+			<h3 class="title-result d-none">Результаты поиска</h3>
+			<div class="d-none"><h3 class="title-result">Результаты поиска</h3></div>
+			<div class="row d-none">
+				<div class="col">
+					<div class="card-profile">
+						<h2>Name</h2>
+						<div class="card">
+							<div class="row">
+								<div class="col-sm-3">
+									<img src="../static/images/Juventus.jpg" style="height: 250px;width: 200px;margin:20px 20px;" alt="">
+								</div>
+								<div class="col-sm-4">
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Имя:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Фамилия:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Амплуа:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>E-mail:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Телефон:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Дата рождения:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Страна:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Город:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<p>Соц. сети:</p>
+											</div>
+										</div>
+										<div class="col-4">
+											<p>[[output_field]]</p>
+										</div>
+									</div>
+									<div class="blockoutput">
+										<div class="col-4 col-md-4">
+											<div class="input-group-prepend">
+												<a href="" class="btn">Подробнее</a>
+											</div>
+										</div>
+										<div class="col-4">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+
+<section class="result-user d-none">
+	<div class="container">
+		<form action="" method="get">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="card">
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Имя:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Возраст:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Страна:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="card">
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Имя:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Возраст:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Страна:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="card">
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Имя:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Возраст:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+						<div class="blockoutput">
+							<div class="col-4 col-md-4">
+								<div class="input-group-prepend">
+									<p>Страна:</p>
+								</div>
+							</div>
+							<div class="col-4">
+								<p>[[output_field]]</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+</section>
+
+<footer>
+	<div class="container">
+		<div class="footer--logo">
+			<img class="footer--logo--img" src="../static/images/kick-white.png" alt="">
+			<a href="#"><b>Skideo</b></a>
+		</div>
+		<div class="navbar">
+			<ul class="footer--navbar--list">
+				<li class="navbar--list-item active"><a href="#">Главная</a></li>
+				<li class="navbar--list-item"><a href="#">Наши партнеры</a></li>
+				<li class="navbar--list-item"><a href="#">Достижения</a></li>
+				<li class="navbar--list-item"><a href="#">Регистрация</a></li>
+			</ul>
+		</div>
+		<div class="footer--navbar--social ">
+			<a href="#"><i class="fa fa-vk navbar--social--icon" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-facebook-official navbar--social--icon" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-instagram navbar--social--icon" aria-hidden="true"></i></a>
+		</div>
+	</div>
+</footer>
+
+<div class="modal-overlay">
+	<div class="modal">
+		<a class="close-modal">
+			<svg viewBox="0 0 20 20">
+				<path fill="#000000" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+			</svg>
+		</a>
+		<div class="tabs">
+			<input type="radio" name="inset" value="" id="tab_1" checked>
+			<label class="l-center" for="tab_1">Вход</label>
+			<input type="radio" name="inset" value="" id="tab_2">
+			<label for="tab_2">Регистрация</label>
+			<div id="txt_1">
+				<div class="modal-content">
+					<div class="text-center">
+						<h2>Вход</h2>
+						<div class="push20"></div>
+					</div>
+					<form action="#" method="post">
+						<div class="input">
+							<div class="blockinput">
+								<h4>E-mail</h4>
+								<input type="email" placeholder="Введите E-mail*" name="INPUT_FIELD" />
+							</div>
+							<div class="push20"></div>
+							<div class="blockinput">
+								<h4>Пароль</h4>
+								<input type="password" placeholder="Введите пароль*" name="INPUT_FIELD" />
+							</div>
+						</div>
+						<div class="push20"></div>
+						<button type="submit" class="btn btn-send">Войти</button>
+						<div class="conditions">
+							<a href="">Напомнить пароль</a>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div id="txt_2">
+				<div class="modal-content">
+					<div class="text-center">
+						<h2>Регистрация</h2>
+						<div class="push20"></div>
+					</div>
+					<form action="#" method="post">
+						<div class="input">
+							<div class="blockinput">
+								<h4>E-mail<span class="red f16">*</span></h4>
+								<input type="email" placeholder="Ваш E-mail" name="INPUT_FIELD" />
+							</div>
+							<div class="push20"></div>
+							<div class="blockinput">
+								<h4>Пароль<span class="red f16">*</span></h4>
+								<input type="password" placeholder="Ваш пароль" name="INPUT_FIELD" />
+							</div>
+						</div>
+						<small><span class="red f16">*</span>
+						- поля, обязательные для заполнения</small>
+						<div class="push20"></div>
+						<button type="submit" class="btn btn-send">Зарегистрироваться</button>
+						<div class="conditions">
+							<a href="">Правила</a> и <a href="">Конфиденциальность</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/96928ca8ce.js"></script>
+
+<script src="../static/js/script.js"></script>
+
+</body>
+</html>
