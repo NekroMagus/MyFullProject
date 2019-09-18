@@ -32,7 +32,7 @@ public class ProfileController {
         return "profile";
     }
 
-    @PostMapping
+    @PostMapping("/edit")
     public String editProfile(@ModelAttribute("user") User user) {
         User updUser = userService.findUserByEmail(user.getEmail());
         if (user.getName() != null) {
@@ -43,9 +43,6 @@ public class ProfileController {
         }
         if (user.getRoleInFootball() != null) {
             updUser.setRoleInFootball(user.getRoleInFootball());
-        }
-        if (user.getPassword() != null) {
-            updUser.setPassword(user.getPassword());
         }
         if (user.getTelephoneNumber() != null) {
             updUser.setTelephoneNumber(user.getTelephoneNumber());

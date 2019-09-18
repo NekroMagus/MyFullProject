@@ -13,14 +13,14 @@
     <div class="container center">
         <div class="col-md-6 no-padding">
             <h1 class="edit-title">Основное</h1>
-            <form action="#" method="post" onsubmit="save()">
+            <form action="/profile/edit" method="post" onsubmit="save()">
                 <div class="input edit">
                     <div class="blockinput">
                         <div class="col-4 col-md-4">
                             <p>Имя:</p>
                         </div>
                         <div class="col-8">
-                            <input type="text" name="INPUT_FIELD" placeholder="Ваше имя"/>
+                            <input type="text" name="name" placeholder="Ваше имя"/>
                         </div>
                     </div>
                     <div class="blockinput">
@@ -28,7 +28,7 @@
                             <p>Фамилия:</p>
                         </div>
                         <div class="col-8">
-                            <input type="text" name="INPUT_FIELD" placeholder="Ваша фамилия"/>
+                            <input type="text" name="surname" placeholder="Ваша фамилия"/>
                         </div>
                     </div>
                     <div class="blockinput">
@@ -36,7 +36,8 @@
                             <p>Ваше фото:</p>
                         </div>
                         <div class="col-8">
-                            <input type="file" id="file-input" name="INPUT_FIELD" accept="image/*"/>
+                            <!--NEED EDIT-->
+                            <input type="file" id="file-input" accept="image/*"/>
                             <span id="output"></span>
                             <label class="file-input" type="file" accept="image/*" for="file-input"><b>Выберите файл</b></label>
                         </div>
@@ -49,7 +50,7 @@
                             </div>
                         </div>
                         <div class="col-8">
-                            <select class="custom-select" name="INPUT_FIELD" id="inputGroupSelect01">
+                            <select class="custom-select" name="roleInFootball" id="inputGroupSelect01">
                                 <option selected>Ничего не выбрано</option>
                                 <option value="GK">Вратарь</option>
                                 <option value="SW">Свободный защитник</option>
@@ -72,14 +73,6 @@
                                 <option value="LS">Левый конечный форвард</option>
                                 <option value="ST">Центр форвард</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="blockinput">
-                        <div class="col-4 col-md-4">
-                            <p>E-mail:</p>
-                        </div>
-                        <div class="col-8">
-                            <input type="email" name="INPUT_FIELD" placeholder="Ваш E-mail"/>
                         </div>
                     </div>
                     <div class="blockinput">
