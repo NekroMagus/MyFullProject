@@ -1,4 +1,3 @@
-
 //scroll-header
 $(window).scroll(function () {
     if ($(this).scrollTop() > 10) {
@@ -12,30 +11,31 @@ $(window).scroll(function () {
 //burger
 const btnBurger = document.getElementById('hamburger');
 
-btnBurger.addEventListener('click', function() {
+btnBurger.addEventListener('click', function () {
     if (document.body.classList.contains("hamburger-active")) {
-        closeBurger ();
+        closeBurger();
     } else {
-        openBurger ();
+        openBurger();
     }
 })
 
-function closeBurger () {
+function closeBurger() {
     document.body.classList.remove('hamburger-active');
 }
 
-function openBurger () {
+function openBurger() {
     document.body.classList.add('hamburger-active');
 }
+
 //End burger
 
 let elements = $('.modal-overlay, .modal');
 
-$('.open-modal').click(function(){
+$('.open-modal').click(function () {
     elements.addClass('active');
 });
 
-$('.close-modal').click(function(){
+$('.close-modal').click(function () {
     elements.removeClass('active');
 });
 
@@ -71,6 +71,7 @@ $('#file-input').on('change', () => {
 function complete() {
     alert("Данные для регистрации отправлены вам на почту!");
 };
+
 function save() {
     alert("Данные успешно сохранены");
 };
@@ -80,14 +81,14 @@ $("#polzunok").slider({
     range: true,
     min: 3,
     max: 18,
-    values: [ 3, 18 ],
-    slide : function(event, ui) {
-        $("#result-polzunok").text( "от " + ui.values[ 0 ] + " до " + ui.values[ 1 ] );
-        $("#min").val(ui.values[ 0 ]);
-        $("#max").val(ui.values[ 1 ]);
+    values: [3, 18],
+    slide: function (event, ui) {
+        $("#result-polzunok").text("от " + ui.values[0] + " до " + ui.values[1]);
+        $("#min").val(ui.values[0]);
+        $("#max").val(ui.values[1]);
     }
 });
 
 
-$( "#result-polzunok" ).text("от " + $("#polzunok").slider("values", 0) + " до " + $("#polzunok").slider("values", 1));
+$("#result-polzunok").text("от " + $("#polzunok").slider("values", 0) + " до " + $("#polzunok").slider("values", 1));
 
