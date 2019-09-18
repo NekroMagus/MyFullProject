@@ -35,7 +35,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "size.loginForm.username");
         }
         // If user exists
-        if(userService.findUserByUsername(user.getEmail()) != null) {
+        if(userService.findUserByEmail(user.getEmail()) != null) {
             errors.rejectValue("username", "duplicate.userForm.username");
         }
 
