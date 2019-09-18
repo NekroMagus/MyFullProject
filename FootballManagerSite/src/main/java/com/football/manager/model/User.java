@@ -2,10 +2,12 @@ package com.football.manager.model;
 
 import com.football.manager.model.role.RoleInFootball;
 import com.football.manager.model.role.RoleOnTheSite;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +57,7 @@ public class User {
     private RoleInFootball roleInFootball;
 
     @Column(name = "date_of_birth")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Column(name = "date_of_registration")
@@ -82,7 +85,9 @@ public class User {
         this.city = "";
         this.roleOnTheSite = RoleOnTheSite.ANONYMOUS;
         this.roleInFootball = RoleInFootball.GK;
-        this.dateOfBirth = new Date(2000, 01, 01);
+        Calendar date = Calendar.getInstance();
+        date.set(2001,Calendar.JANUARY,1);
+        this.dateOfBirth = date.getTime();
         this.dateOfRegistration = new Timestamp(new Date().getTime());
         this.socialNetwork = "";
     }
