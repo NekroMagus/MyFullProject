@@ -20,8 +20,8 @@
                             <div class="profile_block text-center">
                                 <img src="/static/images/index.jpg" alt="">
                                 <div class="profile_inicial">
-                                    <h2 class="profile_name">Имя Фамилия [[output_field]]</h2>
-                                    <p class="profile_country">Город [[output_field]]</p>
+                                    <h2 class="profile_name">Имя Фамилия [[${currentUser.name}]] [[${currentUser.surname}]]</h2>
+                                    <p class="profile_country">Город [[${currentUser.city}]]</p>
                                 </div>
                             </div>
                             <div class="d-flex" style="justify-content: space-between;">
@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <p>[[output_field]]</p>
+                                        <p>[[${currentUser.roleInFootball}]]</p>
                                     </div>
                                 </div>
                                 <div class="blockoutput">
@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <p>[[output_field]]</p>
+                                        <p>[[${currentUser.email}]]</p>
                                     </div>
                                 </div>
                                 <div class="blockoutput">
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <p>[[output_field]]</p>
+                                        <p>[[${currentUser.telephoneNumber}]]</p>
                                     </div>
                                 </div>
                                 <div class="blockoutput">
@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <p>[[output_field]]</p>
+                                        <p>[[${currentUser.dateOfBirth}]]</p>
                                     </div>
                                 </div>
                                 <div class="blockoutput">
@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <p>[[output_field]]</p>
+                                        <p>[[${currentUser.country}]]</p>
                                     </div>
                                 </div>
                                 <div class="blockoutput">
@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <p>[[output_field]]</p>
+                                        <p>[[${currentUser.city}]]</p>
                                     </div>
                                 </div>
                                 <div class="blockoutput">
@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <p>[[output_field]]</p>
+                                        <p>[[${currentUser.socialNetwork}]]</p>
                                     </div>
                                 </div>
                             </div>
