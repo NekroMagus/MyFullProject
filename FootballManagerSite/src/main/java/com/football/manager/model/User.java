@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,7 +59,7 @@ public class User {
 
     @Column(name = "date_of_birth")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column(name = "date_of_registration")
     private Timestamp dateOfRegistration;
@@ -78,18 +79,9 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.name = "";
-        this.surname = "";
-        this.telephoneNumber = "";
-        this.country = "";
-        this.city = "";
         this.roleOnTheSite = RoleOnTheSite.ANONYMOUS;
-        this.roleInFootball = RoleInFootball.GK;
-        Calendar date = Calendar.getInstance();
-        date.set(2001,Calendar.JANUARY,1);
-        this.dateOfBirth = date.getTime();
+        this.dateOfBirth = LocalDate.of(2000,1,1);
         this.dateOfRegistration = new Timestamp(new Date().getTime());
-        this.socialNetwork = "";
     }
 
 
@@ -173,11 +165,11 @@ public class User {
         this.roleInFootball = roleInFootball;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
