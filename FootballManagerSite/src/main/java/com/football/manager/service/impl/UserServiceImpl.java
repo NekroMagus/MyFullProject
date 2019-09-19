@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Implementation of {@link com.football.manager.service.UserService} interface.
  *
@@ -40,5 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return dao.findByEmail(email);
+    }
+
+    @Override
+    public List<User> findUsersByName(String name) {
+        return dao.findAllByName(name);
     }
 }

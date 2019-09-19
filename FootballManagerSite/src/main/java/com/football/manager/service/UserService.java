@@ -2,6 +2,8 @@ package com.football.manager.service;
 
 import com.football.manager.model.User;
 
+import java.util.List;
+
 /**
  * Service for {@link com.football.manager.model.User}.
  *
@@ -16,4 +18,6 @@ public interface UserService {
     void updateUser(User user);
 
     User findUserByEmail(String email);
+
+    List<User> findUsersByName(String name);
 }
