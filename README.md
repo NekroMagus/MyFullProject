@@ -1,1 +1,1 @@
-# These are full-fledged projects.
+# Skideo
