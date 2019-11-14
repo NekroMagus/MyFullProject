@@ -1,0 +1,37 @@
+package com.skideo.service;
+
+import com.skideo.dao.UserDao;
+import com.skideo.model.User;
+import com.skideo.model.role.Role;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public void addUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.UNCONFIRMED);
+        userDao.save(user);
+    }
+
+    @Override
+    public User findByLogin(String login) {
+        return userDao.findByLogin(login);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
+}
