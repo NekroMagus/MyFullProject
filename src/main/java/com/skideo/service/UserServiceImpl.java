@@ -16,10 +16,16 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public void addUser(User user) {
+        if (userService.findByLogin(user.getLogin()) != null) {
+            throw new RuntimeException("User with login " + user.getLogin() + " is already exists");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.UNCONFIRMED);
         userDao.save(user);

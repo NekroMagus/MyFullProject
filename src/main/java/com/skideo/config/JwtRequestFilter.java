@@ -1,5 +1,6 @@
 package com.skideo.config;
 
+import com.skideo.exception.JwtExpiredException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,7 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-                throw new RuntimeException("JWT Token has expired");
+                throw new JwtExpiredException();
             }
         } else {
             logger.warn("JWT Token does not begin with Bearer String");

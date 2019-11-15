@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class UserExceptionController {
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<?> userNotFound(UserNotFoundException e) {
-        return new ResponseEntity<>("User was not found", HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(value = UsernameNotFoundException.class)
-    public ResponseEntity<?> usernameNotFound(UsernameNotFoundException e) {
-        return new ResponseEntity<>("Username, email or phone is invalid", HttpStatus.NOT_FOUND);
-    }
+//    @ExceptionHandler(value = UserNotFoundException.class)
+//    public ResponseEntity<?> userNotFound(UserNotFoundException e) {
+//        return new ResponseEntity<>("User was not found", HttpStatus.NOT_FOUND);
+//    }
+//
+//    @ExceptionHandler(value = UsernameNotFoundException.class)
+//    public ResponseEntity<?> usernameNotFound(UsernameNotFoundException e) {
+//        return new ResponseEntity<>("Username, email or phone is invalid", HttpStatus.NOT_FOUND);
+//    }
 
     @ExceptionHandler(value = UserExistsException.class)
     public ResponseEntity<?> userExists(UserExistsException e) {

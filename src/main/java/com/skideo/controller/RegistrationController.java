@@ -1,15 +1,18 @@
 package com.skideo.controller;
 
+import com.skideo.config.JwtTokenUtil;
 import com.skideo.model.User;
+import com.skideo.model.jwt.JwtResponse;
 import com.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class RegistrationController {
@@ -17,17 +20,21 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @PostMapping("/registration")
     public ResponseEntity<?> registration(@RequestBody User user){
-        if(userService.findByLogin(user.getLogin()) != null) {
-            throw new RuntimeException("User with login " +user.getLogin()+ " is already exists");
-        }
         userService.addUser(user);
-        return ResponseEntity.ok(user);
-    }
-
-    @GetMapping("/all")
-    public List<User> getAll() {
-        return userService.findAll();
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getLogin());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+        return ResponseEntity.ok(new JwtResponse(token));
     }
 }
