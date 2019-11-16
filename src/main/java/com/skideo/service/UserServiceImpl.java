@@ -1,6 +1,7 @@
 package com.skideo.service;
 
 import com.skideo.dao.UserDao;
+import com.skideo.dto.UserDto;
 import com.skideo.model.User;
 import com.skideo.model.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByLogin(String login) {
         return userDao.findByLogin(login);
+    }
+
+    @Override
+    public User findById(long id) {
+        return userDao.findById(id);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.skideo.service;
 
+import com.skideo.dto.UserDto;
 import com.skideo.model.User;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 public interface UserService {
 
     void addUser(User user);
+
+    User findById(long id);
 
     User findByLogin(String login);
 

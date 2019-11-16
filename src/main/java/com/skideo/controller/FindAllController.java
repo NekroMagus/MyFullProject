@@ -11,8 +11,11 @@ import java.util.List;
 @RestController
 public class FindAllController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public FindAllController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     public String get(){
