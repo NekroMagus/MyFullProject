@@ -1,8 +1,10 @@
 package com.skideo.controller;
 
 import com.skideo.config.JwtTokenUtil;
+import com.skideo.model.User;
 import com.skideo.model.jwt.JwtRequest;
 import com.skideo.model.jwt.JwtResponse;
+import com.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,26 +18,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class JwtAuthController {
+public class JwtRegAuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserDetailsService userDetailsService;
+    private final UserService userService;
 
     @Autowired
-    public JwtAuthController(AuthenticationManager authenticationManager,
-                             JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService) {
+    public JwtRegAuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) throws Exception{
-        authenticate(authRequest.getLogin(),authRequest.getPassword());
+    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) throws Exception {
+        authenticate(authRequest.getLogin(), authRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getLogin());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<?> registration(@RequestBody User user) throws Exception{
+        final String password = user.getPassword();
+        userService.addUser(user);
+        return createAuthToken(new JwtRequest(user.getLogin(),password));
     }
 
     private void authenticate(String username, String password) throws Exception {

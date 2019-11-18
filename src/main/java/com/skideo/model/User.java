@@ -21,35 +21,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String login;
-
     private String email;
-
     private String password;
-
     private boolean active;
-
     private Role role;
 
     @Enumerated(value = EnumType.STRING)
     private RoleFootball roleFootball;
-
     private String name;
-
     private String surname;
-
     private String telephoneNumber;
-
     private String country;
-
     private String city;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     private Timestamp dateOfRegistration;
-
     private String socialNetwork;
 
 }
