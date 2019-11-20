@@ -1,6 +1,5 @@
 package com.skideo.service;
 
-import com.skideo.dto.UserDto;
 import com.skideo.model.User;
 
 import java.util.List;

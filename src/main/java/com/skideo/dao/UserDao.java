@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface UserDao extends JpaRepository<User, Long> {
     User findById(long id);
+
     User findByLogin(String login);
+
     List<User> findByDateOfBirthBetween(LocalDate birth, LocalDate now);
+
     List<User> findByRoleFootball(RoleFootball roleFootball);
+
     List<User> findByCountry(String country);
 }

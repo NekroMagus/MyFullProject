@@ -1,7 +1,6 @@
 package com.skideo.service;
 
 import com.skideo.dao.UserDao;
-import com.skideo.dto.UserDto;
 import com.skideo.exception.UserExistsException;
 import com.skideo.exception.UserNotFoundException;
 import com.skideo.model.User;
@@ -11,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -48,7 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(long id) {
         User user = userDao.findById(id);
-        if(user == null) {
+        if (user == null) {
             throw new UserNotFoundException();
         }
         return userDao.findById(id);
@@ -59,7 +57,7 @@ public class UserServiceImpl implements UserService {
         return userDao.findAll();
     }
 
-    private boolean userExists(User user){
+    private boolean userExists(User user) {
         return user == null;
     }
 }

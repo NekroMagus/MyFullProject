@@ -16,12 +16,12 @@ public class SearchUserController {
     private UserService userService;
 
     @GetMapping("/search")
-    public ResponseEntity<?> getSearchResult(@RequestBody SearchUserDto search){
+    public ResponseEntity<?> getSearchResult(@RequestBody SearchUserDto search) {
         return null;
     }
 
     @GetMapping("/id{id}")
-    public ResponseEntity<?> getUserById(@PathVariable("id") long id){
+    public ResponseEntity<?> getUserById(@PathVariable("id") long id) {
         return ResponseEntity.ok(new SearchUserDto(userService.findById(id)));
     }
 }

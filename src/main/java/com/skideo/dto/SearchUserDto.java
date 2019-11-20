@@ -1,7 +1,6 @@
 package com.skideo.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.skideo.controller.ProfileController;
 import com.skideo.controller.SearchUserController;
 import com.skideo.model.User;
 import com.skideo.model.role.RoleFootball;
@@ -11,7 +10,8 @@ import org.springframework.hateoas.ResourceSupport;
 import java.time.LocalDate;
 import java.time.Period;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Data
 public class SearchUserDto extends ResourceSupport {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class JwtExceptionController {
 
     @ExceptionHandler(value = JwtExpiredException.class)
-    public ResponseEntity<?> jwtExpired(){
+    public ResponseEntity<?> jwtExpired() {
         return new ResponseEntity<>("JWT Token has expired", HttpStatus.UNAUTHORIZED);
     }
 }

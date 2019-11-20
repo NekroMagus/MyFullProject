@@ -2,7 +2,6 @@ package com.skideo.controller;
 
 import com.skideo.model.User;
 import com.skideo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +17,7 @@ public class FindAllController {
     }
 
     @GetMapping("/")
-    public String get(){
+    public String get() {
         return "If you have token";
     }
 

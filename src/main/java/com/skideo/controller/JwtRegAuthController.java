@@ -42,10 +42,10 @@ public class JwtRegAuthController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody User user) throws Exception{
+    public ResponseEntity<?> registration(@RequestBody User user) throws Exception {
         final String password = user.getPassword();
         userService.addUser(user);
-        return createAuthToken(new JwtRequest(user.getLogin(),password));
+        return createAuthToken(new JwtRequest(user.getLogin(), password));
     }
 
     private void authenticate(String username, String password) throws Exception {
