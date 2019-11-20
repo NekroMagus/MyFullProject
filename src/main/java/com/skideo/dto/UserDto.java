@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserDto extends ResourceSupport {
 
+    private String name;
+    private String surname;
     private RoleFootball roleFootball;
     private String login;
     private String email;
@@ -23,6 +25,8 @@ public class UserDto extends ResourceSupport {
 
     @JsonCreator
     public UserDto(User user) {
+        this.name = user.getName();
+        this.surname = user.getSurname();
         this.roleFootball = user.getRoleFootball();
         this.login = user.getLogin();
         this.email = user.getEmail();

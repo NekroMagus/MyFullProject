@@ -18,7 +18,7 @@ public class SearchUserDto extends ResourceSupport {
 
     private String login;
     private RoleFootball roleFootball;
-    private long age;
+    private int age;
     private String country;
 
     @JsonCreator
@@ -30,7 +30,7 @@ public class SearchUserDto extends ResourceSupport {
         add(linkTo(methodOn(SearchUserController.class).getUserById(user.getId())).withRel("User"));
     }
 
-    private long getAge(LocalDate birth) {
+    private int getAge(LocalDate birth) {
         if (birth != null) {
             return Period.between(birth, LocalDate.now()).getYears();
         } else {

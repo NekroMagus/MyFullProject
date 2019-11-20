@@ -16,11 +16,6 @@ public class FindAllController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String get() {
-        return "If you have token";
-    }
-
     @GetMapping("/all")
     public List<User> getAll() {
         return userService.findAll();
