@@ -5,10 +5,7 @@ import com.skideo.exception.UserNotFoundException;
 import com.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -18,7 +15,7 @@ public class SearchUserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<?> getSearchResult(@RequestBody SearchUserDto search) {
         if (search.getAge() != 0 && !search.getCountry().equals("") && search.getRoleFootball() != null) {
             return ResponseEntity.ok(userService.findByDateOfBirthBetweenAndRoleFootballAndCountry(getDateBirthStart(search.getAge()),

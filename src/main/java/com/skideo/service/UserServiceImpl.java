@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
         user.setTelephoneNumber(userDto.getTelephoneNumber());
         user.setDateOfBirth(userDto.getDateOfBirth());
         user.setCountry(userDto.getCountry());
+        user.setCity(userDto.getCity());
         user.setSocialNetwork(userDto.getSocialNetwork());
         userDao.save(user);
     }

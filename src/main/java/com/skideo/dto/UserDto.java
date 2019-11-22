@@ -21,6 +21,7 @@ public class UserDto extends ResourceSupport {
     private String telephoneNumber;
     private LocalDate dateOfBirth;
     private String country;
+    private String city;
     private String socialNetwork;
 
     @JsonCreator
@@ -33,6 +34,7 @@ public class UserDto extends ResourceSupport {
         this.telephoneNumber = user.getTelephoneNumber();
         this.dateOfBirth = user.getDateOfBirth();
         this.country = user.getCountry();
+        this.city = user.getCity();
         this.socialNetwork = user.getSocialNetwork();
     }
 }
