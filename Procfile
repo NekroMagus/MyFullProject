@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.skideo.App
+web: java $JAVA_OPTS -cp lib/*:classes/. com.skideo.App
