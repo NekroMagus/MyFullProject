@@ -34,6 +34,7 @@ public class User {
     private String telephoneNumber;
     private String country;
     private String city;
+    private String video;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
