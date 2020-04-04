@@ -1,7 +1,7 @@
 package com.github.skideo.security;
 
-import com.github.skideo.config.JwtAuthenticationEntryPoint;
-import com.github.skideo.config.JwtRequestFilter;
+import com.github.skideo.security.jwt.JwtAuthenticationEntryPoint;
+import com.github.skideo.security.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

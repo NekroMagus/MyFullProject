@@ -1,4 +1,4 @@
-package com.github.skideo.config;
+package com.github.skideo.security.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

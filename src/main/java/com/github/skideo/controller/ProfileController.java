@@ -1,8 +1,8 @@
 package com.github.skideo.controller;
 
-import com.github.skideo.config.JwtTokenUtil;
 import com.github.skideo.dto.UserDto;
 import com.github.skideo.model.role.RoleFootball;
+import com.github.skideo.security.jwt.JwtTokenUtil;
 import com.github.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

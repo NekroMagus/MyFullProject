@@ -1,9 +1,9 @@
 package com.github.skideo.controller;
 
-import com.github.skideo.config.JwtTokenUtil;
 import com.github.skideo.model.User;
 import com.github.skideo.model.jwt.JwtRequest;
 import com.github.skideo.model.jwt.JwtResponse;
+import com.github.skideo.security.jwt.JwtTokenUtil;
 import com.github.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

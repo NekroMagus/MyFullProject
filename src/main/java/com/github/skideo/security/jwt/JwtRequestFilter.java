@@ -1,4 +1,4 @@
-package com.github.skideo.config;
+package com.github.skideo.security.jwt;
 
 import com.github.skideo.exception.JwtExpiredException;
 import io.jsonwebtoken.ExpiredJwtException;
