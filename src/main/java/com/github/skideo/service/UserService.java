@@ -15,7 +15,7 @@ public interface UserService {
 
     User findByLogin(String login);
 
-    void editUser(UserDto userDto);
+    UserDto editUser(UserDto userDto, String login);
 
     List<User> findByDateOfBirthBetween(LocalDate birth, LocalDate now);
 
@@ -33,4 +33,6 @@ public interface UserService {
     List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country);
 
     List<User> findAll();
+
+    void addVideo(String link);
 }

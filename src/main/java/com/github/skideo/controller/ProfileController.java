@@ -7,6 +7,7 @@ import com.github.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,10 +35,11 @@ public class ProfileController {
         return ResponseEntity.ok(new UserDto(userService.findByLogin(login)));
     }
 
-    @PutMapping("/profile/edit")
+    @PutMapping("/profile")
     public ResponseEntity editProfile(@RequestBody UserDto newUser) {
-        userService.editUser(newUser);
-        return new ResponseEntity<>("User updated", HttpStatus.CREATED);
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserDto userDto = userService.editUser(newUser, login);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
     @GetMapping("/roleFootball")

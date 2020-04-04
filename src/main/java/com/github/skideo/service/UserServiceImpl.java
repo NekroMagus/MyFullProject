@@ -8,6 +8,7 @@ import com.github.skideo.model.User;
 import com.github.skideo.model.role.Role;
 import com.github.skideo.model.role.RoleFootball;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +57,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editUser(UserDto userDto) {
-        User user = findByLogin(userDto.getLogin());
+    public UserDto editUser(UserDto userDto, String login) {
+        User user = findByLogin(login);
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
         user.setRoleFootball(userDto.getRoleFootball());
@@ -67,6 +68,7 @@ public class UserServiceImpl implements UserService {
         user.setCity(userDto.getCity());
         user.setSocialNetwork(userDto.getSocialNetwork());
         userDao.save(user);
+        return new UserDto(user);
     }
 
     @Override
@@ -108,6 +110,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userDao.findAll();
+    }
+
+    @Override
+    public void addVideo(String link) {
+        User user = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        user.setVideo(link);
+        userDao.save(user);
     }
 
     private boolean userExists(User user) {
