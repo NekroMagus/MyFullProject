@@ -59,6 +59,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto editUser(UserDto userDto, String login) {
         User user = findByLogin(login);
+        user.setEmail(userDto.getEmail());
+        user.setVideo(userDto.getVideo());
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
         user.setRoleFootball(userDto.getRoleFootball());
@@ -117,9 +119,5 @@ public class UserServiceImpl implements UserService {
         User user = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         user.setVideo(link);
         userDao.save(user);
-    }
-
-    private boolean userExists(User user) {
-        return user == null;
     }
 }

@@ -1,15 +1,19 @@
 package com.github.skideo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.skideo.model.role.Role;
 import com.github.skideo.model.role.RoleFootball;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +25,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @CreatedDate
+    @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
+    private LocalDateTime created;
+
+    @LastModifiedDate
+    @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
+    private LocalDateTime updated;
+
+
     private String login;
     private String email;
     private String password;

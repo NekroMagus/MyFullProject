@@ -22,6 +22,7 @@ public class UserDto {
     private String country;
     private String city;
     private String socialNetwork;
+    private String video;
 
     @JsonCreator
     public UserDto(User user) {
@@ -35,5 +36,6 @@ public class UserDto {
         this.country = user.getCountry();
         this.city = user.getCity();
         this.socialNetwork = user.getSocialNetwork();
+        this.video = user.getVideo();
     }
 }
