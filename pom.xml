@@ -20,13 +20,14 @@
     <description>Skideo for football players</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <modules>
-        <module>scouts</module>
+        <module>player-service</module>
         <module>clubs</module>
         <module>admin</module>
+        <module>eureka-service</module>
     </modules>
 
     <dependencies>
