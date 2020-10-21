@@ -47,4 +47,5 @@ public class ProfileController {
         return ResponseEntity.ok(Arrays.toString(RoleFootball.values()));
     }
 
+
 }
