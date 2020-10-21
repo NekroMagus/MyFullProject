@@ -1,8 +1,8 @@
 package net.skideo.controller;
 
-import net.skideo.model.User;
-import net.skideo.model.jwt.JwtRequest;
-import net.skideo.model.jwt.JwtResponse;
+import data.service.model.User;
+import data.service.model.jwt.JwtRequest;
+import data.service.model.jwt.JwtResponse;
 import net.skideo.security.jwt.JwtTokenUtil;
 import net.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,14 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JwtRegAuthController {
+
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
@@ -57,4 +59,8 @@ public class JwtRegAuthController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
+
+
+
 }

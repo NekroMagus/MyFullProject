@@ -1,7 +1,7 @@
 package net.skideo.controller;
 
-import net.skideo.dto.UserDto;
-import net.skideo.model.role.RoleFootball;
+import data.service.dto.UserDto;
+import data.service.model.role.RoleFootball;
 import net.skideo.security.jwt.JwtTokenUtil;
 import net.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +46,5 @@ public class ProfileController {
     public ResponseEntity getRoleFootball() {
         return ResponseEntity.ok(Arrays.toString(RoleFootball.values()));
     }
+
 }

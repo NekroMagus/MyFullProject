@@ -1,9 +1,0 @@
-eureka:
-  instance:
-    appname: player-service
-    preferIpAddress: true
-  client:
-    serviceUrl:
-    defaultZone: http://localhost:8761/eureka/
-    registerWithEureka: true
-    fetchRegistry: true

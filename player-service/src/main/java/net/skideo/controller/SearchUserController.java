@@ -1,6 +1,6 @@
 package net.skideo.controller;
 
-import net.skideo.dto.SearchUserDto;
+import data.service.dto.SearchUserDto;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 @RestController
 public class SearchUserController {
+
 
     @Autowired
     private UserService userService;
@@ -56,4 +57,6 @@ public class SearchUserController {
     private LocalDate getDateBirthEnd(int age) {
         return LocalDate.of(LocalDate.now().getYear() - age, LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth());
     }
+
+
 }

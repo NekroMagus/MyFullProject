@@ -1,7 +1,7 @@
 package net.skideo.controller;
 
+import data.service.model.User;
 import net.skideo.exception.VideoNotFoundException;
-import net.skideo.model.User;
 import net.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class VideoController {
+
+
 
     @Autowired
     private UserService userService;
@@ -33,4 +35,8 @@ public class VideoController {
         }
         return new ResponseEntity<>(link, HttpStatus.OK);
     }
+
+
+
+
 }

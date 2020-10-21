@@ -18,6 +18,7 @@
 
 # Prodaction properties
 application.properties
+application-local.properties
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

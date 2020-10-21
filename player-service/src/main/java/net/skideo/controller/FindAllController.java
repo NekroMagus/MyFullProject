@@ -1,6 +1,6 @@
 package net.skideo.controller;
 
-import net.skideo.model.User;
+import data.service.model.User;
 import net.skideo.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 public class FindAllController {
+
 
     private final UserService userService;
 
@@ -20,4 +21,8 @@ public class FindAllController {
     public List<User> getAll() {
         return userService.findAll();
     }
+
+
 }
+
+
