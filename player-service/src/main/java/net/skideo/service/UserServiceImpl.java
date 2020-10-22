@@ -10,6 +10,7 @@ import net.skideo.exception.UserNotFoundException;
 import data.service.model.User;
 import data.service.model.role.Role;
 import data.service.model.role.RoleFootball;
+import net.skideo.exception.UserRatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -160,6 +161,13 @@ public class UserServiceImpl implements UserService {
     public void updateRating(RatingDto ratingDto) {
          final User CURRENT_USER = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
          User user = findById(ratingDto.getId());
+
+         for(User u : user.getList()) {
+             if(u.equals(CURRENT_USER)) {
+                 throw new UserRatedException();
+             }
+         }
+
          if(ratingDto.getRating()<=5 && (CURRENT_USER.getRolePeople()== RolePeople.AMATEUR && user.getRolePeople()==RolePeople.PROFESSIONAL) ||
             (CURRENT_USER.getRolePeople()==RolePeople.PROFESSIONAL && user.getRolePeople()==RolePeople.AMATEUR)) {
              user.setRating(user.getRating()+ratingDto.getRating());
