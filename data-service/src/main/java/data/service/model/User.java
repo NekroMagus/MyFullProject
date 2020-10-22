@@ -1,6 +1,8 @@
 package data.service.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import data.service.model.role.LeadingLeg;
+import data.service.model.role.RolePeople;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -51,6 +54,19 @@ public class User {
     private String country;
     private String city;
     private String video;
+    private int rating;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<User> list;
+
+    @Enumerated(value = EnumType.STRING)
+    private LeadingLeg leadingLeg;
+
+    @Enumerated(value = EnumType.STRING)
+    private RolePeople rolePeople;
+
+    private String club;
+    private boolean agent;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;

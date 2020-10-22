@@ -1,8 +1,12 @@
 package data.service.dao;
 
+import data.service.dto.VideoDto;
 import data.service.model.User;
 import data.service.model.role.RoleFootball;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,4 +30,6 @@ public interface UserDao extends JpaRepository<User, Long> {
     List<User> findByDateOfBirthBetweenAndCountry(LocalDate birth, LocalDate now, String country);
 
     List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country);
+
+    Page<User> findAll(Pageable pageable);
 }

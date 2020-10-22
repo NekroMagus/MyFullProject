@@ -1,13 +1,19 @@
 package net.skideo.service;
 
 import data.service.dao.UserDao;
+import data.service.dto.RatingDto;
 import data.service.dto.UserDto;
+import data.service.dto.VideoDto;
+import data.service.model.role.RolePeople;
 import net.skideo.exception.UserExistsException;
 import net.skideo.exception.UserNotFoundException;
 import data.service.model.User;
 import data.service.model.role.Role;
 import data.service.model.role.RoleFootball;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,10 +21,15 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    Logger log = Logger.getLogger(UserServiceImpl.class.getName());
 
     @Autowired
     private UserDao dao;
@@ -70,6 +81,10 @@ public class UserServiceImpl implements UserService {
         user.setCountry(userDto.getCountry());
         user.setCity(userDto.getCity());
         user.setSocialNetwork(userDto.getSocialNetwork());
+        user.setLeadingLeg(userDto.getLeadingLeg());
+        user.setRolePeople(userDto.getRolePeople());
+        user.setClub(userDto.getClub());
+        user.setAgent(userDto.isAgent());
         dao.save(user);
         return new UserDto(user);
     }
@@ -122,6 +137,39 @@ public class UserServiceImpl implements UserService {
         dao.save(user);
     }
 
+    @Override
+    public List<VideoDto> findVideos(User currentUser) {
+        Pageable pageable = PageRequest.of(0,15);
+        Iterator<User> users = dao.findAll(pageable).iterator();
+        List<VideoDto> videos = new LinkedList<>();
 
+        while(users.hasNext()) {
+              User user = users.next();
+              if(user.equals(currentUser)) {
+                  users.remove();
+              }
+              else {
+                  videos.add(new VideoDto(user));
+              }
+        }
 
+        return videos;
+    }
+
+    @Override
+    public void updateRating(RatingDto ratingDto) {
+         final User CURRENT_USER = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+         User user = findById(ratingDto.getId());
+         if(ratingDto.getRating()<=5 && (CURRENT_USER.getRolePeople()== RolePeople.AMATEUR && user.getRolePeople()==RolePeople.PROFESSIONAL) ||
+            (CURRENT_USER.getRolePeople()==RolePeople.PROFESSIONAL && user.getRolePeople()==RolePeople.AMATEUR)) {
+             user.setRating(user.getRating()+ratingDto.getRating());
+             user.getList().add(CURRENT_USER);
+             dao.save(user);
+         }
+    }
+
+    public int getRating(long id) {
+        User user = findById(id);
+        return user.getRating()/user.getList().size();
+    }
 }

@@ -1,12 +1,15 @@
 package data.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import data.service.model.role.LeadingLeg;
+import data.service.model.role.RolePeople;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import data.service.model.User;
 import data.service.model.role.RoleFootball;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +26,10 @@ public class UserDto {
     private String city;
     private String socialNetwork;
     private String video;
+    private LeadingLeg leadingLeg;
+    private RolePeople rolePeople;
+    private String club;
+    private boolean agent;
 
     @JsonCreator
     public UserDto(User user) {
@@ -37,5 +44,9 @@ public class UserDto {
         this.city = user.getCity();
         this.socialNetwork = user.getSocialNetwork();
         this.video = user.getVideo();
+        this.leadingLeg=user.getLeadingLeg();
+        this.rolePeople=user.getRolePeople();
+        this.club=user.getClub();
+        this.agent=user.isAgent();
     }
 }

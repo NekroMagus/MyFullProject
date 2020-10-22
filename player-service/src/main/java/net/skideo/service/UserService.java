@@ -1,6 +1,8 @@
 package net.skideo.service;
 
+import data.service.dto.RatingDto;
 import data.service.dto.UserDto;
+import data.service.dto.VideoDto;
 import data.service.model.User;
 import data.service.model.role.RoleFootball;
 
@@ -35,4 +37,10 @@ public interface UserService {
     List<User> findAll();
 
     void addVideo(String link);
+
+    List<VideoDto> findVideos(User currentUser);
+
+    void updateRating(RatingDto ratingDto);
+
+    int getRating(long id);
 }

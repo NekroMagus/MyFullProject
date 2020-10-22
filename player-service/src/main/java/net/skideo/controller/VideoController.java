@@ -1,5 +1,6 @@
 package net.skideo.controller;
 
+import data.service.dto.VideoDto;
 import data.service.model.User;
 import net.skideo.exception.VideoNotFoundException;
 import net.skideo.service.UserService;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class VideoController {
-
-
 
     @Autowired
     private UserService userService;
@@ -36,7 +37,10 @@ public class VideoController {
         return new ResponseEntity<>(link, HttpStatus.OK);
     }
 
-
-
+    @GetMapping("/videos")
+    public List<VideoDto> getOtherVideos() {
+        final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        return userService.findVideos(CURRENT_USER);
+    }
 
 }
