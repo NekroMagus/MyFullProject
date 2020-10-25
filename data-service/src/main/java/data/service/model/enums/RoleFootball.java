@@ -1,4 +1,4 @@
-package data.service.model.role;
+package data.service.model.enums;
 
 public enum RoleFootball {
     GK, //GK (ГК) - Goalkeeper ( вратарь )

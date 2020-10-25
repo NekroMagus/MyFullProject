@@ -17,7 +17,7 @@ public class VideoDto {
     public VideoDto(User user) {
         this.name=user.getName();
         this.surname=user.getSurname();
-        this.video=user.getVideo();
+      //  this.video=user.getVideo();
         this.id=user.getId();
     }
 

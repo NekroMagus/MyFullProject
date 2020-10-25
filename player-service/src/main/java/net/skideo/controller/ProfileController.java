@@ -2,9 +2,10 @@ package net.skideo.controller;
 
 import data.service.dto.RatingDto;
 import data.service.dto.UserDto;
-import data.service.model.role.RoleFootball;
+import data.service.model.enums.RoleFootball;
 import net.skideo.security.jwt.JwtTokenUtil;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
+import net.skideo.service.video.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ import java.util.Arrays;
 
 @RestController
 public class ProfileController {
+
+    @Autowired
+    private VideoService videoService;
 
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
@@ -47,12 +51,8 @@ public class ProfileController {
 
     @PostMapping("/rating")
     public void updateRating(@RequestBody RatingDto ratingDto) {
-        userService.updateRating(ratingDto);
+        videoService.estimateVideo(ratingDto);
     }
 
-    @GetMapping("/rating/{id}")
-    public int getRating(@PathVariable("id") long id) {
-        return userService.getRating(id);
-    }
 
 }

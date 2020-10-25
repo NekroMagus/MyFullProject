@@ -1,13 +1,14 @@
 package data.service.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import data.service.model.role.LeadingLeg;
-import data.service.model.role.RolePeople;
+import data.service.model.enums.LeadingLeg;
+import data.service.model.enums.RolePeople;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import data.service.model.role.Role;
-import data.service.model.role.RoleFootball;
+import data.service.model.enums.Role;
+import data.service.model.enums.RoleFootball;
+import org.hibernate.annotations.Cascade;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,6 +19,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -53,11 +55,6 @@ public class User {
     private String telephoneNumber;
     private String country;
     private String city;
-    private String video;
-    private int rating;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<User> list;
 
     @Enumerated(value = EnumType.STRING)
     private LeadingLeg leadingLeg;
@@ -73,5 +70,14 @@ public class User {
 
     private Timestamp dateOfRegistration;
     private String socialNetwork;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Scout> listScoutsUploadedVideo;
+
+    @OneToMany(cascade = CascadeType.PERSIST,targetEntity = Video.class,fetch = FetchType.LAZY)
+    private List<Video> videos;
+
+    @OneToMany(targetEntity = Like.class,fetch = FetchType.LAZY)
+    private List<Like> likes;
 
 }

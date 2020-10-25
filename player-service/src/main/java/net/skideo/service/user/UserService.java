@@ -1,10 +1,10 @@
-package net.skideo.service;
+package net.skideo.service.user;
 
 import data.service.dto.RatingDto;
 import data.service.dto.UserDto;
 import data.service.dto.VideoDto;
 import data.service.model.User;
-import data.service.model.role.RoleFootball;
+import data.service.model.enums.RoleFootball;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -40,7 +40,4 @@ public interface UserService {
 
     List<VideoDto> findVideos(User currentUser);
 
-    void updateRating(RatingDto ratingDto);
-
-    int getRating(long id);
 }

@@ -3,7 +3,7 @@ package data.service.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Data;
 import data.service.model.User;
-import data.service.model.role.RoleFootball;
+import data.service.model.enums.RoleFootball;
 
 import java.time.LocalDate;
 import java.time.Period;

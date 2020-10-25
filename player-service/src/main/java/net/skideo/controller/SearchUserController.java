@@ -2,7 +2,7 @@ package net.skideo.controller;
 
 import data.service.dto.SearchUserDto;
 import net.skideo.exception.UserNotFoundException;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

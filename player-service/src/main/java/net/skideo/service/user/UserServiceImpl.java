@@ -1,18 +1,17 @@
-package net.skideo.service;
+package net.skideo.service.user;
 
 import data.service.dao.UserDao;
+import data.service.dao.VideoDao;
 import data.service.dto.RatingDto;
 import data.service.dto.UserDto;
 import data.service.dto.VideoDto;
-import data.service.model.role.RolePeople;
+import data.service.model.Video;
 import net.skideo.exception.UserExistsException;
 import net.skideo.exception.UserNotFoundException;
 import data.service.model.User;
-import data.service.model.role.Role;
-import data.service.model.role.RoleFootball;
-import net.skideo.exception.UserRatedException;
+import data.service.model.enums.Role;
+import data.service.model.enums.RoleFootball;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,6 +35,9 @@ public class UserServiceImpl implements UserService {
     private UserDao dao;
 
     @Autowired
+    private VideoDao videoDao;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.UNCONFIRMED);
         user.setActive(true);
         user.setDateOfRegistration(Timestamp.valueOf(LocalDateTime.now()));
+
         dao.save(user);
     }
 
@@ -73,7 +76,7 @@ public class UserServiceImpl implements UserService {
     public UserDto editUser(UserDto userDto, String login) {
         User user = findByLogin(login);
         user.setEmail(userDto.getEmail());
-        user.setVideo(userDto.getVideo());
+        user.setVideos(userDto.getVideos());
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
         user.setRoleFootball(userDto.getRoleFootball());
@@ -134,7 +137,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addVideo(String link) {
         User user = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        user.setVideo(link);
+        Video video = new Video(link);
+        video.setUser(user);
+        user.getVideos().add(video);
         dao.save(user);
     }
 
@@ -157,27 +162,4 @@ public class UserServiceImpl implements UserService {
         return videos;
     }
 
-    @Override
-    public void updateRating(RatingDto ratingDto) {
-         final User CURRENT_USER = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-         User user = findById(ratingDto.getId());
-
-         for(User u : user.getList()) {
-             if(u.equals(CURRENT_USER)) {
-                 throw new UserRatedException();
-             }
-         }
-
-         if(ratingDto.getRating()<=5 && (CURRENT_USER.getRolePeople()== RolePeople.AMATEUR && user.getRolePeople()==RolePeople.PROFESSIONAL) ||
-            (CURRENT_USER.getRolePeople()==RolePeople.PROFESSIONAL && user.getRolePeople()==RolePeople.AMATEUR)) {
-             user.setRating(user.getRating()+ratingDto.getRating());
-             user.getList().add(CURRENT_USER);
-             dao.save(user);
-         }
-    }
-
-    public int getRating(long id) {
-        User user = findById(id);
-        return user.getRating()/user.getList().size();
-    }
 }

@@ -2,7 +2,7 @@ package net.skideo.security;
 
 
 import data.service.model.User;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

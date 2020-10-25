@@ -1,5 +1,6 @@
 package data.service.dto;
 
+import data.service.model.enums.Rating;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RatingDto {
 
-    private long id;
-    private byte rating;
+    private long idVideo;
+    private Rating rating;
 
 }

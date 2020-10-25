@@ -1,12 +1,10 @@
 package data.service.dao;
 
-import data.service.dto.VideoDto;
 import data.service.model.User;
-import data.service.model.role.RoleFootball;
+import data.service.model.enums.RoleFootball;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;

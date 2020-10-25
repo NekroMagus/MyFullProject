@@ -2,8 +2,9 @@ package net.skideo.controller;
 
 import data.service.dto.VideoDto;
 import data.service.model.User;
+import data.service.model.Video;
 import net.skideo.exception.VideoNotFoundException;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,10 @@ public class VideoController {
     }
 
     @GetMapping("/profile/video")
-    public ResponseEntity<?> getVideo() {
+    public ResponseEntity<?> getMyVideos() {
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        String link = user.getVideo();
-        if (link == null) {
-            throw new VideoNotFoundException();
-        }
-        return new ResponseEntity<>(link, HttpStatus.OK);
+        List<Video> videos = user.getVideos();
+        return new ResponseEntity<>(videos, HttpStatus.OK);
     }
 
     @GetMapping("/videos")
