@@ -6,6 +6,7 @@ import net.skideo.dto.SearchDto;
 import net.skideo.dto.UpdateProfileDto;
 import net.skideo.model.Scout;
 import net.skideo.model.enums.LeadingLeg;
+import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.service.scout.ScoutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class ScoutRestController {
      }
 
      @GetMapping("/search")
-     public List<SearchDto> search(@RequestParam String country,@RequestParam boolean agent,@RequestParam RolePeople rolePeople,@RequestParam LeadingLeg leadingLeg,@RequestParam LocalDate dateOfBirth) {
-          return scoutService.search(country,agent,rolePeople,leadingLeg,dateOfBirth);
+     public List<SearchDto> search(@RequestParam String country, @RequestParam RoleFootball roleFootball, @RequestParam boolean agent, @RequestParam RolePeople rolePeople, @RequestParam LeadingLeg leadingLeg, @RequestParam LocalDate dateOfBirth) {
+          return scoutService.search(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth);
      }
 
      @PostMapping("/user/favorite/{id}")

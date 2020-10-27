@@ -34,7 +34,7 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-    Page<User> findAllByCountryAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(String country, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth,Pageable pageable);
+    Page<User> findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(String country,RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth,Pageable pageable);
 
 
 }

@@ -11,6 +11,7 @@ import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
 import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
+import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -80,10 +81,10 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public List<SearchDto> search(String country, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth) {
+    public List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth) {
         Pageable page = PageRequest.of(0,15);
         List<SearchDto> users = new LinkedList<>();
-        Iterator<User> iterator = userDao.findAllByCountryAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(country,agent,rolePeople,leadingLeg,dateOfBirth,page).iterator();
+        Iterator<User> iterator = userDao.findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth,page).iterator();
 
         while(iterator.hasNext()) {
             users.add(new SearchDto(iterator.next()));
