@@ -1,16 +1,16 @@
 package net.skideo.service.user;
 
-import data.service.dao.UserDao;
-import data.service.dao.VideoDao;
-import data.service.dto.RatingDto;
-import data.service.dto.UserDto;
-import data.service.dto.VideoDto;
-import data.service.model.Video;
+import net.skideo.dao.UserDao;
+import net.skideo.dao.VideoDao;
+import net.skideo.dto.UserDto;
+import net.skideo.dto.VideoDto;
+import net.skideo.model.Video;
 import net.skideo.exception.UserExistsException;
 import net.skideo.exception.UserNotFoundException;
-import data.service.model.User;
-import data.service.model.enums.Role;
-import data.service.model.enums.RoleFootball;
+import net.skideo.model.User;
+import net.skideo.model.enums.Role;
+import net.skideo.model.enums.RoleFootball;
+import net.skideo.service.video.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     private UserDao dao;
 
     @Autowired
-    private VideoDao videoDao;
+    private VideoService videoService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -76,7 +76,6 @@ public class UserServiceImpl implements UserService {
     public UserDto editUser(UserDto userDto, String login) {
         User user = findByLogin(login);
         user.setEmail(userDto.getEmail());
-        user.setVideos(userDto.getVideos());
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
         user.setRoleFootball(userDto.getRoleFootball());
@@ -137,10 +136,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addVideo(String link) {
         User user = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+
         Video video = new Video(link);
         video.setUser(user);
-        user.getVideos().add(video);
-        dao.save(user);
+
+        videoService.save(video);
     }
 
     @Override
@@ -155,7 +155,10 @@ public class UserServiceImpl implements UserService {
                   users.remove();
               }
               else {
-                  videos.add(new VideoDto(user));
+                  if(videoService.getVideos(user).size()>=1) {
+                      int random = (int) (Math.random() * videoService.getVideos(user).size() - 1);
+                      videos.add(new VideoDto(user, videoService.getVideos(user).get(random).getVideoLink()));
+                  }
               }
         }
 

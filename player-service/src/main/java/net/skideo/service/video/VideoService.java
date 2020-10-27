@@ -1,7 +1,10 @@
 package net.skideo.service.video;
 
-import data.service.dto.RatingDto;
-import data.service.model.Video;
+import net.skideo.dto.RatingDto;
+import net.skideo.model.User;
+import net.skideo.model.Video;
+
+import java.util.List;
 
 public interface VideoService {
 
@@ -16,5 +19,9 @@ public interface VideoService {
     void deleteById(long id);
 
     void estimateVideo(RatingDto ratingDto);
+
+    int getRating(long idVideo);
+
+    List<Video> getVideos(User user);
 
 }

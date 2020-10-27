@@ -1,7 +1,7 @@
 package net.skideo.service.like;
 
-import data.service.dao.LikeDao;
-import data.service.model.Like;
+import net.skideo.dao.LikeDao;
+import net.skideo.model.Like;
 import net.skideo.exception.LikeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

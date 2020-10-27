@@ -1,6 +1,6 @@
 package net.skideo.controller;
 
-import data.service.model.User;
+import net.skideo.model.User;
 import net.skideo.service.user.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

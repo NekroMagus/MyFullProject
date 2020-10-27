@@ -1,10 +1,9 @@
 package net.skideo.service.user;
 
-import data.service.dto.RatingDto;
-import data.service.dto.UserDto;
-import data.service.dto.VideoDto;
-import data.service.model.User;
-import data.service.model.enums.RoleFootball;
+import net.skideo.dto.UserDto;
+import net.skideo.dto.VideoDto;
+import net.skideo.model.User;
+import net.skideo.model.enums.RoleFootball;
 
 import java.time.LocalDate;
 import java.util.List;

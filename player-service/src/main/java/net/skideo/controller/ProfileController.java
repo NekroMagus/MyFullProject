@@ -1,8 +1,9 @@
 package net.skideo.controller;
 
-import data.service.dto.RatingDto;
-import data.service.dto.UserDto;
-import data.service.model.enums.RoleFootball;
+import net.skideo.dto.GetRatingDto;
+import net.skideo.dto.RatingDto;
+import net.skideo.dto.UserDto;
+import net.skideo.model.enums.RoleFootball;
 import net.skideo.security.jwt.JwtTokenUtil;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
@@ -20,6 +21,7 @@ public class ProfileController {
 
     @Autowired
     private VideoService videoService;
+
 
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
@@ -54,5 +56,8 @@ public class ProfileController {
         videoService.estimateVideo(ratingDto);
     }
 
-
+    @GetMapping("/rating/{id}")
+    public GetRatingDto getRating(@PathVariable("id") long id) {
+        return new GetRatingDto(videoService.getRating(id));
+    }
 }

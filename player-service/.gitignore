@@ -16,8 +16,7 @@
 # BlueJ files
 *.ctxt
 
-# Prodaction properties
-application.properties
+# Prodaction propertiesa
 application-local.properties
 
 # Mobile Tools for Java (J2ME)

@@ -1,8 +1,8 @@
 package net.skideo.controller;
 
-import data.service.model.User;
-import data.service.model.jwt.JwtRequest;
-import data.service.model.jwt.JwtResponse;
+import net.skideo.model.User;
+import net.skideo.model.jwt.JwtRequest;
+import net.skideo.model.jwt.JwtResponse;
 import net.skideo.security.jwt.JwtTokenUtil;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

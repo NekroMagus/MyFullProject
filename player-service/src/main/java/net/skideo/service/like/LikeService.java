@@ -1,6 +1,6 @@
 package net.skideo.service.like;
 
-import data.service.model.Like;
+import net.skideo.model.Like;
 
 public interface LikeService {
 
