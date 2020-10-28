@@ -18,8 +18,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Autowired
     private PasswordEncoder encoder;
 
-    Logger log = Logger.getLogger(AuthorizationServiceImpl.class.getName());
-
     @Override
     public boolean isScoutExists(String login) {
         return scoutDao.existsByLogin(login);
@@ -27,8 +25,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     @Override
     public boolean isCorrectPassword(AuthDto authDto, Scout scout) {
-        log.info(encoder.encode(authDto.getPassword()) + "");
-        log.info(scout.getPassword() + "");
         return scout!=null && encoder.matches(authDto.getPassword(),scout.getPassword());
     }
 }

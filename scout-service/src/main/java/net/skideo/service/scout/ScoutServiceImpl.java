@@ -3,6 +3,7 @@ package net.skideo.service.scout;
 
 import net.skideo.dao.ScoutDao;
 import net.skideo.dao.UserDao;
+import net.skideo.dao.VideoDao;
 import net.skideo.dto.ProfileDto;
 import net.skideo.dto.ProfileUserDto;
 import net.skideo.dto.SearchDto;
@@ -10,6 +11,7 @@ import net.skideo.dto.UpdateProfileDto;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
 import net.skideo.model.User;
+import net.skideo.model.Video;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
@@ -31,6 +33,9 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private VideoDao videoDao;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -58,16 +63,25 @@ public class ScoutServiceImpl implements ScoutService {
         final Scout CURRENT_SCOUT = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ProfileDto profile = new ProfileDto(CURRENT_SCOUT);
         List<ProfileUserDto> players = new LinkedList<>();
-        Set<User> users = CURRENT_SCOUT.getListUsersUploadedVideo();
+        List<User> users = userDao.findAll();
 
         if(users.size()>=1) {
-            for (int i = 1; i <= 3; i++) {
-                int random = (int) (Math.random() * users.size()-1);
-                players.add(new ProfileUserDto(get(random, users)));
-            }
-        }
 
+            for (int i = 1; i <= 3; i++) {
+
+                int random = (int) (Math.random() * users.size()-1);
+                User user = users.get(random);
+                List<Video> videos = getVideos(user);
+
+                if(videos.size()>=1) {
+                    players.add(new ProfileUserDto(users.get(random)));
+                }
+
+            }
+
+        }
         profile.setPlayers(players);
+
         return profile;
     }
 
@@ -84,7 +98,8 @@ public class ScoutServiceImpl implements ScoutService {
     public List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth) {
         Pageable page = PageRequest.of(0,15);
         List<SearchDto> users = new LinkedList<>();
-        Iterator<User> iterator = userDao.findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth,page).iterator();
+        Iterator<User> iterator = userDao.findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(country,roleFootball,agent,
+                                                                                                                          rolePeople,leadingLeg,dateOfBirth,page).iterator();
 
         while(iterator.hasNext()) {
             users.add(new SearchDto(iterator.next()));
@@ -106,15 +121,15 @@ public class ScoutServiceImpl implements ScoutService {
         scoutDao.save(scout);
     }
 
-    private User get(int index, Set<User> users) {
-        User user = null;
-        int i = 0;
-        for (User u : users) {
-            if (i == index) {
-                user = u;
+
+    private List<Video> getVideos(User user) {
+        List<Video> allVideos = videoDao.findAll();
+        List<Video> videos = new LinkedList<>();
+        for(Video video : allVideos) {
+            if(video.getUser()!=null && video.getUser().equals(user)) {
+                videos.add(video);
             }
-            i++;
         }
-        return user;
+        return videos;
     }
 }

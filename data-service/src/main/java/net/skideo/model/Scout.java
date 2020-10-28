@@ -25,9 +25,6 @@ public class Scout {
     private String club;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<User> listUsersUploadedVideo;
-
-    @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> favoriteUsers;
 
     public Scout(RegDto regDto) {
