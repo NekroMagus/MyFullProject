@@ -19,10 +19,6 @@ import java.util.Arrays;
 @RestController
 public class ProfileController {
 
-    @Autowired
-    private VideoService videoService;
-
-
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
@@ -51,13 +47,4 @@ public class ProfileController {
         return ResponseEntity.ok(Arrays.toString(RoleFootball.values()));
     }
 
-    @PostMapping("/rating")
-    public void updateRating(@RequestBody RatingDto ratingDto) {
-        videoService.estimateVideo(ratingDto);
-    }
-
-    @GetMapping("/rating/{id}")
-    public GetRatingDto getRating(@PathVariable("id") long id) {
-        return new GetRatingDto(videoService.getRating(id));
-    }
 }

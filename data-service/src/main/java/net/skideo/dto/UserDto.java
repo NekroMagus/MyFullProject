@@ -32,7 +32,6 @@ public class UserDto {
     private RolePeople rolePeople;
     private String club;
     private boolean agent;
-    private List<Like> likes;
 
     @JsonCreator
     public UserDto(User user) {
@@ -46,7 +45,6 @@ public class UserDto {
         this.country = user.getCountry();
         this.city = user.getCity();
         this.socialNetwork = user.getSocialNetwork();
-        this.likes = user.getLikes();
         this.leadingLeg=user.getLeadingLeg();
         this.rolePeople=user.getRolePeople();
         this.club=user.getClub();

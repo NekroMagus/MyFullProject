@@ -1,5 +1,7 @@
 package net.skideo.controller;
 
+import net.skideo.dto.GetRatingDto;
+import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.model.User;
 import net.skideo.model.Video;
@@ -9,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,6 +41,16 @@ public class VideoController {
     public List<VideoDto> getOtherVideos() {
         final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         return userService.findVideos(CURRENT_USER);
+    }
+
+    @PostMapping("/rating")
+    public void updateRating(@RequestBody RatingDto ratingDto) {
+        videoService.estimateVideo(ratingDto);
+    }
+
+    @GetMapping("/rating/{id}")
+    public GetRatingDto getRating(@PathVariable("id") long id) {
+        return new GetRatingDto(videoService.getRating(id));
     }
 
 }

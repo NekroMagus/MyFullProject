@@ -1,7 +1,5 @@
 package net.skideo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,9 +11,8 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String videoLink;
-    @ManyToMany(cascade = CascadeType.PERSIST,targetEntity = Like.class)
+    @ManyToMany(cascade = CascadeType.PERSIST,targetEntity = Like.class,fetch = FetchType.LAZY)
     private Set<Like> likes;
-    @JsonIgnore
     @ManyToOne
     private User user;
 

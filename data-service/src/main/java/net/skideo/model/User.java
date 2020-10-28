@@ -66,11 +66,6 @@ public class User {
     private Timestamp dateOfRegistration;
     private String socialNetwork;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Scout> listScoutsUploadedVideo;
-
-    @OneToMany(targetEntity = Like.class,fetch = FetchType.LAZY)
-    private List<Like> likes;
 
     public long getId() {
         return id;
@@ -240,19 +235,4 @@ public class User {
         this.socialNetwork = socialNetwork;
     }
 
-    public Set<Scout> getListScoutsUploadedVideo() {
-        return listScoutsUploadedVideo;
-    }
-
-    public void setListScoutsUploadedVideo(Set<Scout> listScoutsUploadedVideo) {
-        this.listScoutsUploadedVideo = listScoutsUploadedVideo;
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
-    }
 }

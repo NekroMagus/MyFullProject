@@ -1,6 +1,5 @@
 package net.skideo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.skideo.model.enums.Rating;
 
 import javax.persistence.*;
@@ -15,11 +14,10 @@ public class Like {
     private long id;
     @Enumerated(value=EnumType.STRING)
     private Rating rating;
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Video video;
-    @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public long getId() {
