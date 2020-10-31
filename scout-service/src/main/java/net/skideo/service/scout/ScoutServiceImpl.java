@@ -74,7 +74,7 @@ public class ScoutServiceImpl implements ScoutService {
                 List<Video> videos = getVideos(user);
 
                 if(videos.size()>=1) {
-                    players.add(new ProfileUserDto(users.get(random)));
+                    players.add(new ProfileUserDto(user));
                 }
 
             }
@@ -87,10 +87,9 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public void updateProfile(UpdateProfileDto dto) {
-         Scout scout = findById(dto.getId());
+         Scout scout = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
          scout.setName(dto.getName());
          scout.setSurname(dto.getSurname());
-         scout.setClub(dto.getClub());
          save(scout);
     }
 

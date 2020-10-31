@@ -1,6 +1,7 @@
 package net.skideo.service.video;
 
 import net.skideo.dto.RatingDto;
+import net.skideo.dto.VideoDto;
 import net.skideo.model.User;
 import net.skideo.model.Video;
 
@@ -23,5 +24,9 @@ public interface VideoService {
     int getRating(long idVideo);
 
     List<Video> getVideos(User user);
+
+    void addVideo(String link);
+
+    List<VideoDto> findVideos(User currentUser);
 
 }

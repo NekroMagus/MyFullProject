@@ -1,6 +1,7 @@
 package net.skideo.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import net.skideo.model.Club;
 import net.skideo.model.Like;
 import net.skideo.model.Video;
 import net.skideo.model.enums.LeadingLeg;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,8 +32,8 @@ public class UserDto {
     private String video;
     private LeadingLeg leadingLeg;
     private RolePeople rolePeople;
-    private String club;
     private boolean agent;
+    private Club club;
 
     @JsonCreator
     public UserDto(User user) {
@@ -47,7 +49,7 @@ public class UserDto {
         this.socialNetwork = user.getSocialNetwork();
         this.leadingLeg=user.getLeadingLeg();
         this.rolePeople=user.getRolePeople();
-        this.club=user.getClub();
         this.agent=user.isAgent();
+        this.club=user.getClub();
     }
 }

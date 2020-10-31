@@ -13,7 +13,7 @@ public class Video {
     private String videoLink;
     @ManyToMany(cascade = CascadeType.PERSIST,targetEntity = Like.class,fetch = FetchType.LAZY)
     private Set<Like> likes;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Video() {}

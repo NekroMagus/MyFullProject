@@ -57,7 +57,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private RolePeople rolePeople;
 
-    private String club;
+    @ManyToOne
+    private Club club;
     private boolean agent;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -195,11 +196,11 @@ public class User {
         this.rolePeople = rolePeople;
     }
 
-    public String getClub() {
+    public Club getClub() {
         return club;
     }
 
-    public void setClub(String club) {
+    public void setClub(Club club) {
         this.club = club;
     }
 

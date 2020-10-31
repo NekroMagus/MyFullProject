@@ -1,6 +1,7 @@
 package net.skideo.service.user;
 
 import net.skideo.dto.UserDto;
+import net.skideo.dto.UserProfileDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
@@ -35,8 +36,6 @@ public interface UserService {
 
     List<User> findAll();
 
-    void addVideo(String link);
-
-    List<VideoDto> findVideos(User currentUser);
+    UserProfileDto getProfile();
 
 }

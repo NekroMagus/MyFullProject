@@ -3,6 +3,10 @@ package net.skideo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.Club;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @Data
@@ -10,9 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateProfileDto {
 
-    private long id;
+    @NotNull
+    @Min(2)
     private String name;
+    @NotNull
+    @Min(2)
     private String surname;
-    private String club;
 
 }

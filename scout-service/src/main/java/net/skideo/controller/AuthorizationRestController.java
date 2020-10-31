@@ -42,7 +42,7 @@ public class AuthorizationRestController {
     @PostMapping("/registration")
     public TokenDto registration(@Valid @RequestBody RegDto regDto) {
         if (authorizationService.isScoutExists(regDto.getLogin())) {
-            throw new ScoutsAlreadyExistsException("User already exists");
+            throw new ScoutsAlreadyExistsException("Scout already exists");
         }
         scoutService.save(new Scout(regDto));
         return new TokenDto(provider.generateToken(regDto.getLogin()));

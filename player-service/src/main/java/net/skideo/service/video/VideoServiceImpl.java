@@ -1,8 +1,10 @@
 package net.skideo.service.video;
 
 import net.skideo.dao.LikeDao;
+import net.skideo.dao.UserDao;
 import net.skideo.dao.VideoDao;
 import net.skideo.dto.RatingDto;
+import net.skideo.dto.VideoDto;
 import net.skideo.model.Like;
 import net.skideo.model.User;
 import net.skideo.model.Video;
@@ -11,9 +13,12 @@ import net.skideo.exception.UserRatedException;
 import net.skideo.exception.VideoNotFoundException;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,10 +27,11 @@ import java.util.logging.Logger;
 @Service
 public class VideoServiceImpl implements VideoService {
 
-    Logger log = Logger.getLogger(VideoServiceImpl.class.getName());
-
     @Autowired
     private VideoDao dao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private UserService userService;
@@ -113,6 +119,38 @@ public class VideoServiceImpl implements VideoService {
                 videos.add(video);
             }
         }
+        return videos;
+    }
+
+    @Override
+    public void addVideo(String link) {
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        Video video = new Video(link);
+        video.setUser(user);
+
+        save(video);
+    }
+
+    @Override
+    public List<VideoDto> findVideos(User currentUser) {
+        Pageable pageable = PageRequest.of(0,15);
+        Iterator<User> users = userDao.findAll(pageable).iterator();
+        List<VideoDto> videos = new LinkedList<>();
+
+        while(users.hasNext()) {
+            User user = users.next();
+            if(user.equals(currentUser)) {
+                users.remove();
+            }
+            else {
+                if(getVideos(user).size()>=1) {
+                    int random = (int) (Math.random() * getVideos(user).size() - 1);
+                    videos.add(new VideoDto(user, getVideos(user).get(random).getVideoLink()));
+                }
+            }
+        }
+
         return videos;
     }
 

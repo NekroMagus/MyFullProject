@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class VideoController {
 
     @PostMapping("/profile/video")
     public ResponseEntity<?> addVideo(@RequestBody String link) {
-        userService.addVideo(link);
+        videoService.addVideo(link);
         return new ResponseEntity<>(link, HttpStatus.OK);
     }
 
@@ -40,11 +41,11 @@ public class VideoController {
     @GetMapping("/videos")
     public List<VideoDto> getOtherVideos() {
         final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        return userService.findVideos(CURRENT_USER);
+        return videoService.findVideos(CURRENT_USER);
     }
 
     @PostMapping("/rating")
-    public void updateRating(@RequestBody RatingDto ratingDto) {
+    public void estimateVideo(@Valid @RequestBody RatingDto ratingDto) {
         videoService.estimateVideo(ratingDto);
     }
 

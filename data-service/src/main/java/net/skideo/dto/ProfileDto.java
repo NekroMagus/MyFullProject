@@ -3,6 +3,7 @@ package net.skideo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.Club;
 import net.skideo.model.Scout;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class ProfileDto {
 
      private String name;
      private String surname;
-     private String club;
+     private Club club;
      private List<ProfileUserDto> players;
 
      public ProfileDto(Scout scout) {

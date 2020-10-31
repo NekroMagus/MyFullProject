@@ -4,7 +4,6 @@ import net.skideo.dto.RegDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -22,7 +21,9 @@ public class Scout {
     private String password;
     private String name;
     private String surname;
-    private String club;
+    private String region;
+    @ManyToOne
+    private Club club;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> favoriteUsers;
