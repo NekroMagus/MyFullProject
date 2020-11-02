@@ -36,5 +36,6 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     Page<User> findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(String country,RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth,Pageable pageable);
 
+    boolean existsByLogin(String login);
 
 }

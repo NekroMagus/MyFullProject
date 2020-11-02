@@ -2,6 +2,7 @@ package net.skideo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
+import net.skideo.dto.UserRegDto;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.model.enums.Role;
@@ -59,13 +60,20 @@ public class User {
 
     @ManyToOne
     private Club club;
+
     private boolean agent;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfBirth;
+    private LocalDate birthDate;
 
-    private Timestamp dateOfRegistration;
-    private String socialNetwork;
+    private String linkSocialNetwork;
+
+    public User(UserRegDto userRegDto) {
+        this.login=userRegDto.getLogin();
+        this.password=userRegDto.getPassword();
+        this.rolePeople=userRegDto.getRolePeople();
+        this.agent=userRegDto.isAgent();
+    }
 
 
     public long getId() {
@@ -212,28 +220,19 @@ public class User {
         this.agent = agent;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public Timestamp getDateOfRegistration() {
-        return dateOfRegistration;
+    public String getLinkSocialNetwork() {
+        return linkSocialNetwork;
     }
 
-    public void setDateOfRegistration(Timestamp dateOfRegistration) {
-        this.dateOfRegistration = dateOfRegistration;
+    public void setLinkSocialNetwork(String linkSocialNetwork) {
+        this.linkSocialNetwork = linkSocialNetwork;
     }
-
-    public String getSocialNetwork() {
-        return socialNetwork;
-    }
-
-    public void setSocialNetwork(String socialNetwork) {
-        this.socialNetwork = socialNetwork;
-    }
-
 }

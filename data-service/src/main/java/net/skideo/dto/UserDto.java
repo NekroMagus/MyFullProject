@@ -25,10 +25,10 @@ public class UserDto {
     private String login;
     private String email;
     private String telephoneNumber;
-    private LocalDate dateOfBirth;
+    private LocalDate birthDate;
     private String country;
     private String city;
-    private String socialNetwork;
+    private String linkSocialNetwork;
     private String video;
     private LeadingLeg leadingLeg;
     private RolePeople rolePeople;
@@ -43,10 +43,10 @@ public class UserDto {
         this.login = user.getLogin();
         this.email = user.getEmail();
         this.telephoneNumber = user.getTelephoneNumber();
-        this.dateOfBirth = user.getDateOfBirth();
+        this.birthDate = user.getBirthDate();
         this.country = user.getCountry();
         this.city = user.getCity();
-        this.socialNetwork = user.getSocialNetwork();
+        this.linkSocialNetwork = user.getLinkSocialNetwork();
         this.leadingLeg=user.getLeadingLeg();
         this.rolePeople=user.getRolePeople();
         this.agent=user.isAgent();

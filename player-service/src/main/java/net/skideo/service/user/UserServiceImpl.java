@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.UNCONFIRMED);
         user.setActive(true);
-        user.setDateOfRegistration(Timestamp.valueOf(LocalDateTime.now()));
 
         dao.save(user);
     }
@@ -76,10 +75,10 @@ public class UserServiceImpl implements UserService {
         user.setSurname(userDto.getSurname());
         user.setRoleFootball(userDto.getRoleFootball());
         user.setTelephoneNumber(userDto.getTelephoneNumber());
-        user.setDateOfBirth(userDto.getDateOfBirth());
+        user.setBirthDate(userDto.getBirthDate());
         user.setCountry(userDto.getCountry());
         user.setCity(userDto.getCity());
-        user.setSocialNetwork(userDto.getSocialNetwork());
+        user.setLinkSocialNetwork(userDto.getLinkSocialNetwork());
         user.setLeadingLeg(userDto.getLeadingLeg());
         user.setRolePeople(userDto.getRolePeople());
         user.setAgent(userDto.isAgent());

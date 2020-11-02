@@ -12,11 +12,13 @@ import net.skideo.model.Scout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api")
 public class AuthorizationRestController {
 
     @Autowired
@@ -30,8 +32,9 @@ public class AuthorizationRestController {
 
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
+        final Scout SCOUT =  scoutService.findByLogin(authDto.getLogin());
 
-        if (!authorizationService.isCorrectPassword(authDto,scoutService.findByLogin(authDto.getLogin()))) {
+        if (!authorizationService.isCorrectPassword(authDto,SCOUT)) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 

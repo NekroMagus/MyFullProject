@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scout")
+@RequestMapping("/api/scout")
 public class ScoutRestController {
 
      @Autowired
@@ -36,8 +36,8 @@ public class ScoutRestController {
           return scoutService.search(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth);
      }
 
-     @PostMapping("/user/favorite/{id}")
-     public void addUserToFavorite(@PathVariable("id") long id) {
+     @PostMapping("/user/favorite")
+     public void addUserToFavorite(@RequestBody long id) {
           scoutService.addUserToFavorite(id);
      }
 

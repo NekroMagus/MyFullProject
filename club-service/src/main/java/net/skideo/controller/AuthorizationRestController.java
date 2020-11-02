@@ -10,13 +10,12 @@ import net.skideo.security.jwt.JwtProvider;
 import net.skideo.service.auth.AuthorizationService;
 import net.skideo.service.club.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api")
 public class AuthorizationRestController {
 
     @Autowired
@@ -30,8 +29,9 @@ public class AuthorizationRestController {
 
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
+        final Club CLUB = clubService.findByLogin(authDto.getLogin());
 
-        if (!authorizationService.isCorrectPassword(authDto,clubService.findByLogin(authDto.getLogin()))) {
+        if (!authorizationService.isCorrectPassword(authDto,CLUB)) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 
