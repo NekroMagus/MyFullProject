@@ -97,7 +97,7 @@ public class ScoutServiceImpl implements ScoutService {
     public List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth) {
         Pageable page = PageRequest.of(0,15);
         List<SearchDto> users = new LinkedList<>();
-        Iterator<User> iterator = userDao.findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndDateOfBirth(country,roleFootball,agent,
+        Iterator<User> iterator = userDao.findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndBirthDate(country,roleFootball,agent,
                                                                                                                           rolePeople,leadingLeg,dateOfBirth,page).iterator();
 
         while(iterator.hasNext()) {
