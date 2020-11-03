@@ -36,7 +36,7 @@ public class UserProfileDto {
         this.rolePeople=user.getRolePeople();
         this.club=new ClubProfileDto(user.getClub());
         this.agent=user.isAgent();
-        this.dateOfBirth=user.getDateOfBirth();
+        this.dateOfBirth=user.getBirthDate();
     }
 
 }

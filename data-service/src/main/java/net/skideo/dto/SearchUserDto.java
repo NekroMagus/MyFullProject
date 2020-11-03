@@ -20,7 +20,7 @@ public class SearchUserDto {
     public SearchUserDto(User user) {
         this.login = user.getLogin();
         this.roleFootball = user.getRoleFootball();
-        this.age = getAge(user.getDateOfBirth());
+        this.age = getAge(user.getBirthDate());
         this.country = user.getCountry();
     }
 

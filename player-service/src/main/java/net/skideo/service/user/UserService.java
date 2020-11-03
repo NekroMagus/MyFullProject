@@ -19,18 +19,18 @@ public interface UserService {
 
     UserDto editUser(UserDto userDto, String login);
 
-    List<User> findByDateOfBirthBetween(LocalDate birth, LocalDate now);
+    List<User> findByBirthDate(LocalDate birth);
 
     List<User> findByRoleFootball(RoleFootball roleFootball);
 
     List<User> findByCountry(String country);
 
-    List<User> findByDateOfBirthBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
+    List<User> findByBirthDateAndRoleFootballAndCountry(LocalDate birth,
                                                                  RoleFootball roleFootball, String country);
 
-    List<User> findByDateOfBirthBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
+    List<User> findByBirthDateAndRoleFootball(LocalDate birth,RoleFootball roleFootball);
 
-    List<User> findByDateOfBirthBetweenAndCountry(LocalDate birth, LocalDate now, String country);
+    List<User> findByBirthDateAndCountry(LocalDate birth,String country);
 
     List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country);
 
