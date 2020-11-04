@@ -19,16 +19,20 @@ public class SearchUserController {
     @PostMapping("/search")
     public ResponseEntity<?> getSearchResult(@RequestBody SearchUserDto search) {
         if (search.getAge() != 0 && !search.getCountry().equals("") && search.getRoleFootball() != null) {
-            return ResponseEntity.ok(userService.findByBirthDateAndRoleFootballAndCountry(getDateBirthStart(search.getAge()), search.getRoleFootball(), search.getCountry()));
+            return ResponseEntity.ok(userService.findByBirthDateBetweenAndRoleFootballAndCountry(getDateBirthStart(search.getAge()),
+                    getDateBirthEnd(search.getAge()), search.getRoleFootball(), search.getCountry()));
         } else if (search.getAge() != 0 && search.getRoleFootball() != null) {
-            return ResponseEntity.ok(userService.findByBirthDateAndRoleFootball(getDateBirthStart(search.getAge()), search.getRoleFootball()));
+            return ResponseEntity.ok(userService.findByBirthDateBetweenAndRoleFootball(getDateBirthStart(search.getAge()),
+                    getDateBirthEnd(search.getAge()), search.getRoleFootball()));
         } else if (search.getAge() != 0 && !search.getCountry().equals("")) {
-            return ResponseEntity.ok(userService.findByBirthDateAndCountry(getDateBirthStart(search.getAge()),search.getCountry()));
+            return ResponseEntity.ok(userService.findByBirthDateBetweenAndCountry(getDateBirthStart(search.getAge()),
+                    getDateBirthEnd(search.getAge()), search.getCountry()));
         } else if (search.getRoleFootball() != null && !search.getCountry().equals("")) {
             return ResponseEntity.ok(userService.findByRoleFootballAndCountry(search.getRoleFootball(),
                     search.getCountry()));
         } else if (search.getAge() != 0) {
-            return ResponseEntity.ok(userService.findByBirthDate(getDateBirthStart(search.getAge())));
+            return ResponseEntity.ok(userService.findByBirthDateBetween(getDateBirthStart(search.getAge()),
+                    getDateBirthEnd(search.getAge())));
         } else if (!search.getCountry().equals("")) {
             return ResponseEntity.ok(userService.findByCountry(search.getCountry()));
         } else if (search.getRoleFootball() != null) {

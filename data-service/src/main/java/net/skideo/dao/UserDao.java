@@ -17,18 +17,18 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     User findByLogin(String login);
 
-    List<User> findByBirthDate(LocalDate birth);
+    List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
     List<User> findByRoleFootball(RoleFootball roleFootball);
 
     List<User> findByCountry(String country);
 
-    List<User> findByBirthDateAndRoleFootballAndCountry(LocalDate birth,
+    List<User> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
                                                                  RoleFootball roleFootball, String country);
 
-    List<User> findByBirthDateAndRoleFootball(LocalDate birth, RoleFootball roleFootball);
+    List<User> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
 
-    List<User> findByBirthDateAndCountry(LocalDate birth,String country);
+    List<User> findByBirthDateBetweenAndCountry(LocalDate birth, LocalDate now, String country);
 
     List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country);
 

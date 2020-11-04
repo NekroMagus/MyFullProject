@@ -87,8 +87,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByBirthDate(LocalDate birth) {
-        return dao.findByBirthDate(birth);
+    public List<User> findByBirthDateBetween(LocalDate birth, LocalDate now) {
+        return dao.findByBirthDateBetween(birth, now);
     }
 
     @Override
@@ -102,18 +102,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByBirthDateAndRoleFootballAndCountry(LocalDate birth, RoleFootball roleFootball, String country) {
-        return dao.findByBirthDateAndRoleFootballAndCountry(birth,roleFootball, country);
+    public List<User> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
+                                                                        RoleFootball roleFootball, String country) {
+        return dao.findByBirthDateBetweenAndRoleFootballAndCountry(birth, now, roleFootball, country);
     }
 
     @Override
-    public List<User> findByBirthDateAndRoleFootball(LocalDate birth, RoleFootball roleFootball) {
-        return dao.findByBirthDateAndRoleFootball(birth,roleFootball);
+    public List<User> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball) {
+        return dao.findByBirthDateBetweenAndRoleFootball(birth, now, roleFootball);
     }
 
     @Override
-    public List<User> findByBirthDateAndCountry(LocalDate birth, String country) {
-        return dao.findByBirthDateAndCountry(birth, country);
+    public List<User> findByBirthDateBetweenAndCountry(LocalDate birth, LocalDate now, String country) {
+        return dao.findByBirthDateBetweenAndCountry(birth, now, country);
     }
 
     @Override
