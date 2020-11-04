@@ -68,6 +68,8 @@ public class User {
 
     private String linkSocialNetwork;
 
+    public User() {}
+    
     public User(UserRegDto userRegDto) {
         this.login=userRegDto.getLogin();
         this.password=userRegDto.getPassword();
