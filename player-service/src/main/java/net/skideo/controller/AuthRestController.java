@@ -31,6 +31,7 @@ public class AuthRestController {
 
     @PostMapping("/login")
     public TokenDto authenticate(@Valid @RequestBody UserAuthDto userAuthDto) {
+        //TODO Зачем полностью юзера, когда достаточно логина и пароля?
         final User user = userService.findByLogin(userAuthDto.getLogin()).orElse(null);
         if (user == null || !authService.isPasswordMatch(userAuthDto.getPassword(), user.getPassword())) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
