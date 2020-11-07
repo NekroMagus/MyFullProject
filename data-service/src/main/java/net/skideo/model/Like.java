@@ -24,6 +24,7 @@ public class Like {
     private Video video;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
 }
