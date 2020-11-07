@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserRegistrationDto;
+import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
@@ -39,6 +40,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByLogin(String login) {
         return repository.findByLoginIgnoreCase(login);
+    }
+
+    @Override
+    public Optional<UserAuthProjection> findAuthByLogin(String login) {
+        return repository.findAuthByLoginIgnoreCase(login);
     }
 
     @Override

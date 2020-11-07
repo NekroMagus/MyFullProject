@@ -2,6 +2,7 @@ package net.skideo.security;
 
 
 import lombok.extern.slf4j.Slf4j;
+import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.model.User;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByLogin(username).orElse(null);
+        UserAuthProjection user = userService.findAuthByLogin(username).orElse(null);
         if (user == null) {
             log.error("User not found in class {}, Security problems", this.getClass().getSimpleName());
             throw new UsernameNotFoundException("User with " + username + " is not found");

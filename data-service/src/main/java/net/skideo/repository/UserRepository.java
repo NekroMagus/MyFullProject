@@ -1,5 +1,6 @@
 package net.skideo.repository;
 
+import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
@@ -18,6 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findById(long id);
 
     Optional<User> findByLoginIgnoreCase(String login);
+
+    Optional<UserAuthProjection> findAuthByLoginIgnoreCase(String login);
 
     UserProfileProjection findProjectionByLoginIgnoreCase(String login);
 

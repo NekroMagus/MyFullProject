@@ -2,6 +2,7 @@ package net.skideo.service.user;
 
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserRegistrationDto;
+import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
@@ -19,6 +20,8 @@ public interface UserService {
     User getCurrentUser();
 
     Optional<User> findByLogin(String login);
+
+    Optional<UserAuthProjection> findAuthByLogin(String login);
 
     User editUser(UserDto userDto);
 
