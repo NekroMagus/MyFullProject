@@ -1,6 +1,6 @@
 package net.skideo.dto.projections;
 
-import net.skideo.dto.ClubProfileDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
@@ -29,6 +29,7 @@ public interface UserProfileProjection {
 
     boolean isHasAgent();
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate getBirthDate();
 
     interface ClubProfile {
