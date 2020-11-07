@@ -19,11 +19,11 @@ public class Like {
     @Enumerated(EnumType.STRING)
     private Rating rating;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "video_id")
     private Video video;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
 }
