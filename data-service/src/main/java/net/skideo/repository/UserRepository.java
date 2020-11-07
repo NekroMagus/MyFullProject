@@ -1,5 +1,6 @@
-package net.skideo.dao;
+package net.skideo.repository;
 
+import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
@@ -10,12 +11,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-public interface UserDao extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     User findById(long id);
 
-    User findByLogin(String login);
+    Optional<User> findByLoginIgnoreCase(String login);
+
+    UserProfileProjection findProjectionByLoginIgnoreCase(String login);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
@@ -24,7 +28,7 @@ public interface UserDao extends JpaRepository<User, Long> {
     List<User> findByCountry(String country);
 
     List<User> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
-                                                                 RoleFootball roleFootball, String country);
+                                                               RoleFootball roleFootball, String country);
 
     List<User> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
 
@@ -34,7 +38,7 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-    Page<User> findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndBirthDate(String country,RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate,Pageable pageable);
+    Page<User> findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
 
     boolean existsByLogin(String login);
 

@@ -1,9 +1,9 @@
 package net.skideo.service.club;
 
-import net.skideo.dao.ClubDao;
-import net.skideo.dao.ScoutDao;
-import net.skideo.dao.UserDao;
-import net.skideo.dao.VideoDao;
+import net.skideo.repository.ClubRepository;
+import net.skideo.repository.ScoutRepository;
+import net.skideo.repository.UserRepository;
+import net.skideo.repository.VideoRepository;
 import net.skideo.dto.ClubProfileDto;
 import net.skideo.dto.ScoutDto;
 import net.skideo.dto.VideoDto;
@@ -28,29 +28,29 @@ import java.util.List;
 public class ClubServiceImpl implements ClubService {
 
     @Autowired
-    private ClubDao clubDao;
+    private ClubRepository clubRepository;
 
     @Autowired
-    private ScoutDao scoutDao;
+    private ScoutRepository scoutRepository;
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
-    private VideoDao videoDao;
+    private VideoRepository videoRepository;
 
     @Autowired
     private PasswordEncoder encoder;
 
     @Override
     public Club findByLogin(String login) {
-        return clubDao.findByLogin(login);
+        return clubRepository.findByLogin(login);
     }
 
     @Override
     public void save(Club club) {
         club.setPassword(encoder.encode(club.getPassword()));
-        clubDao.save(club);
+        clubRepository.save(club);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ScoutDto> getScouts() {
         final Club CURRENT_CLUB = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<Scout> allScouts = scoutDao.findAll();
+        List<Scout> allScouts = scoutRepository.findAll();
         List<ScoutDto> scouts = new LinkedList<>();
 
         for (Scout scout : allScouts) {
@@ -77,7 +77,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public void addScout(long id) {
         final Club CURRENT_CLUB = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        Scout scout = scoutDao.findById(id).orElseThrow(
+        Scout scout = scoutRepository.findById(id).orElseThrow(
                 () -> new ScoutNotFoundException("Scout not found")
         );
 
@@ -85,13 +85,13 @@ public class ClubServiceImpl implements ClubService {
             scout.setClub(CURRENT_CLUB);
         }
 
-        scoutDao.save(scout);
+        scoutRepository.save(scout);
     }
 
     @Override
     public void removeScout(long id) {
         final Club CURRENT_CLUB = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        Scout scout = scoutDao.findById(id).orElseThrow(
+        Scout scout = scoutRepository.findById(id).orElseThrow(
                 () -> new ScoutNotFoundException("Scout not found")
         );
 
@@ -99,14 +99,14 @@ public class ClubServiceImpl implements ClubService {
             scout.setClub(null);
         }
 
-        scoutDao.save(scout);
+        scoutRepository.save(scout);
     }
 
     @Override
     public void setRegionScout(long id, String region) {
         final Club CURRENT_USER = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        Scout scout = scoutDao.findById(id).orElseThrow(
+        Scout scout = scoutRepository.findById(id).orElseThrow(
                 () -> new ScoutNotFoundException("Scout not found")
         );
 
@@ -114,13 +114,13 @@ public class ClubServiceImpl implements ClubService {
             scout.setRegion(region);
         }
 
-        scoutDao.save(scout);
+        scoutRepository.save(scout);
     }
 
     @Override
     public List<ScoutDto> getScoutsByRegion(String region) {
         final Club CURRENT_CLUB = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<Scout> allScouts = scoutDao.findAll();
+        List<Scout> allScouts = scoutRepository.findAll();
         List<ScoutDto> scouts = new LinkedList<>();
 
         for (Scout scout : allScouts) {
@@ -134,7 +134,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public void addUserToFavorite(long idUser) {
-        User user = userDao.findById(idUser);
+        User user = userRepository.findById(idUser);
         Club club = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
         if (club.getFavoriteUsers() == null) {
@@ -142,13 +142,13 @@ public class ClubServiceImpl implements ClubService {
         }
         club.getFavoriteUsers().add(user);
 
-        clubDao.save(club);
+        clubRepository.save(club);
     }
 
     @Override
     public List<VideoDto> findVideos() {
         Pageable pageable = PageRequest.of(0, 15);
-        Iterator<User> users = userDao.findAll(pageable).iterator();
+        Iterator<User> users = userRepository.findAll(pageable).iterator();
         List<VideoDto> videos = new LinkedList<>();
 
         while (users.hasNext()) {
@@ -163,7 +163,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     private List<Video> getVideos(User user) {
-        List<Video> allVideos = videoDao.findAll();
+        List<Video> allVideos = videoRepository.findAll();
         List<Video> videos = new LinkedList<>();
         for (Video video : allVideos) {
             if (video.getUser() != null && video.getUser().equals(user)) {

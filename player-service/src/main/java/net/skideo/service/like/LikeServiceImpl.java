@@ -1,6 +1,6 @@
 package net.skideo.service.like;
 
-import net.skideo.dao.LikeDao;
+import net.skideo.repository.LikeRepository;
 import net.skideo.model.Like;
 import net.skideo.exception.LikeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class LikeServiceImpl implements LikeService {
 
     @Autowired
-    private LikeDao dao;
+    private LikeRepository dao;
 
     @Override
     public void save(Like like) {

@@ -1,9 +1,9 @@
-package net.skideo.dao;
+package net.skideo.repository;
 
 import net.skideo.model.Club;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClubDao extends JpaRepository<Club,Long> {
+public interface ClubRepository extends JpaRepository<Club,Long> {
 
     Club findByLogin(String login);
 

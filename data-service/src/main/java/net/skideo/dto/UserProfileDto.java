@@ -24,19 +24,19 @@ public class UserProfileDto {
     private RolePeople rolePeople;
     private ClubProfileDto club;
     private boolean agent;
-    private LocalDate dateOfBirth;
+    private LocalDate birthDate;
 
     public UserProfileDto(User user) {
-        this.roleFootball=user.getRoleFootball();
-        this.name=user.getName();
-        this.surname=user.getSurname();
-        this.city=user.getCity();
-        this.country=user.getCountry();
-        this.leadingLeg=user.getLeadingLeg();
-        this.rolePeople=user.getRolePeople();
-        this.club=new ClubProfileDto(user.getClub());
-        this.agent=user.isAgent();
-        this.dateOfBirth=user.getBirthDate();
+        this.roleFootball = user.getRoleFootball();
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.city = user.getCity();
+        this.country = user.getCountry();
+        this.leadingLeg = user.getLeadingLeg();
+        this.rolePeople = user.getRolePeople();
+        this.club = new ClubProfileDto(user.getClub());
+        this.agent = user.isHasAgent();
+        this.birthDate = user.getBirthDate();
     }
 
 }

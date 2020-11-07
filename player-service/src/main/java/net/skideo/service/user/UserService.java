@@ -1,23 +1,26 @@
 package net.skideo.service.user;
 
 import net.skideo.dto.UserDto;
-import net.skideo.dto.UserProfileDto;
-import net.skideo.dto.VideoDto;
+import net.skideo.dto.UserRegistrationDto;
+import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    void addUser(User user);
+    void create(UserRegistrationDto dto);
 
     User findById(long id);
 
-    User findByLogin(String login);
+    User getCurrentUser();
 
-    UserDto editUser(UserDto userDto, String login);
+    Optional<User> findByLogin(String login);
+
+    User editUser(UserDto userDto);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
@@ -36,6 +39,6 @@ public interface UserService {
 
     List<User> findAll();
 
-    UserProfileDto getProfile();
+    UserProfileProjection getProfile();
 
 }

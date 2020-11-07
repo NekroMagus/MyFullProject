@@ -1,7 +1,6 @@
 package net.skideo;
 
-import org.junit.Assert;
-import net.skideo.dao.ScoutDao;
+import net.skideo.repository.ScoutRepository;
 import net.skideo.model.Scout;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ScoutServiceTests {
 
     @Autowired
-    private ScoutDao scoutDao;
+    private ScoutRepository scoutRepository;
 
     @Test
     public void saveTest() {
@@ -20,7 +19,7 @@ public class ScoutServiceTests {
         scout.setName("Egor");
         scout.setSurname("odin");
 
-        scoutDao.save(scout);
+        scoutRepository.save(scout);
 
 
     }

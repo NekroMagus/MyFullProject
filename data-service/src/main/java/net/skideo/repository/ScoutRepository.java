@@ -1,9 +1,9 @@
-package net.skideo.dao;
+package net.skideo.repository;
 
 import net.skideo.model.Scout;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ScoutDao extends JpaRepository<Scout,Long> {
+public interface ScoutRepository extends JpaRepository<Scout,Long> {
 
     Scout findByLogin(String login);
 

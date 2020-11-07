@@ -1,8 +1,8 @@
 package net.skideo.service.video;
 
-import net.skideo.dao.LikeDao;
-import net.skideo.dao.UserDao;
-import net.skideo.dao.VideoDao;
+import net.skideo.repository.LikeRepository;
+import net.skideo.repository.UserRepository;
+import net.skideo.repository.VideoRepository;
 import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.model.Like;
@@ -15,29 +15,27 @@ import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 public class VideoServiceImpl implements VideoService {
 
     @Autowired
-    private VideoDao dao;
+    private VideoRepository dao;
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private LikeDao likeDao;
+    private LikeRepository likeRepository;
 
     @Override
     public void save(Video video) {
@@ -74,7 +72,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void estimateVideo(RatingDto ratingDto) {
         Video video = findById(ratingDto.getIdVideo());
-        final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        final User CURRENT_USER = userService.getCurrentUser();
 
         for (Like like : video.getLikes()) {
             if (like.getUser().equals(CURRENT_USER)) {
@@ -89,7 +87,7 @@ public class VideoServiceImpl implements VideoService {
             like.setRating(ratingDto.getRating());
             like.setVideo(video);
             like.setUser(CURRENT_USER);
-            likeDao.save(like);
+            likeRepository.save(like);
 
             if(video.getLikes()==null) {
                 video.setLikes(new LinkedHashSet<>());
@@ -124,7 +122,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void addVideo(String link) {
-        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.getCurrentUser();
 
         Video video = new Video(link);
         video.setUser(user);
@@ -135,7 +133,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<VideoDto> findVideos(User currentUser) {
         Pageable pageable = PageRequest.of(0,15);
-        Iterator<User> users = userDao.findAll(pageable).iterator();
+        Iterator<User> users = userRepository.findAll(pageable).iterator();
         List<VideoDto> videos = new LinkedList<>();
 
         while(users.hasNext()) {

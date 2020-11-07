@@ -1,5 +1,6 @@
 package net.skideo.controller;
 
+import lombok.RequiredArgsConstructor;
 import net.skideo.dto.SearchUserDto;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.service.user.UserService;
@@ -10,11 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
+@RequiredArgsConstructor
 public class SearchUserController {
 
-
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/search")
     public ResponseEntity<?> getSearchResult(@RequestBody SearchUserDto search) {

@@ -1,9 +1,9 @@
 package net.skideo.service.scout;
 
 
-import net.skideo.dao.ScoutDao;
-import net.skideo.dao.UserDao;
-import net.skideo.dao.VideoDao;
+import net.skideo.repository.ScoutRepository;
+import net.skideo.repository.UserRepository;
+import net.skideo.repository.VideoRepository;
 import net.skideo.dto.ProfileDto;
 import net.skideo.dto.ProfileUserDto;
 import net.skideo.dto.SearchDto;
@@ -29,33 +29,33 @@ import java.util.*;
 public class ScoutServiceImpl implements ScoutService {
 
     @Autowired
-    private ScoutDao scoutDao;
+    private ScoutRepository scoutRepository;
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
-    private VideoDao videoDao;
+    private VideoRepository videoRepository;
 
     @Autowired
     private PasswordEncoder encoder;
 
     @Override
     public Scout findById(long id) {
-        return scoutDao.findById(id).orElseThrow(
+        return scoutRepository.findById(id).orElseThrow(
                 () -> new ScoutNotFoundException("Scout not found")
                 );
     }
 
     @Override
     public Scout findByLogin(String login) {
-        return scoutDao.findByLogin(login);
+        return scoutRepository.findByLogin(login);
     }
 
     @Override
     public void save(Scout scout) {
         scout.setPassword(encoder.encode(scout.getPassword()));
-        scoutDao.save(scout);
+        scoutRepository.save(scout);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ScoutServiceImpl implements ScoutService {
         final Scout CURRENT_SCOUT = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ProfileDto profile = new ProfileDto(CURRENT_SCOUT);
         List<ProfileUserDto> players = new LinkedList<>();
-        List<User> users = userDao.findAll();
+        List<User> users = userRepository.findAll();
 
         if(users.size()>=1) {
 
@@ -97,7 +97,7 @@ public class ScoutServiceImpl implements ScoutService {
     public List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth) {
         Pageable page = PageRequest.of(0,15);
         List<SearchDto> users = new LinkedList<>();
-        Iterator<User> iterator = userDao.findAllByCountryAndRoleFootballAndAgentAndRolePeopleAndLeadingLegAndBirthDate(country,roleFootball,agent,
+        Iterator<User> iterator = userRepository.findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(country,roleFootball,agent,
                                                                                                                           rolePeople,leadingLeg,dateOfBirth,page).iterator();
 
         while(iterator.hasNext()) {
@@ -109,7 +109,7 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public void addUserToFavorite(long idUser) {
-        User user = userDao.findById(idUser);
+        User user = userRepository.findById(idUser);
         Scout scout = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
         if(scout.getFavoriteUsers()==null) {
@@ -117,12 +117,12 @@ public class ScoutServiceImpl implements ScoutService {
         }
         scout.getFavoriteUsers().add(user);
 
-        scoutDao.save(scout);
+        scoutRepository.save(scout);
     }
 
 
     private List<Video> getVideos(User user) {
-        List<Video> allVideos = videoDao.findAll();
+        List<Video> allVideos = videoRepository.findAll();
         List<Video> videos = new LinkedList<>();
         for(Video video : allVideos) {
             if(video.getUser()!=null && video.getUser().equals(user)) {

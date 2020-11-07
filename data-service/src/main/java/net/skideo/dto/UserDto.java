@@ -1,19 +1,18 @@
 package net.skideo.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.skideo.model.Club;
-import net.skideo.model.Like;
-import net.skideo.model.Video;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,16 +21,19 @@ public class UserDto {
     private String name;
     private String surname;
     private RoleFootball roleFootball;
-    private String login;
+
+    @Email
     private String email;
-    private String telephoneNumber;
+    private String phone;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String country;
     private String city;
     private String linkSocialNetwork;
     private String video;
     private LeadingLeg leadingLeg;
-    private RolePeople rolePeople;
     private boolean agent;
     private Club club;
 
@@ -40,16 +42,14 @@ public class UserDto {
         this.name = user.getName();
         this.surname = user.getSurname();
         this.roleFootball = user.getRoleFootball();
-        this.login = user.getLogin();
         this.email = user.getEmail();
-        this.telephoneNumber = user.getTelephoneNumber();
+        this.phone = user.getPhone();
         this.birthDate = user.getBirthDate();
         this.country = user.getCountry();
         this.city = user.getCity();
         this.linkSocialNetwork = user.getLinkSocialNetwork();
-        this.leadingLeg=user.getLeadingLeg();
-        this.rolePeople=user.getRolePeople();
-        this.agent=user.isAgent();
-        this.club=user.getClub();
+        this.leadingLeg = user.getLeadingLeg();
+        this.agent = user.isHasAgent();
+        this.club = user.getClub();
     }
 }

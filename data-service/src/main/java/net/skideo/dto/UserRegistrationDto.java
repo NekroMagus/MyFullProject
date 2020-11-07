@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRegDto {
+public class UserRegistrationDto {
 
     @NotEmpty
     @Size(min = 6)
@@ -26,6 +26,6 @@ public class UserRegDto {
     @NotNull
     private RolePeople rolePeople;
 
-    private boolean agent;
+    private boolean hasAgent;
 
 }

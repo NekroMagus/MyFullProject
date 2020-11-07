@@ -1,9 +1,7 @@
 package net.skideo.service.auth;
 
 import lombok.RequiredArgsConstructor;
-import net.skideo.dao.UserDao;
-import net.skideo.dto.UserAuthDto;
-import net.skideo.model.User;
+import net.skideo.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +10,14 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Override
     public boolean isUserExists(String login) {
-        return userDao.existsByLogin(login);
+        return userRepository.existsByLogin(login);
     }
 
-    @Override
-    public boolean isCorrectPassword(UserAuthDto userAuthDto, User user) {
-        return user != null && passwordEncoder.matches(userAuthDto.getPassword(), user.getPassword());
+    public boolean isPasswordMatch(String rowPassword, String encodedPassword) {
+        return passwordEncoder.matches(rowPassword, encodedPassword);
     }
 }

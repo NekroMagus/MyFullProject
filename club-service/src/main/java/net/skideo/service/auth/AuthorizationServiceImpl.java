@@ -1,6 +1,6 @@
 package net.skideo.service.auth;
 
-import net.skideo.dao.ClubDao;
+import net.skideo.repository.ClubRepository;
 import net.skideo.dto.AuthDto;
 import net.skideo.model.Club;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 public class AuthorizationServiceImpl implements AuthorizationService {
 
     @Autowired
-    private ClubDao clubDao;
+    private ClubRepository clubRepository;
 
     @Autowired
     private PasswordEncoder encoder;
 
     @Override
     public boolean isScoutExists(String login) {
-        return clubDao.existsByLogin(login);
+        return clubRepository.existsByLogin(login);
     }
 
     @Override
