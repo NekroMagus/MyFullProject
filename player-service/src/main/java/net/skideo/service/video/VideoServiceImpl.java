@@ -55,7 +55,6 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void estimateVideo(RatingDto dto, User user) {
-
         Video video = findById(dto.getIdVideo());
 
         if ((user.getRolePeople() == video.getUser().getRolePeople())) {
@@ -71,6 +70,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public int getRating(long idVideo) {
+        //TODO Это может сделать база данных
         int rating = 0;
         Video video = findById(idVideo);
         for (Like like : video.getLikes()) {
