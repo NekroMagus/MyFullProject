@@ -1,39 +1,44 @@
 package net.skideo.service.like;
 
-import net.skideo.repository.LikeRepository;
+import lombok.RequiredArgsConstructor;
+import net.skideo.exception.NotFoundException;
 import net.skideo.model.Like;
-import net.skideo.exception.LikeNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.skideo.repository.LikeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
+@RequiredArgsConstructor
 public class LikeServiceImpl implements LikeService {
 
-    @Autowired
-    private LikeRepository dao;
+    private final LikeRepository repository;
 
     @Override
     public void save(Like like) {
-        dao.save(like);
+        repository.save(like);
     }
 
     @Override
     public Like findById(long id) {
-        return dao.findById(id).orElseThrow(
-                () ->
-                   new LikeNotFoundException("Like not found")
-                );
+        return repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Like not found"));
     }
 
     @Override
     public void updateRating(Like like) {
         Like dbLike = findById(like.getId());
         dbLike.setRating(like.getRating());
-        dao.save(dbLike);
+        repository.save(dbLike);
     }
 
     @Override
     public void deleteById(long id) {
-         dao.deleteById(id);
+         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Like> findByUserIdAndVideoId(long userId, long videoId) {
+        return repository.findByUserIdAndVideoId(userId, videoId);
     }
 }

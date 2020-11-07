@@ -155,7 +155,7 @@ public class ClubServiceImpl implements ClubService {
             User user = users.next();
             if (getVideos(user).size() >= 1) {
                 int random = (int) (Math.random() * getVideos(user).size() - 1);
-                videos.add(new VideoDto(user, getVideos(user).get(random).getVideoLink()));
+//                videos.add(new VideoDto(user, getVideos(user).get(random).getVideoLink()));
             }
         }
 

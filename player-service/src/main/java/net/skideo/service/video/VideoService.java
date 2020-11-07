@@ -4,8 +4,7 @@ import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.model.User;
 import net.skideo.model.Video;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface VideoService {
 
@@ -19,14 +18,14 @@ public interface VideoService {
 
     void deleteById(long id);
 
-    void estimateVideo(RatingDto ratingDto);
+    void estimateVideo(RatingDto ratingDto, User user);
 
     int getRating(long idVideo);
 
-    List<Video> getVideos(User user);
+    Page<VideoDto> findAllMyVideos(long userId, int page, int size);
 
     void addVideo(String link);
 
-    List<VideoDto> findVideos(User currentUser);
+    Page<VideoDto> findAllAnotherVideos(long userId, int page, int size);
 
 }

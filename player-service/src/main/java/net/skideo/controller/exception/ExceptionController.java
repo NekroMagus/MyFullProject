@@ -1,9 +1,9 @@
 package net.skideo.controller.exception;
 
+import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.ApiError;
+import net.skideo.exception.ForbiddenException;
 import net.skideo.exception.NotFoundException;
-import net.skideo.exception.ResourceExistsException;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler(ResourceExistsException.class)
-    public ResponseEntity<ApiError> exists(ResourceExistsException e) {
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ApiError> exists(AlreadyExistsException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(createApiError(e, HttpStatus.CONFLICT));
     }
@@ -28,6 +28,12 @@ public class ExceptionController {
     public ResponseEntity<ApiError> notFound(NotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(createApiError(e, HttpStatus.NOT_FOUND));
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ApiError> forbidden(ForbiddenException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(createApiError(e, HttpStatus.FORBIDDEN));
     }
 
 

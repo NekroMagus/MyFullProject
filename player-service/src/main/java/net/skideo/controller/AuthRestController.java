@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.dto.TokenDto;
 import net.skideo.dto.UserAuthDto;
 import net.skideo.dto.UserRegistrationDto;
-import net.skideo.exception.ResourceExistsException;
+import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.model.User;
 import net.skideo.model.enums.RolePeople;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -42,7 +41,7 @@ public class AuthRestController {
     @PostMapping("/registration")
     public ResponseEntity<TokenDto> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
         if (authService.isUserExists(userRegistrationDto.getLogin())) {
-            throw new ResourceExistsException("User already exists");
+            throw new AlreadyExistsException("User already exists");
         }
         if (userRegistrationDto.getRolePeople() == RolePeople.AMATEUR
                 && userRegistrationDto.isHasAgent()) {
