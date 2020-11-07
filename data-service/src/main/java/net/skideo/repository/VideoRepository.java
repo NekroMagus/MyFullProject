@@ -15,7 +15,7 @@ public interface VideoRepository extends JpaRepository<Video,Long> {
     @EntityGraph(attributePaths = {"user"})
     Optional<Video> findById(long id);
 
-    @EntityGraph(attributePaths = {"user", "likes", "likes.user", "likes.video"})
+    @EntityGraph(attributePaths = {"user", "likes"})
     Page<VideoDto> findAllByUserId(Long userId, Pageable pageable);
 
     @EntityGraph(attributePaths = {"user", "likes"})
