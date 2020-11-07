@@ -38,13 +38,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**"
     };
 
+    private final String[] PERMITTED_URL = {
+            "/api/registration",
+            "/api/login",
+            "/api/all"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(SWAGGER_URL).permitAll()
-                .antMatchers("/login", "/registration", "/all").permitAll()
+                .antMatchers(PERMITTED_URL).permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

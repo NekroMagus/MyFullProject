@@ -17,7 +17,7 @@ public class SwaggerConfig {
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("com.skideo.skideo"))
+                .apis(RequestHandlerSelectors.basePackage("net.skideo"))
                 .build().apiInfo(apiEndPointsInfo());
     }
 
