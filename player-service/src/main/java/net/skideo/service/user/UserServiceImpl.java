@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProjection findUserProjectionByLogin(String login) {
-        return repository.findByLogin(login).orElseThrow(() -> new UserNotFoundException());
+        return repository.findByLogin(login).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
@@ -55,11 +55,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(long id) {
-        User user = repository.findById(id);
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
-        return repository.findById(id);
+        return repository.findById(id).orElseThrow(
+                UserNotFoundException::new
+        );
     }
 
     @Override

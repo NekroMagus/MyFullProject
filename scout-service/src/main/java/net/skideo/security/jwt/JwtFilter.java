@@ -26,7 +26,8 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String login = null;
         final String token = getTokenFromRequest(request);
-        if (token != null) {
+
+        if(token!=null) {
             login = provider.getLoginFromToken(token);
             if (login != null) {
                 JwtScout jwtScout = (JwtScout) userDetailsService.loadUserByUsername(login);
@@ -36,6 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         }
+
         filterChain.doFilter(request, response);
     }
 

@@ -19,7 +19,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Scout scout = scoutService.findByLogin(login);
-        if (scout == null) {
+
+        if(scout==null) {
             throw new ScoutNotFoundException("Scout not found");
         }
         return JwtScout.scoutToJwtScout(scout);

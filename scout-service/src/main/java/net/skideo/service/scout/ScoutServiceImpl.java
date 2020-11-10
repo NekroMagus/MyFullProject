@@ -4,9 +4,8 @@ package net.skideo.service.scout;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.projections.ScoutPasswordProjection;
 import net.skideo.dto.projections.ScoutProfileProjection;
+import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.ScoutRepository;
-import net.skideo.repository.UserRepository;
-import net.skideo.repository.VideoRepository;
 import net.skideo.dto.ProfileDto;
 import net.skideo.dto.ProfileUserDto;
 import net.skideo.dto.SearchDto;
@@ -17,10 +16,8 @@ import net.skideo.model.User;
 import net.skideo.model.Video;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
-import net.skideo.model.enums.RolePeople;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +35,7 @@ public class ScoutServiceImpl implements ScoutService {
     private final UserService userService;
     private final VideoService videoService;
     private final PasswordEncoder encoder;
+
 
     @Override
     public Scout findById(long id) {
@@ -85,17 +83,12 @@ public class ScoutServiceImpl implements ScoutService {
 
                 int random = (int) (Math.random() * users.size() - 1);
                 User user = users.get(random);
-                List<Video> videos = getVideos(user.getId());
 
-                if (videos.size() >= 1) {
+                if (getVideos(user.getId()).size() >= 1) {
                     players.add(new ProfileUserDto(user));
                 }
-
             }
-
         }
-        profile.setPlayers(players);
-
         return profile;
     }
 
@@ -107,22 +100,24 @@ public class ScoutServiceImpl implements ScoutService {
         save(scout);
     }
 
+
     @Override
-    public List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth,int page,int size) {
+    public List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size) {
         List<SearchDto> users = new LinkedList<>();
         Iterator<User> iterator = userService.findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(country, roleFootball, agent,
                                                                                                                                rolePeople, leadingLeg, dateOfBirth,
-                                                                                                                               page,size).iterator();
+                                                                                                                               page, size).iterator();
 
         while (iterator.hasNext()) {
             users.add(new SearchDto(iterator.next()));
         }
-
         return users;
     }
 
+
     @Override
-    public void addUserToFavorite(long idUser,Scout currentScout) {
+
+    public void addUserToFavorite(long idUser, Scout currentScout) {
         User user = userService.findById(idUser);
 
         if (currentScout.getFavoriteUsers() == null) {
@@ -139,7 +134,7 @@ public class ScoutServiceImpl implements ScoutService {
         List<Video> videos = new LinkedList<>();
 
         for (Video video : allVideos) {
-            if (video.getUser() != null && video.getUser().getId()==idUser) {
+            if (video.getUser() != null && video.getUser().getId() == idUser) {
                 videos.add(video);
             }
         }

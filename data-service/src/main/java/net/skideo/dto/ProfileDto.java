@@ -19,9 +19,10 @@ public class ProfileDto {
     private List<ProfileUserDto> players;
 
     public ProfileDto(ScoutProfileProjection scout) {
-        this.name=scout.getName();
-        this.surname=scout.getSurname();
-        this.club=scout.getClub();
+        this.name = scout.getName();
+        this.surname = scout.getSurname();
+        this.club = scout.getClub();
     }
 
 }
+

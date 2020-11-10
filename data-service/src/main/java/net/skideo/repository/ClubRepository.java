@@ -1,5 +1,6 @@
 package net.skideo.repository;
 
+
 import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.model.Club;
@@ -14,6 +15,7 @@ public interface ClubRepository extends JpaRepository<Club,Long> {
     Optional<ClubPasswordProjection> findPasswordByLogin(String login);
 
     Optional<ClubProfileProjection> findProfileByLogin(String login);
+
 
     boolean existsByLogin(String login);
 }

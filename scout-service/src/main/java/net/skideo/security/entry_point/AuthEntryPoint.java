@@ -14,6 +14,10 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+<<<<<<< HEAD
         response.sendError(401, "Unauthorized");
+=======
+        response.sendError(401,"Unauthorized");
+>>>>>>> 9869caf606ca288f0f821e844c63398b87e77dca
     }
 }

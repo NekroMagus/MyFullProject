@@ -1,5 +1,6 @@
 package net.skideo.controller;
 
+
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.ProfileDto;
 import net.skideo.dto.SearchDto;
@@ -10,14 +11,12 @@ import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.service.scout.ScoutService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -53,5 +52,4 @@ public class ScoutRestController {
         final Scout CURRENT_USER = scoutService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         scoutService.addUserToFavorite(id,CURRENT_USER);
     }
-
 }

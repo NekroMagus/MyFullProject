@@ -5,13 +5,13 @@ import net.skideo.dto.ScoutDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
-import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.model.Club;
 import java.util.List;
 
 public interface ClubService {
 
     Club findByLogin(String login);
+
 
     ClubPasswordProjection getPasswordByLogin(String login);
 
@@ -36,4 +36,6 @@ public interface ClubService {
     void addUserToFavorite(long idUser,Club club);
 
     List<VideoDto> findVideos(int page,int size);
+
+
 }

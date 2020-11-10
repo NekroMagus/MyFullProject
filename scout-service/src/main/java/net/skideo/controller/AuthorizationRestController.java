@@ -11,7 +11,6 @@ import net.skideo.dto.AuthDto;
 import net.skideo.dto.RegDto;
 import net.skideo.dto.TokenDto;
 import net.skideo.model.Scout;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +33,7 @@ public class AuthorizationRestController {
     public ResponseEntity<TokenDto> authenticate(@Valid @RequestBody AuthDto authDto) {
         final ScoutPasswordProjection SCOUT = scoutService.getPasswordByLogin(authDto.getLogin());
 
-        if (SCOUT!=null && !authorizationService.isCorrectPassword(authDto.getPassword(), SCOUT.getPassword())) {
+        if (SCOUT != null && !authorizationService.isCorrectPassword(authDto.getPassword(), SCOUT.getPassword())) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 
@@ -47,8 +46,7 @@ public class AuthorizationRestController {
         if (authorizationService.isScoutExists(regDto.getLogin())) {
             throw new ScoutsAlreadyExistsException("Scout already exists");
         }
-        scoutService.save(new Scout(regDto.getLogin(),regDto.getPassword(),regDto.getName(),regDto.getSurname()));
+        scoutService.save(new Scout(regDto.getLogin(), regDto.getPassword(), regDto.getName(), regDto.getSurname()));
         return ResponseEntity.status(HttpStatus.CREATED).body(new TokenDto(provider.generateToken(regDto.getLogin())));
     }
-
 }

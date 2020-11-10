@@ -29,21 +29,17 @@ public class VideoController {
     private final LikeService likeService;
 
     @GetMapping("/profile/video")
-    public Page<VideoDto> getMyVideos(
-            @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam(defaultValue = "50", required = false) int size
-    ) {
-        User user = userService.getCurrentUser();
-        return videoService.findAllMyVideos(user.getId(), page, size);
+    public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0", required = false) int page,
+                                      @RequestParam(defaultValue = "50", required = false) int size) {
+        final User CURRENT_USER = userService.getCurrentUser();
+        return videoService.findAllMyVideos(CURRENT_USER.getId(), page, size);
     }
 
     @GetMapping("/videos")
-    public Page<VideoDto> getOtherVideos(
-            @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam(defaultValue = "50", required = false) int size
-    ) {
-        final User USER = userService.getCurrentUser();
-        return videoService.findAllAnotherVideos(USER.getId(), page, size);
+    public Page<VideoDto> getOtherVideos(@RequestParam(defaultValue = "0", required = false) int page,
+                                         @RequestParam(defaultValue = "50", required = false) int size) {
+        final User CURRENT_USER = userService.getCurrentUser();
+        return videoService.findAllAnotherVideos(CURRENT_USER.getId(), page, size);
     }
 
     @PostMapping("/profile/video")

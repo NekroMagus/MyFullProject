@@ -4,15 +4,10 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.exception.ClubNotFoundException;
-import net.skideo.exception.UserNotFoundException;
 import net.skideo.repository.ClubRepository;
-import net.skideo.repository.ScoutRepository;
-import net.skideo.repository.UserRepository;
-import net.skideo.repository.VideoRepository;
 import net.skideo.dto.ClubProfileDto;
 import net.skideo.dto.ScoutDto;
 import net.skideo.dto.VideoDto;
-import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Club;
 import net.skideo.model.Scout;
 import net.skideo.model.User;
@@ -20,9 +15,6 @@ import net.skideo.model.Video;
 import net.skideo.service.scout.ScoutService;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -97,7 +89,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void addScout(long id,Club currentClub) {
+    public void addScout(long id, Club currentClub) {
         Scout scout = scoutService.findById(id);
 
         if (scout.getClub() == null) {
@@ -108,7 +100,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void removeScout(long id,Club currentClub) {
+    public void removeScout(long id, Club currentClub) {
         Scout scout = scoutService.findById(id);
 
         if (scout.getClub().equals(currentClub)) {
@@ -119,7 +111,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void setRegionScout(long id, String region,Club currentClub) {
+    public void setRegionScout(long id, String region, Club currentClub) {
         Scout scout = scoutService.findById(id);
 
         if (scout.getClub().equals(currentClub)) {
@@ -130,7 +122,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public List<ScoutDto> getScoutsByRegion(String region,Club currentClub) {
+    public List<ScoutDto> getScoutsByRegion(String region, Club currentClub) {
         List<Scout> allScouts = scoutService.findAll();
         List<ScoutDto> scouts = new LinkedList<>();
 
@@ -140,13 +132,13 @@ public class ClubServiceImpl implements ClubService {
                 scouts.add(new ScoutDto(scout));
             }
         }
-
         return scouts;
     }
 
     @Override
-    public void addUserToFavorite(long idUser,Club club) {
+    public void addUserToFavorite(long idUser, Club club) {
         User user = userService.findById(idUser);
+
 
         if (club.getFavoriteUsers() == null) {
             club.setFavoriteUsers(new LinkedHashSet<>());
@@ -156,9 +148,10 @@ public class ClubServiceImpl implements ClubService {
         clubRepository.save(club);
     }
 
+
     @Override
-    public List<VideoDto> findVideos(int page,int size) {
-        Iterator<User> users = userService.findAll(page,size).iterator();
+    public List<VideoDto> findVideos(int page, int size) {
+        Iterator<User> users = userService.findAll(page, size).iterator();
         List<VideoDto> videos = new LinkedList<>();
 
         while (users.hasNext()) {
@@ -175,11 +168,13 @@ public class ClubServiceImpl implements ClubService {
     private List<Video> getVideos(User user) {
         List<Video> allVideos = videoService.findAll();
         List<Video> videos = new LinkedList<>();
+
         for (Video video : allVideos) {
             if (video.getUser() != null && video.getUser().equals(user)) {
                 videos.add(video);
             }
         }
+
         return videos;
     }
 
