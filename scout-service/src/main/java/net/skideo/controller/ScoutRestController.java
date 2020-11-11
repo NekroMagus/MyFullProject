@@ -28,9 +28,9 @@ public class ScoutRestController {
     private final ScoutService scoutService;
 
     @GetMapping("/profile")
-    public ResponseEntity<ProfileDto> getProfile() {
+    public ProfileDto getProfile() {
         final ScoutProfileProjection CURRENT_SCOUT = scoutService.getProfileByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        return ResponseEntity.status(HttpStatus.OK).body(scoutService.getProfile(CURRENT_SCOUT));
+        return scoutService.getProfile(CURRENT_SCOUT);
     }
 
     @PutMapping
@@ -39,12 +39,10 @@ public class ScoutRestController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<SearchDto>> search(@RequestParam String country, @RequestParam RoleFootball roleFootball, @RequestParam boolean agent,
+    public List<SearchDto> search(@RequestParam String country, @RequestParam RoleFootball roleFootball, @RequestParam boolean agent,
                                                   @RequestParam RolePeople rolePeople, @RequestParam LeadingLeg leadingLeg, @RequestParam LocalDate dateOfBirth,
                                                   @RequestParam int page,@RequestParam int size) {
-        return ResponseEntity.status(HttpStatus.OK).body(scoutService.search(country, roleFootball, agent,
-                                                                             rolePeople, leadingLeg, dateOfBirth,
-                                                                             page,size));
+        return scoutService.search(country, roleFootball, agent, rolePeople, leadingLeg, dateOfBirth, page,size);
     }
 
     @PostMapping("/user/favorite")

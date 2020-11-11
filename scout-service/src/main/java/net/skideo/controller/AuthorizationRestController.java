@@ -30,14 +30,14 @@ public class AuthorizationRestController {
     private final JwtProvider provider;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<TokenDto> authenticate(@Valid @RequestBody AuthDto authDto) {
+    public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
         final ScoutPasswordProjection SCOUT = scoutService.getPasswordByLogin(authDto.getLogin());
 
         if (SCOUT != null && !authorizationService.isCorrectPassword(authDto.getPassword(), SCOUT.getPassword())) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(new TokenDto(provider.generateToken(authDto.getLogin())));
+        return new TokenDto(provider.generateToken(authDto.getLogin()));
     }
 
 

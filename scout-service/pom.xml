@@ -48,11 +48,9 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
             <scope>compile</scope>
-<<<<<<< HEAD
+
         </dependency>
-=======
-             </dependency>
->>>>>>> 9869caf606ca288f0f821e844c63398b87e77dca
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -69,8 +67,5 @@
         </plugins>
     </build>
 
-<<<<<<< HEAD
 </project>
-=======
-</project>
->>>>>>> 9869caf606ca288f0f821e844c63398b87e77dca
+

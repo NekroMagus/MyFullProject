@@ -22,10 +22,8 @@ public class ClubRestController {
     private final ClubService clubService;
 
     @GetMapping("/profile")
-    public ResponseEntity<ClubProfileDto> getProfile() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(clubService.getProfile());
+    public ClubProfileDto getProfile() {
+        return clubService.getProfile();
     }
 
     @PostMapping("/scout/{id}")
@@ -41,11 +39,9 @@ public class ClubRestController {
     }
 
     @GetMapping("/scouts")
-    public ResponseEntity<List<ScoutDto>> getScouts() {
+    public List<ScoutDto> getScouts() {
         final Club CURRENT_CLUB = clubService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(clubService.getScouts(CURRENT_CLUB));
+        return clubService.getScouts(CURRENT_CLUB);
     }
 
 
@@ -56,11 +52,9 @@ public class ClubRestController {
     }
 
     @GetMapping("/scout")
-    public ResponseEntity<List<ScoutDto>> getScoutByRegion(@RequestParam String region) {
+    public List<ScoutDto> getScoutByRegion(@RequestParam String region) {
         final Club CURRENT_CLUB = clubService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(clubService.getScoutsByRegion(region, CURRENT_CLUB));
+        return clubService.getScoutsByRegion(region, CURRENT_CLUB);
     }
 
 
@@ -71,11 +65,9 @@ public class ClubRestController {
     }
 
     @GetMapping("/videos")
-    public ResponseEntity<List<VideoDto>> findVideos(@RequestParam(defaultValue = "0") int page,
+    public List<VideoDto> findVideos(@RequestParam(defaultValue = "0") int page,
                                                      @RequestParam(defaultValue = "50") int size) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(clubService.findVideos(page, size));
+        return clubService.findVideos(page, size);
     }
 
 }

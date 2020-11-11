@@ -32,8 +32,5 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-<<<<<<< HEAD
 .vscode/
-=======
-.vscode/
->>>>>>> 9869caf606ca288f0f821e844c63398b87e77dca
+
