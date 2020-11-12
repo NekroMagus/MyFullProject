@@ -13,12 +13,14 @@ import net.skideo.dto.TokenDto;
 import net.skideo.model.Scout;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
@@ -36,7 +38,6 @@ public class AuthorizationRestController {
         if (SCOUT != null && !authorizationService.isCorrectPassword(authDto.getPassword(), SCOUT.getPassword())) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
-
         return new TokenDto(provider.generateToken(authDto.getLogin()));
     }
 

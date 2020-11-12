@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.dto.projections.ClubProfileProjection;
+import net.skideo.model.Club;
 
 @Data
 @NoArgsConstructor
@@ -14,6 +15,11 @@ public class ClubProfileDto {
     private String logoLink;
 
     public ClubProfileDto(ClubProfileProjection club) {
+        this.titleClub=club.getTitleClub();
+        this.logoLink=club.getLogoLink();
+    }
+
+    public ClubProfileDto(Club club) {
         this.titleClub=club.getTitleClub();
         this.logoLink=club.getLogoLink();
     }

@@ -10,15 +10,15 @@ import net.skideo.model.Scout;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
+import net.skideo.security.jwt.JwtScout;
 import net.skideo.service.scout.ScoutService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/scout")
@@ -40,8 +40,8 @@ public class ScoutRestController {
 
     @GetMapping("/search")
     public List<SearchDto> search(@RequestParam String country, @RequestParam RoleFootball roleFootball, @RequestParam boolean agent,
-                                                  @RequestParam RolePeople rolePeople, @RequestParam LeadingLeg leadingLeg, @RequestParam LocalDate dateOfBirth,
-                                                  @RequestParam int page,@RequestParam int size) {
+                                  @RequestParam RolePeople rolePeople, @RequestParam LeadingLeg leadingLeg, @RequestParam LocalDate dateOfBirth,
+                                  @RequestParam int page,@RequestParam int size) {
         return scoutService.search(country, roleFootball, agent, rolePeople, leadingLeg, dateOfBirth, page,size);
     }
 
@@ -51,3 +51,6 @@ public class ScoutRestController {
         scoutService.addUserToFavorite(id,CURRENT_USER);
     }
 }
+
+
+
