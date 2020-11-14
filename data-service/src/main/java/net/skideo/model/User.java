@@ -35,9 +35,14 @@ public class User {
     @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
     private LocalDateTime updated;
 
+    @Column(unique = true)
     private String login;
+
+    @Column(unique = true)
     private String email;
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Enumerated(value = EnumType.STRING)
