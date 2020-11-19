@@ -18,8 +18,6 @@ import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -84,7 +82,7 @@ public class ScoutServiceImpl implements ScoutService {
                 int random = (int) (Math.random() * users.size() - 1);
                 User user = users.get(random);
 
-                if (getVideos(user.getId()).size() >= 1) {
+                if (videoService.findAllByUserId(user.getId()).size() >= 1) {
                     players.add(new ProfileUserDto(user));
                 }
             }
@@ -116,7 +114,6 @@ public class ScoutServiceImpl implements ScoutService {
 
 
     @Override
-
     public void addUserToFavorite(long idUser, Scout currentScout) {
         User user = userService.findById(idUser);
 
@@ -129,15 +126,4 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
 
-    private List<Video> getVideos(long idUser) {
-        List<Video> allVideos = videoService.findAll();
-        List<Video> videos = new LinkedList<>();
-
-        for (Video video : allVideos) {
-            if (video.getUser() != null && video.getUser().getId() == idUser) {
-                videos.add(video);
-            }
-        }
-        return videos;
-    }
 }

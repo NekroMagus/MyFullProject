@@ -19,6 +19,4 @@ public class AuthDto {
     @Size(min=4)
     private String password;
 
-
-
 }

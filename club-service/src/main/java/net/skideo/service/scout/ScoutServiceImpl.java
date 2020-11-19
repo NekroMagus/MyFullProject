@@ -1,9 +1,13 @@
 package net.skideo.service.scout;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.dto.ScoutDto;
+import net.skideo.dto.projections.ScoutProjection;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
 import net.skideo.repository.ScoutRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +31,12 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public List<Scout> findAll() {
-        return scoutRepository.findAll();
+    public Page<ScoutDto> findAllByClubId(long idUser,Pageable pageable) {
+        return scoutRepository.findAllByClubId(idUser,pageable);
+    }
+
+    @Override
+    public Page<ScoutDto> findAllByRegionAndClubId(String region, long idUser, Pageable pageable) {
+        return scoutRepository.findAllByRegionAndClubId(region,idUser,pageable);
     }
 }

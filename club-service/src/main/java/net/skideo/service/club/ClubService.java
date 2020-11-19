@@ -6,6 +6,8 @@ import net.skideo.dto.VideoDto;
 import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.model.Club;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface ClubService {
@@ -23,7 +25,7 @@ public interface ClubService {
 
     ClubProfileDto getProfile();
 
-    List<ScoutDto> getScouts(Club currentClub);
+    Page<ScoutDto> getScouts(Club currentClub,int page,int size);
 
     void addScout(long id,Club currentClub);
 
@@ -31,7 +33,7 @@ public interface ClubService {
 
     void setRegionScout(long id, String region,Club currentClub);
 
-    List<ScoutDto> getScoutsByRegion(String region,Club currentClub);
+    Page<ScoutDto> getScoutsByRegion(String region, long idCurrentClub,int page,int size);
 
     void addUserToFavorite(long idUser,Club club);
 

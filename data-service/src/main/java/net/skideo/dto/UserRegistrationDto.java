@@ -28,4 +28,5 @@ public class UserRegistrationDto {
 
     private boolean hasAgent;
 
+
 }

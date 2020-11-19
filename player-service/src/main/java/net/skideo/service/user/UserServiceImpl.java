@@ -143,10 +143,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser() {
-        return findByLogin(getCurrentLogin()).orElseThrow(() -> {
-            log.error("Cannot get current user, Security error in class: {}", this.getClass().getSimpleName());
-            throw new NotFoundException("User not found");
-        });
+        return findByLogin(getCurrentLogin()).orElseThrow(() ->
+            new NotFoundException("User not found")
+        );
     }
 
     @Override

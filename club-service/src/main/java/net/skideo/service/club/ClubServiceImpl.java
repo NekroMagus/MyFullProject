@@ -3,6 +3,7 @@ package net.skideo.service.club;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
+import net.skideo.dto.projections.ScoutProjection;
 import net.skideo.exception.ClubNotFoundException;
 import net.skideo.repository.ClubRepository;
 import net.skideo.dto.ClubProfileDto;
@@ -15,6 +16,9 @@ import net.skideo.model.Video;
 import net.skideo.service.scout.ScoutService;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -75,17 +79,9 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public List<ScoutDto> getScouts(Club currentClub) {
-        List<Scout> allScouts = scoutService.findAll();
-        List<ScoutDto> scouts = new LinkedList<>();
-
-        for (Scout scout : allScouts) {
-            if (scout.getClub() != null && scout.getClub().equals(currentClub)) {
-                scouts.add(new ScoutDto(scout));
-            }
-        }
-
-        return scouts;
+    public Page<ScoutDto> getScouts(Club currentClub,int page,int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return scoutService.findAllByClubId(currentClub.getId(),pageable);
     }
 
     @Override
@@ -122,17 +118,9 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public List<ScoutDto> getScoutsByRegion(String region, Club currentClub) {
-        List<Scout> allScouts = scoutService.findAll();
-        List<ScoutDto> scouts = new LinkedList<>();
-
-        for (Scout scout : allScouts) {
-            if (scout.getClub() != null && scout.getClub().equals(currentClub) &&
-                scout.getRegion() != null && scout.getRegion().equals(region)) {
-                scouts.add(new ScoutDto(scout));
-            }
-        }
-        return scouts;
+    public Page<ScoutDto> getScoutsByRegion(String region, long idCurrentClub,int page,int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return scoutService.findAllByRegionAndClubId(region,idCurrentClub,pageable);
     }
 
     @Override
@@ -156,27 +144,16 @@ public class ClubServiceImpl implements ClubService {
 
         while (users.hasNext()) {
             User user = users.next();
-            if (getVideos(user).size() >= 1) {
-                int random = (int) (Math.random() * getVideos(user).size() - 1);
-                videos.add(new VideoDto(getVideos(user).get(random)));
+            if (videoService.findAllByUserId(user.getId()).size() >= 1) {
+                int random = (int) (Math.random() * videoService.findAllByUserId(user.getId()).size() - 1);
+                videos.add(new VideoDto(videoService.findAllByUserId(user.getId()).get(random)));
             }
         }
 
         return videos;
     }
 
-    private List<Video> getVideos(User user) {
-        List<Video> allVideos = videoService.findAll();
-        List<Video> videos = new LinkedList<>();
 
-        for (Video video : allVideos) {
-            if (video.getUser() != null && video.getUser().equals(user)) {
-                videos.add(video);
-            }
-        }
-
-        return videos;
-    }
 
 
 }

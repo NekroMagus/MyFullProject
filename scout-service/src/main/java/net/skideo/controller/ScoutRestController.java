@@ -10,6 +10,7 @@ import net.skideo.model.Scout;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
+import net.skideo.repository.ScoutRepository;
 import net.skideo.security.jwt.JwtScout;
 import net.skideo.service.scout.ScoutService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/scout")
@@ -26,6 +26,12 @@ import java.util.logging.Logger;
 public class ScoutRestController {
 
     private final ScoutService scoutService;
+    private final ScoutRepository scoutRepository;
+
+    @GetMapping("/all")
+    public List<Scout> all() {
+        return scoutRepository.findAll();
+    }
 
     @GetMapping("/profile")
     public ProfileDto getProfile() {
@@ -47,8 +53,8 @@ public class ScoutRestController {
 
     @PostMapping("/user/favorite")
     public void addUserToFavorite(@RequestParam long id) {
-        final Scout CURRENT_USER = scoutService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        scoutService.addUserToFavorite(id,CURRENT_USER);
+        final Scout CURRENT_SCOUT = scoutService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        scoutService.addUserToFavorite(id,CURRENT_SCOUT);
     }
 }
 

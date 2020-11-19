@@ -6,8 +6,7 @@ import net.skideo.dto.ScoutDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.model.Club;
 import net.skideo.service.club.ClubService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,9 +38,9 @@ public class ClubRestController {
     }
 
     @GetMapping("/scouts")
-    public List<ScoutDto> getScouts() {
+    public Page<ScoutDto> getScouts(@RequestParam int page, @RequestParam int size) {
         final Club CURRENT_CLUB = clubService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        return clubService.getScouts(CURRENT_CLUB);
+        return clubService.getScouts(CURRENT_CLUB,page,size);
     }
 
 
@@ -52,9 +51,9 @@ public class ClubRestController {
     }
 
     @GetMapping("/scout")
-    public List<ScoutDto> getScoutByRegion(@RequestParam String region) {
+    public Page<ScoutDto> getScoutByRegion(@RequestParam int page,@RequestParam int size,@RequestParam String region) {
         final Club CURRENT_CLUB = clubService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        return clubService.getScoutsByRegion(region, CURRENT_CLUB);
+        return clubService.getScoutsByRegion(region, CURRENT_CLUB.getId(),page,size);
     }
 
 
