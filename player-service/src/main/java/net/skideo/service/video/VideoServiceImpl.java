@@ -72,6 +72,7 @@ public class VideoServiceImpl implements VideoService {
     public int getRating(long idVideo) {
         int rating = 0;
         Video video = findById(idVideo);
+
         for (Like like : video.getLikes()) {
             rating += like.getRating().getRating();
         }

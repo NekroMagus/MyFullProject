@@ -22,7 +22,7 @@ public class UserExceptionController {
     }
 
     @ExceptionHandler(value = UserRatedException.class)
-    public String userRated() {
-        return "user is already rated";
+    public ResponseEntity<?> userRated() {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("User already rated");
     }
 }
