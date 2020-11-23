@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,8 +40,8 @@ public class LikeServiceImplTest {
 
         Like l = likeService.findById(id);
 
-        assertEquals(l,like);
-        verify(likeRepository,times(1)).findById(id);
+        assertEquals(l, like);
+        verify(likeRepository, times(1)).findById(id);
     }
 
     @Test
@@ -49,9 +51,10 @@ public class LikeServiceImplTest {
         like.setId(id);
         given(likeRepository.findById(id)).willReturn(Optional.of(like));
 
-        Like l = likeService.findById(2L);
-        ///assertThrows(NotFoundException.class,l);
-
-        verify(likeRepository,times(1)).findById(id);
+        assertThrows(NotFoundException.class, () -> {
+            likeService.findById(2L);
+        });
+        verify(likeRepository, times(1)).findById(id);
     }
 }
+

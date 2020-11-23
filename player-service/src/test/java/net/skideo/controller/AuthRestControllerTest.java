@@ -2,7 +2,6 @@ package net.skideo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.skideo.annotations.ControllerTest;
-import net.skideo.annotations.JpaTest;
 import net.skideo.dto.UserAuthDto;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.model.User;
