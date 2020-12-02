@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.dto.ClubProfileDto;
 import net.skideo.dto.ScoutDto;
 import net.skideo.dto.VideoDto;
+import net.skideo.exception.ClubNotFoundException;
 import net.skideo.model.Club;
+import net.skideo.repository.ClubRepository;
 import net.skideo.service.club.ClubService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,7 @@ import java.util.List;
 public class ClubRestController {
 
     private final ClubService clubService;
+    private final ClubRepository clubRepository;
 
     @GetMapping("/profile")
     public ClubProfileDto getProfile() {

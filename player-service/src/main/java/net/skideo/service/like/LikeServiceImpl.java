@@ -26,10 +26,11 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public void updateRating(Like like) {
+    public Like updateRating(Like like) {
         Like dbLike = findById(like.getId());
         dbLike.setRating(like.getRating());
         repository.save(dbLike);
+        return dbLike;
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface LikeService {
 
     Like findById(long id);
 
-    void updateRating(Like like);
+    Like updateRating(Like like);
 
     void deleteById(long id);
 
