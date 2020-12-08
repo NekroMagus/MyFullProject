@@ -7,6 +7,7 @@ import net.skideo.model.Club;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +36,7 @@ public class ClubRepositoryTest {
 
     @Test
     public void findByIdTest_Throws() {
-        assertThrows(ClubNotFoundException.class,() -> repository.findById(2L).orElseThrow(
+        assertThrows(ClubNotFoundException.class, () -> repository.findById(2L).orElseThrow(
                 () -> new ClubNotFoundException("Club not found")
         ));
     }
@@ -48,7 +49,7 @@ public class ClubRepositoryTest {
 
         assertNotNull(club);
     }
-    
+
     @Test
     public void findPasswordByLoginTest() {
         final String login = "apache";
@@ -74,7 +75,7 @@ public class ClubRepositoryTest {
                 () -> new ClubNotFoundException("Club not found")
         );
 
-        assertEquals(club.getLogin(),"egor");
+        assertEquals(club.getLogin(), "egor");
     }
 
     @Test
@@ -82,7 +83,7 @@ public class ClubRepositoryTest {
         final long id = 1L;
 
         repository.deleteById(id);
-        assertNull(repository.findById(id));
+        assertEquals(Optional.empty(), repository.findById(id));
     }
 
 }
