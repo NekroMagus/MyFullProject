@@ -21,4 +21,4 @@ INSERT INTO videos(id,user_id) values(1,2);
 
 INSERT INTO likes(id,user_id,video_id,rating) values (1,1,1,'ONE');
 
-INSERT INTO club(id,login) values (1,'apache');
+INSERT INTO club(id,login, password) values (1,'apache', 'password');
