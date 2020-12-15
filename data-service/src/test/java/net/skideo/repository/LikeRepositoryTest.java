@@ -1,12 +1,15 @@
 package net.skideo.repository;
 
 import net.skideo.JpaTest;
+import net.skideo.dto.projections.TestProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Like;
 import net.skideo.model.User;
 import net.skideo.model.enums.Rating;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,6 +19,7 @@ public class LikeRepositoryTest {
 
     @Autowired
     private LikeRepository repository;
+    private final long ID = 1L;
 
     @Test
     public void contextLoads() {
@@ -23,45 +27,48 @@ public class LikeRepositoryTest {
     }
 
     @Test
-    public void findByIdTest_NotNull() {
-        Like like = repository.findById(1L).orElseThrow(
+    public void givenValidId_whenFindById_thenNotNull() {
+        Like like = repository.findById(ID).orElseThrow(
                 () -> new NotFoundException("Like not found")
         );
+
         assertNotNull(like);
     }
 
     @Test
-    public void findByIdTest_Throws() {
-        assertThrows(NotFoundException.class, () -> repository.findById(4L).orElseThrow(
+    public void givenInvalidId_whenFindById_thenNotFound() {
+        final long id = 10000L;
+
+        assertThrows(NotFoundException.class, () -> repository.findById(id).orElseThrow(
                 () -> new NotFoundException("Like not found")
         ));
     }
 
     @Test
-    public void updateTest() {
+    public void givenLike_whenSaveAndFindById_thenEquals() {
         Like like = new Like();
-        like.setId(1L);
+        like.setId(ID);
         like.setRating(Rating.TWO);
 
         repository.save(like);
 
-        assertEquals(repository.findById(1L).orElseThrow(
+        assertEquals(repository.findById(ID).orElseThrow(
                 () -> new NotFoundException("Like not found")
         ).getRating(), Rating.TWO);
     }
 
     @Test
-    public void deleteByIdTest() {
-        repository.deleteById(1L);
+    public void givenValidId_whenDeleteByIdAndFindById_thenNotFound() {
+        repository.deleteById(ID);
 
-        assertThrows(NotFoundException.class, () -> repository.findById(1L).orElseThrow(
+        assertThrows(NotFoundException.class, () -> repository.findById(ID).orElseThrow(
                 () -> new NotFoundException("Like not found")
         ));
     }
 
     @Test
-    public void findByUserIdAndVideoId() {
-        Like like1 = repository.findById(1L).orElseThrow(
+    public void givenValidId_whenFindByIdAndFindByUserIdAndVideoId_thenEquals() {
+        Like like1 = repository.findById(ID).orElseThrow(
                 () -> new NotFoundException("Like not found")
         );
         Like like2 = repository.findByUserIdAndVideoId(1, 1).orElseThrow(

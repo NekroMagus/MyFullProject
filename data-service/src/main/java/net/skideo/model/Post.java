@@ -21,7 +21,7 @@ public class Post {
     private LeadingLeg leadingLeg;
     private LocalDate dateOfBirth;
     private String videoLink;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
 
     public long getId() {

@@ -1,3 +1,5 @@
+DELETE from scout;
+DELETE from skideo_post;
 DELETE from club;
 DELETE from likes;
 DELETE from videos;
@@ -21,4 +23,8 @@ INSERT INTO videos(id,user_id) values(1,2);
 
 INSERT INTO likes(id,user_id,video_id,rating) values (1,1,1,'ONE');
 
-INSERT INTO club(id,login) values (1,'apache');
+INSERT INTO club(id,login,password,title_club,logo_link) values (1,'apache','password','title','link');
+
+INSERT INTO skideo_post(id,agent) values (1,false);
+
+INSERT INTO scout(id,login,password,region,club_id,name) values (1,'apache','password','region',1,'name');
