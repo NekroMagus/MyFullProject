@@ -28,3 +28,4 @@ INSERT INTO club(id,login,password,title_club,logo_link) values (1,'apache','pas
 INSERT INTO skideo_post(id,agent) values (1,false);
 
 INSERT INTO scout(id,login,password,region,club_id,name) values (1,'apache','password','region',1,'name');
+

@@ -92,7 +92,7 @@ public class ClubRepositoryTest {
                 () -> new ClubNotFoundException("Club not found")
         );
 
-        assertEquals(club.getLogin(),"egor");
+        assertEquals(club.getLogin(), "egor");
     }
 
     @Test
