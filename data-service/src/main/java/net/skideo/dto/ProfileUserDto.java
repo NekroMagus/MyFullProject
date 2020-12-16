@@ -1,10 +1,10 @@
 package net.skideo.dto;
 
+import net.skideo.model.Club;
+import net.skideo.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.Club;
-import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
 
 

@@ -1,16 +1,16 @@
 package net.skideo.service.video;
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
-import net.skideo.exception.ForbiddenException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Like;
 import net.skideo.model.User;
 import net.skideo.model.Video;
-import net.skideo.repository.VideoRepository;
 import net.skideo.service.like.LikeService;
 import net.skideo.service.user.UserService;
+import lombok.RequiredArgsConstructor;
+import net.skideo.exception.ForbiddenException;
+import net.skideo.repository.VideoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

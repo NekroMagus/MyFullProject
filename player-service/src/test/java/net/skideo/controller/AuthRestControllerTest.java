@@ -1,16 +1,14 @@
 package net.skideo.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.skideo.annotations.ControllerTest;
 import net.skideo.dto.UserAuthDto;
 import net.skideo.dto.UserRegistrationDto;
-import net.skideo.model.User;
-import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.UserRepository;
 import net.skideo.security.jwt.JwtTokenUtil;
-import net.skideo.service.auth.AuthService;
 import net.skideo.service.user.UserService;
-import org.aspectj.lang.annotation.Before;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.skideo.model.enums.RolePeople;
+import net.skideo.service.auth.AuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -1,17 +1,17 @@
 package net.skideo.service.user;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
+import net.skideo.dto.projections.UserProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
-import net.skideo.dto.projections.UserProjection;
 import net.skideo.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;

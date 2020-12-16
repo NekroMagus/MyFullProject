@@ -1,8 +1,8 @@
 package net.skideo.service.like;
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Like;
+import lombok.RequiredArgsConstructor;
 import net.skideo.repository.LikeRepository;
 import org.springframework.stereotype.Service;
 

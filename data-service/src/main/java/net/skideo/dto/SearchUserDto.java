@@ -1,8 +1,8 @@
 package net.skideo.dto;
 
+import net.skideo.model.User;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Data;
-import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
 
 import java.time.LocalDate;

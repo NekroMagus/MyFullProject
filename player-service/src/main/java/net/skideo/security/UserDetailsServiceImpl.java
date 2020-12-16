@@ -1,10 +1,9 @@
 package net.skideo.security;
 
 
-import lombok.extern.slf4j.Slf4j;
 import net.skideo.dto.projections.UserAuthProjection;
-import net.skideo.model.User;
 import net.skideo.service.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

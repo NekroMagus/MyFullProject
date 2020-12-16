@@ -1,8 +1,8 @@
 package net.skideo.service.user;
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
+import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AuthDto;
 import net.skideo.dto.ClubRegDto;
 import net.skideo.dto.TokenDto;
-import net.skideo.dto.projections.ClubPasswordProjection;
+import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubAlreadyExistsException;
 import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.model.Club;
@@ -28,7 +28,7 @@ public class AuthorizationRestController {
 
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
-        final ClubPasswordProjection CLUB = clubService.getPasswordByLogin(authDto.getLogin());
+        final PasswordProjection CLUB = clubService.getPasswordByLogin(authDto.getLogin());
 
         if (!authorizationService.isCorrectPassword(authDto.getPassword(), CLUB.getPassword())) {
             throw new WrongLoginOrPasswordException("Wrong login or password");

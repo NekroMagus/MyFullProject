@@ -1,7 +1,7 @@
 package net.skideo.dto;
 
-import lombok.Data;
 import net.skideo.model.User;
+import lombok.Data;
 import net.skideo.model.enums.RoleFootball;
 
 @Data

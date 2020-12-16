@@ -1,8 +1,8 @@
 package net.skideo.repository;
 
-import net.skideo.JpaTest;
 import net.skideo.exception.PostNotFoundException;
 import net.skideo.model.Post;
+import net.skideo.JpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

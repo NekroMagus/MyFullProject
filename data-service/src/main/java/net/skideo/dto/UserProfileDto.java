@@ -1,9 +1,9 @@
 package net.skideo.dto;
 
+import net.skideo.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;

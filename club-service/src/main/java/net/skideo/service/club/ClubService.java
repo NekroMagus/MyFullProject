@@ -3,8 +3,8 @@ package net.skideo.service.club;
 import net.skideo.dto.ClubProfileDto;
 import net.skideo.dto.ScoutDto;
 import net.skideo.dto.VideoDto;
-import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
+import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.model.Club;
 import org.springframework.data.domain.Page;
 
@@ -14,8 +14,7 @@ public interface ClubService {
 
     Club findByLogin(String login);
 
-
-    ClubPasswordProjection getPasswordByLogin(String login);
+    PasswordProjection getPasswordByLogin(String login);
 
     ClubProfileProjection getProfileByLogin(String login);
 

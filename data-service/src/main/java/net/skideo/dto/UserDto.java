@@ -1,9 +1,9 @@
 package net.skideo.dto;
 
+import net.skideo.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import org.springframework.format.annotation.DateTimeFormat;

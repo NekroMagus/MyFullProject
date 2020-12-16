@@ -1,13 +1,11 @@
 package net.skideo.service.like;
 
-import net.skideo.annotations.UnitTest;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Like;
-import net.skideo.model.User;
 import net.skideo.model.enums.Rating;
+import net.skideo.annotations.UnitTest;
 import net.skideo.repository.LikeRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 

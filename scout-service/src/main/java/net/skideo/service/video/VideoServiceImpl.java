@@ -1,8 +1,7 @@
 package net.skideo.service.video;
 
-import lombok.RequiredArgsConstructor;
-import net.skideo.exception.NotFoundException;
 import net.skideo.model.Video;
+import lombok.RequiredArgsConstructor;
 import net.skideo.repository.VideoRepository;
 import org.springframework.stereotype.Service;
 

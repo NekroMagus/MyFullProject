@@ -1,16 +1,16 @@
 package net.skideo.controller;
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.dto.GetRatingDto;
 import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.dto.VideoLinkDto;
-import net.skideo.exception.UserRatedException;
 import net.skideo.model.Like;
 import net.skideo.model.User;
 import net.skideo.service.like.LikeService;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
+import lombok.RequiredArgsConstructor;
+import net.skideo.exception.UserRatedException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

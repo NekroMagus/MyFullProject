@@ -3,7 +3,6 @@ package net.skideo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.Club;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

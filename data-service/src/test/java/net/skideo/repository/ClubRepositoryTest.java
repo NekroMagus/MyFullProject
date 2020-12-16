@@ -1,10 +1,10 @@
 package net.skideo.repository;
 
-import net.skideo.JpaTest;
-import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
+import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
 import net.skideo.model.Club;
+import net.skideo.JpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,7 +53,7 @@ public class ClubRepositoryTest {
     public void givenValidLogin_whenFindPasswordProjectionByLogin_thenEquals() {
         final String PASSWORD = "password";
 
-        ClubPasswordProjection projection = repository.findPasswordByLogin(LOGIN).orElseThrow(
+        PasswordProjection projection = repository.findPasswordByLogin(LOGIN).orElseThrow(
                 () -> new ClubNotFoundException("Club not found")
         );
 

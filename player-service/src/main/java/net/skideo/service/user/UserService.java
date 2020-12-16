@@ -4,9 +4,10 @@ import net.skideo.dto.UserDto;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
+import net.skideo.dto.projections.UserProjection;
 import net.skideo.model.User;
 import net.skideo.model.enums.RoleFootball;
-import net.skideo.dto.projections.UserProjection;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package net.skideo.model;
 
+import net.skideo.model.enums.Rating;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.enums.Rating;
 
 import javax.persistence.*;
 

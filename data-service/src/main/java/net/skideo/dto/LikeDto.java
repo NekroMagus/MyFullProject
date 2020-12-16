@@ -1,8 +1,8 @@
 package net.skideo.dto;
 
-import lombok.Data;
 import net.skideo.model.Like;
 import net.skideo.model.enums.Rating;
+import lombok.Data;
 
 @Data
 public class LikeDto {

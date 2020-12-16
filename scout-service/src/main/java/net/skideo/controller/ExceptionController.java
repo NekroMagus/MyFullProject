@@ -1,8 +1,8 @@
 package net.skideo.controller;
 
 import net.skideo.exception.ScoutNotFoundException;
-import net.skideo.exception.ScoutsAlreadyExistsException;
 import net.skideo.exception.WrongLoginOrPasswordException;
+import net.skideo.exception.ScoutsAlreadyExistsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

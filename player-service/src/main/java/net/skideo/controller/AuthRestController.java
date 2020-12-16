@@ -1,16 +1,16 @@
 package net.skideo.controller;
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.dto.TokenDto;
 import net.skideo.dto.UserAuthDto;
 import net.skideo.dto.UserRegistrationDto;
-import net.skideo.exception.AlreadyExistsException;
-import net.skideo.exception.WrongLoginOrPasswordException;
-import net.skideo.model.enums.RolePeople;
 import net.skideo.dto.projections.UserProjection;
+import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.security.jwt.JwtTokenUtil;
 import net.skideo.service.auth.AuthService;
 import net.skideo.service.user.UserService;
+import lombok.RequiredArgsConstructor;
+import net.skideo.exception.AlreadyExistsException;
+import net.skideo.model.enums.RolePeople;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

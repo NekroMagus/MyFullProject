@@ -1,11 +1,11 @@
 package net.skideo.model;
 
+import net.skideo.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;
-import net.skideo.model.enums.Role;
 import net.skideo.model.enums.RoleFootball;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,7 +15,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

@@ -1,11 +1,10 @@
 package net.skideo.repository;
 
-import net.skideo.JpaConfigTest;
-import net.skideo.JpaTest;
-import net.skideo.dto.projections.ScoutPasswordProjection;
-import net.skideo.dto.projections.ScoutProfileProjection;
+import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
+import net.skideo.JpaTest;
+import net.skideo.dto.projections.ScoutProfileProjection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,7 +44,7 @@ public class ScoutRepositoryTest {
     public void givenValidLoginAndPassword_whenFindPasswordByLogin_thenEquals() {
         final String password = "password";
 
-        ScoutPasswordProjection projection = repository.findPasswordByLogin(LOGIN).orElseThrow(
+        PasswordProjection projection = repository.findPasswordByLogin(LOGIN).orElseThrow(
                 () -> new ScoutNotFoundException("Scout not found")
         );
 

@@ -3,7 +3,7 @@ package net.skideo.service.scout;
 import net.skideo.dto.ProfileDto;
 import net.skideo.dto.SearchDto;
 import net.skideo.dto.UpdateProfileDto;
-import net.skideo.dto.projections.ScoutPasswordProjection;
+import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.dto.projections.ScoutProfileProjection;
 import net.skideo.model.Scout;
 import net.skideo.model.enums.LeadingLeg;
@@ -20,7 +20,7 @@ public interface ScoutService {
 
     Scout findByLogin(String login);
 
-    ScoutPasswordProjection getPasswordByLogin(String login);
+    PasswordProjection getPasswordByLogin(String login);
 
     ScoutProfileProjection getProfileByLogin(String login);
 
@@ -30,7 +30,7 @@ public interface ScoutService {
 
     void updateProfile(UpdateProfileDto profile);
 
-    List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth,int page,int size);
+    List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size);
 
     void addUserToFavorite(long idUser,Scout currentScout);
 

@@ -1,22 +1,21 @@
 package net.skideo.repository;
 
 import net.skideo.dto.ScoutDto;
-import net.skideo.dto.projections.ScoutPasswordProjection;
+import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.dto.projections.ScoutProfileProjection;
-import net.skideo.dto.projections.ScoutProjection;
 import net.skideo.model.Scout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import sun.security.util.Password;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ScoutRepository extends JpaRepository<Scout,Long> {
 
     Optional<Scout> findByLogin(String login);
 
-    Optional<ScoutPasswordProjection> findPasswordByLogin(String login);
+    Optional<PasswordProjection> findPasswordByLogin(String login);
 
     Optional<ScoutProfileProjection> findProfileByLogin(String login);
 

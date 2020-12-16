@@ -1,9 +1,7 @@
 package net.skideo.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import net.skideo.dto.ClubRegDto;
 
 import javax.persistence.*;
 import java.util.Set;

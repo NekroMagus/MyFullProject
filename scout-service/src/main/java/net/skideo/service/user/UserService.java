@@ -1,6 +1,5 @@
 package net.skideo.service.user;
 
-import net.skideo.model.Scout;
 import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;

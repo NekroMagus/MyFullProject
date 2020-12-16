@@ -1,18 +1,17 @@
 package net.skideo.controller;
 
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.dto.ProfileDto;
 import net.skideo.dto.SearchDto;
 import net.skideo.dto.UpdateProfileDto;
 import net.skideo.dto.projections.ScoutProfileProjection;
 import net.skideo.model.Scout;
+import net.skideo.repository.ScoutRepository;
+import net.skideo.service.scout.ScoutService;
+import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
-import net.skideo.repository.ScoutRepository;
-import net.skideo.security.jwt.JwtScout;
-import net.skideo.service.scout.ScoutService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +46,7 @@ public class ScoutRestController {
     @GetMapping("/search")
     public List<SearchDto> search(@RequestParam String country, @RequestParam RoleFootball roleFootball, @RequestParam boolean agent,
                                   @RequestParam RolePeople rolePeople, @RequestParam LeadingLeg leadingLeg, @RequestParam LocalDate dateOfBirth,
-                                  @RequestParam int page,@RequestParam int size) {
+                                  @RequestParam int page, @RequestParam int size) {
         return scoutService.search(country, roleFootball, agent, rolePeople, leadingLeg, dateOfBirth, page,size);
     }
 

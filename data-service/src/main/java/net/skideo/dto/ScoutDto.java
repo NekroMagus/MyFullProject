@@ -1,10 +1,10 @@
 package net.skideo.dto;
 
+import net.skideo.dto.projections.ScoutProjection;
+import net.skideo.model.Scout;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.dto.projections.ScoutProjection;
-import net.skideo.model.Scout;
 
 @Data
 @NoArgsConstructor

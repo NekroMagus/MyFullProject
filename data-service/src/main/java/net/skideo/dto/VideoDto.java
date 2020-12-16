@@ -1,8 +1,8 @@
 package net.skideo.dto;
 
+import net.skideo.model.Video;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.Video;
 
 import java.util.HashSet;
 import java.util.Set;

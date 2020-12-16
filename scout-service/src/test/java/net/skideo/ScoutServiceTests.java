@@ -1,7 +1,7 @@
 package net.skideo;
 
-import net.skideo.repository.ScoutRepository;
 import net.skideo.model.Scout;
+import net.skideo.repository.ScoutRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

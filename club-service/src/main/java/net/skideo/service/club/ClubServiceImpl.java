@@ -1,9 +1,8 @@
 package net.skideo.service.club;
 
 import lombok.RequiredArgsConstructor;
-import net.skideo.dto.projections.ClubPasswordProjection;
 import net.skideo.dto.projections.ClubProfileProjection;
-import net.skideo.dto.projections.ScoutProjection;
+import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
 import net.skideo.repository.ClubRepository;
 import net.skideo.dto.ClubProfileDto;
@@ -12,7 +11,6 @@ import net.skideo.dto.VideoDto;
 import net.skideo.model.Club;
 import net.skideo.model.Scout;
 import net.skideo.model.User;
-import net.skideo.model.Video;
 import net.skideo.service.scout.ScoutService;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
@@ -53,7 +51,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public ClubPasswordProjection getPasswordByLogin(String login) {
+    public PasswordProjection getPasswordByLogin(String login) {
         return clubRepository.findPasswordByLogin(login).orElseThrow(
                 () -> new ClubNotFoundException("Club bot found")
         );

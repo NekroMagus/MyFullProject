@@ -1,7 +1,6 @@
 package net.skideo;
 
 import net.skideo.security.jwt.JwtAuthenticationEntryPoint;
-import net.skideo.security.jwt.JwtRequestFilter;
 import net.skideo.security.jwt.JwtTokenUtil;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;

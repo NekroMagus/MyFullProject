@@ -1,13 +1,11 @@
 package net.skideo.controller;
 
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.projections.UserProfileProjection;
-import net.skideo.model.enums.RoleFootball;
 import net.skideo.service.user.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
+import net.skideo.model.enums.RoleFootball;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

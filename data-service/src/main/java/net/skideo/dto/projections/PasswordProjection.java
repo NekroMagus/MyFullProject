@@ -1,6 +1,6 @@
 package net.skideo.dto.projections;
 
-public interface ClubPasswordProjection {
+public interface PasswordProjection {
 
     String getPassword();
 

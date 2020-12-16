@@ -1,8 +1,8 @@
 package net.skideo.repository;
 
-import net.skideo.JpaTest;
 import net.skideo.dto.projections.UserProjection;
 import net.skideo.model.User;
+import net.skideo.JpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

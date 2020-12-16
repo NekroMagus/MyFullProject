@@ -1,26 +1,24 @@
 package net.skideo.controller;
 
-import lombok.RequiredArgsConstructor;
-import net.skideo.dto.projections.ScoutPasswordProjection;
-import net.skideo.exception.ScoutsAlreadyExistsException;
-import net.skideo.exception.WrongLoginOrPasswordException;
-import net.skideo.security.jwt.JwtProvider;
-import net.skideo.service.auth.AuthorizationService;
-import net.skideo.service.scout.ScoutService;
 import net.skideo.dto.AuthDto;
 import net.skideo.dto.RegDto;
 import net.skideo.dto.TokenDto;
+import net.skideo.dto.projections.PasswordProjection;
+import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.model.Scout;
+import net.skideo.service.auth.AuthorizationService;
+import net.skideo.service.scout.ScoutService;
+import lombok.RequiredArgsConstructor;
+import net.skideo.exception.ScoutsAlreadyExistsException;
+import net.skideo.security.jwt.JwtProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
@@ -33,7 +31,7 @@ public class AuthorizationRestController {
 
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
-        final ScoutPasswordProjection SCOUT = scoutService.getPasswordByLogin(authDto.getLogin());
+        final PasswordProjection SCOUT = scoutService.getPasswordByLogin(authDto.getLogin());
 
         if (SCOUT != null && !authorizationService.isCorrectPassword(authDto.getPassword(), SCOUT.getPassword())) {
             throw new WrongLoginOrPasswordException("Wrong login or password");

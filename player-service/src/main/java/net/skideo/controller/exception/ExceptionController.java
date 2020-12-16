@@ -1,9 +1,9 @@
 package net.skideo.controller.exception;
 
+import net.skideo.exception.NotFoundException;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.ApiError;
 import net.skideo.exception.ForbiddenException;
-import net.skideo.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

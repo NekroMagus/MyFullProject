@@ -1,15 +1,12 @@
 package net.skideo.repository;
 
-import net.skideo.JpaTest;
-import net.skideo.dto.projections.TestProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Like;
-import net.skideo.model.User;
 import net.skideo.model.enums.Rating;
+import net.skideo.JpaTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -52,7 +49,7 @@ public class LikeRepositoryTest {
 
         repository.save(like);
 
-        assertEquals(repository.findById(ID).orElseThrow(
+        Assertions.assertEquals(repository.findById(ID).orElseThrow(
                 () -> new NotFoundException("Like not found")
         ).getRating(), Rating.TWO);
     }
