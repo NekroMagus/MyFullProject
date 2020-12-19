@@ -1,5 +1,6 @@
 package net.skideo.security.jwt;
 
+import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.model.Academy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,10 +12,10 @@ public class JwtAcademy implements UserDetails {
     private String login;
     private String password;
 
-    public static JwtAcademy academyToJwtAcademy(Academy academy) {
+    public static JwtAcademy academyToJwtAcademy(AcademyAuthProjection projection) {
         JwtAcademy jwtAcademy = new JwtAcademy();
-        jwtAcademy.setLogin(academy.getLogin());
-        jwtAcademy.setPassword(academy.getPassword());
+        jwtAcademy.setLogin(projection.getLogin());
+        jwtAcademy.setPassword(projection.getPassword());
         return jwtAcademy;
     }
 

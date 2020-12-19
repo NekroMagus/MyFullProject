@@ -1,5 +1,6 @@
 package net.skideo.service.academy;
 
+import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.AcademyNotFoundException;
 import net.skideo.model.Academy;
@@ -24,6 +25,7 @@ public class AcademyServiceImpl implements AcademyService {
     private final AcademyRepository academyRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public void save(Academy academy) {
         academy.setPassword(passwordEncoder.encode(academy.getPassword()));
         academyRepository.save(academy);
@@ -39,6 +41,15 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
+    public AcademyAuthProjection findLoginAndPasswordByLogin(String login) {
+        AcademyAuthProjection academyAuthProjection = academyRepository.findLoginAndPasswordByLogin(login).orElseThrow(
+                () -> new AcademyNotFoundException("Academy not found")
+        );
+
+        return academyAuthProjection;
+    }
+
+    @Override
     public PasswordProjection getPasswordByLogin(String login) {
         return academyRepository.findPasswordByLogin(login).orElseThrow(
                 () -> new AcademyNotFoundException("Academy not found")
@@ -50,12 +61,6 @@ public class AcademyServiceImpl implements AcademyService {
         return academyRepository.existsAcademyByLogin(login);
     }
 
-    @Override
-    public void updateListPlayers(List<User> listPlayers) {
-        Academy academy = getCurrentAcademy();
-        academy.setListPlayers(listPlayers);
-        academyRepository.save(academy);
-    }
 
     @Override
     public void addPlayer(long id) {
@@ -79,6 +84,12 @@ public class AcademyServiceImpl implements AcademyService {
 
     private Academy getCurrentAcademy() {
         return findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    private void updateListPlayers(List<User> listPlayers) {
+        Academy academy = getCurrentAcademy();
+        academy.setListPlayers(listPlayers);
+        academyRepository.save(academy);
     }
 
 

@@ -1,8 +1,7 @@
 package net.skideo.security;
 
-import lombok.RequiredArgsConstructor;
+import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.exception.AcademyNotFoundException;
-import net.skideo.model.Academy;
 import net.skideo.security.jwt.JwtAcademy;
 import net.skideo.service.academy.AcademyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Academy academy = service.findByLogin(login);
+        AcademyAuthProjection academy = service.findLoginAndPasswordByLogin(login);
         if(academy==null) {
             throw new AcademyNotFoundException("Academy not found");
         }

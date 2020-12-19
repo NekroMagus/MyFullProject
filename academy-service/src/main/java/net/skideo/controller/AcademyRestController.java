@@ -38,6 +38,7 @@ public class AcademyRestController {
         return userService.getAmateurPlayers(PageRequest.of(page,size));
     }
 
+    // для тестов
     @GetMapping("/all")
     public List<Academy> all() {
         return repository.findAll();
