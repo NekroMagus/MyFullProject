@@ -9,7 +9,6 @@ import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.UserRepository;
@@ -24,7 +23,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;

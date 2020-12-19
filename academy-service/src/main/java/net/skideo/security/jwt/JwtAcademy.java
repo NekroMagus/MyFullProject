@@ -25,12 +25,12 @@ public class JwtAcademy implements UserDetails {
 
     @Override
     public String getPassword() {
-        return login;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return password;
+        return login;
     }
 
     @Override

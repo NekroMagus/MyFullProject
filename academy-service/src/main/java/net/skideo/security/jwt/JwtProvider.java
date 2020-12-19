@@ -37,7 +37,7 @@ public class JwtProvider {
         return Jwts
                 .parser()
                 .setSigningKey(secret)
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody()
                 .getExpiration().after(new Date(System.currentTimeMillis()));
     }

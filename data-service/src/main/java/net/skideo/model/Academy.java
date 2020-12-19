@@ -3,6 +3,7 @@ package net.skideo.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,15 +16,17 @@ public class Academy {
     private long id;
     private String login;
     private String password;
-    private String titile;
+    private String title;
     private String city;
     private String country;
     private int numberPlayers;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<User> listPlayers;
 
-    public Academy(String login, String password, String titile, String city, String country, int numberPlayers) {
+    public Academy(String login, String password, String title, String city, String country, int numberPlayers) {
         this.login = login;
         this.password = password;
-        this.titile = titile;
+        this.title = title;
         this.city = city;
         this.country = country;
         this.numberPlayers = numberPlayers;
