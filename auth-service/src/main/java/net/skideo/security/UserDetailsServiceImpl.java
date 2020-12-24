@@ -1,9 +1,8 @@
 package net.skideo.security;
 
-import net.skideo.dto.projections.AcademyAuthProjection;
-import net.skideo.exception.AcademyNotFoundException;
-import net.skideo.security.jwt.JwtAcademy;
-import net.skideo.service.academy.AcademyService;
+import net.skideo.security.jwt.JwtAuth;
+import net.skideo.model.Auth;
+import net.skideo.service.auth.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,14 +13,11 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private AcademyService service;
+    private AuthenticationService authService;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        AcademyAuthProjection academy = service.findLoginAndPasswordByLogin(login);
-        if(academy==null) {
-            throw new AcademyNotFoundException("Academy not found");
-        }
-        return JwtAcademy.academyToJwtAcademy(academy);
+        Auth auth = authService.findByLogin(login);
+        return JwtAuth.academyToJwtAcademy(auth);
     }
 }

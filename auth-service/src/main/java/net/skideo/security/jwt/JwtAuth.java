@@ -1,27 +1,30 @@
 package net.skideo.security.jwt;
 
-import net.skideo.dto.projections.AcademyAuthProjection;
-import net.skideo.model.Academy;
+import net.skideo.model.Auth;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
-public class JwtAcademy implements UserDetails {
+public class JwtAuth implements UserDetails {
 
     private String login;
     private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public static JwtAcademy academyToJwtAcademy(AcademyAuthProjection projection) {
-        JwtAcademy jwtAcademy = new JwtAcademy();
-        jwtAcademy.setLogin(projection.getLogin());
-        jwtAcademy.setPassword(projection.getPassword());
+    public static JwtAuth academyToJwtAcademy(Auth auth) {
+        JwtAuth jwtAcademy = new JwtAuth();
+        jwtAcademy.setLogin(auth.getLogin());
+        jwtAcademy.setPassword(auth.getPassword());
+        jwtAcademy.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority(auth.getRole().name())));
         return jwtAcademy;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
@@ -60,5 +63,9 @@ public class JwtAcademy implements UserDetails {
 
     private void setLogin(String login) {
         this.login=login;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 }

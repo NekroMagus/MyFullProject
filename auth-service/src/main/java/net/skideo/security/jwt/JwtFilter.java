@@ -1,11 +1,9 @@
 package net.skideo.security.jwt;
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -27,12 +25,12 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String token = getTokenFromRequest(httpServletRequest);
-        if(token!=null) {
+        if(token!=null  &&  provider.validityToken(token)) {
             String login = provider.getLoginFromToken(token);
             if(login!=null) {
-                JwtAcademy jwtAcademy = (JwtAcademy) userDetailsService.loadUserByUsername(login);
-                if(jwtAcademy!=null &&  provider.validityToken(token)) {
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(jwtAcademy,null,null);
+                JwtAuth jwtAuth = (JwtAuth) userDetailsService.loadUserByUsername(login);
+                if(jwtAuth!=null) {
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(jwtAuth,null,null);
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
             }
