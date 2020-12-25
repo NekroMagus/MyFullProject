@@ -7,7 +7,6 @@ import net.skideo.model.Scout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import sun.security.util.Password;
 
 import java.util.Optional;
 
