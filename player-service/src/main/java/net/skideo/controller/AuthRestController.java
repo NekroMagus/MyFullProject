@@ -30,7 +30,7 @@ public class AuthRestController {
     private final AuthService authService;
     private final JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping("/login")
+    @PostMapping("/auth")
     public TokenDto authenticate(@Valid @RequestBody UserAuthDto userAuthDto) {
         final String login = userAuthDto.getLogin().toLowerCase();
         final UserProjection user = userService.findUserProjectionByLogin(login);
