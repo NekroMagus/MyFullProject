@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void create(UserRegistrationDto dto) {
         final String password = passwordEncoder.encode(dto.getPassword());
-        User user = new User(dto.getLogin(), password, dto.getRolePeople(), dto.isHasAgent());
+        User user = new User(dto.getLogin().toLowerCase(), password, dto.getRolePeople(), dto.isHasAgent());
 
         repository.save(user);
     }

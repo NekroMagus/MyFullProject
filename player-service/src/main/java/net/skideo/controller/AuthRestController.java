@@ -32,25 +32,27 @@ public class AuthRestController {
 
     @PostMapping("/login")
     public TokenDto authenticate(@Valid @RequestBody UserAuthDto userAuthDto) {
-        final UserProjection user = userService.findUserProjectionByLogin(userAuthDto.getLogin());
+        final String login = userAuthDto.getLogin().toLowerCase();
+        final UserProjection user = userService.findUserProjectionByLogin(login);
         if (user == null || !authService.isPasswordMatch(userAuthDto.getPassword(), user.getPassword())) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
-        return new TokenDto(jwtTokenUtil.generateToken(userAuthDto.getLogin()));
+        return new TokenDto(jwtTokenUtil.generateToken(login));
     }
 
     @PostMapping("/registration")
     public ResponseEntity<TokenDto> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
-        if (authService.isUserExists(userRegistrationDto.getLogin())) {
+        final String login = userRegistrationDto.getLogin().toLowerCase();
+        if (authService.isUserExists(login)) {
             throw new AlreadyExistsException("User already exists");
         }
         if (userRegistrationDto.getRolePeople() == RolePeople.AMATEUR
                 && userRegistrationDto.isHasAgent()) {
-            throw new IllegalArgumentException("Amateur player can not have agent");
+            throw new IllegalArgumentException("Amateur player can not have an agent");
         }
         userService.create(userRegistrationDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new TokenDto(jwtTokenUtil.generateToken(userRegistrationDto.getLogin())));
+                .body(new TokenDto(jwtTokenUtil.generateToken(login)));
     }
 
 }
