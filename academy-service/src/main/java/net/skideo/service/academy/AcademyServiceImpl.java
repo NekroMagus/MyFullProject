@@ -1,6 +1,7 @@
 package net.skideo.service.academy;
 
 import net.skideo.client.AuthServiceFeignClient;
+import net.skideo.dto.UserShortInfoDto;
 import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.exception.AcademyNotFoundException;
 import net.skideo.model.Academy;
@@ -42,16 +43,6 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public AcademyAuthProjection findLoginAndPasswordByLogin(String login) {
-        AcademyAuthProjection academyAuthProjection = academyRepository.findLoginAndPasswordByInfoLogin(login).orElseThrow(
-                () -> new AcademyNotFoundException("Academy not found")
-        );
-
-        return academyAuthProjection;
-    }
-
-
-    @Override
     public void addPlayer(String token,long id) {
         User user = userService.getUserById(id);
         Academy currentAcademy = getCurrentAcademy(token);
@@ -66,7 +57,7 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public Page<Academy> getPlayers(String token,Pageable pageable) {
+    public Page<UserShortInfoDto> getPlayers(String token, Pageable pageable) {
         final String CURRENT_LOGIN = feignClient.getCurrentAuth(token).getLogin();
         return academyRepository.findPlayersByInfoLogin(CURRENT_LOGIN,pageable);
     }

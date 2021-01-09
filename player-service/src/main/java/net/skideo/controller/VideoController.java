@@ -32,7 +32,7 @@ public class VideoController {
     public Page<VideoDto> getMyVideos(@RequestHeader("Authorization") String token,
                                       @RequestParam(defaultValue = "0", required = false) int page,
                                       @RequestParam(defaultValue = "50", required = false) int size) {
-        final User CURRENT_USER = userService.getCurrentUser(token);
+        User CURRENT_USER = userService.getCurrentUser(token);
         return videoService.findAllMyVideos(CURRENT_USER.getId(), page, size);
     }
 
@@ -40,7 +40,7 @@ public class VideoController {
     public Page<VideoDto> getOtherVideos(@RequestHeader("Authorization") String token,
                                          @RequestParam(defaultValue = "0", required = false) int page,
                                          @RequestParam(defaultValue = "50", required = false) int size) {
-        final User CURRENT_USER = userService.getCurrentUser(token);
+        User CURRENT_USER = userService.getCurrentUser(token);
         return videoService.findAllAnotherVideos(CURRENT_USER.getId(), page, size);
     }
 

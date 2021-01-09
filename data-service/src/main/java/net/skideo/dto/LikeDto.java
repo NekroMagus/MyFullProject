@@ -4,11 +4,16 @@ import net.skideo.model.Like;
 import net.skideo.model.enums.Rating;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 public class LikeDto {
 
+
     private Long id;
+
     private Rating rating;
+
     private UserShortInfoDto author;
 
     public LikeDto(Like like) {

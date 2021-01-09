@@ -1,6 +1,7 @@
 package net.skideo.service.user;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.dto.UserShortInfoDto;
 import net.skideo.model.User;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.UserRepository;
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> getAmateurPlayers(Pageable pageable) {
+    public Page<UserShortInfoDto> getAmateurPlayers(Pageable pageable) {
         return repository.findAllByInfoRolePeople(RolePeople.AMATEUR,pageable);
     }
 }

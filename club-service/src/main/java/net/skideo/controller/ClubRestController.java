@@ -30,39 +30,39 @@ public class ClubRestController {
 
     @PostMapping("/scout/{id}")
     public void addScout(@RequestHeader("Authorization") String token,@PathVariable("id") long id) {
-        final Club CURRENT_CLUB = clubService.getCurrentClub(token);
+        Club CURRENT_CLUB = clubService.getCurrentClub(token);
         clubService.addScout(id, CURRENT_CLUB);
     }
 
     @DeleteMapping("/scout/{id}")
     public void removeScout(@RequestHeader("Authorization") String token,@PathVariable("id") long id) {
-        final Club CURRENT_CLUB = clubService.getCurrentClub(token);
+        Club CURRENT_CLUB = clubService.getCurrentClub(token);
         clubService.removeScout(id, CURRENT_CLUB);
     }
 
     @GetMapping("/scouts")
     public Page<ScoutDto> getScouts(@RequestHeader("Authorization") String token,@RequestParam int page, @RequestParam int size) {
-        final Club CURRENT_CLUB = clubService.getCurrentClub(token);
+        Club CURRENT_CLUB = clubService.getCurrentClub(token);
         return clubService.getScouts(CURRENT_CLUB,page,size);
     }
 
 
     @PutMapping("/scout/{id}")
     public void setRegionScout(@RequestHeader("Authorization") String token,@PathVariable("id") long id, @RequestParam String region) {
-        final Club CURRENT_CLUB = clubService.getCurrentClub(token);
+        Club CURRENT_CLUB = clubService.getCurrentClub(token);
         clubService.setRegionScout(id, region, CURRENT_CLUB);
     }
 
     @GetMapping("/scout")
     public Page<ScoutDto> getScoutByRegion(@RequestHeader("Authorization") String token,@RequestParam int page,@RequestParam int size,@RequestParam String region) {
-        final Club CURRENT_CLUB = clubService.getCurrentClub(token);
+        Club CURRENT_CLUB = clubService.getCurrentClub(token);
         return clubService.getScoutsByRegion(region, CURRENT_CLUB.getId(),page,size);
     }
 
 
     @PostMapping("/user/favorite/{id}")
     public void addUserToFavorite(@RequestHeader("Authorization") String token,@PathVariable("id") long idUser) {
-        final Club CURRENT_CLUB = clubService.getCurrentClub(token);
+        Club CURRENT_CLUB = clubService.getCurrentClub(token);
         clubService.addUserToFavorite(idUser, CURRENT_CLUB);
     }
 
@@ -72,6 +72,7 @@ public class ClubRestController {
         return clubService.findVideos(page, size);
     }
 
+    // для тестов
     @GetMapping("/all")
     public List<Club> all() {
         return clubRepository.findAll();

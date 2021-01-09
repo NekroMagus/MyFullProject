@@ -46,13 +46,13 @@ public class ScoutRestController {
     @GetMapping("/search")
     public List<SearchDto> search(@RequestParam String country, @RequestParam RoleFootball roleFootball, @RequestParam boolean agent,
                                   @RequestParam RolePeople rolePeople, @RequestParam LeadingLeg leadingLeg, @RequestParam LocalDate dateOfBirth,
-                                  @RequestParam int page, @RequestParam int size) {
+                                  @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) {
         return scoutService.search(country, roleFootball, agent, rolePeople, leadingLeg, dateOfBirth, page,size);
     }
 
     @PostMapping("/user/favorite")
     public void addUserToFavorite(@RequestHeader("Authorization") String token,@RequestParam long id) {
-        final Scout CURRENT_SCOUT = scoutService.getCurrentScout(token);
+        Scout CURRENT_SCOUT = scoutService.getCurrentScout(token);
         scoutService.addUserToFavorite(id,CURRENT_SCOUT);
     }
 }

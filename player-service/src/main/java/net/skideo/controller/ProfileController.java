@@ -23,7 +23,7 @@ public class ProfileController {
     }
 
     @PutMapping("/profile")
-    public UserDto editProfile(@RequestHeader("Authorization") String token,@Valid @RequestBody UserDto newUser) {
+    public UserDto editProfile(@RequestHeader("Authorization") String token,@RequestBody UserDto newUser) {
         return new UserDto(userService.editUser(token,newUser));
     }
 
