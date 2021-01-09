@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -18,11 +19,12 @@ import javax.validation.constraints.Size;
 public class UserRegistrationDto {
 
     @NotEmpty
-    @Size(min = 6)
+    @Size(min = 6, max = 32)
+    @Pattern(regexp="[a-zA-Z0-9]")
     private String login;
 
     @NotEmpty
-    @Size(min = 6)
+    @Size(min = 6, max = 32)
     private String password;
 
     @NotNull

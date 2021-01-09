@@ -1,6 +1,5 @@
 package net.skideo.service.user;
 
-import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.dto.projections.UserAuthProjection;
@@ -8,12 +7,10 @@ import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.dto.projections.UserProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
-import net.skideo.model.Info;
 import net.skideo.model.User;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
-import net.skideo.repository.InfoRepository;
 import net.skideo.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +26,6 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
-    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -40,7 +36,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findByLogin(String login) {
-        return repository.findByInfoLoginIgnoreCase(login);
+        return repository.findByLoginIgnoreCase(login);
+    }
+
+    @Override
+    public UserProjection findUserProjectionByLogin(String login) {
+        return repository.findByLogin(login).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public Optional<UserAuthProjection> findAuthByLogin(String login) {
+        return repository.findAuthByLoginIgnoreCase(login);
     }
 
     @Override
@@ -57,16 +63,16 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
         if (StringUtils.isNotBlank(dto.getEmail())) {
-            user.getInfo().setEmail(dto.getEmail());
+            user.setEmail(dto.getEmail());
         }
         if (StringUtils.isNotBlank(dto.getName())) {
-            user.getInfo().setName(dto.getName());
+            user.setName(dto.getName());
         }
         if (StringUtils.isNotBlank(dto.getSurname())) {
-            user.getInfo().setSurname(dto.getSurname());
+            user.setSurname(dto.getSurname());
         }
         if (dto.getRoleFootball() != null) {
-            user.getInfo().setRoleFootball(dto.getRoleFootball());
+            user.setRoleFootball(dto.getRoleFootball());
         }
         if (StringUtils.isNotBlank(dto.getPhone())) {
             user.setPhone(dto.getPhone());
@@ -75,10 +81,10 @@ public class UserServiceImpl implements UserService {
             user.setBirthDate(dto.getBirthDate());
         }
         if (StringUtils.isNotBlank(dto.getCountry())) {
-            user.getInfo().setCountry(dto.getCountry());
+            user.setCountry(dto.getCountry());
         }
         if (StringUtils.isNotBlank(dto.getCity())) {
-            user.getInfo().setCity(dto.getCity());
+            user.setCity(dto.getCity());
         }
         if (StringUtils.isNotBlank(dto.getLinkSocialNetwork())) {
             user.setLinkSocialNetwork(dto.getLinkSocialNetwork());
@@ -97,7 +103,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByRoleFootball(RoleFootball roleFootball) {
-        return repository.findByInfoRoleFootball(roleFootball);
+        return repository.findByRoleFootball(roleFootball);
     }
 
     @Override
@@ -108,22 +114,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
                                                                       RoleFootball roleFootball, String country) {
-        return repository.findByBirthDateBetweenAndInfoRoleFootballAndInfoCountry(birth, now, roleFootball, country);
+        return repository.findByBirthDateBetweenAndRoleFootballAndCountry(birth, now, roleFootball, country);
     }
 
     @Override
     public List<User> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball) {
-        return repository.findByBirthDateBetweenAndInfoRoleFootball(birth, now, roleFootball);
+        return repository.findByBirthDateBetweenAndRoleFootball(birth, now, roleFootball);
     }
 
     @Override
     public List<User> findByBirthDateBetweenAndCountry(LocalDate birth, LocalDate now, String country) {
-        return repository.findByBirthDateBetweenAndInfoCountry(birth, now, country);
+        return repository.findByBirthDateBetweenAndCountry(birth, now, country);
     }
 
     @Override
     public List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country) {
-        return repository.findByInfoRoleFootballAndInfoCountry(roleFootball, country);
+        return repository.findByRoleFootballAndCountry(roleFootball, country);
     }
 
     @Override
