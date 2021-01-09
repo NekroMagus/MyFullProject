@@ -1,9 +1,11 @@
 package net.skideo.service.auth;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.dto.AuthDto;
 import net.skideo.exception.AuthNotFoundException;
 import net.skideo.model.Auth;
 import net.skideo.repository.AuthRepository;
+import net.skideo.security.JwtProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
     private final AuthRepository authRepository;
+    private final JwtProvider jwtProvider;
     private final PasswordEncoder encoder;
 
     @Override
@@ -35,5 +38,21 @@ public class AuthServiceImpl implements AuthService {
         return authRepository.findByLogin(login).orElseThrow(
                 () -> new AuthNotFoundException("Auth not found")
         );
+    }
+
+    @Override
+    public Auth getCurrentAuth(String token) {
+        final String LOGIN_CURRENT_AUTH = jwtProvider.getLoginFromToken(token);
+        return findByLogin(LOGIN_CURRENT_AUTH);
+    }
+
+    @Override
+    public void updateLoginAndPassword(String token,AuthDto authDto) {
+        Auth dbAuth = getCurrentAuth(token);
+
+        dbAuth.setLogin(authDto.getLogin());
+        dbAuth.setPassword(encoder.encode(authDto.getPassword()));
+
+        authRepository.save(dbAuth);
     }
 }

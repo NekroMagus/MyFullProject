@@ -1,6 +1,8 @@
 package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.dto.AcademyProfileDto;
+import net.skideo.dto.AuthDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.model.Academy;
 import net.skideo.repository.AcademyRepository;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,6 +42,16 @@ public class AcademyRestController {
     public Page<UserShortInfoDto> getAmateurPlayers(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "50") int size) {
         return userService.getAmateurPlayers(PageRequest.of(page,size));
+    }
+
+    @PutMapping("/auth/data")
+    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto) {
+        academyService.updateLoginAndPassword(token,authDto);
+    }
+
+    @PutMapping("/profile")
+    public void updateProfile(@RequestHeader("Authorization") String token,@Valid @RequestBody AcademyProfileDto profileDto) {
+        academyService.updateProfile(token,profileDto);
     }
 
     // для тестов

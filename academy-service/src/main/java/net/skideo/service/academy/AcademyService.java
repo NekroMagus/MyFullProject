@@ -1,5 +1,7 @@
 package net.skideo.service.academy;
 
+import net.skideo.dto.AcademyProfileDto;
+import net.skideo.dto.AuthDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.model.Academy;
@@ -17,5 +19,10 @@ public interface AcademyService {
 
     Page<UserShortInfoDto> getPlayers(String token, Pageable pageable);
 
+    void updateNumberPlayers(String token,int numberPlayers);
+
+    void updateLoginAndPassword(String token,AuthDto authDto);
+
+    void updateProfile(String token,AcademyProfileDto academyProfileDto);
 
 }

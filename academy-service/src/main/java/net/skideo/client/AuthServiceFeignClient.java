@@ -1,16 +1,11 @@
 package net.skideo.client;
 
-import feign.Headers;
-import feign.Param;
 import net.skideo.dto.AuthDto;
 import net.skideo.dto.TokenDto;
 import net.skideo.model.Auth;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -22,5 +17,8 @@ public interface AuthServiceFeignClient {
 
     @GetMapping("/api/auth/me")
     Auth getCurrentAuth(@RequestHeader(value="Authorization") String token);
+
+    @PutMapping("/auth/data")
+    void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto);
 
 }

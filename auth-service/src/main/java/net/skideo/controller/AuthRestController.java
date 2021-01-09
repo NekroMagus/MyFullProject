@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
@@ -43,6 +42,11 @@ public class AuthRestController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new TokenDto(jwtProvider.generateToken(authDto.getLogin())));
+    }
+
+    @PutMapping("/auth/data")
+    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto) {
+        authService.updateLoginAndPassword(token,authDto);
     }
 
     @GetMapping("/auth/me")

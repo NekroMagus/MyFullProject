@@ -1,8 +1,9 @@
 package net.skideo.service.academy;
 
 import net.skideo.client.AuthServiceFeignClient;
+import net.skideo.dto.AcademyProfileDto;
+import net.skideo.dto.AuthDto;
 import net.skideo.dto.UserShortInfoDto;
-import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.exception.AcademyNotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.model.User;
@@ -11,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.service.user.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,12 +54,45 @@ public class AcademyServiceImpl implements AcademyService {
         newListPlayers.add(user);
 
         updateListPlayers(token,newListPlayers);
+        updateNumberPlayers(token,currentAcademy.getNumberPlayers()+1);
     }
 
     @Override
     public Page<UserShortInfoDto> getPlayers(String token, Pageable pageable) {
         final String CURRENT_LOGIN = feignClient.getCurrentAuth(token).getLogin();
         return academyRepository.findPlayersByInfoLogin(CURRENT_LOGIN,pageable);
+    }
+
+    @Override
+    public void updateNumberPlayers(String token,int numberPlayers) {
+        Academy dbAcademy = getCurrentAcademy(token);
+
+        dbAcademy.setNumberPlayers(numberPlayers);
+
+        academyRepository.save(dbAcademy);
+    }
+
+    @Override
+    public void updateLoginAndPassword(String token,AuthDto authDto) {
+        Academy dbAcademy = getCurrentAcademy(token);
+
+        dbAcademy.getInfo().setLogin(authDto.getLogin());
+        dbAcademy.getInfo().setPassword(passwordEncoder.encode(authDto.getPassword()));
+
+        feignClient.updateLoginAndPassword(token,authDto);
+
+        academyRepository.save(dbAcademy);
+    }
+
+    @Override
+    public void updateProfile(String token,AcademyProfileDto academyProfileDto) {
+        Academy dbAcademy = getCurrentAcademy(token);
+
+        dbAcademy.getInfo().setCity(academyProfileDto.getCity());
+        dbAcademy.getInfo().setCountry(academyProfileDto.getCountry());
+        dbAcademy.getInfo().setName(academyProfileDto.getTitleClub());
+
+        academyRepository.save(dbAcademy);
     }
 
 
