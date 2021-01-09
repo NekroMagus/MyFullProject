@@ -20,18 +20,20 @@ public interface ScoutService {
 
     Scout findByLogin(String login);
 
-    PasswordProjection getPasswordByLogin(String login);
-
     ScoutProfileProjection getProfileByLogin(String login);
 
     void save(Scout scout);
 
     ProfileDto getProfile(ScoutProfileProjection currentScout);
 
-    void updateProfile(UpdateProfileDto profile);
+    void updateProfile(String token,UpdateProfileDto profile);
 
     List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size);
 
     void addUserToFavorite(long idUser,Scout currentScout);
+
+    Scout getCurrentScout(String token);
+
+    String getLoginCurrentScout(String token);
 
 }

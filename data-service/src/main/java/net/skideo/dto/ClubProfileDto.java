@@ -15,7 +15,7 @@ public class ClubProfileDto {
     private String logoLink;
 
     public ClubProfileDto(ClubProfileProjection club) {
-        this.titleClub=club.getTitleClub();
+        this.titleClub=club.getInfoName();
         this.logoLink=club.getLogoLink();
     }
 

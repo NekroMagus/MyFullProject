@@ -21,6 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> getAmateurPlayers(Pageable pageable) {
-        return repository.findAllByRolePeople(RolePeople.AMATEUR,pageable);
+        return repository.findAllByInfoRolePeople(RolePeople.AMATEUR,pageable);
     }
 }

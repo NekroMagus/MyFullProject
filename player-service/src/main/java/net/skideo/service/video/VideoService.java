@@ -22,10 +22,10 @@ public interface VideoService {
 
     int getRating(long idVideo);
 
-    Page<VideoDto> findAllMyVideos(long userId, int page, int size);
+    Page<VideoDto> findAllMyVideos(long idInfo, int page, int size);
 
     void addVideo(String link);
 
-    Page<VideoDto> findAllAnotherVideos(long userId, int page, int size);
+    Page<VideoDto> findAllAnotherVideos(long idInfo, int page, int size);
 
 }

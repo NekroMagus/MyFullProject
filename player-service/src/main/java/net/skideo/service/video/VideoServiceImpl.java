@@ -57,7 +57,7 @@ public class VideoServiceImpl implements VideoService {
     public void estimateVideo(RatingDto dto, User user) {
         Video video = findById(dto.getIdVideo());
 
-        if ((user.getRolePeople() == video.getUser().getRolePeople())) {
+        if ((user.getRolePeople() == video.getInfo().getRolePeople())) {
             throw new ForbiddenException("Player with same rolePlayer cannot like video each other");
         }
         Like like = new Like();
@@ -80,20 +80,20 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public Page<VideoDto> findAllMyVideos(long userId, int page, int size) {
-        return repository.findAllByUserId(userId, PageRequest.of(page, size));
+    public Page<VideoDto> findAllMyVideos(long idInfo, int page, int size) {
+        return repository.findAllByInfoId(idInfo, PageRequest.of(page, size));
     }
 
     @Override
     public void addVideo(String link) {
         User user = userService.getCurrentUser();
-        Video video = new Video(link, user);
+        Video video = new Video(link, user.getInfo());
         save(video);
     }
 
     @Override
-    public Page<VideoDto> findAllAnotherVideos(long userId, int page, int size) {
-        return repository.findByUserIdNot(userId, PageRequest.of(page, size));
+    public Page<VideoDto> findAllAnotherVideos(long idInfo, int page, int size) {
+        return repository.findByInfoIdNot(idInfo, PageRequest.of(page, size));
     }
 
 }

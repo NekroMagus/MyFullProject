@@ -1,7 +1,7 @@
 package net.skideo.dto;
 
-import net.skideo.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import net.skideo.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
@@ -35,14 +35,14 @@ public class UserDto {
 
     public UserDto(User user) {
         this.id = user.getId();
-        this.name = user.getName();
-        this.surname = user.getSurname();
-        this.roleFootball = user.getRoleFootball();
-        this.email = user.getEmail();
+        this.name = user.getInfo().getName();
+        this.surname = user.getInfo().getSurname();
+        this.roleFootball = user.getInfo().getRoleFootball();
+        this.email = user.getInfo().getEmail();
         this.phone = user.getPhone();
         this.birthDate = user.getBirthDate();
-        this.country = user.getCountry();
-        this.city = user.getCity();
+        this.country = user.getInfo().getCountry();
+        this.city = user.getInfo().getCity();
         this.linkSocialNetwork = user.getLinkSocialNetwork();
         this.leadingLeg = user.getLeadingLeg();
         this.agent = user.isHasAgent();

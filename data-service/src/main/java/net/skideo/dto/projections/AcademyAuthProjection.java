@@ -2,8 +2,8 @@ package net.skideo.dto.projections;
 
 public interface AcademyAuthProjection {
 
-    String getLogin();
+    String getInfoLogin();
 
-    String getPassword();
+    String getInfoPassword();
 
 }

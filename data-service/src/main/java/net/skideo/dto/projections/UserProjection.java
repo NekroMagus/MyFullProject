@@ -2,7 +2,7 @@ package net.skideo.dto.projections;
 
 public interface UserProjection {
 
-    String getLogin();
+    String getInfoLogin();
 
-    String getPassword();
+    String getInfoPassword();
 }

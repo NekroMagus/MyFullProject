@@ -56,10 +56,20 @@
             <version>0.9.1</version>
         </dependency>
         <dependency>
-            <groupId>auth.com</groupId>
+            <groupId>net.skideo</groupId>
             <artifactId>auth-serivce</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+            <version>2.2.0.RELEASE</version>
         </dependency>
     </dependencies>
 

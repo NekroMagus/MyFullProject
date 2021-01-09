@@ -21,7 +21,7 @@ public class VideoDto {
     public VideoDto(Video video) {
         this.id = video.getId();
         this.videoLink = video.getVideoLink();
-        this.author = new UserShortInfoDto(video.getUser());
+        this.author = new UserShortInfoDto(video.getInfo());
         this.likes = video.getLikes()
                 .stream()
                 .map(LikeDto::new)

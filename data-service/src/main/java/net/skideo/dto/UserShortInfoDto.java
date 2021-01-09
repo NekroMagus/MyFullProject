@@ -1,5 +1,6 @@
 package net.skideo.dto;
 
+import net.skideo.model.Info;
 import net.skideo.model.User;
 import lombok.Data;
 import net.skideo.model.enums.RoleFootball;
@@ -13,10 +14,10 @@ public class UserShortInfoDto {
     private RoleFootball roleFootball;
 
 
-    public UserShortInfoDto(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.surname = user.getSurname();
-        this.roleFootball = user.getRoleFootball();
+    public UserShortInfoDto(Info info) {
+        this.id=info.getId();
+        this.name = info.getName();
+        this.surname = info.getSurname();
+        this.roleFootball = info.getRoleFootball();
     }
 }

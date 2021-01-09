@@ -18,13 +18,13 @@ public class ProfileController {
     private final UserService userService;
 
     @GetMapping("/profile")
-    public UserProfileProjection getProfile() {
-        return userService.getProfile();
+    public UserProfileProjection getProfile(@RequestHeader("Authorization") String token) {
+        return userService.getProfile(token);
     }
 
     @PutMapping("/profile")
-    public UserDto editProfile(@Valid @RequestBody UserDto newUser) {
-        return new UserDto(userService.editUser(newUser));
+    public UserDto editProfile(@RequestHeader("Authorization") String token,@Valid @RequestBody UserDto newUser) {
+        return new UserDto(userService.editUser(token,newUser));
     }
 
     @GetMapping("/roleFootball")

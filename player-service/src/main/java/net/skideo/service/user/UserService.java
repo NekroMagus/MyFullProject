@@ -14,19 +14,13 @@ import java.util.Optional;
 
 public interface UserService {
 
-    void create(UserRegistrationDto dto);
+    void create(User user);
 
     User findById(long id);
 
-    User getCurrentUser();
-
     Optional<User> findByLogin(String login);
 
-    UserProjection findUserProjectionByLogin(String login);
-
-    Optional<UserAuthProjection> findAuthByLogin(String login);
-
-    User editUser(UserDto userDto);
+    User editUser(String token,UserDto userDto);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
@@ -45,6 +39,8 @@ public interface UserService {
 
     List<User> findAll();
 
-    UserProfileProjection getProfile();
+    UserProfileProjection getProfile(String token);
+
+    User getCurrentUser(String token);
 
 }

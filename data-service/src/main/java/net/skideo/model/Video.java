@@ -21,14 +21,14 @@ public class Video {
     private String videoLink;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private User user;
+    private Info info;
 
     @OneToMany(mappedBy = "video")
     private Set<Like> likes = new HashSet<>();
 
-    public Video(String link, User user) {
+    public Video(String link, Info info) {
         this.videoLink = link;
-        this.user = user;
+        this.info=info;
     }
 
 }

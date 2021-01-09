@@ -13,6 +13,7 @@ import net.skideo.model.enums.RoleFootball;
 @NoArgsConstructor
 public class ProfileUserDto {
 
+    private long id;
     private String name;
     private String surname;
     private String country;
@@ -20,11 +21,12 @@ public class ProfileUserDto {
     private Club club;
 
     public ProfileUserDto(User user) {
-        this.name=user.getName();
-        this.surname=user.getSurname();
+        this.id = user.getId();
+        this.name=user.getInfo().getName();
+        this.surname=user.getInfo().getSurname();
         this.club=user.getClub();
-        this.country=user.getCountry();
-        this.roleFootball=user.getRoleFootball();
+        this.country=user.getInfo().getCountry();
+        this.roleFootball=user.getInfo().getRoleFootball();
     }
 
 }

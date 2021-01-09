@@ -1,12 +1,11 @@
 package net.skideo.model;
 
-import net.skideo.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import net.skideo.model.enums.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;
-import net.skideo.model.enums.RoleFootball;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -35,23 +34,12 @@ public class User {
     @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
     private LocalDateTime updated;
 
-    @Column(unique = true)
-    private String login;
-
-    @Column(unique = true)
-    private String email;
-    private String password;
+    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+    private Info info;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Enumerated(value = EnumType.STRING)
-    private RoleFootball roleFootball;
-    private String name;
-    private String surname;
     private String phone;
-    private String country;
-    private String city;
 
     @Enumerated(value = EnumType.STRING)
     private LeadingLeg leadingLeg;
@@ -69,9 +57,8 @@ public class User {
 
     private String linkSocialNetwork;
 
-    public User(String login, String password, RolePeople rolePeople, boolean hasAgent) {
-        this.login = login;
-        this.password = password;
+    public User(Info info, RolePeople rolePeople, boolean hasAgent) {
+        this.info=info;
         this.rolePeople = rolePeople;
         this.hasAgent = hasAgent;
 

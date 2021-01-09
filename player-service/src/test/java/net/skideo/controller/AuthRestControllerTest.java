@@ -4,7 +4,7 @@ import net.skideo.annotations.ControllerTest;
 import net.skideo.dto.UserAuthDto;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.repository.UserRepository;
-import net.skideo.security.jwt.JwtTokenUtil;
+//import net.skideo.security.jwt.JwtTokenUtil;
 import net.skideo.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.skideo.model.enums.RolePeople;
@@ -39,15 +39,15 @@ public class AuthRestControllerTest {
     @MockBean
     private UserRepository userRepository;
 
-    @MockBean
-    private JwtTokenUtil jwtTokenUtil;
+  //  @MockBean
+  //  private JwtTokenUtil jwtTokenUtil;
 
     @Test
     public void contextLoads() {
         assertNotNull(mockMvc);
         assertNotNull(authService);
         assertNotNull(userService);
-        assertNotNull(jwtTokenUtil);
+     //   assertNotNull(jwtTokenUtil);
     }
 
 

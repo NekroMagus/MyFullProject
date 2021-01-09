@@ -29,16 +29,18 @@ public class VideoController {
     private final LikeService likeService;
 
     @GetMapping("/profile/video")
-    public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0", required = false) int page,
+    public Page<VideoDto> getMyVideos(@RequestHeader("Authorization") String token,
+                                      @RequestParam(defaultValue = "0", required = false) int page,
                                       @RequestParam(defaultValue = "50", required = false) int size) {
-        final User CURRENT_USER = userService.getCurrentUser();
+        final User CURRENT_USER = userService.getCurrentUser(token);
         return videoService.findAllMyVideos(CURRENT_USER.getId(), page, size);
     }
 
     @GetMapping("/videos")
-    public Page<VideoDto> getOtherVideos(@RequestParam(defaultValue = "0", required = false) int page,
+    public Page<VideoDto> getOtherVideos(@RequestHeader("Authorization") String token,
+                                         @RequestParam(defaultValue = "0", required = false) int page,
                                          @RequestParam(defaultValue = "50", required = false) int size) {
-        final User CURRENT_USER = userService.getCurrentUser();
+        final User CURRENT_USER = userService.getCurrentUser(token);
         return videoService.findAllAnotherVideos(CURRENT_USER.getId(), page, size);
     }
 
@@ -49,8 +51,8 @@ public class VideoController {
     }
 
     @PostMapping("/rating")
-    public void estimateVideo(@Valid @RequestBody RatingDto ratingDto) {
-        User user = userService.getCurrentUser();
+    public void estimateVideo(@RequestHeader("Authorization") String token,@Valid @RequestBody RatingDto ratingDto) {
+        User user = userService.getCurrentUser(token);
         Optional<Like> like = likeService.findByUserIdAndVideoId(ratingDto.getIdVideo(), user.getId());
         if (like.isPresent()) {
             throw new UserRatedException("You already liked this video");

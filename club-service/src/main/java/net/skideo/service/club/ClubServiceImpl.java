@@ -1,6 +1,7 @@
 package net.skideo.service.club;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
@@ -21,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.directory.SearchControls;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -34,6 +36,7 @@ public class ClubServiceImpl implements ClubService {
     private final ScoutService scoutService;
     private final UserService userService;
     private final VideoService videoService;
+    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder encoder;
 
     @Override
@@ -51,29 +54,17 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public PasswordProjection getPasswordByLogin(String login) {
-        return clubRepository.findPasswordByLogin(login).orElseThrow(
-                () -> new ClubNotFoundException("Club bot found")
-        );
-    }
-
-    @Override
-    public ClubProfileProjection getProfileByLogin(String login) {
-        return clubRepository.findProfileByLogin(login).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
-        );
-    }
-
-    @Override
     public void save(Club club) {
         club.setPassword(encoder.encode(club.getPassword()));
         clubRepository.save(club);
     }
 
     @Override
-    public ClubProfileDto getProfile() {
-        final ClubProfileProjection CURRENT_CLUB = getProfileByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        return new ClubProfileDto(CURRENT_CLUB);
+    public ClubProfileDto getProfile(String token) {
+        final String LOGIN_CURRENT_CLUB = feignClient.getCurrentAuth(token).getLogin();
+        return clubRepository.findProfileByLogin(LOGIN_CURRENT_CLUB).orElseThrow(
+                () -> new ClubNotFoundException("Club not found")
+        );
     }
 
     @Override
@@ -151,7 +142,9 @@ public class ClubServiceImpl implements ClubService {
         return videos;
     }
 
-
-
+    @Override
+    public Club getCurrentClub(String token) {
+        return findByLogin(feignClient.getCurrentAuth(token).getLogin());
+    }
 
 }

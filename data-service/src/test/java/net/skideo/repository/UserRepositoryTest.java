@@ -19,15 +19,15 @@ public class UserRepositoryTest {
 
     @Test
     public void givenScript_whenFindByLogin_thenFoundUser() {
-        UserProjection user = userRepository.findByLogin(USER_LOGIN).orElse(null);
+        UserProjection user = userRepository.findByInfoLogin(USER_LOGIN).orElse(null);
 
         assertNotNull(user);
-        assertEquals(USER_LOGIN, user.getLogin());
+        assertEquals(USER_LOGIN, user.getInfoLogin());
     }
 
     @Test
     public void givenInvalidLogin_whenFindByLogin_thenNotFound() {
-        UserProjection user = userRepository.findByLogin("INVALID LOGIN").orElse(null);
+        UserProjection user = userRepository.findByInfoLogin("INVALID LOGIN").orElse(null);
 
         assertNull(user);
     }

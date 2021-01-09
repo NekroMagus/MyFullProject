@@ -15,13 +15,13 @@ public interface VideoRepository extends JpaRepository<Video,Long> {
     @EntityGraph(attributePaths = {"user"})
     Optional<Video> findById(long id);
 
-    @EntityGraph(attributePaths = {"user", "likes"})
-    Page<VideoDto> findAllByUserId(Long userId, Pageable pageable);
+    @EntityGraph(attributePaths = {"likes"})
+    Page<VideoDto> findAllByInfoId(long infoId, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"user", "likes"})
-    Page<VideoDto> findByUserIdNot(Long userId, Pageable pageable);
+    @EntityGraph(attributePaths = {"likes"})
+    Page<VideoDto> findByInfoIdNot(long infoId, Pageable pageable);
 
-    List<Video> findAllByUserId(Long userId);
+    List<Video> findAllByInfoId(long infoId);
 
 
 }

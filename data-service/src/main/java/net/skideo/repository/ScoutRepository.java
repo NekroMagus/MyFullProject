@@ -15,8 +15,6 @@ public interface ScoutRepository extends JpaRepository<Scout,Long> {
 
     Optional<Scout> findByLogin(String login);
 
-    Optional<PasswordProjection> findPasswordByLogin(String login);
-
     Optional<ScoutProfileProjection> findProfileByLogin(String login);
 
     Page<ScoutDto> findAllByClubId(long id, Pageable pageable);

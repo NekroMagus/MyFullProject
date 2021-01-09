@@ -14,6 +14,6 @@ public class LikeDto {
     public LikeDto(Like like) {
         this.id = like.getId();
         this.rating = like.getRating();
-        this.author = new UserShortInfoDto(like.getUser());
+        this.author = new UserShortInfoDto(like.getUser().getInfo());
     }
 }

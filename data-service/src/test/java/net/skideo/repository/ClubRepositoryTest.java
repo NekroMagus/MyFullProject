@@ -1,5 +1,6 @@
 package net.skideo.repository;
 
+import net.skideo.dto.ClubProfileDto;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
@@ -42,7 +43,7 @@ public class ClubRepositoryTest {
 
     @Test
     public void givenValidLogin_whenFindByLogin_thenFoundClub() {
-        Club club = repository.findByLogin(LOGIN).orElseThrow(
+        Club club = repository.findByInfoLogin(LOGIN).orElseThrow(
                 () -> new ClubNotFoundException("Club not found")
         );
 
@@ -50,32 +51,21 @@ public class ClubRepositoryTest {
     }
 
     @Test
-    public void givenValidLogin_whenFindPasswordProjectionByLogin_thenEquals() {
-        final String PASSWORD = "password";
-
-        PasswordProjection projection = repository.findPasswordByLogin(LOGIN).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
-        );
-
-        assertEquals(projection.getPassword(),PASSWORD);
-    }
-
-    @Test
     public void givenValidLogin_whenFindProfileByLogin_thenEquals() {
         final String TITLE_CLUB = "title";
         final String LOGO_LINK = "link";
 
-        ClubProfileProjection projection = repository.findProfileByLogin(LOGIN).orElseThrow(
+        ClubProfileDto dto = repository.findInfoProfileByInfoLogin(LOGIN).orElseThrow(
                 () -> new ClubNotFoundException("Club not found")
         );
 
-        assertEquals(projection.getLogoLink(),LOGO_LINK);
-        assertEquals(projection.getTitleClub(),TITLE_CLUB);
+        assertEquals(dto.getLogoLink(),LOGO_LINK);
+        assertEquals(dto.getTitleClub(),TITLE_CLUB);
     }
 
     @Test
     public void givenInvalidLogin_whenExistsByLogin_thenTrue() {
-        boolean isExist = repository.existsByLogin(LOGIN);
+        boolean isExist = repository.existsByInfoLogin(LOGIN);
 
         assertTrue(isExist);
     }
@@ -84,7 +74,7 @@ public class ClubRepositoryTest {
     public void givenInvalidIdAndClub_whenSaveScriptAndFindById_thenEquals() {
         Club newClub = new Club();
         newClub.setId(ID);
-        newClub.setLogin("egor");
+        newClub.getInfo().setLogin("egor");
 
         repository.save(newClub);
 
@@ -92,7 +82,7 @@ public class ClubRepositoryTest {
                 () -> new ClubNotFoundException("Club not found")
         );
 
-        assertEquals(club.getLogin(), "egor");
+        assertEquals(club.getInfo().getLogin(), "egor");
     }
 
     @Test

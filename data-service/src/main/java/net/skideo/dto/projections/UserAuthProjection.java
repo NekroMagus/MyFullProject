@@ -4,9 +4,9 @@ import net.skideo.model.enums.Role;
 
 public interface UserAuthProjection {
 
-    String getLogin();
+    String getInfoLogin();
 
-    String getPassword();
+    String getInfoPassword();
 
     Role getRole();
 }

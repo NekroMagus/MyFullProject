@@ -14,15 +14,11 @@ public interface ClubService {
 
     Club findByLogin(String login);
 
-    PasswordProjection getPasswordByLogin(String login);
-
-    ClubProfileProjection getProfileByLogin(String login);
-
     Club findById(long id);
 
     void save(Club club);
 
-    ClubProfileDto getProfile();
+    ClubProfileDto getProfile(String token);
 
     Page<ScoutDto> getScouts(Club currentClub,int page,int size);
 
@@ -38,5 +34,6 @@ public interface ClubService {
 
     List<VideoDto> findVideos(int page,int size);
 
+    Club getCurrentClub(String token);
 
 }

@@ -1,5 +1,6 @@
 package net.skideo.service.user;
 
+import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.dto.projections.UserAuthProjection;
@@ -7,10 +8,12 @@ import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.dto.projections.UserProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
+import net.skideo.model.Info;
 import net.skideo.model.User;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
+import net.skideo.repository.InfoRepository;
 import net.skideo.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,29 +29,18 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void create(UserRegistrationDto dto) {
-        final String password = passwordEncoder.encode(dto.getPassword());
-        User user = new User(dto.getLogin(), password, dto.getRolePeople(), dto.isHasAgent());
-
+    public void create(User user) {
+        user.getInfo().setPassword(passwordEncoder.encode(user.getInfo().getPassword()));
         repository.save(user);
     }
 
     @Override
     public Optional<User> findByLogin(String login) {
-        return repository.findByLoginIgnoreCase(login);
-    }
-
-    @Override
-    public UserProjection findUserProjectionByLogin(String login) {
-        return repository.findByLogin(login).orElseThrow(UserNotFoundException::new);
-    }
-
-    @Override
-    public Optional<UserAuthProjection> findAuthByLogin(String login) {
-        return repository.findAuthByLoginIgnoreCase(login);
+        return repository.findByInfoLoginIgnoreCase(login);
     }
 
     @Override
@@ -59,22 +51,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUser(UserDto dto) {
-        User user = getCurrentUser();
+    public User editUser(String token,UserDto dto) {
+        User user = getCurrentUser(token);
         if (user.getRolePeople() == RolePeople.AMATEUR && dto.isAgent()) {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
         if (StringUtils.isNotBlank(dto.getEmail())) {
-            user.setEmail(dto.getEmail());
+            user.getInfo().setEmail(dto.getEmail());
         }
         if (StringUtils.isNotBlank(dto.getName())) {
-            user.setName(dto.getName());
+            user.getInfo().setName(dto.getName());
         }
         if (StringUtils.isNotBlank(dto.getSurname())) {
-            user.setSurname(dto.getSurname());
+            user.getInfo().setSurname(dto.getSurname());
         }
         if (dto.getRoleFootball() != null) {
-            user.setRoleFootball(dto.getRoleFootball());
+            user.getInfo().setRoleFootball(dto.getRoleFootball());
         }
         if (StringUtils.isNotBlank(dto.getPhone())) {
             user.setPhone(dto.getPhone());
@@ -83,10 +75,10 @@ public class UserServiceImpl implements UserService {
             user.setBirthDate(dto.getBirthDate());
         }
         if (StringUtils.isNotBlank(dto.getCountry())) {
-            user.setCountry(dto.getCountry());
+            user.getInfo().setCountry(dto.getCountry());
         }
         if (StringUtils.isNotBlank(dto.getCity())) {
-            user.setCity(dto.getCity());
+            user.getInfo().setCity(dto.getCity());
         }
         if (StringUtils.isNotBlank(dto.getLinkSocialNetwork())) {
             user.setLinkSocialNetwork(dto.getLinkSocialNetwork());
@@ -105,7 +97,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByRoleFootball(RoleFootball roleFootball) {
-        return repository.findByRoleFootball(roleFootball);
+        return repository.findByInfoRoleFootball(roleFootball);
     }
 
     @Override
@@ -116,22 +108,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
                                                                       RoleFootball roleFootball, String country) {
-        return repository.findByBirthDateBetweenAndRoleFootballAndCountry(birth, now, roleFootball, country);
+        return repository.findByBirthDateBetweenAndInfoRoleFootballAndInfoCountry(birth, now, roleFootball, country);
     }
 
     @Override
     public List<User> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball) {
-        return repository.findByBirthDateBetweenAndRoleFootball(birth, now, roleFootball);
+        return repository.findByBirthDateBetweenAndInfoRoleFootball(birth, now, roleFootball);
     }
 
     @Override
     public List<User> findByBirthDateBetweenAndCountry(LocalDate birth, LocalDate now, String country) {
-        return repository.findByBirthDateBetweenAndCountry(birth, now, country);
+        return repository.findByBirthDateBetweenAndInfoCountry(birth, now, country);
     }
 
     @Override
     public List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country) {
-        return repository.findByRoleFootballAndCountry(roleFootball, country);
+        return repository.findByInfoRoleFootballAndInfoCountry(roleFootball, country);
     }
 
     @Override
@@ -140,19 +132,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getCurrentUser() {
-        return findByLogin(getCurrentLogin()).orElseThrow(() ->
-            new NotFoundException("User not found")
-        );
+    public UserProfileProjection getProfile(String token) {
+        return repository.findProjectionByInfoLoginIgnoreCase(getCurrentLogin(token));
+    }
+
+    private String getCurrentLogin(String token) {
+        return feignClient.getCurrentAuth(token).getLogin();
     }
 
     @Override
-    public UserProfileProjection getProfile() {
-        return repository.findProjectionByLoginIgnoreCase(getCurrentLogin());
-    }
-
-    private String getCurrentLogin() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    public User getCurrentUser(String token) {
+        final String LOGIN_CURRENT_USER = feignClient.getCurrentAuth(token).getLogin();
+        return repository.findByInfoLogin(LOGIN_CURRENT_USER).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
     }
 
 

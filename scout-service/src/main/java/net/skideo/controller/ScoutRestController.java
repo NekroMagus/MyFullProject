@@ -33,14 +33,14 @@ public class ScoutRestController {
     }
 
     @GetMapping("/profile")
-    public ProfileDto getProfile() {
-        final ScoutProfileProjection CURRENT_SCOUT = scoutService.getProfileByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+    public ProfileDto getProfile(@RequestHeader("Authorization") String token) {
+        final ScoutProfileProjection CURRENT_SCOUT = scoutService.getProfileByLogin(scoutService.getLoginCurrentScout(token));
         return scoutService.getProfile(CURRENT_SCOUT);
     }
 
     @PutMapping
-    public void updateProfile(@Valid @RequestBody UpdateProfileDto dto) {
-        scoutService.updateProfile(dto);
+    public void updateProfile(@RequestHeader("Authorization") String token,@Valid @RequestBody UpdateProfileDto dto) {
+        scoutService.updateProfile(token,dto);
     }
 
     @GetMapping("/search")
@@ -51,8 +51,8 @@ public class ScoutRestController {
     }
 
     @PostMapping("/user/favorite")
-    public void addUserToFavorite(@RequestParam long id) {
-        final Scout CURRENT_SCOUT = scoutService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+    public void addUserToFavorite(@RequestHeader("Authorization") String token,@RequestParam long id) {
+        final Scout CURRENT_SCOUT = scoutService.getCurrentScout(token);
         scoutService.addUserToFavorite(id,CURRENT_SCOUT);
     }
 }

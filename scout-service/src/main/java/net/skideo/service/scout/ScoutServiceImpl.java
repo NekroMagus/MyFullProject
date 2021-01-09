@@ -1,6 +1,7 @@
 package net.skideo.service.scout;
 
 
+import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.ProfileDto;
 import net.skideo.dto.ProfileUserDto;
 import net.skideo.dto.SearchDto;
@@ -31,6 +32,7 @@ public class ScoutServiceImpl implements ScoutService {
     private final ScoutRepository scoutRepository;
     private final UserService userService;
     private final VideoService videoService;
+    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder encoder;
 
 
@@ -44,13 +46,6 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public Scout findByLogin(String login) {
         return scoutRepository.findByLogin(login).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
-        );
-    }
-
-    @Override
-    public PasswordProjection getPasswordByLogin(String login) {
-        return scoutRepository.findPasswordByLogin(login).orElseThrow(
                 () -> new ScoutNotFoundException("Scout not found")
         );
     }
@@ -72,17 +67,17 @@ public class ScoutServiceImpl implements ScoutService {
     public ProfileDto getProfile(ScoutProfileProjection currentScout) {
         ProfileDto profile = new ProfileDto(currentScout);
         List<ProfileUserDto> players = new LinkedList<>();
-        List<User> users = userService.findAll();
+        List<ProfileUserDto> users = userService.findUserProfilesAll();
 
-        if (users.size() >= 1) {
+        if (users.size() >= 3) {
 
             for (int i = 1; i <= 3; i++) {
 
                 int random = (int) (Math.random() * users.size() - 1);
-                User user = users.get(random);
+                ProfileUserDto user = users.get(random);
 
                 if (videoService.findAllByUserId(user.getId()).size() >= 1) {
-                    players.add(new ProfileUserDto(user));
+                    players.add(user);
                 }
             }
         }
@@ -90,8 +85,8 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public void updateProfile(UpdateProfileDto dto) {
-        Scout scout = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+    public void updateProfile(String token,UpdateProfileDto dto) {
+        Scout scout = getCurrentScout(token);
         scout.setName(dto.getName());
         scout.setSurname(dto.getSurname());
         save(scout);
@@ -104,7 +99,6 @@ public class ScoutServiceImpl implements ScoutService {
         Iterator<User> iterator = userService.findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(country, roleFootball, agent,
                                                                                                                                rolePeople, leadingLeg, dateOfBirth,
                                                                                                                                page, size).iterator();
-
         while (iterator.hasNext()) {
             users.add(new SearchDto(iterator.next()));
         }
@@ -124,5 +118,15 @@ public class ScoutServiceImpl implements ScoutService {
         scoutRepository.save(currentScout);
     }
 
+    @Override
+    public String getLoginCurrentScout(String token) {
+        return feignClient.getCurrentAuth(token).getLogin();
+    }
+
+    @Override
+    public Scout getCurrentScout(String token) {
+        final String LOGIN_CURRENT_SCOUT = feignClient.getCurrentAuth(token).getLogin();
+        return findByLogin(LOGIN_CURRENT_SCOUT);
+    }
 
 }

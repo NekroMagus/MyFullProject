@@ -1,7 +1,6 @@
 package net.skideo.repository;
 
 import net.skideo.dto.projections.AcademyAuthProjection;
-import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.model.Academy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,14 +10,12 @@ import java.util.Optional;
 
 public interface AcademyRepository extends JpaRepository<Academy,Long> {
 
-    Optional<Academy> findByLogin(String login);
+    Optional<Academy> findByInfoLogin(String login);
 
-    Optional<AcademyAuthProjection> findLoginAndPasswordByLogin(String login);
+    Optional<AcademyAuthProjection> findLoginAndPasswordByInfoLogin(String login);
 
-    boolean existsAcademyByLogin(String login);
+    boolean existsAcademyByInfoLogin(String login);
 
-    Optional<PasswordProjection> findPasswordByLogin(String login);
-
-    Page<Academy> findPlayersByLogin(String login, Pageable pageable);
+    Page<Academy> findPlayersByInfoLogin(String login, Pageable pageable);
 
 }

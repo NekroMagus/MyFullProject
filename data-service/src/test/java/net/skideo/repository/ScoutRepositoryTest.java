@@ -40,16 +40,6 @@ public class ScoutRepositoryTest {
         assertNotNull(scout);
     }
 
-    @Test
-    public void givenValidLoginAndPassword_whenFindPasswordByLogin_thenEquals() {
-        final String password = "password";
-
-        PasswordProjection projection = repository.findPasswordByLogin(LOGIN).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
-        );
-
-        assertEquals(password,projection.getPassword());
-    }
 
     @Test
     public void givenValidLoginAndName_whenFindProfileByLogin_thenEquals() {

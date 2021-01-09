@@ -1,0 +1,18 @@
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  host:
+    connect-timeout-millis: 30000
+    socket-timeout-millis: 30000
+  routes:
+    academy:
+      path: /academy/**
+      url: http://localhost:9050
+    auth:
+      path: /auth/**
+      url: http://localhost:9080
+    club:
+      path: /club/**
+      url: http://localhost:7000
+    player:
+      path: /player/**
+      url: http://localhost:9000

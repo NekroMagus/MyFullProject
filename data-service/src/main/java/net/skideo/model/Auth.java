@@ -22,6 +22,7 @@ public class Auth {
     public Auth(String login,String password) {
         this.login=login;
         this.password=password;
+        this.role=Role.UNCONFIRMED;
     }
 
 }

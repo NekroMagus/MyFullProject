@@ -1,7 +1,6 @@
 package net.skideo.service.academy;
 
 import net.skideo.dto.projections.AcademyAuthProjection;
-import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.model.Academy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,12 +13,9 @@ public interface AcademyService {
 
     AcademyAuthProjection findLoginAndPasswordByLogin(String login);
 
-    boolean isExistsByLogin(String login);
+    void addPlayer(String token,long id);
 
-    PasswordProjection getPasswordByLogin(String login);
+    Page<Academy> getPlayers(String token,Pageable pageable);
 
-    void addPlayer(long id);
-
-    Page<Academy> getPlayers(Pageable pageable);
 
 }

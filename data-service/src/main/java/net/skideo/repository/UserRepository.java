@@ -1,5 +1,6 @@
 package net.skideo.repository;
 
+import net.skideo.dto.ProfileUserDto;
 import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.dto.projections.UserProjection;
@@ -18,35 +19,37 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByLoginIgnoreCase(String login);
+    Optional<User> findByInfoLoginIgnoreCase(String login);
 
-    Optional<UserProjection> findByLogin(String login);
+    Optional<User> findByInfoLogin(String login);
 
-    Optional<UserAuthProjection> findAuthByLoginIgnoreCase(String login);
+    Optional<UserAuthProjection> findAuthByInfoLoginIgnoreCase(String login);
 
-    UserProfileProjection findProjectionByLoginIgnoreCase(String login);
+    UserProfileProjection findProjectionByInfoLoginIgnoreCase(String login);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
-    List<User> findByRoleFootball(RoleFootball roleFootball);
+    List<User> findByInfoRoleFootball(RoleFootball roleFootball);
 
-    List<User> findByCountry(String country);
+    List<User> findByInfoCountry(String country);
 
-    List<User> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
+    List<User> findByBirthDateBetweenAndInfoRoleFootballAndInfoCountry(LocalDate birth, LocalDate now,
                                                                RoleFootball roleFootball, String country);
 
-    List<User> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
+    List<User> findByBirthDateBetweenAndInfoRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
 
-    List<User> findByBirthDateBetweenAndCountry(LocalDate birth, LocalDate now, String country);
+    List<User> findByBirthDateBetweenAndInfoCountry(LocalDate birth, LocalDate now, String country);
 
-    List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country);
+    List<User> findByInfoRoleFootballAndInfoCountry(RoleFootball roleFootball, String country);
 
     Page<User> findAll(Pageable pageable);
 
-    Page<User> findAllByRolePeople(RolePeople rolePeople, Pageable pageable);
+    List<ProfileUserDto> findUserProfilesAll();
 
-    Page<User> findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
+    Page<User> findAllByInfoRolePeople(RolePeople rolePeople, Pageable pageable);
 
-    boolean existsByLogin(String login);
+    Page<User> findAllByInfoCountryAndInfoRoleFootballAndHasAgentAndInfoRolePeopleAndLeadingLegAndBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
+
+    boolean existsByInfoLogin(String login);
 
 }

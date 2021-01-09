@@ -34,25 +34,25 @@ public class AuthServiceImplTest {
     public void givenNotExistsLogin_whenCallExistsByLogin_thenReturnFalse() {
         //given
         final String login = "Not exists login";
-        given(userRepository.existsByLogin(login)).willReturn(false);
+        given(userRepository.existsByInfoLogin(login)).willReturn(false);
 
         //when
         boolean userExists = authService.isUserExists(login);
 
         //then
         assertFalse(userExists);
-        verify(userRepository, times(1)).existsByLogin(login);
+        verify(userRepository, times(1)).existsByInfoLogin(login);
     }
 
     @Test
     public void givenExistsLogin_whenCallExistsByLogin_thenReturnTrue() {
         final String login = "Exists login";
-        given(userRepository.existsByLogin(login)).willReturn(true);
+        given(userRepository.existsByInfoLogin(login)).willReturn(true);
 
         boolean userExists = authService.isUserExists(login);
 
         assertTrue(userExists);
-        verify(userRepository, times(1)).existsByLogin(login);
+        verify(userRepository, times(1)).existsByInfoLogin(login);
     }
 
 
@@ -60,11 +60,11 @@ public class AuthServiceImplTest {
     public void givenLogins_whenCallExistsByLogin_thenCalledNeverWithAnotherLogin() {
         final String login = "Exists login";
         final String anotherLogin = "Another login";
-        given(userRepository.existsByLogin(login)).willReturn(true);
+        given(userRepository.existsByInfoLogin(login)).willReturn(true);
 
         authService.isUserExists(login);
 
-        verify(userRepository, never()).existsByLogin(anotherLogin);
+        verify(userRepository, never()).existsByInfoLogin(anotherLogin);
     }
 
     @Test
