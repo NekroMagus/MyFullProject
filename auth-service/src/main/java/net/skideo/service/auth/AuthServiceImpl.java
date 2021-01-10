@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Auth getCurrentAuth(String token) {
-        final String LOGIN_CURRENT_AUTH = jwtProvider.getLoginFromToken(token);
+        final String LOGIN_CURRENT_AUTH = jwtProvider.getLoginFromToken(token.substring(7));
         return findByLogin(LOGIN_CURRENT_AUTH);
     }
 

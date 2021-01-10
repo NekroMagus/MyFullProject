@@ -7,6 +7,7 @@ import net.skideo.dto.ProfileUserDto;
 import net.skideo.dto.SearchDto;
 import net.skideo.dto.UpdateProfileDto;
 import net.skideo.dto.projections.PasswordProjection;
+import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.dto.projections.ScoutProfileProjection;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
@@ -67,17 +68,17 @@ public class ScoutServiceImpl implements ScoutService {
     public ProfileDto getProfile(ScoutProfileProjection currentScout) {
         ProfileDto profile = new ProfileDto(currentScout);
         List<ProfileUserDto> players = new LinkedList<>();
-        List<ProfileUserDto> users = userService.findUserProfilesAll();
+        List<User> users = userService.findAll();
 
         if (users.size() >= 3) {
 
             for (int i = 1; i <= 3; i++) {
 
                 int random = (int) (Math.random() * users.size() - 1);
-                ProfileUserDto user = users.get(random);
+                User user = users.get(random);
 
                 if (videoService.findAllByUserId(user.getId()).size() >= 1) {
-                    players.add(user);
+                    players.add(new ProfileUserDto(user));
                 }
             }
         }

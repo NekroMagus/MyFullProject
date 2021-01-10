@@ -24,7 +24,7 @@ public interface VideoService {
 
     Page<VideoDto> findAllMyVideos(long idInfo, int page, int size);
 
-    void addVideo(String link);
+    void addVideo(String token,String link);
 
     Page<VideoDto> findAllAnotherVideos(long idInfo, int page, int size);
 

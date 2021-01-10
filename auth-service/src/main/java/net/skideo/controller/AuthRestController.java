@@ -1,6 +1,5 @@
 package net.skideo.controller;
 
-import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AuthDto;
 import net.skideo.dto.TokenDto;
 import net.skideo.exception.AlreadyExistsException;
@@ -8,19 +7,20 @@ import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.model.Auth;
 import net.skideo.security.JwtProvider;
 import net.skideo.service.auth.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
 public class AuthRestController {
 
-    private final AuthService authService;
-    private final JwtProvider jwtProvider;
+    @Autowired
+    private AuthService authService;
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
@@ -51,8 +51,7 @@ public class AuthRestController {
 
     @GetMapping("/auth/me")
     public Auth getCurrentAuth(@RequestHeader("Authorization") String token) {
-        final String LOGIN_CURRENT_AUTH = jwtProvider.getLoginFromToken(token);
-        return authService.findByLogin(LOGIN_CURRENT_AUTH);
+        return authService.getCurrentAuth(token);
     }
 
 }

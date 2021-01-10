@@ -44,6 +44,11 @@ public class AcademyRestController {
         return userService.getAmateurPlayers(PageRequest.of(page,size));
     }
 
+    @GetMapping("/profile")
+    public AcademyProfileDto getProfile(@RequestHeader("Authorization") String token) {
+        return academyService.getProfile(token);
+    }
+
     @PutMapping("/auth/data")
     public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto) {
         academyService.updateLoginAndPassword(token,authDto);

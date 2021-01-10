@@ -25,4 +25,6 @@ public interface AcademyService {
 
     void updateProfile(String token,AcademyProfileDto academyProfileDto);
 
+    AcademyProfileDto getProfile(String token);
+
 }

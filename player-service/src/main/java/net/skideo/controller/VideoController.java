@@ -45,8 +45,8 @@ public class VideoController {
     }
 
     @PostMapping("/profile/video")
-    public ResponseEntity<?> addVideo(@Valid @RequestBody VideoLinkDto dto) {
-        videoService.addVideo(dto.getLink());
+    public ResponseEntity<?> addVideo(@RequestHeader("Authorization") String token,@Valid @RequestBody VideoLinkDto dto) {
+        videoService.addVideo(token,dto.getLink());
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 

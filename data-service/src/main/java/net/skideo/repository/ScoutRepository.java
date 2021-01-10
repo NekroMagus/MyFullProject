@@ -20,5 +20,4 @@ public interface ScoutRepository extends JpaRepository<Scout,Long> {
 
     Page<ScoutDto> findAllByRegionAndClubId(String region,long id,Pageable pageable);
 
-    boolean existsByLogin(String login);
 }

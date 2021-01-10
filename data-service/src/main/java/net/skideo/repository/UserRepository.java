@@ -2,6 +2,7 @@ package net.skideo.repository;
 
 import net.skideo.dto.ProfileUserDto;
 import net.skideo.dto.UserShortInfoDto;
+import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.dto.projections.UserProjection;
@@ -25,8 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByInfoLogin(String login);
 
-    Optional<UserAuthProjection> findAuthByInfoLoginIgnoreCase(String login);
-
     UserProfileProjection findProjectionByInfoLoginIgnoreCase(String login);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
@@ -46,12 +45,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-    List<ProfileUserDto> findUserProfilesAll();
-
     Page<UserShortInfoDto> findAllByInfoRolePeople(RolePeople rolePeople, Pageable pageable);
 
-    Page<User> findAllByInfoCountryAndInfoRoleFootballAndHasAgentAndInfoRolePeopleAndLeadingLegAndBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
+    Page<User> findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrInfoRolePeopleOrLeadingLegOrBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
 
     boolean existsByInfoLogin(String login);
+
+    List<User> findAll();
 
 }

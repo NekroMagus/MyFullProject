@@ -1,8 +1,8 @@
 zuul:
   sensitiveHeaders: Cookie,Set-Cookie
   host:
-    connect-timeout-millis: 30000
-    socket-timeout-millis: 30000
+    connect-timeout-millis: 40000
+    socket-timeout-millis: 40000
   routes:
     academy:
       path: /academy/**

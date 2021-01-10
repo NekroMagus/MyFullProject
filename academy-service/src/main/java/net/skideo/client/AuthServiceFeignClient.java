@@ -18,7 +18,7 @@ public interface AuthServiceFeignClient {
     @GetMapping("/api/auth/me")
     Auth getCurrentAuth(@RequestHeader(value="Authorization") String token);
 
-    @PutMapping("/auth/data")
+    @PutMapping("/api/auth/data")
     void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto);
 
 }

@@ -95,9 +95,17 @@ public class AcademyServiceImpl implements AcademyService {
         academyRepository.save(dbAcademy);
     }
 
+    @Override
+    public AcademyProfileDto getProfile(String token) {
+        return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy(token));
+    }
+
+    private String getLoginCurrentAcademy(String token) {
+        return feignClient.getCurrentAuth(token).getLogin();
+    }
 
     private Academy getCurrentAcademy(String token) {
-        return findByLogin(feignClient.getCurrentAuth(token).getLogin());
+        return findByLogin(getLoginCurrentAcademy(token));
     }
 
     private void updateListPlayers(String token,List<User> listPlayers) {

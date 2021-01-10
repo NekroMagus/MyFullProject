@@ -1,5 +1,6 @@
 package net.skideo.repository;
 
+import net.skideo.dto.AcademyProfileDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.model.Academy;
@@ -17,5 +18,7 @@ public interface AcademyRepository extends JpaRepository<Academy,Long> {
     Optional<AcademyAuthProjection> findLoginAndPasswordByInfoLogin(String login);
 
     Page<UserShortInfoDto> findPlayersByInfoLogin(String login, Pageable pageable);
+
+    AcademyProfileDto findProfileByInfoLogin(String login);
 
 }

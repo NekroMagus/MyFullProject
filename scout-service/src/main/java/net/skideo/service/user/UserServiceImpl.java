@@ -1,6 +1,6 @@
 package net.skideo.service.user;
 
-import net.skideo.dto.ProfileUserDto;
+import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +23,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<ProfileUserDto> findUserProfilesAll() {
-        return userRepository.findUserProfilesAll();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Override
     public Page<User> findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return userRepository.findAllByInfoCountryAndInfoRoleFootballAndHasAgentAndInfoRolePeopleAndLeadingLegAndBirthDate(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth,pageable);
+        return userRepository.findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrInfoRolePeopleOrLeadingLegOrBirthDate(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth,pageable);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.skideo.dto;
 
+import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.model.Club;
 import net.skideo.model.User;
 import lombok.AllArgsConstructor;
@@ -18,15 +19,14 @@ public class ProfileUserDto {
     private String surname;
     private String country;
     private RoleFootball roleFootball;
-    private Club club;
+    private ClubProfileDto club;
 
     public ProfileUserDto(User user) {
         this.id = user.getId();
-        this.name=user.getInfo().getName();
-        this.surname=user.getInfo().getSurname();
-        this.club=user.getClub();
-        this.country=user.getInfo().getCountry();
-        this.roleFootball=user.getInfo().getRoleFootball();
+        this.name = user.getInfo().getName();
+        this.surname = user.getInfo().getSurname();
+        this.roleFootball = user.getInfo().getRoleFootball();
+        this.club = new ClubProfileDto(user.getClub());
     }
 
 }

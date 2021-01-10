@@ -15,5 +15,4 @@ public interface ClubRepository extends JpaRepository<Club,Long> {
 
     Optional<ClubProfileDto> findProfileByLogin(String login);
 
-    boolean existsByLogin(String login);
 }

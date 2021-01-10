@@ -41,40 +41,13 @@ public class ClubRepositoryTest {
         ));
     }
 
-    @Test
-    public void givenValidLogin_whenFindByLogin_thenFoundClub() {
-        Club club = repository.findByInfoLogin(LOGIN).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
-        );
 
-        assertNotNull(club);
-    }
-
-    @Test
-    public void givenValidLogin_whenFindProfileByLogin_thenEquals() {
-        final String TITLE_CLUB = "title";
-        final String LOGO_LINK = "link";
-
-        ClubProfileDto dto = repository.findInfoProfileByInfoLogin(LOGIN).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
-        );
-
-        assertEquals(dto.getLogoLink(),LOGO_LINK);
-        assertEquals(dto.getTitleClub(),TITLE_CLUB);
-    }
-
-    @Test
-    public void givenInvalidLogin_whenExistsByLogin_thenTrue() {
-        boolean isExist = repository.existsByInfoLogin(LOGIN);
-
-        assertTrue(isExist);
-    }
 
     @Test
     public void givenInvalidIdAndClub_whenSaveScriptAndFindById_thenEquals() {
         Club newClub = new Club();
         newClub.setId(ID);
-        newClub.getInfo().setLogin("egor");
+        newClub.setLogin("egor");
 
         repository.save(newClub);
 
@@ -82,7 +55,7 @@ public class ClubRepositoryTest {
                 () -> new ClubNotFoundException("Club not found")
         );
 
-        assertEquals(club.getInfo().getLogin(), "egor");
+        assertEquals(club.getLogin(), "egor");
     }
 
     @Test
