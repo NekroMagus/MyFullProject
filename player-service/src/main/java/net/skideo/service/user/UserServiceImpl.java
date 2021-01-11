@@ -12,6 +12,7 @@ import net.skideo.model.User;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void create(User user) {
         user.getInfo().setPassword(passwordEncoder.encode(user.getInfo().getPassword()));
+        user.getInfo().setServiceRole(ServiceRole.USER);
         repository.save(user);
     }
 

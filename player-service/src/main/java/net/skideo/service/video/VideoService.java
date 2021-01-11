@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 
 public interface VideoService {
 
-    void save(Video video);
-
     Video findById(long id);
 
     void updateLink(Video video);

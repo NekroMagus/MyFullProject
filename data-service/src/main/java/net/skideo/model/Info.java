@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
+import net.skideo.model.enums.ServiceRole;
 
 import javax.persistence.*;
 
@@ -32,6 +33,8 @@ public class Info {
     private RoleFootball roleFootball;
     @Enumerated(value = EnumType.STRING)
     private RolePeople rolePeople;
+    @Enumerated(value = EnumType.STRING)
+    private ServiceRole serviceRole;
 
 
 }

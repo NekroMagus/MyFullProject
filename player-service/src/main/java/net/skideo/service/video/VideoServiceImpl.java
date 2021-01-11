@@ -6,6 +6,7 @@ import net.skideo.exception.NotFoundException;
 import net.skideo.model.Like;
 import net.skideo.model.User;
 import net.skideo.model.Video;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.like.LikeService;
 import net.skideo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,7 @@ public class VideoServiceImpl implements VideoService {
     private final UserService userService;
     private final LikeService likeService;
 
-    @Override
-    public void save(Video video) {
+    private void save(Video video) {
         repository.save(video);
     }
 
@@ -93,7 +93,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public Page<VideoDto> findAllAnotherVideos(long idInfo, int page, int size) {
-        return repository.findByInfoIdNot(idInfo, PageRequest.of(page, size));
+        return repository.findByInfoIdNotAndInfoServiceRole(idInfo, ServiceRole.USER, PageRequest.of(page, size));
     }
 
 }

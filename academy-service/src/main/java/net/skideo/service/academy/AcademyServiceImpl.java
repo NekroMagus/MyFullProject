@@ -1,15 +1,17 @@
 package net.skideo.service.academy;
 
 import net.skideo.client.AuthServiceFeignClient;
-import net.skideo.dto.AcademyProfileDto;
-import net.skideo.dto.AuthDto;
-import net.skideo.dto.UserShortInfoDto;
+import net.skideo.dto.*;
 import net.skideo.exception.AcademyNotFoundException;
 import net.skideo.model.Academy;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.model.User;
+import net.skideo.model.Video;
 import net.skideo.repository.AcademyRepository;
 import lombok.RequiredArgsConstructor;
 import net.skideo.service.user.UserService;
+import net.skideo.service.video.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +25,8 @@ import java.util.List;
 public class AcademyServiceImpl implements AcademyService {
 
     private final UserService userService;
+    @Autowired
+    private VideoService videoService;
     private final AcademyRepository academyRepository;
     private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
@@ -30,6 +34,7 @@ public class AcademyServiceImpl implements AcademyService {
     @Override
     public void save(Academy academy) {
         academy.getInfo().setPassword(passwordEncoder.encode(academy.getInfo().getPassword()));
+        academy.getInfo().setServiceRole(ServiceRole.ACADEMY);
         academyRepository.save(academy);
     }
 
@@ -100,11 +105,19 @@ public class AcademyServiceImpl implements AcademyService {
         return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy(token));
     }
 
+    @Override
+    public void addVideo(String token, AcademyVideoDto videoDto) {
+        Academy currentAcademy = getCurrentAcademy(token);
+        Video video = new Video(videoDto.getDescription(),videoDto.getLink(),currentAcademy.getInfo());
+        videoService.create(video);
+    }
+
     private String getLoginCurrentAcademy(String token) {
         return feignClient.getCurrentAuth(token).getLogin();
     }
 
-    private Academy getCurrentAcademy(String token) {
+    @Override
+    public Academy getCurrentAcademy(String token) {
         return findByLogin(getLoginCurrentAcademy(token));
     }
 

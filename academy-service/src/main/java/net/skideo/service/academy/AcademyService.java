@@ -1,8 +1,6 @@
 package net.skideo.service.academy;
 
-import net.skideo.dto.AcademyProfileDto;
-import net.skideo.dto.AuthDto;
-import net.skideo.dto.UserShortInfoDto;
+import net.skideo.dto.*;
 import net.skideo.dto.projections.AcademyAuthProjection;
 import net.skideo.model.Academy;
 import net.skideo.model.User;
@@ -26,5 +24,9 @@ public interface AcademyService {
     void updateProfile(String token,AcademyProfileDto academyProfileDto);
 
     AcademyProfileDto getProfile(String token);
+
+    void addVideo(String token,AcademyVideoDto videoDto);
+
+    Academy getCurrentAcademy(String token);
 
 }

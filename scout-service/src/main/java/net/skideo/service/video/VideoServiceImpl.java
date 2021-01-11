@@ -1,5 +1,6 @@
 package net.skideo.service.video;
 
+import net.skideo.dto.VideoDto;
 import net.skideo.model.Video;
 import lombok.RequiredArgsConstructor;
 import net.skideo.repository.VideoRepository;
@@ -15,6 +16,6 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public List<Video> findAllByUserId(long id) {
-        return videoRepository.findAllByUserId(id);
+        return videoRepository.findAllByInfoId(id);
     }
 }
