@@ -24,7 +24,7 @@ public class Video {
     @ManyToOne(optional = false)
     private Info info;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "video")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "video")
     private Set<Like> likes = new HashSet<>();
 
     public Video(String link, Info info) {
