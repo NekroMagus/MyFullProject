@@ -1,6 +1,7 @@
 package net.skideo.service.academy;
 
 import net.skideo.client.AuthServiceFeignClient;
+import net.skideo.controller.exception.AcademyExceptionController;
 import net.skideo.dto.*;
 import net.skideo.exception.AcademyNotFoundException;
 import net.skideo.model.Academy;
@@ -14,11 +15,13 @@ import net.skideo.service.video.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -48,9 +51,9 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public void addPlayer(String token,long id) {
+    public void addPlayer(long id) {
         User user = userService.getUserById(id);
-        Academy currentAcademy = getCurrentAcademy(token);
+        Academy currentAcademy = getCurrentAcademy();
 
         List<User> newListPlayers = currentAcademy.getListPlayers();
         if(newListPlayers==null) {
@@ -58,19 +61,18 @@ public class AcademyServiceImpl implements AcademyService {
         }
         newListPlayers.add(user);
 
-        updateListPlayers(token,newListPlayers);
-        updateNumberPlayers(token,currentAcademy.getNumberPlayers()+1);
+        updateListPlayers(currentAcademy,newListPlayers);
+        updateNumberPlayers(currentAcademy.getNumberPlayers()+1);
     }
 
     @Override
-    public Page<UserShortInfoDto> getPlayers(String token, Pageable pageable) {
-        final String CURRENT_LOGIN = feignClient.getCurrentAuth(token).getLogin();
-        return academyRepository.findPlayersByInfoLogin(CURRENT_LOGIN,pageable);
+    public Page<UserShortInfoDto> getPlayers(Pageable pageable) {
+        return academyRepository.findPlayersByInfoLogin(getLoginCurrentAcademy(),pageable);
     }
 
     @Override
-    public void updateNumberPlayers(String token,int numberPlayers) {
-        Academy dbAcademy = getCurrentAcademy(token);
+    public void updateNumberPlayers(int numberPlayers) {
+        Academy dbAcademy = getCurrentAcademy();
 
         dbAcademy.setNumberPlayers(numberPlayers);
 
@@ -78,20 +80,20 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public void updateLoginAndPassword(String token,AuthDto authDto) {
-        Academy dbAcademy = getCurrentAcademy(token);
+    public void updateLoginAndPassword(AuthDto authDto) {
+        Academy dbAcademy = getCurrentAcademy();
 
         dbAcademy.getInfo().setLogin(authDto.getLogin());
         dbAcademy.getInfo().setPassword(passwordEncoder.encode(authDto.getPassword()));
 
-        feignClient.updateLoginAndPassword(token,authDto);
+        feignClient.updateLoginAndPassword(authDto);
 
         academyRepository.save(dbAcademy);
     }
 
     @Override
-    public void updateProfile(String token,AcademyProfileDto academyProfileDto) {
-        Academy dbAcademy = getCurrentAcademy(token);
+    public void updateProfile(AcademyProfileDto academyProfileDto) {
+        Academy dbAcademy = getCurrentAcademy();
 
         dbAcademy.getInfo().setCity(academyProfileDto.getCity());
         dbAcademy.getInfo().setCountry(academyProfileDto.getCountry());
@@ -101,29 +103,29 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public AcademyProfileDto getProfile(String token) {
-        return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy(token));
+    public AcademyProfileDto getProfile() {
+        return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy());
     }
 
     @Override
-    public void addVideo(String token, AcademyVideoDto videoDto) {
-        Academy currentAcademy = getCurrentAcademy(token);
+    public void addVideo(AcademyVideoDto videoDto) {
+        Academy currentAcademy = getCurrentAcademy();
         Video video = new Video(videoDto.getDescription(),videoDto.getLink(),currentAcademy.getInfo());
         videoService.create(video);
     }
 
-    private String getLoginCurrentAcademy(String token) {
-        return feignClient.getCurrentAuth(token).getLogin();
-    }
-
     @Override
-    public Academy getCurrentAcademy(String token) {
-        return findByLogin(getLoginCurrentAcademy(token));
+    public Academy getCurrentAcademy() {
+        return findByLogin(getLoginCurrentAcademy());
     }
 
-    private void updateListPlayers(String token,List<User> listPlayers) {
-        Academy academy = getCurrentAcademy(token);
+    private String getLoginCurrentAcademy() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    private void updateListPlayers(Academy academy, List<User> listPlayers) {
         academy.setListPlayers(listPlayers);
+
         academyRepository.save(academy);
     }
 

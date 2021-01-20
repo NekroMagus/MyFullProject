@@ -1,0 +1,8 @@
+security:
+  oauth2:
+    academy:
+      client-id: academy-service
+      client-secret: academy-service
+    gateway:
+      client-id: gateway-service
+      client-secret: gateway-service

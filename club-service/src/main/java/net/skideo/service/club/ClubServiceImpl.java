@@ -133,9 +133,9 @@ public class ClubServiceImpl implements ClubService {
 
         while (users.hasNext()) {
             User user = users.next();
-            if (videoService.findAllByUserId(user.getId()).size() >= 1) {
-                int random = (int) (Math.random() * videoService.findAllByUserId(user.getId()).size() - 1);
-                videos.add(new VideoDto(videoService.findAllByUserId(user.getId()).get(random)));
+            if (videoService.findAllByInfoId(user.getId()).size() >= 1) {
+                int random = (int) (Math.random() * videoService.findAllByInfoId(user.getId()).size() - 1);
+                videos.add(new VideoDto(videoService.findAllByInfoId(user.getId()).get(random)));
             }
         }
 

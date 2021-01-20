@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface VideoService {
 
-    List<Video> findAllByUserId(long id);
+    List<Video> findAllByInfoId(long id);
 }

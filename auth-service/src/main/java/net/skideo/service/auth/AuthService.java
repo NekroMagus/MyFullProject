@@ -2,6 +2,11 @@ package net.skideo.service.auth;
 
 import net.skideo.dto.AuthDto;
 import net.skideo.model.Auth;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+
+import java.util.Map;
 
 public interface AuthService {
 
@@ -13,8 +18,8 @@ public interface AuthService {
 
     Auth findByLogin(String login);
 
-    Auth getCurrentAuth(String token);
-
     void updateLoginAndPassword(String token,AuthDto authDto);
+
+    ResponseEntity<OAuth2AccessToken> generateToken(Map<String,String> parameters,String clientId) throws HttpRequestMethodNotSupportedException;
 
 }

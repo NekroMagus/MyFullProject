@@ -8,6 +8,6 @@ public interface VideoService {
 
     void create(Video video);
 
-    Page<VideoDto> getMyVideos(String token, int page, int size);
+    Page<VideoDto> getMyVideos(int page, int size);
 
 }

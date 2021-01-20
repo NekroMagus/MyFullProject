@@ -7,8 +7,8 @@ zuul:
     academy:
       path: /academy/**
       url: http://localhost:9050
-    auth:
-      path: /auth/**
+    oauth:
+      path: /oauth/**
       url: http://localhost:9080
     club:
       path: /club/**

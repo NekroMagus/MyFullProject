@@ -1,6 +1,7 @@
 package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
 import net.skideo.model.Academy;
 import net.skideo.model.Video;
@@ -13,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -30,16 +33,15 @@ public class AcademyRestController {
     private final VideoRepository videoRepository;
 
     @PostMapping("/player/{id}")
-    public void addPlayer(@RequestHeader("Authorization") String token,@PathVariable("id") long id) {
-        academyService.addPlayer(token,id);
+    public void addPlayer(@PathVariable("id") long id) {
+        academyService.addPlayer(id);
     }
 
     @GetMapping("/player/all")
-    public Page<UserShortInfoDto> getPlayers(@RequestHeader("Authorization") String token,
-                                             @RequestParam(defaultValue = "0") int page,
+    public Page<UserShortInfoDto> getPlayers(@RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return academyService.getPlayers(token,pageable);
+        return academyService.getPlayers(pageable);
     }
 
     @GetMapping("/player/amateur")
@@ -49,33 +51,33 @@ public class AcademyRestController {
     }
 
     @GetMapping("/profile")
-    public AcademyProfileDto getProfile(@RequestHeader("Authorization") String token) {
-        return academyService.getProfile(token);
+    public AcademyProfileDto getProfile() {
+        return academyService.getProfile();
     }
 
     @PutMapping("/auth/data")
-    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto) {
-        academyService.updateLoginAndPassword(token,authDto);
+    public void updateLoginAndPassword(@Valid @RequestBody AuthDto authDto) {
+        academyService.updateLoginAndPassword(authDto);
     }
 
     @PutMapping("/profile")
-    public void updateProfile(@RequestHeader("Authorization") String token,@Valid @RequestBody AcademyProfileDto profileDto) {
-        academyService.updateProfile(token,profileDto);
+    public void updateProfile(@Valid @RequestBody AcademyProfileDto profileDto) {
+        academyService.updateProfile(profileDto);
     }
 
     @PostMapping("/video")
-    public void addVideo(@RequestHeader("Authorization") String token,@Valid @RequestBody AcademyVideoDto videoDto) {
-        academyService.addVideo(token,videoDto);
+    public void addVideo(@Valid @RequestBody AcademyVideoDto videoDto) {
+        academyService.addVideo(videoDto);
     }
 
     @GetMapping("/video")
-    public Page<VideoDto> getMyVideos(@RequestHeader("Authorization") String token,
-                                      @RequestParam(defaultValue = "0") int page,
+    public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "50") int size) {
-        return videoService.getMyVideos(token,page,size);
+        return videoService.getMyVideos(page,size);
     }
 
-    // для тестов
+    /* ------------- для тестов ------------------ */
+
     @GetMapping("/all")
     public List<Academy> all() {
         return repository.findAll();
@@ -86,5 +88,11 @@ public class AcademyRestController {
         return videoRepository.findAll();
     }
 
+    @GetMapping("/me")
+    public String me() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    /* ------------------------------------- */
 
 }

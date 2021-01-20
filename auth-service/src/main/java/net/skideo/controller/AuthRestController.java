@@ -1,17 +1,19 @@
 package net.skideo.controller;
 
 import net.skideo.dto.AuthDto;
-import net.skideo.dto.TokenDto;
 import net.skideo.exception.AlreadyExistsException;
-import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.model.Auth;
-import net.skideo.security.JwtProvider;
 import net.skideo.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -19,39 +21,34 @@ public class AuthRestController {
 
     @Autowired
     private AuthService authService;
-    @Autowired
-    private JwtProvider jwtProvider;
 
-    @PostMapping("/authenticate")
-    public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
-        Auth auth = authService.findByLogin(authDto.getLogin());
-        if(!authService.isCorrectPassword(authDto.getPassword(),auth.getPassword())) {
-            throw new WrongLoginOrPasswordException("Wrong login or password");
-        }
-        return new TokenDto(jwtProvider.generateToken(authDto.getLogin()));
-    }
-
-    @PostMapping("/registration")
-    public ResponseEntity<TokenDto> registration(@Valid @RequestBody AuthDto authDto) {
-        if(authService.isAuthExists(authDto.getLogin())) {
+    @RequestMapping(method = RequestMethod.POST,path = "/registration",consumes =  MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<OAuth2AccessToken> registration(@RequestParam String login,@RequestParam String password, @RequestParam String clientId,
+                                                          @RequestParam String clientSecret, @RequestParam String grantType) throws HttpRequestMethodNotSupportedException {
+        if(authService.isAuthExists(login)) {
             throw new AlreadyExistsException("Already exists");
         }
 
-        authService.addAuth(new Auth(authDto.getLogin(),authDto.getPassword()));
+        authService.addAuth(new Auth(login,password));
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(new TokenDto(jwtProvider.generateToken(authDto.getLogin())));
+        Map<String,String> parameters = new HashMap<>();
+        parameters.put("username",login);
+        parameters.put("password",password);
+        parameters.put("client_secret",clientSecret);
+        parameters.put("grant_type",grantType);
+        parameters.put("scopes","read write");
+
+        return authService.generateToken(parameters,clientId);
     }
 
     @PutMapping("/auth/data")
-    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto) {
-        authService.updateLoginAndPassword(token,authDto);
+    public void updateLoginAndPassword(Principal principal,@Valid @RequestBody AuthDto authDto) {
+        authService.updateLoginAndPassword(principal.getName(),authDto);
     }
 
     @GetMapping("/auth/me")
-    public Auth getCurrentAuth(@RequestHeader("Authorization") String token) {
-        return authService.getCurrentAuth(token);
+    public Principal getCurrentPrincipal(Principal principal) {
+        return principal;
     }
 
 }

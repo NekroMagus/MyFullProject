@@ -13,20 +13,20 @@ public interface AcademyService {
 
     Academy findByLogin(String login);
 
-    void addPlayer(String token,long id);
+    void addPlayer(long id);
 
-    Page<UserShortInfoDto> getPlayers(String token, Pageable pageable);
+    Page<UserShortInfoDto> getPlayers(Pageable pageable);
 
-    void updateNumberPlayers(String token,int numberPlayers);
+    void updateNumberPlayers(int numberPlayers);
 
-    void updateLoginAndPassword(String token,AuthDto authDto);
+    void updateLoginAndPassword(AuthDto authDto);
 
-    void updateProfile(String token,AcademyProfileDto academyProfileDto);
+    void updateProfile(AcademyProfileDto academyProfileDto);
 
-    AcademyProfileDto getProfile(String token);
+    AcademyProfileDto getProfile();
 
-    void addVideo(String token,AcademyVideoDto videoDto);
+    void addVideo(AcademyVideoDto videoDto);
 
-    Academy getCurrentAcademy(String token);
+    Academy getCurrentAcademy();
 
 }

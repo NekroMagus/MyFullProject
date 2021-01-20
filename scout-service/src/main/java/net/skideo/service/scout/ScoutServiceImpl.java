@@ -77,7 +77,7 @@ public class ScoutServiceImpl implements ScoutService {
                 int random = (int) (Math.random() * users.size() - 1);
                 User user = users.get(random);
 
-                if (videoService.findAllByUserId(user.getId()).size() >= 1) {
+                if (videoService.findAllByInfoId(user.getId()).size() >= 1) {
                     players.add(new ProfileUserDto(user));
                 }
             }

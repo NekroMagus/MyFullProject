@@ -25,8 +25,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public Page<VideoDto> getMyVideos(String token, int page, int size) {
-        Academy currentAcademy = academyService.getCurrentAcademy(token);
+    public Page<VideoDto> getMyVideos(int page, int size) {
+        Academy currentAcademy = academyService.getCurrentAcademy();
         Pageable pageable = PageRequest.of(page,size);
         return repository.findAllByInfoId(currentAcademy.getInfo().getId(),pageable);
     }

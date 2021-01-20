@@ -1,7 +1,6 @@
 package net.skideo.security;
 
 import net.skideo.model.Auth;
-import net.skideo.security.jwt.JwtAuth;
 import net.skideo.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

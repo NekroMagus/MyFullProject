@@ -1,4 +1,4 @@
-package net.skideo.security.jwt;
+package net.skideo.security;
 
 import net.skideo.model.Auth;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,7 +1,6 @@
 package net.skideo.controller.exception;
 
 import net.skideo.exception.AcademyNotFoundException;
-import net.skideo.exception.AlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
