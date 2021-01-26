@@ -36,7 +36,6 @@ public class ClubServiceImpl implements ClubService {
     private final ScoutService scoutService;
     private final UserService userService;
     private final VideoService videoService;
-    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder encoder;
 
     @Override
@@ -60,32 +59,31 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public ClubProfileDto getProfile(String token) {
-        final String LOGIN_CURRENT_CLUB = feignClient.getCurrentAuth(token).getLogin();
+    public ClubProfileDto getProfile() {
+        final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
         return clubRepository.findProfileByLogin(LOGIN_CURRENT_CLUB).orElseThrow(
                 () -> new ClubNotFoundException("Club not found")
         );
     }
 
     @Override
-    public Page<ScoutDto> getScouts(Club currentClub,int page,int size) {
+    public Page<ScoutDto> getScouts(int page,int size) {
+        Club currentClub = getCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
         return scoutService.findAllByClubId(currentClub.getId(),pageable);
     }
 
     @Override
-    public void addScout(long id, Club currentClub) {
+    public void addScout(long id) {
+        Club currentClub = getCurrentClub();
         Scout scout = scoutService.findById(id);
 
-        if (scout.getClub() == null) {
-            scout.setClub(currentClub);
-        }
-
-        scoutService.save(scout);
+        scoutService.updateClub(scout,currentClub);
     }
 
     @Override
-    public void removeScout(long id, Club currentClub) {
+    public void removeScout(long id) {
+        Club currentClub = getCurrentClub();
         Scout scout = scoutService.findById(id);
 
         if (scout.getClub().equals(currentClub)) {
@@ -96,7 +94,8 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void setRegionScout(long id, String region, Club currentClub) {
+    public void setRegionScout(long id, String region) {
+        Club currentClub = getCurrentClub();
         Scout scout = scoutService.findById(id);
 
         if (scout.getClub().equals(currentClub)) {
@@ -107,22 +106,24 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Page<ScoutDto> getScoutsByRegion(String region, long idCurrentClub,int page,int size) {
+    public Page<ScoutDto> getScoutsByRegion(String region,int page,int size) {
+        Club currentClub = getCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
-        return scoutService.findAllByRegionAndClubId(region,idCurrentClub,pageable);
+        return scoutService.findAllByRegionAndClubId(region,currentClub.getId(),pageable);
     }
 
     @Override
-    public void addUserToFavorite(long idUser, Club club) {
+    public void addUserToFavorite(long idUser) {
+        Club currentClub = getCurrentClub();
         User user = userService.findById(idUser);
 
 
-        if (club.getFavoriteUsers() == null) {
-            club.setFavoriteUsers(new LinkedHashSet<>());
+        if (currentClub.getFavoriteUsers() == null) {
+            currentClub.setFavoriteUsers(new LinkedHashSet<>());
         }
-        club.getFavoriteUsers().add(user);
+        currentClub.getFavoriteUsers().add(user);
 
-        clubRepository.save(club);
+        clubRepository.save(currentClub);
     }
 
 
@@ -143,8 +144,12 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Club getCurrentClub(String token) {
-        return findByLogin(feignClient.getCurrentAuth(token).getLogin());
+    public Club getCurrentClub() {
+        return findByLogin(getLoginCurrentClub());
+    }
+
+    private String getLoginCurrentClub() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
 }

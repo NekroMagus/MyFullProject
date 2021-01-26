@@ -2,6 +2,7 @@ package net.skideo.service.user;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.UserShortInfoDto;
+import net.skideo.exception.NotFoundException;
 import net.skideo.model.User;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.UserRepository;
@@ -17,7 +18,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long id) {
-        return repository.getOne(id);
+        return repository.findById(id).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
     }
 
     @Override

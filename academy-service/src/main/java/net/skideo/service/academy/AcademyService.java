@@ -17,8 +17,6 @@ public interface AcademyService {
 
     Page<UserShortInfoDto> getPlayers(Pageable pageable);
 
-    void updateNumberPlayers(int numberPlayers);
-
     void updateLoginAndPassword(AuthDto authDto);
 
     void updateProfile(AcademyProfileDto academyProfileDto);

@@ -6,3 +6,6 @@ security:
     gateway:
       client-id: gateway-service
       client-secret: gateway-service
+    club:
+      client-id: club-service
+      client-secret: club-service

@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/oauth/token","/academy/api/registration","/club/api/registration",
-                             "/player/api/registration","/academy/api/academy/**","/oauth/api/registration").permitAll()
+                             "/player/api/registration","/academy/api/academy/**","/club/api/club/**").permitAll()
                 .anyRequest().authenticated();
     }
 

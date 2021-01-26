@@ -4,6 +4,7 @@ import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.controller.exception.AcademyExceptionController;
 import net.skideo.dto.*;
 import net.skideo.exception.AcademyNotFoundException;
+import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.model.User;
@@ -44,7 +45,7 @@ public class AcademyServiceImpl implements AcademyService {
     @Override
     public Academy findByLogin(String login) {
         Academy academy = academyRepository.findByInfoLogin(login).orElseThrow(
-                () -> new AcademyNotFoundException("Academy not found")
+                () -> new NotFoundException("Academy not found")
         );
 
         return academy;
@@ -61,22 +62,13 @@ public class AcademyServiceImpl implements AcademyService {
         }
         newListPlayers.add(user);
 
-        updateListPlayers(currentAcademy,newListPlayers);
+        updateListPlayers(newListPlayers);
         updateNumberPlayers(currentAcademy.getNumberPlayers()+1);
     }
 
     @Override
     public Page<UserShortInfoDto> getPlayers(Pageable pageable) {
         return academyRepository.findPlayersByInfoLogin(getLoginCurrentAcademy(),pageable);
-    }
-
-    @Override
-    public void updateNumberPlayers(int numberPlayers) {
-        Academy dbAcademy = getCurrentAcademy();
-
-        dbAcademy.setNumberPlayers(numberPlayers);
-
-        academyRepository.save(dbAcademy);
     }
 
     @Override
@@ -123,10 +115,20 @@ public class AcademyServiceImpl implements AcademyService {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    private void updateListPlayers(Academy academy, List<User> listPlayers) {
-        academy.setListPlayers(listPlayers);
+    private void updateListPlayers(List<User> listPlayers) {
+        Academy dbAcademy = getCurrentAcademy();
 
-        academyRepository.save(academy);
+        dbAcademy.setListPlayers(listPlayers);
+
+        academyRepository.save(dbAcademy);
+    }
+
+    private void updateNumberPlayers(int numberPlayers) {
+        Academy dbAcademy = getCurrentAcademy();
+
+        dbAcademy.setNumberPlayers(numberPlayers);
+
+        academyRepository.save(dbAcademy);
     }
 
 

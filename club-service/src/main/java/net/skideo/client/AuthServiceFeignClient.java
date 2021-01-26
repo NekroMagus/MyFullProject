@@ -1,24 +1,22 @@
 package net.skideo.client;
 
 import net.skideo.dto.AuthDto;
-import net.skideo.dto.TokenDto;
-import net.skideo.model.Auth;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @FeignClient(name = "localhost:9080")
 public interface AuthServiceFeignClient {
 
-    @PostMapping("/api/registration")
-    ResponseEntity<TokenDto> registration(@Valid @RequestBody AuthDto authDto);
+    @RequestMapping(method = RequestMethod.POST,path = "/api/registration",consumes =  MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<OAuth2AccessToken> registration(@RequestParam String login,@RequestParam String password, @RequestParam String clientId,
+                                                   @RequestParam String clientSecret, @RequestParam String grantType);
 
-    @GetMapping("/api/auth/me")
-    Auth getCurrentAuth(@RequestHeader("Authorization") String token);
+    @PutMapping("/api/auth/data")
+    void updateLoginAndPassword(@Valid @RequestBody AuthDto authDto);
 
 }

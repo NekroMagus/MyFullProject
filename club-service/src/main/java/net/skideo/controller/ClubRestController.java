@@ -24,46 +24,40 @@ public class ClubRestController {
     private final ClubRepository clubRepository;
 
     @GetMapping("/profile")
-    public ClubProfileDto getProfile(@RequestHeader("Authorization") String token) {
-        return clubService.getProfile(token);
+    public ClubProfileDto getProfile() {
+        return clubService.getProfile();
     }
 
     @PostMapping("/scout/{id}")
-    public void addScout(@RequestHeader("Authorization") String token,@PathVariable("id") long id) {
-        Club CURRENT_CLUB = clubService.getCurrentClub(token);
-        clubService.addScout(id, CURRENT_CLUB);
+    public void addScout(@PathVariable("id") long id) {
+        clubService.addScout(id);
     }
 
     @DeleteMapping("/scout/{id}")
-    public void removeScout(@RequestHeader("Authorization") String token,@PathVariable("id") long id) {
-        Club CURRENT_CLUB = clubService.getCurrentClub(token);
-        clubService.removeScout(id, CURRENT_CLUB);
+    public void removeScout(@PathVariable("id") long id) {
+        clubService.removeScout(id);
     }
 
     @GetMapping("/scouts")
-    public Page<ScoutDto> getScouts(@RequestHeader("Authorization") String token,@RequestParam int page, @RequestParam int size) {
-        Club CURRENT_CLUB = clubService.getCurrentClub(token);
-        return clubService.getScouts(CURRENT_CLUB,page,size);
+    public Page<ScoutDto> getScouts(@RequestParam int page, @RequestParam int size) {
+        return clubService.getScouts(page,size);
     }
 
 
     @PutMapping("/scout/{id}")
-    public void setRegionScout(@RequestHeader("Authorization") String token,@PathVariable("id") long id, @RequestParam String region) {
-        Club CURRENT_CLUB = clubService.getCurrentClub(token);
-        clubService.setRegionScout(id, region, CURRENT_CLUB);
+    public void setRegionScout(@PathVariable("id") long id, @RequestParam String region) {
+        clubService.setRegionScout(id, region);
     }
 
     @GetMapping("/scout")
-    public Page<ScoutDto> getScoutByRegion(@RequestHeader("Authorization") String token,@RequestParam int page,@RequestParam int size,@RequestParam String region) {
-        Club CURRENT_CLUB = clubService.getCurrentClub(token);
-        return clubService.getScoutsByRegion(region, CURRENT_CLUB.getId(),page,size);
+    public Page<ScoutDto> getScoutByRegion(@RequestParam int page,@RequestParam int size,@RequestParam String region) {
+        return clubService.getScoutsByRegion(region,page,size);
     }
 
 
     @PostMapping("/user/favorite/{id}")
-    public void addUserToFavorite(@RequestHeader("Authorization") String token,@PathVariable("id") long idUser) {
-        Club CURRENT_CLUB = clubService.getCurrentClub(token);
-        clubService.addUserToFavorite(idUser, CURRENT_CLUB);
+    public void addUserToFavorite(@PathVariable("id") long idUser) {
+        clubService.addUserToFavorite(idUser);
     }
 
     @GetMapping("/videos")

@@ -18,22 +18,22 @@ public interface ClubService {
 
     void save(Club club);
 
-    ClubProfileDto getProfile(String token);
+    ClubProfileDto getProfile();
 
-    Page<ScoutDto> getScouts(Club currentClub,int page,int size);
+    Page<ScoutDto> getScouts(int page,int size);
 
-    void addScout(long id,Club currentClub);
+    void addScout(long id);
 
-    void removeScout(long id,Club currentClub);
+    void removeScout(long id);
 
-    void setRegionScout(long id, String region,Club currentClub);
+    void setRegionScout(long id, String region);
 
-    Page<ScoutDto> getScoutsByRegion(String region, long idCurrentClub,int page,int size);
+    Page<ScoutDto> getScoutsByRegion(String region,int page,int size);
 
-    void addUserToFavorite(long idUser,Club club);
+    void addUserToFavorite(long idUser);
 
     List<VideoDto> findVideos(int page,int size);
 
-    Club getCurrentClub(String token);
+    Club getCurrentClub();
 
 }
