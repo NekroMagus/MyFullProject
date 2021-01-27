@@ -85,8 +85,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public void addVideo(String token,String link) {
-        User user = userService.getCurrentUser(token);
+    public void addVideo(String link) {
+        User user = userService.getCurrentUser();
         Video video = new Video(link, user.getInfo());
         save(video);
     }

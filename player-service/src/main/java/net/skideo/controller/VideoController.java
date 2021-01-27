@@ -29,30 +29,28 @@ public class VideoController {
     private final LikeService likeService;
 
     @GetMapping("/profile/video")
-    public Page<VideoDto> getMyVideos(@RequestHeader("Authorization") String token,
-                                      @RequestParam(defaultValue = "0", required = false) int page,
+    public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0", required = false) int page,
                                       @RequestParam(defaultValue = "50", required = false) int size) {
-        User CURRENT_USER = userService.getCurrentUser(token);
+        User CURRENT_USER = userService.getCurrentUser();
         return videoService.findAllMyVideos(CURRENT_USER.getId(), page, size);
     }
 
     @GetMapping("/videos")
-    public Page<VideoDto> getOtherVideos(@RequestHeader("Authorization") String token,
-                                         @RequestParam(defaultValue = "0", required = false) int page,
+    public Page<VideoDto> getOtherVideos(@RequestParam(defaultValue = "0", required = false) int page,
                                          @RequestParam(defaultValue = "50", required = false) int size) {
-        User CURRENT_USER = userService.getCurrentUser(token);
+        User CURRENT_USER = userService.getCurrentUser();
         return videoService.findAllAnotherVideos(CURRENT_USER.getId(), page, size);
     }
 
     @PostMapping("/profile/video")
-    public ResponseEntity<?> addVideo(@RequestHeader("Authorization") String token,@Valid @RequestBody VideoLinkDto dto) {
-        videoService.addVideo(token,dto.getLink());
+    public ResponseEntity<?> addVideo(@Valid @RequestBody VideoLinkDto dto) {
+        videoService.addVideo(dto.getLink());
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping("/rating")
-    public void estimateVideo(@RequestHeader("Authorization") String token,@Valid @RequestBody RatingDto ratingDto) {
-        User user = userService.getCurrentUser(token);
+    public void estimateVideo(@Valid @RequestBody RatingDto ratingDto) {
+        User user = userService.getCurrentUser();
         Optional<Like> like = likeService.findByUserIdAndVideoId(ratingDto.getIdVideo(), user.getId());
         if (like.isPresent()) {
             throw new UserRatedException("You already liked this video");

@@ -3,9 +3,9 @@ security:
     academy:
       client-id: academy-service
       client-secret: academy-service
-    gateway:
-      client-id: gateway-service
-      client-secret: gateway-service
     club:
       client-id: club-service
       client-secret: club-service
+    player:
+      client-id: player-service
+      client-secret: player-service

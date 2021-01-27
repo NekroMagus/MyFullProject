@@ -1,11 +1,7 @@
 package net.skideo.service.user;
 
-import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.UserDto;
-import net.skideo.dto.UserRegistrationDto;
-import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
-import net.skideo.dto.projections.UserProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
@@ -18,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +24,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
-    private final AuthServiceFeignClient feignClient;
 
     @Override
     public void create(User user) {
@@ -51,8 +45,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUser(String token,UserDto dto) {
-        User user = getCurrentUser(token);
+    public User editUser(UserDto dto) {
+        User user = getCurrentUser();
         if (user.getRolePeople() == RolePeople.AMATEUR && dto.isAgent()) {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
@@ -132,18 +126,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileProjection getProfile(String token) {
-        return repository.findProjectionByInfoLoginIgnoreCase(getCurrentLogin(token));
+    public UserProfileProjection getProfile() {
+        return repository.findProjectionByInfoLoginIgnoreCase(getLoginCurrentUser());
     }
 
-    private String getCurrentLogin(String token) {
-        return feignClient.getCurrentAuth(token).getLogin();
+    private String getLoginCurrentUser() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @Override
-    public User getCurrentUser(String token) {
-        final String LOGIN_CURRENT_USER = feignClient.getCurrentAuth(token).getLogin();
-        return repository.findByInfoLogin(LOGIN_CURRENT_USER).orElseThrow(
+    public User getCurrentUser() {
+        return findByLogin(getLoginCurrentUser()).orElseThrow(
                 () -> new NotFoundException("User not found")
         );
     }

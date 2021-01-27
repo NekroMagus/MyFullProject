@@ -42,6 +42,22 @@
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
             <version>2.2.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.0.10.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.skideo</groupId>
+            <artifactId>auth-serivce</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

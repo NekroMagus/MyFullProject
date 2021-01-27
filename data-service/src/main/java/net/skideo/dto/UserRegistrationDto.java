@@ -20,7 +20,7 @@ public class UserRegistrationDto {
 
     @NotEmpty
     @Size(min = 6, max = 32)
-    @Pattern(regexp="[a-zA-Z0-9]")
+    //@Pattern(regexp="[a-zA-Z0-9]")
     private String login;
 
     @NotEmpty

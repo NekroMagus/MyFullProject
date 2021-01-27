@@ -51,13 +51,20 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("academy-service").secret(passwordEncoder.encode("academy-service")).scopes("read", "write")
-                .authorizedGrantTypes("password","refresh_token").accessTokenValiditySeconds(3600000)
-                .refreshTokenValiditySeconds(3600000)
+        clients
+                .inMemory()
+                .withClient("club-service")
                 .and()
-                .inMemory().withClient("gateway-service").secret(passwordEncoder.encode("academy-service")).scopes("read", "write")
-                .authorizedGrantTypes("password","refresh_token").accessTokenValiditySeconds(3600000)
-                .refreshTokenValiditySeconds(3600000);
+                .withClient("academy-service")
+                .and()
+                .withClient("player-service")
+                .secret(passwordEncoder.encode("club-service"))
+                .secret(passwordEncoder.encode("academy-service"))
+                .secret(passwordEncoder.encode("player-service"))
+                .scopes("read", "write")
+                .refreshTokenValiditySeconds(3600000)
+                .accessTokenValiditySeconds(3600000)
+                .authorizedGrantTypes("password","refresh_token");
 
     }
 

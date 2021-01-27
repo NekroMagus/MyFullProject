@@ -20,7 +20,7 @@ public interface UserService {
 
     Optional<User> findByLogin(String login);
 
-    User editUser(String token,UserDto userDto);
+    User editUser(UserDto userDto);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
@@ -39,8 +39,8 @@ public interface UserService {
 
     List<User> findAll();
 
-    UserProfileProjection getProfile(String token);
+    UserProfileProjection getProfile();
 
-    User getCurrentUser(String token);
+    User getCurrentUser();
 
 }

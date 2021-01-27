@@ -25,7 +25,8 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.tokenStore(tokenStore).resourceId("club-service");
+        resources.tokenStore(tokenStore).resourceId("player-service");
     }
 
 }
+
