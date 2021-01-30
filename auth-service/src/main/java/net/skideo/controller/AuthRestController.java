@@ -36,7 +36,7 @@ public class AuthRestController {
         parameters.put("password",password);
         parameters.put("client_secret",clientSecret);
         parameters.put("grant_type",grantType);
-        parameters.put("scopes","read write");
+        parameters.put("scope","read write");
 
         return authService.generateToken(parameters,clientId);
     }

@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -33,6 +34,7 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
         converter.setVerifierKey("skideo");
         return converter;
     }
+
     @Bean
     public JwtTokenStore tokenStore() {
         return new JwtTokenStore(tokenEnhancer());
@@ -53,18 +55,11 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
-                .withClient("club-service")
+                .withClient("club-service").secret(passwordEncoder.encode("club-service"))
                 .and()
-                .withClient("academy-service")
+                .withClient("academy-service").secret(passwordEncoder.encode("academy-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write")
                 .and()
-                .withClient("player-service")
-                .secret(passwordEncoder.encode("club-service"))
-                .secret(passwordEncoder.encode("academy-service"))
-                .secret(passwordEncoder.encode("player-service"))
-                .scopes("read", "write")
-                .refreshTokenValiditySeconds(3600000)
-                .accessTokenValiditySeconds(3600000)
-                .authorizedGrantTypes("password","refresh_token");
+                .withClient("player-service").secret(passwordEncoder.encode("player-service"));
 
     }
 
