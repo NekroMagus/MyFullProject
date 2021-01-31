@@ -1,5 +1,6 @@
 package net.skideo.service.club;
 
+import net.skideo.dto.AuthDto;
 import net.skideo.dto.ClubProfileDto;
 import net.skideo.dto.ScoutDto;
 import net.skideo.dto.VideoDto;
@@ -19,6 +20,10 @@ public interface ClubService {
     void save(Club club);
 
     ClubProfileDto getProfile();
+
+    void updateProfile(ClubProfileDto profile);
+
+    void updateLoginAndPassword(AuthDto authDto);
 
     Page<ScoutDto> getScouts(int page,int size);
 

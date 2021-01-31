@@ -2,9 +2,11 @@ package net.skideo.service.club;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
+import net.skideo.dto.AuthDto;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
+import net.skideo.model.Academy;
 import net.skideo.repository.ClubRepository;
 import net.skideo.dto.ClubProfileDto;
 import net.skideo.dto.ScoutDto;
@@ -36,6 +38,7 @@ public class ClubServiceImpl implements ClubService {
     private final ScoutService scoutService;
     private final UserService userService;
     private final VideoService videoService;
+    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder encoder;
 
     @Override
@@ -141,6 +144,28 @@ public class ClubServiceImpl implements ClubService {
         }
 
         return videos;
+    }
+
+    @Override
+    public void updateProfile(ClubProfileDto profile) {
+        Club dbClub = getCurrentClub();
+
+        dbClub.setLogoLink(profile.getLogoLink());
+        dbClub.setTitleClub(profile.getTitleClub());
+
+        clubRepository.save(dbClub);
+    }
+
+    @Override
+    public void updateLoginAndPassword(AuthDto authDto) {
+        feignClient.updateLoginAndPassword(authDto);
+
+        Club dbClub = getCurrentClub();
+
+        dbClub.setLogin(authDto.getLogin());
+        dbClub.setPassword(authDto.getPassword());
+
+        save(dbClub);
     }
 
     @Override

@@ -43,7 +43,6 @@ public class ClubRestController {
         return clubService.getScouts(page,size);
     }
 
-
     @PutMapping("/scout/{id}")
     public void setRegionScout(@PathVariable("id") long id, @RequestParam String region) {
         clubService.setRegionScout(id, region);

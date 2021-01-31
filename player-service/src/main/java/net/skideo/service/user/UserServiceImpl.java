@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(long id) {
         return repository.findById(id).orElseThrow(
-                UserNotFoundException::new
+                () -> new NotFoundException("User not found")
         );
     }
 

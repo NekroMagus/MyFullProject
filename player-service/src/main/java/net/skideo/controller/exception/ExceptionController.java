@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler(AlreadyExistsException.class)
-    public ResponseEntity<ApiError> exists(AlreadyExistsException e) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(createApiError(e, HttpStatus.CONFLICT));
-    }
-
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiError> illegalArgument(IllegalArgumentException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

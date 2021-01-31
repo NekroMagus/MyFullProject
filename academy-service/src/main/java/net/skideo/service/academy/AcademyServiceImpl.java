@@ -73,14 +73,14 @@ public class AcademyServiceImpl implements AcademyService {
 
     @Override
     public void updateLoginAndPassword(AuthDto authDto) {
+        feignClient.updateLoginAndPassword(authDto);
+
         Academy dbAcademy = getCurrentAcademy();
 
         dbAcademy.getInfo().setLogin(authDto.getLogin());
         dbAcademy.getInfo().setPassword(passwordEncoder.encode(authDto.getPassword()));
 
-        feignClient.updateLoginAndPassword(authDto);
-
-        academyRepository.save(dbAcademy);
+        save(dbAcademy);
     }
 
     @Override

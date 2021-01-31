@@ -9,6 +9,7 @@ import net.skideo.dto.UpdateProfileDto;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.dto.projections.ScoutProfileProjection;
+import net.skideo.exception.NotFoundException;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
 import net.skideo.model.User;
@@ -39,21 +40,21 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public Scout findById(long id) {
         return scoutRepository.findById(id).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
+                () -> new NotFoundException("Scout not found")
         );
     }
 
     @Override
     public Scout findByLogin(String login) {
         return scoutRepository.findByLogin(login).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
+                () -> new NotFoundException("Scout not found")
         );
     }
 
     @Override
     public ScoutProfileProjection getProfileByLogin(String login) {
         return scoutRepository.findProfileByLogin(login).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
+                () -> new NotFoundException("Scout not found")
         );
     }
 
