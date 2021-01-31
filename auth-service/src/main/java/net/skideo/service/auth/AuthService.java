@@ -10,15 +10,13 @@ import java.util.Map;
 
 public interface AuthService {
 
-    boolean isCorrectPassword(String rowPassword, String encodedPassword);
-
     boolean isAuthExists(String login);
 
     void addAuth(Auth auth);
 
     Auth findByLogin(String login);
 
-    void updateLoginAndPassword(String token,AuthDto authDto);
+    void updateLoginAndPassword(AuthDto authDto);
 
     ResponseEntity<OAuth2AccessToken> generateToken(Map<String,String> parameters,String clientId) throws HttpRequestMethodNotSupportedException;
 

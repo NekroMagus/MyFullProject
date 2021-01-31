@@ -16,3 +16,6 @@ zuul:
     player:
       path: /player/**
       url: http://localhost:9000
+    scout:
+      path: /scout/**
+      url: http://localhost:8050

@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class AuthRestController {
+public class RegistrationRestController {
 
     private final AcademyService academyService;
     private final AuthServiceFeignClient feignClient;
@@ -35,12 +35,8 @@ public class AuthRestController {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regAcademyDto.getLogin(),regAcademyDto.getPassword(),clientId,
                                                                               clientSecret,"password");
 
-        Info info = new Info();
-        info.setLogin(regAcademyDto.getLogin());
-        info.setPassword(regAcademyDto.getPassword());
-        info.setCity(regAcademyDto.getCity());
-        info.setCountry(regAcademyDto.getCountry());
-        info.setName(regAcademyDto.getTitle());
+        Info info = new Info(regAcademyDto.getLogin(),regAcademyDto.getPassword(),regAcademyDto.getCity(),
+                             regAcademyDto.getCountry(),regAcademyDto.getTitle());
 
         academyService.save(new Academy(info,regAcademyDto.getNumberPlayers()));
 

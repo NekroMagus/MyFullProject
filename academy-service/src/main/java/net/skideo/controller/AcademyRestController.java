@@ -89,8 +89,8 @@ public class AcademyRestController {
     }
 
     @GetMapping("/me")
-    public String me() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    public Academy me() {
+        return academyService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
     /* ------------------------------------- */

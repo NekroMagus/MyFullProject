@@ -1,9 +1,7 @@
 package net.skideo.service.academy;
 
 import net.skideo.client.AuthServiceFeignClient;
-import net.skideo.controller.exception.AcademyExceptionController;
 import net.skideo.dto.*;
-import net.skideo.exception.AcademyNotFoundException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.model.enums.ServiceRole;
@@ -34,6 +32,8 @@ public class AcademyServiceImpl implements AcademyService {
     private final AcademyRepository academyRepository;
     private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
+
+    Logger log = Logger.getLogger(AcademyServiceImpl.class.getName());
 
     @Override
     public void save(Academy academy) {
@@ -96,6 +96,7 @@ public class AcademyServiceImpl implements AcademyService {
 
     @Override
     public AcademyProfileDto getProfile() {
+        log.info(getLoginCurrentAcademy() + "");
         return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy());
     }
 

@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class AuthRestController {
+public class RegistrationRestController {
 
     private final ClubService clubService;
     private final AuthServiceFeignClient feignClient;

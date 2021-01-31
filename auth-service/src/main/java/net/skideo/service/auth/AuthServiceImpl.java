@@ -3,12 +3,14 @@ package net.skideo.service.auth;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AuthDto;
 import net.skideo.exception.AuthNotFoundException;
+import net.skideo.exception.NotFoundException;
 import net.skideo.model.Auth;
 import net.skideo.repository.AuthRepository;
 import net.skideo.security.JwtAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
@@ -24,15 +26,13 @@ import java.util.logging.Logger;
 public class AuthServiceImpl implements AuthService {
 
     private final AuthRepository authRepository;
+
     @Autowired
     private PasswordEncoder encoder;
+
     @Autowired
     private TokenEndpoint tokenEndpoint;
 
-    @Override
-    public boolean isCorrectPassword(String rowPassword, String encodedPassword) {
-        return encoder.matches(rowPassword,encodedPassword);
-    }
 
     @Override
     public boolean isAuthExists(String login) {
@@ -48,13 +48,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Auth findByLogin(String login) {
         return authRepository.findByLogin(login).orElseThrow(
-                () -> new AuthNotFoundException("Auth not found")
+                () -> new NotFoundException("Auth not found")
         );
     }
 
     @Override
-    public void updateLoginAndPassword(final String LOGIN_CURRENT_AUTH,AuthDto authDto) {
-        Auth dbAuth = findByLogin(LOGIN_CURRENT_AUTH);
+    public void updateLoginAndPassword(AuthDto authDto) {
+        Auth dbAuth = getCurrentAuth();
 
         dbAuth.setLogin(authDto.getLogin());
         dbAuth.setPassword(encoder.encode(authDto.getPassword()));
@@ -68,5 +68,9 @@ public class AuthServiceImpl implements AuthService {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtAuth,null,null);
 
         return tokenEndpoint.postAccessToken(authentication,parameters);
+    }
+
+    private Auth getCurrentAuth() {
+        return findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

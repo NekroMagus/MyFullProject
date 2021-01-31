@@ -33,7 +33,6 @@ public class ScoutServiceImpl implements ScoutService {
     private final ScoutRepository scoutRepository;
     private final UserService userService;
     private final VideoService videoService;
-    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder encoder;
 
 
@@ -65,10 +64,12 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public ProfileDto getProfile(ScoutProfileProjection currentScout) {
+    public ProfileDto getProfile() {
+        ScoutProfileProjection currentScout = getProfileByLogin(getLoginCurrentScout());
         ProfileDto profile = new ProfileDto(currentScout);
-        List<ProfileUserDto> players = new LinkedList<>();
         List<User> users = userService.findAll();
+
+        List<ProfileUserDto> players = new LinkedList<>();
 
         if (users.size() >= 3) {
 
@@ -77,7 +78,7 @@ public class ScoutServiceImpl implements ScoutService {
                 int random = (int) (Math.random() * users.size() - 1);
                 User user = users.get(random);
 
-                if (videoService.findAllByInfoId(user.getId()).size() >= 1) {
+                if (videoService.findAllByInfoId(user.getInfo().getId()).size() >= 1) {
                     players.add(new ProfileUserDto(user));
                 }
             }
@@ -86,10 +87,12 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public void updateProfile(String token,UpdateProfileDto dto) {
-        Scout scout = getCurrentScout(token);
+    public void updateProfile(UpdateProfileDto dto) {
+        Scout scout = getCurrentScout();
+
         scout.setName(dto.getName());
         scout.setSurname(dto.getSurname());
+
         save(scout);
     }
 
@@ -108,7 +111,8 @@ public class ScoutServiceImpl implements ScoutService {
 
 
     @Override
-    public void addUserToFavorite(long idUser, Scout currentScout) {
+    public void addUserToFavorite(long idUser) {
+        Scout currentScout = getCurrentScout();
         User user = userService.findById(idUser);
 
         if (currentScout.getFavoriteUsers() == null) {
@@ -119,15 +123,14 @@ public class ScoutServiceImpl implements ScoutService {
         scoutRepository.save(currentScout);
     }
 
-    @Override
-    public String getLoginCurrentScout(String token) {
-        return feignClient.getCurrentAuth(token).getLogin();
+
+    private String getLoginCurrentScout() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @Override
-    public Scout getCurrentScout(String token) {
-        final String LOGIN_CURRENT_SCOUT = feignClient.getCurrentAuth(token).getLogin();
-        return findByLogin(LOGIN_CURRENT_SCOUT);
+    public Scout getCurrentScout() {
+        return findByLogin(getLoginCurrentScout());
     }
 
 }

@@ -24,16 +24,14 @@ public interface ScoutService {
 
     void save(Scout scout);
 
-    ProfileDto getProfile(ScoutProfileProjection currentScout);
+    ProfileDto getProfile();
 
-    void updateProfile(String token,UpdateProfileDto profile);
+    void updateProfile(UpdateProfileDto profile);
 
     List<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size);
 
-    void addUserToFavorite(long idUser,Scout currentScout);
+    void addUserToFavorite(long idUser);
 
-    Scout getCurrentScout(String token);
-
-    String getLoginCurrentScout(String token);
+    Scout getCurrentScout();
 
 }

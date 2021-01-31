@@ -36,5 +36,13 @@ public class Info {
     @Enumerated(value = EnumType.STRING)
     private ServiceRole serviceRole;
 
+    public Info(String login,String password,String city,String country,String title) {
+        this.login = login;
+        this.password = password;
+        this.city = city;
+        this.country = country;
+        this.name = title;
+    }
+
 
 }

@@ -1,13 +1,13 @@
 package net.skideo.controller;
 
 import net.skideo.client.AuthServiceFeignClient;
-import net.skideo.dto.AuthDto;
 import net.skideo.dto.RegDto;
-import net.skideo.dto.TokenDto;
 import net.skideo.model.Scout;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +23,16 @@ public class RegistrationRestController {
     private final AuthServiceFeignClient feignClient;
     private final ScoutService scoutService;
 
+    @Value("${security.oauth2.client.clientId}")
+    private String clientId;
+
+    @Value("${security.oauth2.client.clientSecret}")
+    private String clientSecret;
+
     @PostMapping("/registration")
-    public ResponseEntity<TokenDto> registration(@Valid @RequestBody RegDto regDto) {
-        ResponseEntity<TokenDto> response = feignClient.registration(new AuthDto(regDto.getLogin(),regDto.getPassword()));
+    public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody RegDto regDto) {
+        ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regDto.getLogin(),regDto.getPassword(),clientId,
+                                                                              clientSecret,"password");
 
         scoutService.save(new Scout(regDto.getLogin(), regDto.getPassword(), regDto.getName(), regDto.getSurname()));
 
