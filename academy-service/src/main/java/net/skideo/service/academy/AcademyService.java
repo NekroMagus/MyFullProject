@@ -15,8 +15,6 @@ public interface AcademyService {
 
     void addPlayer(long id);
 
-    Page<UserShortInfoDto> getPlayers(Pageable pageable);
-
     void updateLoginAndPassword(AuthDto authDto);
 
     void updateProfile(AcademyProfileDto academyProfileDto);
@@ -26,5 +24,7 @@ public interface AcademyService {
     void addVideo(AcademyVideoDto videoDto);
 
     Academy getCurrentAcademy();
+
+    String getLoginCurrentAcademy();
 
 }

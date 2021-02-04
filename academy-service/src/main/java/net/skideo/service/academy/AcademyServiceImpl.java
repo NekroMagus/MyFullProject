@@ -33,8 +33,6 @@ public class AcademyServiceImpl implements AcademyService {
     private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
 
-    Logger log = Logger.getLogger(AcademyServiceImpl.class.getName());
-
     @Override
     public void save(Academy academy) {
         academy.getInfo().setPassword(passwordEncoder.encode(academy.getInfo().getPassword()));
@@ -67,11 +65,6 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public Page<UserShortInfoDto> getPlayers(Pageable pageable) {
-        return academyRepository.findPlayersByInfoLogin(getLoginCurrentAcademy(),pageable);
-    }
-
-    @Override
     public void updateLoginAndPassword(AuthDto authDto) {
         feignClient.updateLoginAndPassword(authDto);
 
@@ -96,7 +89,6 @@ public class AcademyServiceImpl implements AcademyService {
 
     @Override
     public AcademyProfileDto getProfile() {
-        log.info(getLoginCurrentAcademy() + "");
         return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy());
     }
 
@@ -112,7 +104,8 @@ public class AcademyServiceImpl implements AcademyService {
         return findByLogin(getLoginCurrentAcademy());
     }
 
-    private String getLoginCurrentAcademy() {
+    @Override
+    public String getLoginCurrentAcademy() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 

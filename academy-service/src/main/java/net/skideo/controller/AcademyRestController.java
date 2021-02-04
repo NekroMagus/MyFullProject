@@ -27,28 +27,8 @@ import java.util.List;
 public class AcademyRestController {
 
     private final AcademyService academyService;
-    private final UserService userService;
-    private final VideoService videoService;
     private final AcademyRepository repository;
     private final VideoRepository videoRepository;
-
-    @PostMapping("/player/{id}")
-    public void addPlayer(@PathVariable("id") long id) {
-        academyService.addPlayer(id);
-    }
-
-    @GetMapping("/player/all")
-    public Page<UserShortInfoDto> getPlayers(@RequestParam(defaultValue = "0") int page,
-                                             @RequestParam(defaultValue = "50") int size) {
-        Pageable pageable = PageRequest.of(page,size);
-        return academyService.getPlayers(pageable);
-    }
-
-    @GetMapping("/player/amateur")
-    public Page<UserShortInfoDto> getAmateurPlayers(@RequestParam(defaultValue = "0") int page,
-                                                    @RequestParam(defaultValue = "50") int size) {
-        return userService.getAmateurPlayers(PageRequest.of(page,size));
-    }
 
     @GetMapping("/profile")
     public AcademyProfileDto getProfile() {
@@ -63,17 +43,6 @@ public class AcademyRestController {
     @PutMapping("/profile")
     public void updateProfile(@Valid @RequestBody AcademyProfileDto profileDto) {
         academyService.updateProfile(profileDto);
-    }
-
-    @PostMapping("/video")
-    public void addVideo(@Valid @RequestBody AcademyVideoDto videoDto) {
-        academyService.addVideo(videoDto);
-    }
-
-    @GetMapping("/video")
-    public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "50") int size) {
-        return videoService.getMyVideos(page,size);
     }
 
     /* ------------- для тестов ------------------ */

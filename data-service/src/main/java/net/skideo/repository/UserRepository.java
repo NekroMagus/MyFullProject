@@ -26,6 +26,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByInfoLogin(String login);
 
+    Page<User> findAllByInfoNameAndInfoSurname(String name,String surname);
+
     UserProfileProjection findProjectionByInfoLoginIgnoreCase(String login);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
@@ -48,6 +50,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<UserShortInfoDto> findAllByInfoRolePeople(RolePeople rolePeople, Pageable pageable);
 
     Page<User> findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrInfoRolePeopleOrLeadingLegOrBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
+
+    Page<UserShortInfoDto> findPlayersByInfoLogin(String login, Pageable pageable);
 
     boolean existsByInfoLogin(String login);
 

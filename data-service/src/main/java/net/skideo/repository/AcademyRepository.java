@@ -17,8 +17,6 @@ public interface AcademyRepository extends JpaRepository<Academy,Long> {
 
     Optional<AcademyAuthProjection> findLoginAndPasswordByInfoLogin(String login);
 
-    Page<UserShortInfoDto> findPlayersByInfoLogin(String login, Pageable pageable);
-
     AcademyProfileDto findProfileByInfoLogin(String login);
 
 }

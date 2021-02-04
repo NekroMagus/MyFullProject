@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -56,6 +57,9 @@ public class User {
     private LocalDate birthDate;
 
     private String linkSocialNetwork;
+
+    @OneToMany(orphanRemoval = true)
+    private List<Notification> notification;
 
     public User(Info info, RolePeople rolePeople, boolean hasAgent) {
         this.info=info;
