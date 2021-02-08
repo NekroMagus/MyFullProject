@@ -1,12 +1,12 @@
 package net.skideo.model.enums;
 
-public enum Notification {
+public enum NotificationEnum {
 
     MARK("You have been tagged");
 
     private String notification;
 
-    Notification(String notification) {
+    NotificationEnum(String notification) {
         this.notification=notification;
     }
 

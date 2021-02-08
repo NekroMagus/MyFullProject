@@ -26,7 +26,8 @@ import java.util.logging.Logger;
 @RequiredArgsConstructor
 public class AcademyServiceImpl implements AcademyService {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private VideoService videoService;
     private final AcademyRepository academyRepository;

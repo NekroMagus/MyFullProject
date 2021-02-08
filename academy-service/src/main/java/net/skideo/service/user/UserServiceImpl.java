@@ -1,22 +1,32 @@
 package net.skideo.service.user;
 
-import lombok.RequiredArgsConstructor;
+import net.skideo.dto.UserNSDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.exception.NotFoundException;
+import net.skideo.model.Notification;
 import net.skideo.model.User;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.UserRepository;
 import net.skideo.service.academy.AcademyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repository;
-    private final AcademyService academyService;
+    @Autowired
+    private UserRepository repository;
+
+    @Autowired
+    private AcademyService academyService;
+
+    private Logger log = Logger.getLogger(UserServiceImpl.class.getName());
 
     @Override
     public User getUserById(long id) {
@@ -36,7 +46,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findUsersByNameAndSurname(String name, String surname) {
-        return repository.findAllByInfoNameAndInfoSurname(name,surname);
+    public Page<UserNSDto> findUsersByNameAndSurname(String name, String surname, int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return repository.findAllByInfoNameStartsWithOrInfoSurnameStartsWith(name,surname,pageable);
+    }
+
+    @Override
+    public void updateNotifications(User user) {
+        User dbUser = getUserById(user.getId());
+
+        dbUser.setNotification(user.getNotification());
+
+        repository.save(dbUser);
     }
 }

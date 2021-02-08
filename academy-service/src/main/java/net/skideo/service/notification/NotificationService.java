@@ -1,9 +1,10 @@
 package net.skideo.service.notification;
 
-import net.skideo.model.Notification;
+
+import net.skideo.model.enums.NotificationEnum;
 
 public interface NotificationService {
 
-    void addNotification(Notification notification, long idUser);
+    void addNotification(NotificationEnum notificationEnum, long idUser);
 
 }

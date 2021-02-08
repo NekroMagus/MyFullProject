@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class RegistrationRestController {
+public class AuthRestController {
 
     private final AcademyService academyService;
     private final AuthServiceFeignClient feignClient;

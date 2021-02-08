@@ -3,9 +3,10 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
-import net.skideo.model.Academy;
-import net.skideo.model.Video;
+import net.skideo.model.*;
 import net.skideo.repository.AcademyRepository;
+import net.skideo.repository.NotificationRepository;
+import net.skideo.repository.UserRepository;
 import net.skideo.repository.VideoRepository;
 import net.skideo.service.academy.AcademyService;
 import net.skideo.service.user.UserService;
@@ -29,6 +30,8 @@ public class AcademyRestController {
     private final AcademyService academyService;
     private final AcademyRepository repository;
     private final VideoRepository videoRepository;
+    private final UserRepository userRepository;
+    private final NotificationRepository notificationRepository;
 
     @GetMapping("/profile")
     public AcademyProfileDto getProfile() {
@@ -57,9 +60,19 @@ public class AcademyRestController {
         return videoRepository.findAll();
     }
 
+    @GetMapping("/allU")
+    public List<User> allU() {
+        return  userRepository.findAll();
+    }
+
     @GetMapping("/me")
     public Academy me() {
         return academyService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    @GetMapping("/allN")
+    public List<Notification> allN() {
+        return notificationRepository.findAll();
     }
 
     /* ------------------------------------- */

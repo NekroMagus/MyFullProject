@@ -1,6 +1,7 @@
 package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.dto.UserNSDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.service.academy.AcademyService;
 import net.skideo.service.user.UserService;
@@ -16,6 +17,13 @@ public class UserRestController {
 
     private final UserService userService;
     private final AcademyService academyService;
+
+    @GetMapping
+    public Page<UserNSDto> findUsersByNameAndSurname(@RequestParam String name,@RequestParam String surname,
+                                                     @RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "50") int size) {
+        return userService.findUsersByNameAndSurname(name,surname,page,size);
+    }
 
     @GetMapping("/all")
     public Page<UserShortInfoDto> getPlayers(@RequestParam(defaultValue = "0") int page,

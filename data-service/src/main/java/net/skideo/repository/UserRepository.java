@@ -1,6 +1,7 @@
 package net.skideo.repository;
 
 import net.skideo.dto.ProfileUserDto;
+import net.skideo.dto.UserNSDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.dto.projections.UserAuthProjection;
@@ -26,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByInfoLogin(String login);
 
-    Page<User> findAllByInfoNameAndInfoSurname(String name,String surname);
+    Page<UserNSDto> findAllByInfoNameStartsWithOrInfoSurnameStartsWith(String name, String surname,Pageable pageable);
 
     UserProfileProjection findProjectionByInfoLoginIgnoreCase(String login);
 

@@ -58,7 +58,7 @@ public class User {
 
     private String linkSocialNetwork;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Notification> notification;
 
     public User(Info info, RolePeople rolePeople, boolean hasAgent) {
