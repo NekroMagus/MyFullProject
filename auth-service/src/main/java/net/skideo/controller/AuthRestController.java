@@ -3,6 +3,7 @@ package net.skideo.controller;
 import net.skideo.dto.AuthDto;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.model.Auth;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +22,12 @@ public class AuthRestController {
 
     @Autowired
     private AuthService authService;
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<OAuth2AccessToken> authenticate(@RequestParam String login,@RequestParam String password, @RequestParam String clientId,
+                                                          @RequestParam String clientSecret, @RequestParam String grantType, @RequestParam ServiceRole serviceRole) {
+
+    }
 
     @RequestMapping(method = RequestMethod.POST,path = "/registration",consumes =  MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OAuth2AccessToken> registration(@RequestParam String login,@RequestParam String password, @RequestParam String clientId,

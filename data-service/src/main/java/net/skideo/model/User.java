@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -58,8 +59,8 @@ public class User {
 
     private String linkSocialNetwork;
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
-    private List<Notification> notification;
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.LAZY)
+    private List<Notification> notification = new LinkedList<>();
 
     public User(Info info, RolePeople rolePeople, boolean hasAgent) {
         this.info=info;

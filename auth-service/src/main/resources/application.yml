@@ -9,3 +9,6 @@ security:
     player:
       client-id: player-service
       client-secret: player-service
+    notification:
+      client-id: notification-service
+      client-secret: notification-service

@@ -47,7 +47,7 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
     }
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("permitAll()")
+        security.tokenKeyAccess("permitAll()")
                 .allowFormAuthenticationForClients();
     }
 
@@ -61,7 +61,9 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
                 .and()
                 .withClient("player-service").secret(passwordEncoder.encode("player-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write")
                 .and()
-                .withClient("scout-service").secret(passwordEncoder.encode("scout-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write");
+                .withClient("scout-service").secret(passwordEncoder.encode("scout-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write")
+                .and()
+                .withClient("notification-service").secret(passwordEncoder.encode("notification-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write");
     }
 
 }

@@ -53,10 +53,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateNotifications(User user) {
-        User dbUser = getUserById(user.getId());
+        user.setNotification(user.getNotification());
 
-        dbUser.setNotification(user.getNotification());
-
-        repository.save(dbUser);
+        repository.save(user);
     }
 }

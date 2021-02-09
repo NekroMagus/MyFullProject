@@ -19,14 +19,12 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/registration","/api/all").permitAll()
                 .anyRequest().authenticated();
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.tokenStore(tokenStore).resourceId("player-service");
+        resources.tokenStore(tokenStore).resourceId("notification-service");
     }
 
 }
-

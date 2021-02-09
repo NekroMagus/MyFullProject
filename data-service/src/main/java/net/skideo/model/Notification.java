@@ -15,8 +15,12 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Enumerated(EnumType.STRING)
     private NotificationEnum notificationEnum;
+
+    @ManyToOne
+    private User user;
 
     @ManyToOne
     private Academy academy;

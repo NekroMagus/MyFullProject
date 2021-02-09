@@ -2,23 +2,30 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.NotificationDto;
+import net.skideo.dto.NotificationInfoDto;
+import net.skideo.model.Notification;
 import net.skideo.service.notification.NotificationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/notification")
+@RequestMapping("/api")
 public class NotificationRestController {
 
     private final NotificationService notificationService;
 
-    @PostMapping
+    @PostMapping("/notification")
     public void addNotification(@Valid @RequestBody NotificationDto notification) {
         notificationService.addNotification(notification.getNotificationEnum(),notification.getIdUser());
     }
+
+    @GetMapping("/notifications")
+    public Page<NotificationInfoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
+                                                 @RequestParam(defaultValue = "50") int size) {
+        return notificationService.getMyNotifications(page,size);
+    }
+
 }

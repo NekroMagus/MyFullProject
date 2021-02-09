@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
@@ -25,7 +26,7 @@ public class Scout {
     private Club club;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<User> favoriteUsers;
+    private Set<User> favoriteUsers = new LinkedHashSet<>();
 
     public Scout(String login,String password,String name,String surname) {
         this.login=login;

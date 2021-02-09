@@ -19,3 +19,6 @@ zuul:
     scout:
       path: /scout/**
       url: http://localhost:8050
+    notification:
+      path: /notification/**
+      url: http://localhost:9030

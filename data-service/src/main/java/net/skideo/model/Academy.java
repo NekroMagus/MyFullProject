@@ -3,6 +3,7 @@ package net.skideo.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ public class Academy {
     private long id;
     private int numberPlayers;
     @OneToMany(fetch = FetchType.LAZY)
-    private List<User> listPlayers;
+    private List<User> listPlayers = new LinkedList<>();
     @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private Info info;
 

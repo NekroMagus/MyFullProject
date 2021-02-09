@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 @Data
@@ -21,7 +23,7 @@ public class Club {
     private String logoLink;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<User> favoriteUsers;
+    private Set<User> favoriteUsers = new LinkedHashSet<>();
 
     public Club(String login, String password, String titleClub, String logoLink) {
         this.login = login;
