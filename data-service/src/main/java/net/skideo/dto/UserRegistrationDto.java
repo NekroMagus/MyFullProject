@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.enums.RolePeople;
+import net.skideo.model.enums.ServiceRole;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -31,6 +32,8 @@ public class UserRegistrationDto {
     private RolePeople rolePeople;
 
     private boolean hasAgent;
+
+    private ServiceRole serviceRole;
 
 
 }

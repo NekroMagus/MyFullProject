@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class RegistrationRestController {
+public class AuthRestController {
 
     private final UserService userService;
     private final AuthServiceFeignClient feignClient;
@@ -34,7 +34,7 @@ public class RegistrationRestController {
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(userRegistrationDto.getLogin(),userRegistrationDto.getPassword(),clientId,
-                                                                              clientSecret,"password");
+                                                                              clientSecret,"password",userRegistrationDto.getServiceRole());
 
         if (userRegistrationDto.getRolePeople() == RolePeople.AMATEUR
                 && userRegistrationDto.isHasAgent()) {
