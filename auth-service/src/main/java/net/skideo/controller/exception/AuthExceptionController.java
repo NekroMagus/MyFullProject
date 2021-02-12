@@ -24,4 +24,11 @@ public class AuthExceptionController {
                 .body("Auth not found");
     }
 
+    @ExceptionHandler(value = IllegalAccessException.class)
+    public ResponseEntity<?> illegalAccessException() {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body("Service role and user role differ");
+    }
+
 }

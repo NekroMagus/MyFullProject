@@ -1,6 +1,7 @@
 package net.skideo.dto;
 
 import lombok.Data;
+import net.skideo.model.enums.ServiceRole;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -23,5 +24,6 @@ public class RegAcademyDto {
     @NotBlank
     private String country;
     private int numberPlayers;
-
+    @NotNull
+    private ServiceRole serviceRole;
 }

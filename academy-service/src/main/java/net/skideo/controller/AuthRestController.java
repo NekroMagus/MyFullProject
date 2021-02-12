@@ -10,10 +10,8 @@ import net.skideo.service.academy.AcademyService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 @RestController
@@ -33,7 +31,7 @@ public class AuthRestController {
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody RegAcademyDto regAcademyDto) {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regAcademyDto.getLogin(),regAcademyDto.getPassword(),clientId,
-                                                                              clientSecret,"password");
+                                                                              clientSecret,"password",regAcademyDto.getServiceRole());
 
         Info info = new Info(regAcademyDto.getLogin(),regAcademyDto.getPassword(),regAcademyDto.getCity(),
                              regAcademyDto.getCountry(),regAcademyDto.getTitle());

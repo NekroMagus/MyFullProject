@@ -2,7 +2,6 @@ package net.skideo.service.auth;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AuthDto;
-import net.skideo.exception.AuthNotFoundException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Auth;
 import net.skideo.repository.AuthRepository;
@@ -13,13 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.stereotype.Service;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +30,11 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private TokenEndpoint tokenEndpoint;
 
+
+    @Override
+    public boolean isPasswordCorrect(String rowPassword, String encodedPassword) {
+        return encoder.matches(rowPassword, encodedPassword);
+    }
 
     @Override
     public boolean isAuthExists(String login) {

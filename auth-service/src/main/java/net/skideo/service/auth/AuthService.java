@@ -10,6 +10,8 @@ import java.util.Map;
 
 public interface AuthService {
 
+    boolean isPasswordCorrect(String rowPassword,String encodedPassword);
+
     boolean isAuthExists(String login);
 
     void addAuth(Auth auth);
