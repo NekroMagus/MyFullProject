@@ -3,6 +3,7 @@ package net.skideo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.enums.ServiceRole;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,5 +23,7 @@ public class ClubRegDto {
     @NotBlank
     private String title;
     private String logoLink;
+    @NotNull
+    private ServiceRole serviceRole;
 
 }

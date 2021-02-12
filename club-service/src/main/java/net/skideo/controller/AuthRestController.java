@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class RegistrationRestController {
+public class AuthRestController {
 
     private final ClubService clubService;
     private final AuthServiceFeignClient feignClient;
@@ -29,7 +29,7 @@ public class RegistrationRestController {
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody ClubRegDto regDto) {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regDto.getLogin(),regDto.getPassword(),clientId,
-                                                                              clientSecret,"password");
+                                                                              clientSecret,"password",regDto.getServiceRole());
 
         clubService.save(new Club(regDto.getLogin(),regDto.getPassword(),regDto.getTitle(),regDto.getLogoLink()));
 
