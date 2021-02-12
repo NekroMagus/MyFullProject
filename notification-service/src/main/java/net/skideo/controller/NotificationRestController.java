@@ -23,7 +23,7 @@ public class NotificationRestController {
     }
 
     @GetMapping("/notifications")
-    public Page<NotificationInfoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
+    public Page<NotificationInfoDto> getMyNotifications(@RequestParam(defaultValue = "0") int page,
                                                  @RequestParam(defaultValue = "50") int size) {
         return notificationService.getMyNotifications(page,size);
     }
