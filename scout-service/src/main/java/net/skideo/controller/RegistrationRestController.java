@@ -32,7 +32,7 @@ public class RegistrationRestController {
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody RegDto regDto) {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regDto.getLogin(),regDto.getPassword(),clientId,
-                                                                              clientSecret,"password");
+                                                                              clientSecret,"password",regDto.getServiceRole());
 
         scoutService.save(new Scout(regDto.getLogin(), regDto.getPassword(), regDto.getName(), regDto.getSurname()));
 

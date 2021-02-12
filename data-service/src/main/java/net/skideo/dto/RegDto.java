@@ -3,6 +3,7 @@ package net.skideo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.enums.ServiceRole;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,5 +25,6 @@ public class RegDto {
     @NotNull
     @Size(min=6)
     private String password;
+    private ServiceRole serviceRole;
 
 }
