@@ -9,11 +9,11 @@ import net.skideo.model.enums.NotificationEnum;
 @NoArgsConstructor
 public class NotificationInfoDto {
 
-    private NotificationEnum notificationEnum;
+    private String notificationValue;
     private String academyTitle;
 
     public NotificationInfoDto(Notification notification) {
-        this.notificationEnum=notification.getNotificationEnum();
+        this.notificationValue=notification.getNotificationEnum().getNotification();
         this.academyTitle=notification.getAcademy().getInfo().getName();
     }
 

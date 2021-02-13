@@ -19,6 +19,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/api/notifications").permitAll()
                 .anyRequest().authenticated();
     }
 

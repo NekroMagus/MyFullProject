@@ -41,9 +41,9 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public Page<NotificationInfoDto> getMyNotifications(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
-        User currentUser = userService.getCurrentUser();
+       // User currentUser = userService.getCurrentUser();
 
-        return repository.findByUserId(currentUser.getId(),pageable);
+        return repository.findByUserId(19,pageable);
     }
 
 }

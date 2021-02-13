@@ -10,4 +10,8 @@ public enum NotificationEnum {
         this.notification=notification;
     }
 
+    public String getNotification() {
+        return notification;
+    }
+
 }
