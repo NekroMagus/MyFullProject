@@ -22,7 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/api/authenticate","/academy/api/registration","/club/api/registration",
-                             "/player/api/registration","/scout/api/registration","/academy/api/academy/**","/club/api/club/**","/notification/api/**","/player/api/all").permitAll()
+                             "/player/api/registration","/scout/api/registration","/academy/api/academy/**","/club/api/club/**","/notification/api/**","/player/api/all",
+                             "/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**",
+                             "/academy/v2/api-docs","/club/v2/api-docs","/player/v2/api-docs","/scout/v2/api-docs","/notification/v2/api-docs","/oauth/v2/api-docs").permitAll()
                 .anyRequest().authenticated();
     }
 

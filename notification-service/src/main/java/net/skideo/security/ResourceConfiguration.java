@@ -19,7 +19,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/notifications").permitAll()
+                .antMatchers("/api/notifications","/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**","/swagger-resources/**").permitAll()
                 .anyRequest().authenticated();
     }
 
