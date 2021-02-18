@@ -3,6 +3,7 @@ package net.skideo.service.academy;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
 import net.skideo.dto.projections.AcademyProfileProjection;
+import net.skideo.dto.projections.IdProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.model.enums.ServiceRole;
@@ -105,6 +106,11 @@ public class AcademyServiceImpl implements AcademyService {
         Academy currentAcademy = getCurrentAcademy();
         Video video = new Video(videoDto.getDescription(),videoDto.getLink(),currentAcademy.getInfo());
         videoService.create(video);
+    }
+
+    @Override
+    public IdProjection getIdCurrentAcademy() {
+        return academyRepository.getAcademyIdByInfoLogin(getLoginCurrentAcademy());
     }
 
     @Override

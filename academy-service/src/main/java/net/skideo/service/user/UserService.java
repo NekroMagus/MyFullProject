@@ -19,6 +19,4 @@ public interface UserService {
 
     Page<UserNSDto> findUsersByNameAndSurname(String name, String surname,int page,int size);
 
-    void updateNotifications(User user);
-
 }

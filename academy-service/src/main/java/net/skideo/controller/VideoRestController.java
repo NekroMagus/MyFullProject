@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/academy")
+@RequestMapping("/api")
 public class VideoRestController {
 
     private final AcademyService academyService;

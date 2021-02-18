@@ -51,10 +51,4 @@ public class UserServiceImpl implements UserService {
         return repository.findAllByInfoNameStartsWithOrInfoSurnameStartsWith(name,surname,pageable);
     }
 
-    @Override
-    public void updateNotifications(User user) {
-        user.setNotification(user.getNotification());
-
-        repository.save(user);
-    }
 }
