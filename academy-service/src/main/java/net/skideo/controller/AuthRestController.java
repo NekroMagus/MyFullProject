@@ -36,7 +36,7 @@ public class AuthRestController {
         Info info = new Info(regAcademyDto.getLogin(),regAcademyDto.getPassword(),regAcademyDto.getCity(),
                              regAcademyDto.getCountry(),regAcademyDto.getTitle());
 
-        academyService.save(new Academy(info,regAcademyDto.getNumberPlayers()));
+        academyService.createAcademy(new Academy(info,regAcademyDto.getNumberPlayers()));
 
         return response;
     }

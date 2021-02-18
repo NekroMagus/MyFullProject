@@ -3,6 +3,8 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
+import net.skideo.dto.projections.AcademyAuthProjection;
+import net.skideo.dto.projections.AcademyProfileProjection;
 import net.skideo.model.*;
 import net.skideo.repository.AcademyRepository;
 import net.skideo.repository.NotificationRepository;
@@ -52,7 +54,7 @@ public class AcademyRestController {
 
     @GetMapping("/all")
     public List<Academy> all() {
-        return repository.findAll();
+       return repository.findAll();
     }
 
     @GetMapping("/allV")

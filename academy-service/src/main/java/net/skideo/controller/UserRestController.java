@@ -35,7 +35,8 @@ public class UserRestController {
     @GetMapping("/amateur")
     public Page<UserShortInfoDto> getAmateurPlayers(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "50") int size) {
-        return userService.getAmateurPlayers(PageRequest.of(page,size));
+        Pageable pageable = PageRequest.of(page,size);
+        return userService.getAmateurPlayers(pageable);
     }
 
     @PostMapping("/{id}")
