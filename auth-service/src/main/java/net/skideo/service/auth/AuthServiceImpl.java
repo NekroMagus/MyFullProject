@@ -13,10 +13,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.header.HeaderWriterFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +34,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
-
 
     @Override
     public boolean isPasswordCorrect(String rowPassword, String encodedPassword) {

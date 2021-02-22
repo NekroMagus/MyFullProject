@@ -17,13 +17,11 @@ public interface AcademyService {
 
     void addPlayer(long id);
 
-    void updateLoginAndPassword(AuthDto authDto);
+    void updateLoginAndPassword(String token,AuthDto authDto);
 
     void updateProfile(AcademyProfileDto academyProfileDto);
 
     AcademyProfileDto getProfile();
-
-    void addVideo(AcademyVideoDto videoDto);
 
     IdProjection getIdCurrentAcademy();
 

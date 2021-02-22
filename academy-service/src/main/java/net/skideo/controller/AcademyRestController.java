@@ -41,8 +41,8 @@ public class AcademyRestController {
     }
 
     @PutMapping("/auth/data")
-    public void updateLoginAndPassword(@Valid @RequestBody AuthDto authDto) {
-        academyService.updateLoginAndPassword(authDto);
+    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto) {
+        academyService.updateLoginAndPassword(token,authDto);
     }
 
     @PutMapping("/profile")

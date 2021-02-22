@@ -1,5 +1,6 @@
 package net.skideo.service.video;
 
+import net.skideo.dto.AcademyVideoDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.dto.projections.IdProjection;
 import net.skideo.model.Academy;
@@ -22,10 +23,10 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private AcademyService academyService;
 
-    Logger log = Logger.getLogger(VideoServiceImpl.class.getName());
-
     @Override
-    public void create(Video video) {
+    public void addVideo(AcademyVideoDto videoDto) {
+        Academy currentAcademy = academyService.getCurrentAcademy();
+        Video video = new Video(videoDto.getDescription(),videoDto.getLink(),currentAcademy.getInfo());
         repository.save(video);
     }
 

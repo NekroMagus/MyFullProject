@@ -2,19 +2,23 @@ package net.skideo.controller;
 
 import net.skideo.dto.AuthDto;
 import net.skideo.exception.AlreadyExistsException;
+import net.skideo.exception.NotFoundException;
 import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.model.Auth;
 import net.skideo.model.enums.ServiceRole;
+import net.skideo.repository.AuthRepository;
 import net.skideo.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -69,11 +73,6 @@ public class AuthRestController {
     @PutMapping("/auth/data")
     public void updateLoginAndPassword(@Valid @RequestBody AuthDto authDto) {
         authService.updateLoginAndPassword(authDto);
-    }
-
-    @GetMapping("/auth/me")
-    public Principal getCurrentPrincipal(Principal principal) {
-        return principal;
     }
 
 }

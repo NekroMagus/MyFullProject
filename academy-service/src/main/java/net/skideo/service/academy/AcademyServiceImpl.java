@@ -31,13 +31,9 @@ public class AcademyServiceImpl implements AcademyService {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private VideoService videoService;
     private final AcademyRepository academyRepository;
     private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
-
-    Logger log = Logger.getLogger(AcademyServiceImpl.class.getName());
 
     @Override
     public void createAcademy(Academy academy) {
@@ -74,8 +70,8 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public void updateLoginAndPassword(AuthDto authDto) {
-        feignClient.updateLoginAndPassword(authDto);
+    public void updateLoginAndPassword(String token,AuthDto authDto) {
+        feignClient.updateLoginAndPassword(token,authDto);
 
         Academy dbAcademy = getCurrentAcademy();
 
@@ -99,13 +95,6 @@ public class AcademyServiceImpl implements AcademyService {
     @Override
     public AcademyProfileDto getProfile() {
         return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy());
-    }
-
-    @Override
-    public void addVideo(AcademyVideoDto videoDto) {
-        Academy currentAcademy = getCurrentAcademy();
-        Video video = new Video(videoDto.getDescription(),videoDto.getLink(),currentAcademy.getInfo());
-        videoService.create(video);
     }
 
     @Override

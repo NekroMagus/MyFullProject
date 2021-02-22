@@ -15,12 +15,11 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class VideoRestController {
 
-    private final AcademyService academyService;
     private final VideoService videoService;
 
     @PostMapping("/video")
     public void addVideo(@Valid @RequestBody AcademyVideoDto videoDto) {
-        academyService.addVideo(videoDto);
+        videoService.addVideo(videoDto);
     }
 
     @GetMapping("/video")

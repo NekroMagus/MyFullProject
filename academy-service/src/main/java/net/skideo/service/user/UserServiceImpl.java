@@ -26,8 +26,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AcademyService academyService;
 
-    private Logger log = Logger.getLogger(UserServiceImpl.class.getName());
-
     @Override
     public User getUserById(long id) {
         return repository.findById(id).orElseThrow(

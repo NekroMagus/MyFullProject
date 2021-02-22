@@ -11,4 +11,3 @@ spring:
           provider:
             token-uri: http://localhost:9080/oauth/token
             authorization-uri: http://localhost:9080/oauth/authorize
-            user-info-uri: http://localhost:9080/api/auth/me
