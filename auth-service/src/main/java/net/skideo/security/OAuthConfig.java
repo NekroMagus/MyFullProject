@@ -27,6 +27,10 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private final int TOKEN_VALIDITY = 3600000;
+    private final String[] GRANT_TYPES = {"password","refresh_token"};
+    private final String[] SCOPES = {"read","write"};
+
     @Bean
     public JwtAccessTokenConverter tokenEnhancer() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
@@ -55,15 +59,49 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
-                .withClient("club-service").secret(passwordEncoder.encode("club-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write")
+
+                .withClient("club-service")
+                .secret(passwordEncoder.encode("club-service"))
+                .refreshTokenValiditySeconds(TOKEN_VALIDITY)
+                .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                .authorizedGrantTypes(GRANT_TYPES)
+                .scopes(SCOPES)
+
                 .and()
-                .withClient("academy-service").secret(passwordEncoder.encode("academy-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write")
+
+                .withClient("academy-service")
+                .secret(passwordEncoder.encode("academy-service"))
+                .refreshTokenValiditySeconds(TOKEN_VALIDITY)
+                .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                .authorizedGrantTypes(GRANT_TYPES)
+                .scopes(SCOPES)
+
                 .and()
-                .withClient("player-service").secret(passwordEncoder.encode("player-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write")
+
+                .withClient("player-service")
+                .secret(passwordEncoder.encode("player-service"))
+                .refreshTokenValiditySeconds(TOKEN_VALIDITY)
+                .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                .authorizedGrantTypes(GRANT_TYPES)
+                .scopes(SCOPES)
+
                 .and()
-                .withClient("scout-service").secret(passwordEncoder.encode("scout-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write")
+
+                .withClient("scout-service")
+                .secret(passwordEncoder.encode("scout-service"))
+                .refreshTokenValiditySeconds(TOKEN_VALIDITY)
+                .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                .authorizedGrantTypes(GRANT_TYPES)
+                .scopes(SCOPES)
+
                 .and()
-                .withClient("notification-service").secret(passwordEncoder.encode("notification-service")).refreshTokenValiditySeconds(3600000).accessTokenValiditySeconds(3600000).authorizedGrantTypes("password","refresh_token").scopes("read","write");
+
+                .withClient("notification-service")
+                .secret(passwordEncoder.encode("notification-service"))
+                .refreshTokenValiditySeconds(TOKEN_VALIDITY)
+                .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                .authorizedGrantTypes(GRANT_TYPES)
+                .scopes(SCOPES);
     }
 
 }

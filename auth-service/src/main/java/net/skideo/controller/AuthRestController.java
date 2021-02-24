@@ -38,7 +38,7 @@ public class AuthRestController {
         }
 
         if(!authService.isPasswordCorrect(password,auth.getPassword())) {
-            throw new WrongLoginOrPasswordException("Wrong password");
+            throw new WrongLoginOrPasswordException();
         }
 
         Map<String,String> parameters = new HashMap<>();

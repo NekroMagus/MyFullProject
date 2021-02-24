@@ -15,12 +15,15 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     @Autowired
     private JwtTokenStore tokenStore;
 
+    private final String[] REG_URL = {"/api/registration","/api/academy/all","/api/academy/allU"};
+    private final String[] SWAGGER_URL = {"/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**"};
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/registration","/api/academy/all","/api/academy/allU").permitAll()
-                .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**").permitAll()
+                .antMatchers(REG_URL).permitAll()
+                .antMatchers(SWAGGER_URL).permitAll()
                 .anyRequest().authenticated();
     }
 

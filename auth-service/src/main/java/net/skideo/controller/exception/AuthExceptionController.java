@@ -2,6 +2,7 @@ package net.skideo.controller.exception;
 
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.NotFoundException;
+import net.skideo.exception.WrongLoginOrPasswordException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,13 @@ public class AuthExceptionController {
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body("Service role and user role differ");
+    }
+
+    @ExceptionHandler(value = WrongLoginOrPasswordException.class)
+    public ResponseEntity<?> wrongLoginOrPassword() {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body("Wrong login or password");
     }
 
 }

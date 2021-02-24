@@ -22,14 +22,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    private final String[] AUTH_URL = {"/api/authenticate","/api/registration"};
+    private final String[] SWAGGER_URL = {"/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**"};
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/api/authenticate","/api/registration").permitAll()
-                .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**","/swagger-resources/**").permitAll()
+                .antMatchers(AUTH_URL).permitAll()
+                .antMatchers(SWAGGER_URL).permitAll()
                 .anyRequest().authenticated();
     }
 
