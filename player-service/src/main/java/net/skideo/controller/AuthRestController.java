@@ -4,6 +4,7 @@ import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.model.Info;
 import net.skideo.model.User;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RolePeople;
@@ -34,7 +35,7 @@ public class AuthRestController {
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(userRegistrationDto.getLogin(),userRegistrationDto.getPassword(),clientId,
-                                                                              clientSecret,"password",userRegistrationDto.getServiceRole());
+                                                                              clientSecret,"password", ServiceRole.USER);
 
         if (userRegistrationDto.getRolePeople() == RolePeople.AMATEUR
                 && userRegistrationDto.isHasAgent()) {

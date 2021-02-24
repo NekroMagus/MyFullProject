@@ -13,6 +13,7 @@ import net.skideo.repository.AcademyRepository;
 import lombok.RequiredArgsConstructor;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,14 +27,17 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-@RequiredArgsConstructor
 public class AcademyServiceImpl implements AcademyService {
 
+    private final UserService userService;
+    private  AcademyRepository academyRepository;
+    private  AuthServiceFeignClient feignClient;
+    private  PasswordEncoder passwordEncoder;
+
     @Autowired
-    private UserService userService;
-    private final AcademyRepository academyRepository;
-    private final AuthServiceFeignClient feignClient;
-    private final PasswordEncoder passwordEncoder;
+    public AcademyServiceImpl(UserService userService) {
+        this.userService=userService;
+    }
 
     @Override
     public void createAcademy(Academy academy) {
@@ -57,26 +61,27 @@ public class AcademyServiceImpl implements AcademyService {
         User user = userService.getUserById(id);
         Academy currentAcademy = getCurrentAcademy();
 
-        List<User> newListPlayers = currentAcademy.getListPlayers();
-        if(newListPlayers==null) {
-            newListPlayers=new LinkedList<>();
-        }
-        newListPlayers.add(user);
+        List<User> listPlayers = currentAcademy.getListPlayers();
+        listPlayers.add(user);
 
-        updateListPlayers(newListPlayers);
+        updateListPlayers(listPlayers);
 
         currentAcademy.setNumberPlayers(currentAcademy.getNumberPlayers()+1);
         save(currentAcademy);
     }
 
     @Override
-    public void updateLoginAndPassword(String token,AuthDto authDto) {
-        feignClient.updateLoginAndPassword(token,authDto);
+    public void updateLoginAndPassword(String token,AcademyAuthDto authDto) {
+        feignClient.updateLoginAndPassword(token,new AuthDto(authDto.getLogin(),authDto.getPassword()));
 
         Academy dbAcademy = getCurrentAcademy();
 
-        dbAcademy.getInfo().setLogin(authDto.getLogin());
-        dbAcademy.getInfo().setPassword(passwordEncoder.encode(authDto.getPassword()));
+        if(StringUtils.isNotBlank(authDto.getLogin())) {
+            dbAcademy.getInfo().setLogin(authDto.getLogin());
+        }
+        if(StringUtils.isNotBlank(authDto.getPassword())) {
+            dbAcademy.getInfo().setPassword(passwordEncoder.encode(authDto.getPassword()));
+        }
 
         save(dbAcademy);
     }

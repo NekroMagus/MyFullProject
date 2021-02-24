@@ -33,7 +33,4 @@ public class UserRegistrationDto {
 
     private boolean hasAgent;
 
-    private ServiceRole serviceRole;
-
-
 }

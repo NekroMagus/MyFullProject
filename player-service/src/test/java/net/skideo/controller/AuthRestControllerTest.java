@@ -60,14 +60,6 @@ public class AuthRestControllerTest {
         .andExpect(status().is2xxSuccessful());
     }
 
-    @Test
-    public void registrationTest() throws Exception {
-        mockMvc.perform(post("/api/registration")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(new UserRegistrationDto("egor","12341234", RolePeople.PROFESSIONAL,true))))
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(jsonPath("$.token").isString());
-    }
+
 
 }

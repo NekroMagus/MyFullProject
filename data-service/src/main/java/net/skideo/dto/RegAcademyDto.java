@@ -24,6 +24,4 @@ public class RegAcademyDto {
     @NotBlank
     private String country;
     private int numberPlayers;
-    @NotNull
-    private ServiceRole serviceRole;
 }

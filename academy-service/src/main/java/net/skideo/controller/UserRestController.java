@@ -26,13 +26,13 @@ public class UserRestController {
     }
 
     @GetMapping("/all")
-    public Page<UserShortInfoDto> getPlayers(@RequestParam(defaultValue = "0") int page,
+    public Page<UserShortInfoDto> getMyPlayers(@RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return userService.getPlayers(pageable);
+        return userService.getMyPlayers(pageable);
     }
 
-    @GetMapping("/amateur")
+    @GetMapping("/amateurs")
     public Page<UserShortInfoDto> getAmateurPlayers(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);

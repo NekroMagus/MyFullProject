@@ -30,10 +30,7 @@ import java.util.List;
 public class AcademyRestController {
 
     private final AcademyService academyService;
-    private final AcademyRepository repository;
-    private final VideoRepository videoRepository;
-    private final UserRepository userRepository;
-    private final NotificationRepository notificationRepository;
+    private final UserRepository repository;
 
     @GetMapping("/profile")
     public AcademyProfileDto getProfile() {
@@ -41,7 +38,7 @@ public class AcademyRestController {
     }
 
     @PutMapping("/auth/data")
-    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@Valid @RequestBody AuthDto authDto) {
+    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@RequestBody AcademyAuthDto authDto) {
         academyService.updateLoginAndPassword(token,authDto);
     }
 
@@ -50,33 +47,9 @@ public class AcademyRestController {
         academyService.updateProfile(profileDto);
     }
 
-    /* ------------- для тестов ------------------ */
-
-    @GetMapping("/all")
-    public List<Academy> all() {
-       return repository.findAll();
-    }
-
-    @GetMapping("/allV")
-    public List<Video> allV() {
-        return videoRepository.findAll();
-    }
-
     @GetMapping("/allU")
     public List<User> allU() {
-        return  userRepository.findAll();
+        return repository.findAll();
     }
-
-    @GetMapping("/me")
-    public Academy me() {
-        return academyService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-    }
-
-    @GetMapping("/allN")
-    public List<Notification> allN() {
-        return notificationRepository.findAll();
-    }
-
-    /* ------------------------------------- */
 
 }

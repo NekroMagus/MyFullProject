@@ -17,7 +17,7 @@ public interface AcademyService {
 
     void addPlayer(long id);
 
-    void updateLoginAndPassword(String token,AuthDto authDto);
+    void updateLoginAndPassword(String token,AcademyAuthDto academyAuthDto);
 
     void updateProfile(AcademyProfileDto academyProfileDto);
 

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserShortInfoDto> getPlayers(Pageable pageable) {
+    public Page<UserShortInfoDto> getMyPlayers(Pageable pageable) {
         return repository.findPlayersByInfoLogin(academyService.getLoginCurrentAcademy(),pageable);
     }
 
