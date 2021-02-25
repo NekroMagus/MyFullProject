@@ -29,7 +29,7 @@ public class UserRestController {
     public Page<UserShortInfoDto> getMyPlayers(@RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return userService.getMyPlayers(pageable);
+        return academyService.getMyPlayers(pageable);
     }
 
     @GetMapping("/amateurs")

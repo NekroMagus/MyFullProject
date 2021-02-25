@@ -23,6 +23,8 @@ public interface AcademyService {
 
     AcademyProfileDto getProfile();
 
+    Page<UserShortInfoDto> getMyPlayers(Pageable pageable);
+
     IdProjection getIdCurrentAcademy();
 
     Academy getCurrentAcademy();

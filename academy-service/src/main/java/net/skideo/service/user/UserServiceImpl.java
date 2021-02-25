@@ -1,5 +1,6 @@
 package net.skideo.service.user;
 
+import lombok.RequiredArgsConstructor;
 import net.skideo.dto.UserNSDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.exception.NotFoundException;
@@ -9,6 +10,7 @@ import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.UserRepository;
 import net.skideo.service.academy.AcademyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,13 +20,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository repository;
-
-    @Autowired
-    private AcademyService academyService;
+    private final UserRepository repository;
 
     @Override
     public User getUserById(long id) {
@@ -35,12 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<UserShortInfoDto> getAmateurPlayers(Pageable pageable) {
-        return repository.findAllByInfoRolePeople(RolePeople.AMATEUR,pageable);
-    }
-
-    @Override
-    public Page<UserShortInfoDto> getMyPlayers(Pageable pageable) {
-        return repository.findPlayersByInfoLogin(academyService.getLoginCurrentAcademy(),pageable);
+        return repository.findUsersByRolePeople(RolePeople.AMATEUR,pageable);
     }
 
     @Override

@@ -32,8 +32,6 @@ public class Info {
     @Enumerated(value = EnumType.STRING)
     private RoleFootball roleFootball;
     @Enumerated(value = EnumType.STRING)
-    private RolePeople rolePeople;
-    @Enumerated(value = EnumType.STRING)
     private ServiceRole serviceRole;
 
     public Info(String login,String password,String city,String country,String title) {

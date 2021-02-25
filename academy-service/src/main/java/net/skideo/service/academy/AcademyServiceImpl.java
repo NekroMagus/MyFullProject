@@ -15,7 +15,9 @@ import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,17 +29,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 public class AcademyServiceImpl implements AcademyService {
 
     private final UserService userService;
-    private  AcademyRepository academyRepository;
-    private  AuthServiceFeignClient feignClient;
-    private  PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public AcademyServiceImpl(UserService userService) {
-        this.userService=userService;
-    }
+    private final AcademyRepository academyRepository;
+    private final AuthServiceFeignClient feignClient;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void createAcademy(Academy academy) {
@@ -100,6 +98,11 @@ public class AcademyServiceImpl implements AcademyService {
     @Override
     public AcademyProfileDto getProfile() {
         return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy());
+    }
+
+    @Override
+    public Page<UserShortInfoDto> getMyPlayers(Pageable pageable) {
+        return academyRepository.findPlayersByInfoLogin(getLoginCurrentAcademy(),pageable);
     }
 
     @Override

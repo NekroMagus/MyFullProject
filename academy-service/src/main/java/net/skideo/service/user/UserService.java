@@ -15,8 +15,6 @@ public interface UserService {
 
     Page<UserShortInfoDto> getAmateurPlayers(Pageable pageable);
 
-    Page<UserShortInfoDto> getMyPlayers(Pageable pageable);
-
     Page<UserNSDto> findUsersByNameAndSurname(String name, String surname,int page,int size);
 
 }

@@ -22,6 +22,8 @@ public interface AcademyRepository extends JpaRepository<Academy,Long> {
 
     AcademyProfileDto findProfileByInfoLogin(String login);
 
+    Page<UserShortInfoDto> findPlayersByInfoLogin(String login,Pageable pageable);
+
     IdProjection getAcademyIdByInfoLogin(String login);
 
 }
