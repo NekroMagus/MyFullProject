@@ -3,15 +3,11 @@ package net.skideo.repository;
 import net.skideo.dto.AcademyProfileDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.dto.projections.AcademyAuthProjection;
-import net.skideo.dto.projections.AcademyProfileProjection;
-import net.skideo.dto.projections.IdProjection;
+import net.skideo.dto.projections.InfoIdProjection;
 import net.skideo.model.Academy;
-import net.skideo.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 import java.util.Optional;
 
 public interface AcademyRepository extends JpaRepository<Academy,Long> {
@@ -24,6 +20,6 @@ public interface AcademyRepository extends JpaRepository<Academy,Long> {
 
     Page<UserShortInfoDto> findPlayersByInfoLogin(String login,Pageable pageable);
 
-    IdProjection getAcademyIdByInfoLogin(String login);
+    Optional<InfoIdProjection> getAcademyIdByInfoLogin(String login);
 
 }

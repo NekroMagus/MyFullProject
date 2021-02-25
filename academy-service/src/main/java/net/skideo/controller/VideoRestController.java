@@ -12,17 +12,17 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/video")
 public class VideoRestController {
 
     private final VideoService videoService;
 
-    @PostMapping("/video")
+    @PostMapping
     public void addVideo(@Valid @RequestBody AcademyVideoDto videoDto) {
         videoService.addVideo(videoDto);
     }
 
-    @GetMapping("/video")
+    @GetMapping
     public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "50") int size) {
         return videoService.getMyVideos(page,size);

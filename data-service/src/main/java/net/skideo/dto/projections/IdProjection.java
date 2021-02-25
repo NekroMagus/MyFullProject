@@ -2,6 +2,6 @@ package net.skideo.dto.projections;
 
 public interface IdProjection {
 
-    long getInfoId();
+    long getId();
 
 }

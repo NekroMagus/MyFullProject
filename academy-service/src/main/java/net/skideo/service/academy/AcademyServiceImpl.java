@@ -2,31 +2,22 @@ package net.skideo.service.academy;
 
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
-import net.skideo.dto.projections.AcademyProfileProjection;
-import net.skideo.dto.projections.IdProjection;
+import net.skideo.dto.projections.InfoIdProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.model.User;
-import net.skideo.model.Video;
 import net.skideo.repository.AcademyRepository;
 import lombok.RequiredArgsConstructor;
 import net.skideo.service.user.UserService;
-import net.skideo.service.video.VideoService;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -106,8 +97,10 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public IdProjection getIdCurrentAcademy() {
-        return academyRepository.getAcademyIdByInfoLogin(getLoginCurrentAcademy());
+    public InfoIdProjection getInfoIdCurrentAcademy() {
+        return academyRepository.getAcademyIdByInfoLogin(getLoginCurrentAcademy()).orElseThrow(
+                () -> new NotFoundException("Academy not found")
+        );
     }
 
     @Override

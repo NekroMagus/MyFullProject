@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.AuthDto;
 import net.skideo.dto.projections.ClubProfileProjection;
+import net.skideo.dto.projections.IdProjection;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
+import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.repository.ClubRepository;
 import net.skideo.dto.ClubProfileDto;
@@ -44,14 +46,14 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public Club findById(long id) {
         return clubRepository.findById(id).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
+                () -> new NotFoundException("Club not found")
         );
     }
 
     @Override
     public Club findByLogin(String login) {
         return clubRepository.findByLogin(login).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
+                () -> new NotFoundException("Club not found")
         );
     }
 
@@ -65,15 +67,15 @@ public class ClubServiceImpl implements ClubService {
     public ClubProfileDto getProfile() {
         final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
         return clubRepository.findProfileByLogin(LOGIN_CURRENT_CLUB).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
+                () -> new NotFoundException("Club not found")
         );
     }
 
     @Override
     public Page<ScoutDto> getScouts(int page,int size) {
-        Club currentClub = getCurrentClub();
+        final IdProjection ID_CURRENT_CLUB = getIdCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
-        return scoutService.findAllByClubId(currentClub.getId(),pageable);
+        return scoutService.findAllByClubId(ID_CURRENT_CLUB.getId(),pageable);
     }
 
     @Override
@@ -110,9 +112,9 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Page<ScoutDto> getScoutsByRegion(String region,int page,int size) {
-        Club currentClub = getCurrentClub();
+        final IdProjection ID_CURRENT_CLUB = getIdCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
-        return scoutService.findAllByRegionAndClubId(region,currentClub.getId(),pageable);
+        return scoutService.findAllByRegionAndClubId(region,ID_CURRENT_CLUB.getId(),pageable);
     }
 
     @Override
@@ -175,6 +177,13 @@ public class ClubServiceImpl implements ClubService {
 
     private String getLoginCurrentClub() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    private IdProjection getIdCurrentClub() {
+        final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
+        return clubRepository.findClubIdByInfoLogin(LOGIN_CURRENT_CLUB).orElseThrow(
+                () -> new NotFoundException("Club not found")
+        );
     }
 
 }

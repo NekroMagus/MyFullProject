@@ -2,7 +2,7 @@ package net.skideo.service.video;
 
 import net.skideo.dto.AcademyVideoDto;
 import net.skideo.dto.VideoDto;
-import net.skideo.dto.projections.IdProjection;
+import net.skideo.dto.projections.InfoIdProjection;
 import net.skideo.model.Academy;
 import net.skideo.model.Video;
 import net.skideo.repository.VideoRepository;
@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.logging.Logger;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -32,7 +30,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public Page<VideoDto> getMyVideos(int page, int size) {
-        IdProjection idProjection = academyService.getIdCurrentAcademy();
+        InfoIdProjection idProjection = academyService.getInfoIdCurrentAcademy();
         Pageable pageable = PageRequest.of(page,size);
         return repository.findAllByInfoId(idProjection.getInfoId(),pageable);
     }
