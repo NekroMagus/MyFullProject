@@ -3,6 +3,7 @@ package net.skideo.service.scout;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.ScoutDto;
 import net.skideo.dto.projections.ScoutProjection;
+import net.skideo.exception.NotFoundException;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Club;
 import net.skideo.model.Scout;
@@ -22,7 +23,7 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public Scout findById(long id) {
         return scoutRepository.findById(id).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
+                () -> new NotFoundException("Scout not found")
         );
     }
 
@@ -36,6 +37,7 @@ public class ScoutServiceImpl implements ScoutService {
         if(scout.getClub()==null) {
             scout.setClub(club);
         }
+
         scoutRepository.save(scout);
     }
 

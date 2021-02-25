@@ -122,10 +122,6 @@ public class ClubServiceImpl implements ClubService {
         Club currentClub = getCurrentClub();
         User user = userService.findById(idUser);
 
-
-        if (currentClub.getFavoriteUsers() == null) {
-            currentClub.setFavoriteUsers(new LinkedHashSet<>());
-        }
         currentClub.getFavoriteUsers().add(user);
 
         clubRepository.save(currentClub);

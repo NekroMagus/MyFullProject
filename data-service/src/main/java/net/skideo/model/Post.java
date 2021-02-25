@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="skideo_post")
+@Table(name = "skideo_post")
 public class Post {
 
     @Id
@@ -28,15 +28,16 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
 
-    public Post(String country,RoleFootball roleFootball,boolean agent,RolePeople rolePeople,
-                LeadingLeg leadingLeg,LocalDate birthDate,String videoLink) {
-       this.country = country;
-       this.roleFootball = roleFootball;
-       this.agent = agent;
-       this.rolePeople = rolePeople;
-       this.leadingLeg = leadingLeg;
-       this.birthDate = birthDate;
-       this.videoLink = videoLink;
+    public Post(Club club, String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople,
+                LeadingLeg leadingLeg, LocalDate birthDate, String videoLink) {
+        this.club = club;
+        this.country = country;
+        this.roleFootball = roleFootball;
+        this.agent = agent;
+        this.rolePeople = rolePeople;
+        this.leadingLeg = leadingLeg;
+        this.birthDate = birthDate;
+        this.videoLink = videoLink;
     }
 
 }

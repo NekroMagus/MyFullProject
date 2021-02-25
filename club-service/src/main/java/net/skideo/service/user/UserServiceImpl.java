@@ -1,6 +1,7 @@
 package net.skideo.service.user;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
 import net.skideo.repository.UserRepository;
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(long id) {
         return userRepository.findById(id).orElseThrow(
-                UserNotFoundException::new
+                () -> new NotFoundException("User not found")
         );
     }
 
