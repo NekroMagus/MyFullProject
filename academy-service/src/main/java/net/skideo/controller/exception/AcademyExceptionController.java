@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class AcademyExceptionController {
 
     @ExceptionHandler(value = NotFoundException.class)
-    public ResponseEntity<?> academyNotFound() {
+    public ResponseEntity<?> notFound() {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("Academy not found");
+                .body("Not found");
     }
 }
