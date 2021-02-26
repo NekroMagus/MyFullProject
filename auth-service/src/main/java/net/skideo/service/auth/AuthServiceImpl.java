@@ -1,5 +1,6 @@
 package net.skideo.service.auth;
 
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AuthDto;
 import net.skideo.exception.NotFoundException;
@@ -62,8 +63,12 @@ public class AuthServiceImpl implements AuthService {
     public void updateLoginAndPassword(AuthDto authDto) {
         Auth dbAuth = getCurrentAuth();
 
-        dbAuth.setLogin(authDto.getLogin());
-        dbAuth.setPassword(encoder.encode(authDto.getPassword()));
+        if(StringUtils.isNotBlank(authDto.getLogin())) {
+            dbAuth.setLogin(authDto.getLogin());
+        }
+        if(StringUtils.isNotBlank(authDto.getPassword())) {
+            dbAuth.setPassword(encoder.encode(authDto.getPassword()));
+        }
 
         authRepository.save(dbAuth);
     }

@@ -43,7 +43,7 @@ public class AcademyRestController {
     }
 
     @PutMapping("/profile")
-    public void updateProfile(@Valid @RequestBody AcademyProfileDto profileDto) {
+    public void updateProfile(@RequestBody AcademyProfileDto profileDto) {
         academyService.updateProfile(profileDto);
     }
 

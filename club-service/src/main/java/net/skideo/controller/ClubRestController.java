@@ -36,6 +36,9 @@ public class ClubRestController {
         return scoutService.getScouts(page,size);
     }
 
+    @PutMapping
+    public void updateProfile(@Valid )
+
     @PostMapping("/user/favorite/{id}")
     public void addUserToFavorite(@PathVariable("id") long idUser) {
         clubService.addUserToFavorite(idUser);

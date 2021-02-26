@@ -19,6 +19,7 @@ import net.skideo.model.User;
 import net.skideo.service.scout.ScoutService;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -102,8 +103,12 @@ public class ClubServiceImpl implements ClubService {
     public void updateProfile(ClubProfileDto profile) {
         Club dbClub = getCurrentClub();
 
-        dbClub.setLogoLink(profile.getLogoLink());
-        dbClub.setTitleClub(profile.getTitleClub());
+        if(StringUtils.isNotBlank(profile.getLogoLink())) {
+            dbClub.setLogoLink(profile.getLogoLink());
+        }
+        if(StringUtils.isNotBlank(profile.getTitleClub())) {
+            dbClub.setTitleClub(profile.getTitleClub());
+        }
 
         clubRepository.save(dbClub);
     }
@@ -114,8 +119,12 @@ public class ClubServiceImpl implements ClubService {
 
         Club dbClub = getCurrentClub();
 
-        dbClub.setLogin(authDto.getLogin());
-        dbClub.setPassword(authDto.getPassword());
+        if(StringUtils.isNotBlank(authDto.getLogin())) {
+            dbClub.setLogin(authDto.getLogin());
+        }
+        if(StringUtils.isNotBlank(authDto.getPassword())) {
+            dbClub.setPassword(authDto.getPassword());
+        }
 
         save(dbClub);
     }

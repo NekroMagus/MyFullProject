@@ -79,9 +79,15 @@ public class AcademyServiceImpl implements AcademyService {
     public void updateProfile(AcademyProfileDto academyProfileDto) {
         Academy dbAcademy = getCurrentAcademy();
 
-        dbAcademy.getInfo().setCity(academyProfileDto.getCity());
-        dbAcademy.getInfo().setCountry(academyProfileDto.getCountry());
-        dbAcademy.getInfo().setName(academyProfileDto.getTitleClub());
+        if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
+            dbAcademy.getInfo().setCity(academyProfileDto.getCity());
+        }
+        if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
+            dbAcademy.getInfo().setCountry(academyProfileDto.getCountry());
+        }
+        if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
+            dbAcademy.getInfo().setName(academyProfileDto.getTitleClub());
+        }
 
         academyRepository.save(dbAcademy);
     }
