@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.ClubRegDto;
 import net.skideo.model.Club;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.club.ClubService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class AuthRestController {
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody ClubRegDto regDto) {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regDto.getLogin(),regDto.getPassword(),clientId,
-                                                                              clientSecret,"password",regDto.getServiceRole());
+                                                                              clientSecret,"password", ServiceRole.CLUB);
 
         clubService.save(new Club(regDto.getLogin(),regDto.getPassword(),regDto.getTitle(),regDto.getLogoLink()));
 

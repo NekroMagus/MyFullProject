@@ -23,7 +23,5 @@ public class ClubRegDto {
     @NotBlank
     private String title;
     private String logoLink;
-    @NotNull
-    private ServiceRole serviceRole;
 
 }

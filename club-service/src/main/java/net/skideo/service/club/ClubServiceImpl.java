@@ -37,7 +37,6 @@ import java.util.List;
 public class ClubServiceImpl implements ClubService {
 
     private final ClubRepository clubRepository;
-    private final ScoutService scoutService;
     private final UserService userService;
     private final VideoService videoService;
     private final AuthServiceFeignClient feignClient;
@@ -129,7 +128,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public IdProjection getIdCurrentClub() {
         final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
-        return clubRepository.findClubIdByInfoLogin(LOGIN_CURRENT_CLUB).orElseThrow(
+        return clubRepository.findClubIdByLogin(LOGIN_CURRENT_CLUB).orElseThrow(
                 () -> new NotFoundException("Club not found")
         );
     }
