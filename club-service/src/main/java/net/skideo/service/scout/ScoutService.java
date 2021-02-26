@@ -20,4 +20,14 @@ public interface ScoutService {
     Page<ScoutDto> findAllByClubId(long userId, Pageable pageable);
 
     Page<ScoutDto> findAllByRegionAndClubId(String region,long userId,Pageable pageable);
+
+    Page<ScoutDto> getScouts(int page,int size);
+
+    void addScout(long id);
+
+    void removeScout(long id);
+
+    void setRegionScout(long id, String region);
+
+    Page<ScoutDto> getScoutsByRegion(String region,int page,int size);
 }

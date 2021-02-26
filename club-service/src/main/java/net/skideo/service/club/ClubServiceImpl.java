@@ -71,51 +71,6 @@ public class ClubServiceImpl implements ClubService {
         );
     }
 
-    @Override
-    public Page<ScoutDto> getScouts(int page,int size) {
-        final IdProjection ID_CURRENT_CLUB = getIdCurrentClub();
-        Pageable pageable = PageRequest.of(page,size);
-        return scoutService.findAllByClubId(ID_CURRENT_CLUB.getId(),pageable);
-    }
-
-    @Override
-    public void addScout(long id) {
-        Club currentClub = getCurrentClub();
-        Scout scout = scoutService.findById(id);
-
-        scoutService.updateClub(scout,currentClub);
-    }
-
-    @Override
-    public void removeScout(long id) {
-        Club currentClub = getCurrentClub();
-        Scout scout = scoutService.findById(id);
-
-        if (scout.getClub().equals(currentClub)) {
-            scout.setClub(null);
-        }
-
-        scoutService.save(scout);
-    }
-
-    @Override
-    public void setRegionScout(long id, String region) {
-        Club currentClub = getCurrentClub();
-        Scout scout = scoutService.findById(id);
-
-        if (scout.getClub().equals(currentClub)) {
-            scout.setRegion(region);
-        }
-
-        scoutService.save(scout);
-    }
-
-    @Override
-    public Page<ScoutDto> getScoutsByRegion(String region,int page,int size) {
-        final IdProjection ID_CURRENT_CLUB = getIdCurrentClub();
-        Pageable pageable = PageRequest.of(page,size);
-        return scoutService.findAllByRegionAndClubId(region,ID_CURRENT_CLUB.getId(),pageable);
-    }
 
     @Override
     public void addUserToFavorite(long idUser) {
@@ -171,15 +126,16 @@ public class ClubServiceImpl implements ClubService {
         return findByLogin(getLoginCurrentClub());
     }
 
-    private String getLoginCurrentClub() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    private IdProjection getIdCurrentClub() {
+    @Override
+    public IdProjection getIdCurrentClub() {
         final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
         return clubRepository.findClubIdByInfoLogin(LOGIN_CURRENT_CLUB).orElseThrow(
                 () -> new NotFoundException("Club not found")
         );
+    }
+
+    private String getLoginCurrentClub() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
 }

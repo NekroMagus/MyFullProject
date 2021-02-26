@@ -8,6 +8,7 @@ import net.skideo.exception.ClubNotFoundException;
 import net.skideo.model.Club;
 import net.skideo.repository.ClubRepository;
 import net.skideo.service.club.ClubService;
+import net.skideo.service.scout.ScoutService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ClubRestController {
 
     private final ClubService clubService;
+    private final ScoutService scoutService;
     private final ClubRepository clubRepository;
 
     @GetMapping("/profile")
@@ -28,41 +30,15 @@ public class ClubRestController {
         return clubService.getProfile();
     }
 
-    @PostMapping("/scout/{id}")
-    public void addScout(@PathVariable("id") long id) {
-        clubService.addScout(id);
-    }
-
-    @DeleteMapping("/scout/{id}")
-    public void removeScout(@PathVariable("id") long id) {
-        clubService.removeScout(id);
-    }
 
     @GetMapping("/scouts")
     public Page<ScoutDto> getScouts(@RequestParam int page, @RequestParam int size) {
-        return clubService.getScouts(page,size);
+        return scoutService.getScouts(page,size);
     }
-
-    @PutMapping("/scout/{id}")
-    public void setRegionScout(@PathVariable("id") long id, @RequestParam String region) {
-        clubService.setRegionScout(id, region);
-    }
-
-    @GetMapping("/scout")
-    public Page<ScoutDto> getScoutByRegion(@RequestParam int page,@RequestParam int size,@RequestParam String region) {
-        return clubService.getScoutsByRegion(region,page,size);
-    }
-
 
     @PostMapping("/user/favorite/{id}")
     public void addUserToFavorite(@PathVariable("id") long idUser) {
         clubService.addUserToFavorite(idUser);
-    }
-
-    @GetMapping("/videos")
-    public List<VideoDto> findVideos(@RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "50") int size) {
-        return clubService.findVideos(page, size);
     }
 
     // для тестов
