@@ -50,7 +50,7 @@ public class AcademyServiceImpl implements AcademyService {
         User user = userService.getUserById(id);
         Academy currentAcademy = getCurrentAcademy();
 
-        List<User> listPlayers = currentAcademy.getListPlayers();
+        List<User> listPlayers = currentAcademy.getPlayers();
         listPlayers.add(user);
 
         updateListPlayers(listPlayers);
@@ -60,7 +60,7 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public void updateLoginAndPassword(String token,AcademyAuthDto authDto) {
+    public void updateLoginAndPassword(String token,AuthDto authDto) {
         feignClient.updateLoginAndPassword(token,new AuthDto(authDto.getLogin(),authDto.getPassword()));
 
         Academy dbAcademy = getCurrentAcademy();
@@ -98,7 +98,7 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public Page<UserShortInfoDto> getMyPlayers(Pageable pageable) {
+    public Page<UserShortInfoAcademyDto> getMyPlayers(Pageable pageable) {
         return academyRepository.findPlayersByInfoLogin(getLoginCurrentAcademy(),pageable);
     }
 
@@ -122,7 +122,7 @@ public class AcademyServiceImpl implements AcademyService {
     private void updateListPlayers(List<User> listPlayers) {
         Academy dbAcademy = getCurrentAcademy();
 
-        dbAcademy.setListPlayers(listPlayers);
+        dbAcademy.setPlayers(listPlayers);
 
         academyRepository.save(dbAcademy);
     }

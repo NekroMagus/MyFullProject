@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,8 @@ public class ScoutServiceImpl implements ScoutService {
 
     private final ScoutRepository scoutRepository;
     private final ClubService clubService;
+
+    Logger log = Logger.getLogger(ScoutServiceImpl.class.getName());
 
     @Override
     public Scout findById(long id) {

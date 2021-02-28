@@ -71,7 +71,7 @@ public class AuthRestController {
     }
 
     @PutMapping("/auth/data")
-    public void updateLoginAndPassword(@Valid @RequestBody AuthDto authDto) {
+    public void updateLoginAndPassword(@RequestBody AuthDto authDto) {
         authService.updateLoginAndPassword(authDto);
     }
 

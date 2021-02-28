@@ -13,6 +13,7 @@ public class ScoutDto {
 
     private String name;
     private String surname;
+    private String region;
 
     public ScoutDto(ScoutProjection scoutProjection) {
         this.name=scoutProjection.getName();
@@ -20,6 +21,7 @@ public class ScoutDto {
     }
 
     public ScoutDto(Scout scout) {
+        this.region=scout.getRegion();
         this.name=scout.getName();
         this.surname=scout.getSurname();
     }

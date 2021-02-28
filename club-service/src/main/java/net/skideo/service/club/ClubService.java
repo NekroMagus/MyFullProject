@@ -1,14 +1,12 @@
 package net.skideo.service.club;
 
-import net.skideo.dto.AuthDto;
-import net.skideo.dto.ClubProfileDto;
-import net.skideo.dto.ScoutDto;
-import net.skideo.dto.VideoDto;
+import net.skideo.dto.*;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.dto.projections.IdProjection;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.model.Club;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -24,11 +22,11 @@ public interface ClubService {
 
     void updateProfile(ClubProfileDto profile);
 
-    void updateLoginAndPassword(AuthDto authDto);
+    void updateLoginAndPassword(String token, AuthDto authDto);
 
     void addUserToFavorite(long idUser);
 
-    List<VideoDto> findVideos(int page,int size);
+    Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable);
 
     Club getCurrentClub();
 

@@ -9,6 +9,4 @@ public interface UserService {
 
     User findById(long id);
 
-    Page<User> findAll(int page,int size);
-
 }

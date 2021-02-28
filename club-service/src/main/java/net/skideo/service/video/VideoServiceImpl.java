@@ -1,11 +1,12 @@
 package net.skideo.service.video;
 
 import lombok.RequiredArgsConstructor;
-import net.skideo.model.Video;
+import net.skideo.dto.VideoDto;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.VideoRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +15,7 @@ public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
 
     @Override
-    public List<Video> findAllByInfoId(long id) {
-        return videoRepository.findAllByInfoId(id);
+    public Page<VideoDto> findVideos(Pageable pageable) {
+        return videoRepository.findAllByInfoServiceRole(ServiceRole.USER,pageable);
     }
 }

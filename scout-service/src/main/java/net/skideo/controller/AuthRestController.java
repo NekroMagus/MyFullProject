@@ -3,6 +3,7 @@ package net.skideo.controller;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.RegDto;
 import net.skideo.model.Scout;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +19,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class RegistrationRestController {
+public class AuthRestController {
 
     private final AuthServiceFeignClient feignClient;
     private final ScoutService scoutService;
@@ -32,7 +33,7 @@ public class RegistrationRestController {
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody RegDto regDto) {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regDto.getLogin(),regDto.getPassword(),clientId,
-                                                                              clientSecret,"password",regDto.getServiceRole());
+                                                                              clientSecret,"password", ServiceRole.SCOUT);
 
         scoutService.save(new Scout(regDto.getLogin(), regDto.getPassword(), regDto.getName(), regDto.getSurname()));
 

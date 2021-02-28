@@ -14,13 +14,13 @@ public interface AcademyService {
 
     void addPlayer(long id);
 
-    void updateLoginAndPassword(String token,AcademyAuthDto academyAuthDto);
+    void updateLoginAndPassword(String token,AuthDto authDto);
 
     void updateProfile(AcademyProfileDto academyProfileDto);
 
     AcademyProfileDto getProfile();
 
-    Page<UserShortInfoDto> getMyPlayers(Pageable pageable);
+    Page<UserShortInfoAcademyDto> getMyPlayers(Pageable pageable);
 
     InfoIdProjection getInfoIdCurrentAcademy();
 

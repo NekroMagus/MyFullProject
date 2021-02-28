@@ -2,24 +2,19 @@ package net.skideo.service.club;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
-import net.skideo.dto.AuthDto;
+import net.skideo.dto.*;
 import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.dto.projections.IdProjection;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
 import net.skideo.exception.NotFoundException;
-import net.skideo.model.Academy;
+import net.skideo.model.*;
 import net.skideo.repository.ClubRepository;
-import net.skideo.dto.ClubProfileDto;
-import net.skideo.dto.ScoutDto;
-import net.skideo.dto.VideoDto;
-import net.skideo.model.Club;
-import net.skideo.model.Scout;
-import net.skideo.model.User;
 import net.skideo.service.scout.ScoutService;
 import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
 import org.apache.commons.lang.StringUtils;
+import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -82,21 +77,10 @@ public class ClubServiceImpl implements ClubService {
         clubRepository.save(currentClub);
     }
 
-
     @Override
-    public List<VideoDto> findVideos(int page, int size) {
-        Iterator<User> users = userService.findAll(page, size).iterator();
-        List<VideoDto> videos = new LinkedList<>();
-
-        while (users.hasNext()) {
-            User user = users.next();
-            if (videoService.findAllByInfoId(user.getId()).size() >= 1) {
-                int random = (int) (Math.random() * videoService.findAllByInfoId(user.getId()).size() - 1);
-                videos.add(new VideoDto(videoService.findAllByInfoId(user.getId()).get(random)));
-            }
-        }
-
-        return videos;
+    public Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable) {
+        final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
+        return clubRepository.findFavoriteUsersByLogin(LOGIN_CURRENT_CLUB,pageable);
     }
 
     @Override
@@ -114,8 +98,8 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void updateLoginAndPassword(AuthDto authDto) {
-        feignClient.updateLoginAndPassword(authDto);
+    public void updateLoginAndPassword(String token, AuthDto authDto) {
+        feignClient.updateLoginAndPassword(token,authDto);
 
         Club dbClub = getCurrentClub();
 

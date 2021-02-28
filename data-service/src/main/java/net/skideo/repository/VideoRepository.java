@@ -25,5 +25,7 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 
     List<Video> findAllByInfoId(long infoId);
 
+    Page<VideoDto> findAllByInfoServiceRole(ServiceRole serviceRole,Pageable pageable);
+
 
 }

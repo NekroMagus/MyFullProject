@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.UserNSDto;
+import net.skideo.dto.UserShortInfoAcademyDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.service.academy.AcademyService;
 import net.skideo.service.user.UserService;
@@ -26,8 +27,8 @@ public class UserRestController {
     }
 
     @GetMapping("/all")
-    public Page<UserShortInfoDto> getMyPlayers(@RequestParam(defaultValue = "0") int page,
-                                             @RequestParam(defaultValue = "50") int size) {
+    public Page<UserShortInfoAcademyDto> getMyPlayers(@RequestParam(defaultValue = "0") int page,
+                                                      @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);
         return academyService.getMyPlayers(pageable);
     }

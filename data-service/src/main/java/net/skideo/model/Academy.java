@@ -19,7 +19,7 @@ public class Academy {
     private long id;
     private int numberPlayers;
     @OneToMany(fetch = FetchType.LAZY)
-    private List<User> listPlayers = new LinkedList<>();
+    private List<User> players = new LinkedList<>();
     @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private Info info;
 

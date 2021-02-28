@@ -1,10 +1,11 @@
 package net.skideo.service.video;
 
-import net.skideo.model.Video;
+import net.skideo.dto.VideoDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 public interface VideoService {
 
-    List<Video> findAllByInfoId(long id);
+    Page<VideoDto> findVideos(Pageable pageable);
 }
