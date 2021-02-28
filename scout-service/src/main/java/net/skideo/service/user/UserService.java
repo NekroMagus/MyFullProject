@@ -1,6 +1,7 @@
 package net.skideo.service.user;
 
 import net.skideo.dto.ProfileUserDto;
+import net.skideo.dto.SearchDto;
 import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
@@ -15,9 +16,9 @@ public interface UserService {
 
     List<User> findAll();
 
-    Page<User> findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(String country, RoleFootball roleFootball, boolean agent,
-                                                                                                RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth,
-                                                                                                int page,int size);
+    Page<SearchDto> search(String country, RoleFootball roleFootball, boolean agent,
+                           RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth,
+                           int page, int size);
 
     User findById(long id);
 }

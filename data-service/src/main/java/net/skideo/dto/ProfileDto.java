@@ -5,6 +5,7 @@ import net.skideo.model.Club;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.Scout;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -16,13 +17,15 @@ public class ProfileDto {
 
     private String name;
     private String surname;
-    private Club club;
+    private ClubProfileDto club;
     private List<ProfileUserDto> players;
 
-    public ProfileDto(ScoutProfileProjection scout) {
+    public ProfileDto(Scout scout) {
         this.name = scout.getName();
         this.surname = scout.getSurname();
-        this.club = scout.getClub();
+        if(scout.getClub()!=null) {
+            this.club = new ClubProfileDto(scout.getClub());
+        }
     }
 
 }

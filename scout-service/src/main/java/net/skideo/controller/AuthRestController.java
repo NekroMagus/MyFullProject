@@ -35,7 +35,7 @@ public class AuthRestController {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regDto.getLogin(),regDto.getPassword(),clientId,
                                                                               clientSecret,"password", ServiceRole.SCOUT);
 
-        scoutService.save(new Scout(regDto.getLogin(), regDto.getPassword(), regDto.getName(), regDto.getSurname()));
+        scoutService.createScout(new Scout(regDto.getLogin(), regDto.getPassword(), regDto.getName(), regDto.getSurname()));
 
         return response;
     }

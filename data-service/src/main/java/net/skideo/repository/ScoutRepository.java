@@ -1,6 +1,8 @@
 package net.skideo.repository;
 
+import net.skideo.dto.ProfileDto;
 import net.skideo.dto.ScoutDto;
+import net.skideo.dto.UserShortInfoClubDto;
 import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.dto.projections.ScoutProfileProjection;
 import net.skideo.model.Scout;
@@ -14,10 +16,12 @@ public interface ScoutRepository extends JpaRepository<Scout,Long> {
 
     Optional<Scout> findByLogin(String login);
 
-    Optional<ScoutProfileProjection> findProfileByLogin(String login);
+    Optional<ProfileDto> findProfileByLogin(String login);
 
     Page<ScoutDto> findAllByClubId(long id, Pageable pageable);
 
     Page<ScoutDto> findAllByRegionAndClubId(String region,long id,Pageable pageable);
+
+    Page<UserShortInfoClubDto> findFavoriteUsersByLogin(String login,Pageable pageable);
 
 }

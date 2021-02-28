@@ -1,5 +1,6 @@
 package net.skideo.service.user;
 
+import net.skideo.dto.SearchDto;
 import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
@@ -28,7 +29,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findAllByCountryAndRoleFootballAndHasAgentAndRolePeopleAndLeadingLegAndBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size) {
+    public Page<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople,
+                                  LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return userRepository.findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrRolePeopleOrLeadingLegOrBirthDate(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth,pageable);
     }

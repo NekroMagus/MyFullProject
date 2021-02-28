@@ -42,17 +42,6 @@ public class ScoutRepositoryTest {
 
 
     @Test
-    public void givenValidLoginAndName_whenFindProfileByLogin_thenEquals() {
-        final String NAME = "name";
-
-        ScoutProfileProjection projection = repository.findProfileByLogin(LOGIN).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
-        );
-
-        assertEquals(NAME,projection.getName());
-    }
-
-    @Test
     public void givenClubId_whenFindAllByClubId_then() {
         final long CLUB_ID = 1L;
     }

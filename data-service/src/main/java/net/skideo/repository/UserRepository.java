@@ -1,6 +1,7 @@
 package net.skideo.repository;
 
 import net.skideo.dto.ProfileUserDto;
+import net.skideo.dto.SearchDto;
 import net.skideo.dto.UserNSDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.dto.projections.ProfileProjection;
@@ -51,7 +52,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<UserShortInfoDto> findUsersByRolePeople(RolePeople rolePeople, Pageable pageable);
 
-    Page<User> findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrRolePeopleOrLeadingLegOrBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
+    Page<SearchDto> findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrRolePeopleOrLeadingLegOrBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
 
     Page<UserShortInfoDto> findPlayersByInfoLogin(String login, Pageable pageable);
 

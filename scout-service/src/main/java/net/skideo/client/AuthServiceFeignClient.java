@@ -18,6 +18,6 @@ public interface AuthServiceFeignClient {
                                                    @RequestParam String clientSecret, @RequestParam String grantType,@RequestParam ServiceRole serviceRole);
 
     @PutMapping("/api/auth/data")
-    void updateLoginAndPassword(@Valid @RequestBody AuthDto authDto);
+    void updateLoginAndPassword(@RequestHeader("Authorization") String token,@RequestBody AuthDto authDto);
 
 }

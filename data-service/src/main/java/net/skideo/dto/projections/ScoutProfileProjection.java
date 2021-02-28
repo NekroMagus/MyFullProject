@@ -1,6 +1,5 @@
 package net.skideo.dto.projections;
 
-import net.skideo.model.Club;
 
 public interface ScoutProfileProjection {
 
@@ -8,5 +7,6 @@ public interface ScoutProfileProjection {
 
     String getSurname();
 
-    Club getClub();
+    ClubProfileProjection getClub();
+
 }
