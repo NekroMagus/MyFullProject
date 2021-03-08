@@ -31,15 +31,15 @@ public class VideoController {
     @GetMapping("/profile/video")
     public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0", required = false) int page,
                                       @RequestParam(defaultValue = "50", required = false) int size) {
-        User CURRENT_USER = userService.getCurrentUser();
-        return videoService.findAllMyVideos(CURRENT_USER.getId(), page, size);
+        User currentUser = userService.getCurrentUser();
+        return videoService.findAllMyVideos(currentUser.getInfo().getId(), page, size);
     }
 
     @GetMapping("/videos")
     public Page<VideoDto> getOtherVideos(@RequestParam(defaultValue = "0", required = false) int page,
                                          @RequestParam(defaultValue = "50", required = false) int size) {
-        User CURRENT_USER = userService.getCurrentUser();
-        return videoService.findAllAnotherVideos(CURRENT_USER.getId(), page, size);
+        User currentUser = userService.getCurrentUser();
+        return videoService.findAllAnotherVideos(currentUser.getId(), page, size);
     }
 
     @PostMapping("/profile/video")

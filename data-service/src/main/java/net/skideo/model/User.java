@@ -46,9 +46,6 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private LeadingLeg leadingLeg;
 
-    @Enumerated(value = EnumType.STRING)
-    private RolePeople rolePeople;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
 
@@ -64,7 +61,7 @@ public class User {
 
     public User(Info info, RolePeople rolePeople, boolean hasAgent) {
         this.info=info;
-        this.rolePeople = rolePeople;
+        this.info.setRolePeople(rolePeople);
         this.hasAgent = hasAgent;
 
         this.role = Role.UNCONFIRMED;

@@ -13,14 +13,12 @@ import java.util.Optional;
 
 public interface VideoRepository extends JpaRepository<Video, Long> {
 
-
-    @EntityGraph(attributePaths = {"user"})
     Optional<Video> findById(long id);
 
-    @EntityGraph(type = EntityGraph.EntityGraphType.LOAD, attributePaths = {"likes"})
+    @EntityGraph(type = EntityGraph.EntityGraphType.LOAD,attributePaths = {"likes","comments"})
     Page<VideoDto> findAllByInfoId(long infoId, Pageable pageable);
 
-    @EntityGraph(type = EntityGraph.EntityGraphType.LOAD, attributePaths = {"likes"})
+    @EntityGraph(type = EntityGraph.EntityGraphType.LOAD,attributePaths = {"likes","comments"})
     Page<VideoDto> findByInfoIdNotAndInfoServiceRole(long infoId, ServiceRole serviceRole, Pageable pageable);
 
     List<Video> findAllByInfoId(long infoId);

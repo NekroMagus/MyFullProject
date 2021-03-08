@@ -8,6 +8,7 @@ import net.skideo.service.notification.NotificationService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class NotificationRestController {
     private final NotificationService notificationService;
 
     @PostMapping("/notification")
-    public void addNotification(@Valid @RequestBody NotificationDto notification) {
+    public void addNotification(@Valid @RequestBody NotificationDto notification) throws MessagingException {
         notificationService.addNotification(notification.getNotificationEnum(),notification.getIdUser());
     }
 

@@ -26,4 +26,6 @@ public interface VideoService {
 
     Page<VideoDto> findAllAnotherVideos(long idInfo, int page, int size);
 
+    void updateComments(Video video);
+
 }

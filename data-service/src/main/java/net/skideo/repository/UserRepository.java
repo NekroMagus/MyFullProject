@@ -50,9 +50,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-    Page<UserShortInfoDto> findUsersByRolePeople(RolePeople rolePeople, Pageable pageable);
+    Page<UserShortInfoDto> findUsersByInfoRolePeople(RolePeople rolePeople, Pageable pageable);
 
-    Page<SearchDto> findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrRolePeopleOrLeadingLegOrBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
+    Page<SearchDto> findAllByInfoCountryOrInfoRoleFootballOrHasAgentOrInfoRolePeopleOrLeadingLegOrBirthDate(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
 
     Page<UserShortInfoDto> findPlayersByInfoLogin(String login, Pageable pageable);
 

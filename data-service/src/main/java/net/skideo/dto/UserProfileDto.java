@@ -33,7 +33,7 @@ public class UserProfileDto {
         this.city = user.getInfo().getCity();
         this.country = user.getInfo().getCountry();
         this.leadingLeg = user.getLeadingLeg();
-        this.rolePeople = user.getRolePeople();
+        this.rolePeople = user.getInfo().getRolePeople();
         this.club = new ClubProfileDto(user.getClub());
         this.agent = user.isHasAgent();
         this.birthDate = user.getBirthDate();

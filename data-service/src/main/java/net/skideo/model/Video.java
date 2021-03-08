@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -26,6 +27,9 @@ public class Video {
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "video")
     private Set<Like> likes = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<Comment> comments;
 
     public Video(String link, Info info) {
         this.videoLink = link;

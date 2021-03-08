@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editUser(UserDto dto) {
         User user = getCurrentUser();
-        if (user.getRolePeople() == RolePeople.AMATEUR && dto.isAgent()) {
+        if (user.getInfo().getRolePeople() == RolePeople.AMATEUR && dto.isAgent()) {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
         if (StringUtils.isNotBlank(dto.getEmail())) {

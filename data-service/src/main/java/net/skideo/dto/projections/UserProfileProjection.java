@@ -23,7 +23,7 @@ public interface UserProfileProjection {
 
     LeadingLeg getLeadingLeg();
 
-    RolePeople getRolePeople();
+    RolePeople getInfoRolePeople();
 
     ClubProfile getClub();
 

@@ -16,6 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.logging.Logger;
+
 @Service
 @RequiredArgsConstructor
 public class VideoServiceImpl implements VideoService {
@@ -23,6 +26,8 @@ public class VideoServiceImpl implements VideoService {
     private final VideoRepository repository;
     private final UserService userService;
     private final LikeService likeService;
+
+    Logger log = Logger.getLogger(VideoServiceImpl.class.getName());
 
     private void save(Video video) {
         repository.save(video);
@@ -57,7 +62,7 @@ public class VideoServiceImpl implements VideoService {
     public void estimateVideo(RatingDto dto, User user) {
         Video video = findById(dto.getIdVideo());
 
-        if ((user.getRolePeople() == video.getInfo().getRolePeople())) {
+        if ((user.getInfo().getRolePeople() == video.getInfo().getRolePeople())) {
             throw new ForbiddenException("Player with same rolePlayer cannot like video each other");
         }
         Like like = new Like();
@@ -80,6 +85,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Transactional
     public Page<VideoDto> findAllMyVideos(long idInfo, int page, int size) {
         return repository.findAllByInfoId(idInfo, PageRequest.of(page, size));
     }
@@ -94,6 +100,15 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public Page<VideoDto> findAllAnotherVideos(long idInfo, int page, int size) {
         return repository.findByInfoIdNotAndInfoServiceRole(idInfo, ServiceRole.USER, PageRequest.of(page, size));
+    }
+
+    @Override
+    public void updateComments(Video video) {
+        Video dbVideo = findById(video.getId());
+
+        dbVideo.setComments(video.getComments());
+
+        save(dbVideo);
     }
 
 }

@@ -10,13 +10,19 @@ import net.skideo.repository.NotificationRepository;
 import net.skideo.service.academy.AcademyService;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.util.LinkedList;
 
 @Service
@@ -32,7 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
     private String username;
 
     @Override
-    public void addNotification(NotificationEnum notificationEnum, long idUser) {
+    public void addNotification(NotificationEnum notificationEnum, long idUser) throws MessagingException {
         Academy currentAcademy = academyService.getCurrentAcademy();
         User user = userService.getUserById(idUser);
 
@@ -42,7 +48,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         user.getNotification().add(notification);
 
-        userService.save(user);
+        //userService.save(user);
 
         sendNotification(user.getInfo().getEmail(),notificationEnum.getNotification() + " by " + currentAcademy.getInfo().getName());
     }
@@ -55,15 +61,21 @@ public class NotificationServiceImpl implements NotificationService {
         return repository.findByUserId(currentUser.getId(),pageable);
     }
 
-    private void sendNotification(String email,String message) {
+    private void sendNotification(String email,String message) throws MessagingException {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
-        mailMessage.setFrom(username);
-        mailMessage.setTo(email);
-        mailMessage.setSubject("Skideo notification");
-        mailMessage.setText(message);
+        MimeMessage mimeMailMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage,true);
 
-        mailSender.send(mailMessage);
+        mimeMessageHelper.setFrom(username);
+        mimeMessageHelper.setTo("fli_igor@mail.ru");
+        mimeMessageHelper.setSubject("Java");
+        mimeMessageHelper.setText("<img src='cid:gora' width='200px' height='200px'>",true);
+
+        File file = new File("C:/Games-2/gora.jpg");
+        mimeMessageHelper.addInline("gora",file);
+
+        mailSender.send(mimeMailMessage);
     }
 
 }

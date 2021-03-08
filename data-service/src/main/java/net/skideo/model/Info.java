@@ -33,6 +33,8 @@ public class Info {
     private RoleFootball roleFootball;
     @Enumerated(value = EnumType.STRING)
     private ServiceRole serviceRole;
+    @Enumerated(value = EnumType.STRING)
+    private RolePeople rolePeople;
 
     public Info(String login,String password,String city,String country,String title) {
         this.login = login;
