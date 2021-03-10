@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.LinkedList;
 
 @Data
 @EqualsAndHashCode(exclude = {"likes"})
@@ -29,7 +30,7 @@ public class Video {
     private Set<Like> likes = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
-    private List<Comment> comments;
+    private List<Comment> comments = new LinkedList<>();
 
     public Video(String link, Info info) {
         this.videoLink = link;
