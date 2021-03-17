@@ -42,6 +42,7 @@ public class LikeRepositoryTest {
     }
 
 
+
     @Test
     public void givenValidId_whenDeleteByIdAndFindById_thenNotFound() {
         repository.deleteById(ID);
@@ -50,6 +51,5 @@ public class LikeRepositoryTest {
                 () -> new NotFoundException("Like not found")
         ));
     }
-
 
 }

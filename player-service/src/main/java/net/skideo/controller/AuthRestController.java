@@ -34,8 +34,8 @@ public class AuthRestController {
 
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
-        ResponseEntity<OAuth2AccessToken> response = feignClient.registration(userRegistrationDto.getLogin(),userRegistrationDto.getPassword(),clientId,
-                clientSecret,"password", ServiceRole.USER);
+        ResponseEntity<OAuth2AccessToken> response = feignClient.registration(userRegistrationDto.getLogin(), userRegistrationDto.getPassword(), clientId,
+                clientSecret, "password", ServiceRole.USER);
 
         if (userRegistrationDto.getRolePeople() == RolePeople.AMATEUR
                 && userRegistrationDto.isHasAgent()) {

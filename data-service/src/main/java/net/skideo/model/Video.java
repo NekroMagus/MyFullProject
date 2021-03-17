@@ -1,9 +1,6 @@
 package net.skideo.model;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.LinkedList;

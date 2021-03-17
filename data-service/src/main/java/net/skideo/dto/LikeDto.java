@@ -9,11 +9,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LikeDto {
 
-
     private Long id;
-
     private int rating;
-
     private UserShortInfoDto author;
 
     public LikeDto(Like like) {

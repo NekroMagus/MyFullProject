@@ -19,10 +19,13 @@ public class Comment {
     @ManyToOne
     private Info info;
     private String text;
+
     @OneToMany(fetch = FetchType.LAZY)
     private List<Like> likes=new LinkedList<>();
+
     @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private List<Comment> innerComments = new LinkedList<>();
+
     private boolean isInnerComment;
 
     public Comment(String text,Info info,boolean isInnerComment) {

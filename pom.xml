@@ -34,7 +34,10 @@
         <module>gateway-service</module>
         <module>auth-service</module>
         <module>notification-service</module>
+<<<<<<< HEAD
         <module>video-service</module>
+=======
+>>>>>>> 54b5cc70b6338a9022d8bfe2e0f95126a49ed22a
     </modules>
 
     <dependencies>

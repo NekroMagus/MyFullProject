@@ -13,5 +13,4 @@ public enum Rating {
     public int getRating() {
         return rating;
     }
-
 }

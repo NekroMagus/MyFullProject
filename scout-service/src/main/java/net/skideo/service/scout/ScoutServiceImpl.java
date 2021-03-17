@@ -24,9 +24,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -101,8 +98,8 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public void updateLoginAndPassword(String token,AuthDto authDto) {
-        feignClient.updateLoginAndPassword(token,authDto);
+    public void updateLoginAndPassword(String token, AuthDto authDto) {
+        feignClient.updateLoginAndPassword(token, authDto);
 
         Scout dbScout = getCurrentScout();
 
@@ -132,7 +129,7 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable) {
         final String LOGIN_CURRENT_SCOUT = getLoginCurrentScout();
-        return scoutRepository.findFavoriteUsersByInfoLogin(LOGIN_CURRENT_SCOUT,pageable);
+        return scoutRepository.findFavoriteUsersByInfoLogin(LOGIN_CURRENT_SCOUT, pageable);
     }
 
     @Override

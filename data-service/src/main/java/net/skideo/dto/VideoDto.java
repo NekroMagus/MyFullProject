@@ -1,12 +1,9 @@
 package net.skideo.dto;
 
-import net.skideo.model.Comment;
 import net.skideo.model.Video;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 

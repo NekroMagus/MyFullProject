@@ -33,5 +33,4 @@ public class Like {
         this.info=info;
     }
 
-
 }

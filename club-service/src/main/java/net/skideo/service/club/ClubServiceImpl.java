@@ -3,30 +3,17 @@ package net.skideo.service.club;
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
-import net.skideo.dto.projections.ClubProfileProjection;
 import net.skideo.dto.projections.IdProjection;
-import net.skideo.dto.projections.PasswordProjection;
-import net.skideo.exception.ClubNotFoundException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.*;
 import net.skideo.repository.ClubRepository;
-import net.skideo.service.scout.ScoutService;
 import net.skideo.service.user.UserService;
-import net.skideo.service.video.VideoService;
 import org.apache.commons.lang.StringUtils;
-import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.naming.directory.SearchControls;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +21,6 @@ public class ClubServiceImpl implements ClubService {
 
     private final ClubRepository clubRepository;
     private final UserService userService;
-    private final VideoService videoService;
     private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder encoder;
 
