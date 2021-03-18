@@ -1,7 +1,7 @@
 package net.skideo.controller.exception;
 
 import net.skideo.exception.UserNotFoundException;
-import net.skideo.exception.UserRatedException;
+import net.skideo.exception.AlreadyRatedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +21,7 @@ public class UserExceptionController {
         return new ResponseEntity<>("Username, email or phone is invalid", HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = UserRatedException.class)
+    @ExceptionHandler(value = AlreadyRatedException.class)
     public ResponseEntity<?> userRated() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("User already rated");
     }

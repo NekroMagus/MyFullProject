@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class RatingDto {
 
     @NotNull
-    private long idVideo;
+    private long id;
     @NotNull
     private Rating rating;
 

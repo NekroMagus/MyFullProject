@@ -25,7 +25,7 @@ public class Video {
     @ManyToOne(optional = false)
     private Info info;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "video",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private Set<Like> likes = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})

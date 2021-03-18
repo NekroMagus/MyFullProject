@@ -20,17 +20,13 @@ public class Like {
     private Rating rating;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "video_id")
-    private Video video;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "info_id")
     private Info info;
 
-    public Like(Rating rating,Video video,Info info) {
+    public Like(Rating rating,Info info) {
         this.rating=rating;
-        this.video=video;
         this.info=info;
     }
+
 
 }

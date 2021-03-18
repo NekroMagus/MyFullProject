@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 public class VideoRestController {
 
     private final VideoService videoService;
-    private final CommentService commentService;
     private final VideoRepository repository;
 
     Logger log = Logger.getLogger(VideoRestController.class.getName());
@@ -65,16 +64,6 @@ public class VideoRestController {
     @PostMapping("/estimate")
     public void estimateVideo(@Valid @RequestBody RatingDto ratingDto) {
         videoService.estimateVideo(ratingDto);
-    }
-
-    @PostMapping("/comment")
-    public void addComment(@Valid @RequestBody CommentADto commentDto) {
-        commentService.addComment(commentDto.getId(),commentDto.getText());
-    }
-
-    @PostMapping("/comment/inner")
-    public void addInnerComment(@Valid @RequestBody CommentADto commentDto) {
-        commentService.addInnerComment(commentDto.getId(),commentDto.getText());
     }
 
     @GetMapping("/all")

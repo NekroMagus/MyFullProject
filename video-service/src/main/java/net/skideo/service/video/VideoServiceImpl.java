@@ -5,10 +5,9 @@ import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.exception.ForbiddenException;
 import net.skideo.exception.NotFoundException;
-import net.skideo.exception.UserRatedException;
+import net.skideo.exception.AlreadyRatedException;
 import net.skideo.model.Info;
 import net.skideo.model.Like;
-import net.skideo.model.User;
 import net.skideo.model.Video;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.LikeRepository;
@@ -83,19 +82,18 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void estimateVideo(RatingDto dto) {
-        Video video = findById(dto.getIdVideo());
+        Video video = findById(dto.getId());
         Info currentInfo = infoService.getCurrentInfo();
-        Optional<Like> like = likeRepository.findByInfoIdAndVideoId(currentInfo.getId(),video.getId());
 
-        if(like.isPresent()) {
-            throw new UserRatedException("You already liked this video");
+        if(isAlreadyLiked(video,currentInfo)) {
+            throw new AlreadyRatedException("You already liked this video");
         }
 
         if ((currentInfo.getRolePeople() == video.getInfo().getRolePeople())) {
             throw new ForbiddenException("Player with same rolePlayer cannot like video each other");
         }
 
-        Like newLike = new Like(dto.getRating(),video,currentInfo);
+        Like newLike = new Like(dto.getRating(),currentInfo);
 
         video.setRating((video.getLikes().size() * video.getRating() + dto.getRating().getRating()) / (video.getLikes().size()+1));
         video.getLikes().add(newLike);
@@ -113,6 +111,15 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void save(Video video) {
         repository.save(video);
+    }
+
+    private boolean isAlreadyLiked(Video video, Info currentInfo) {
+        for(Like like : video.getLikes()) {
+            if(like.getInfo().equals(currentInfo)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
