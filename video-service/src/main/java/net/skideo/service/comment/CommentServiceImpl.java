@@ -27,9 +27,6 @@ public class CommentServiceImpl implements CommentService {
     private final InfoService infoService;
     private final VideoService videoService;
     private final CommentRepository repository;
-    private final LikeRepository likeRepository;
-
-    Logger log = Logger.getLogger(CommentServiceImpl.class.getName());
 
     @Override
     public void addComment(long videoId, String text) {

@@ -16,7 +16,7 @@ public class AcademyServiceImpl implements AcademyService {
     @Override
     public Academy getCurrentAcademy() {
         return academyRepository.findByInfoLogin(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(
-                () -> new NotFoundException("User not found")
+                () -> new NotFoundException("Academy not found")
         );
     }
 }
