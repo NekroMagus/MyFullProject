@@ -11,10 +11,12 @@ public class NotificationInfoDto {
 
     private String notificationValue;
     private String academyTitle;
+    private String text;
 
     public NotificationInfoDto(Notification notification) {
         this.notificationValue=notification.getNotificationEnum().getNotification();
-        this.academyTitle=notification.getAcademy().getInfo().getName();
+        this.academyTitle=notification.getSenderInfo().getName();
+        this.text=notification.getMessage();
     }
 
 }

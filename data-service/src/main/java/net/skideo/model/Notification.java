@@ -15,18 +15,22 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String message;
 
     @Enumerated(EnumType.STRING)
     private NotificationEnum notificationEnum;
 
     @ManyToOne
-    private User user;
+    private Info senderInfo;
 
     @ManyToOne
-    private Academy academy;
+    private User user;
 
-    public Notification(NotificationEnum notificationEnum) {
-        this.notificationEnum=notificationEnum;
+    public Notification(NotificationEnum notificationEnum,String message, Info senderInfo,User user) {
+        this.notificationEnum = notificationEnum;
+        this.message = message;
+        this.senderInfo = senderInfo;
+        this.user = user;
     }
 
 }

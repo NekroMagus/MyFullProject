@@ -9,7 +9,7 @@ import javax.mail.MessagingException;
 
 public interface NotificationService {
 
-    void addNotification(NotificationEnum notificationEnum, long idUser) throws MessagingException;
+    void addNotification(NotificationEnum notificationEnum, String message, long idUser) throws MessagingException;
 
     Page<NotificationInfoDto> getMyNotifications(int page, int size);
 

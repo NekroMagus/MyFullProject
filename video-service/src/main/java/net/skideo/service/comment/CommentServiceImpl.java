@@ -1,24 +1,15 @@
 package net.skideo.service.comment;
 
-import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.RatingDto;
 import net.skideo.exception.AlreadyRatedException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.*;
-import net.skideo.model.enums.Rating;
-import net.skideo.repository.AuthRepository;
 import net.skideo.repository.CommentRepository;
-import net.skideo.repository.InfoRepository;
-import net.skideo.repository.LikeRepository;
 import net.skideo.service.info.InfoService;
 import net.skideo.service.video.VideoService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor

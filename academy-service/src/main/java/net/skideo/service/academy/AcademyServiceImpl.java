@@ -50,13 +50,10 @@ public class AcademyServiceImpl implements AcademyService {
         User user = userService.getUserById(id);
         Academy currentAcademy = getCurrentAcademy();
 
-        List<User> listPlayers = currentAcademy.getPlayers();
-        listPlayers.add(user);
-
-        updateListPlayers(listPlayers);
-
+        currentAcademy.getPlayers().add(user);
         currentAcademy.setNumberPlayers(currentAcademy.getNumberPlayers()+1);
-        save(currentAcademy);
+
+        academyRepository.save(currentAcademy);
     }
 
     @Override
@@ -72,7 +69,7 @@ public class AcademyServiceImpl implements AcademyService {
             dbAcademy.getInfo().setPassword(passwordEncoder.encode(authDto.getPassword()));
         }
 
-        save(dbAcademy);
+        academyRepository.save(dbAcademy);
     }
 
     @Override
@@ -117,18 +114,6 @@ public class AcademyServiceImpl implements AcademyService {
     @Override
     public String getLoginCurrentAcademy() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    private void updateListPlayers(List<User> listPlayers) {
-        Academy dbAcademy = getCurrentAcademy();
-
-        dbAcademy.setPlayers(listPlayers);
-
-        academyRepository.save(dbAcademy);
-    }
-
-    private void save(Academy academy) {
-        academyRepository.save(academy);
     }
 
 
