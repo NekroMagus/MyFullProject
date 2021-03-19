@@ -20,7 +20,6 @@ import java.util.List;
 public class NotificationRestController {
 
     private final NotificationService notificationService;
-    private final UserRepository userRepository;
 
     @PostMapping("/notification")
     public void addNotification(@Valid @RequestBody NotificationDto notification) throws MessagingException {
@@ -31,11 +30,6 @@ public class NotificationRestController {
     public Page<NotificationInfoDto> getMyNotifications(@RequestParam(defaultValue = "0") int page,
                                                  @RequestParam(defaultValue = "50") int size) {
         return notificationService.getMyNotifications(page,size);
-    }
-
-    @GetMapping("/all")
-    public List<User> all() {
-        return userRepository.findAll();
     }
 
 }
