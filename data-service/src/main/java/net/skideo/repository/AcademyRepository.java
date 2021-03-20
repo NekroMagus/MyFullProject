@@ -4,6 +4,7 @@ import net.skideo.dto.AcademyProfileDto;
 import net.skideo.dto.UserShortInfoAcademyDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.dto.projections.AcademyAuthProjection;
+import net.skideo.dto.projections.IdProjection;
 import net.skideo.dto.projections.InfoIdProjection;
 import net.skideo.model.Academy;
 import org.springframework.data.domain.Page;
@@ -15,9 +16,11 @@ public interface AcademyRepository extends JpaRepository<Academy,Long> {
 
     Optional<Academy> findByInfoLogin(String login);
 
+    Optional<IdProjection> findIdByInfoLogin(String login);
+
     Optional<AcademyAuthProjection> findLoginAndPasswordByInfoLogin(String login);
 
-    AcademyProfileDto findProfileByInfoLogin(String login);
+    AcademyProfileDto findProfileById(long id);
 
     Page<UserShortInfoAcademyDto> findPlayersByInfoLogin(String login, Pageable pageable);
 

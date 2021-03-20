@@ -45,9 +45,15 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public ClubProfileDto getProfile() {
-        final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
-        return clubRepository.findProfileByInfoLogin(LOGIN_CURRENT_CLUB).orElseThrow(
+    public long getId(String login) {
+        return clubRepository.findClubIdByInfoLogin(getLoginCurrentClub()).orElseThrow(
+                () -> new NotFoundException("Club not found")
+        ).getId();
+    }
+
+    @Override
+    public ClubProfileDto getProfile(long id) {
+        return clubRepository.findProfileById(id).orElseThrow(
                 () -> new NotFoundException("Club not found")
         );
     }
@@ -112,7 +118,8 @@ public class ClubServiceImpl implements ClubService {
         );
     }
 
-    private String getLoginCurrentClub() {
+    @Override
+    public String getLoginCurrentClub() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 

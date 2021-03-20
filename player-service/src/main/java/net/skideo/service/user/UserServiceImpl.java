@@ -1,6 +1,7 @@
 package net.skideo.service.user;
 
 import net.skideo.dto.UserDto;
+import net.skideo.dto.UserProfileDto;
 import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.exception.UserNotFoundException;
@@ -126,11 +127,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileProjection getProfile() {
-        return repository.findProjectionByInfoLoginIgnoreCase(getLoginCurrentUser());
+    public long getId(String login) {
+        return repository.findIdByInfoLogin(login).orElseThrow(
+                () -> new NotFoundException("User not found")
+        ).getId();
     }
 
-    private String getLoginCurrentUser() {
+    @Override
+    public UserProfileDto getProfile(long id) {
+        return repository.findProfileById(id);
+    }
+
+    @Override
+    public String getLoginCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 

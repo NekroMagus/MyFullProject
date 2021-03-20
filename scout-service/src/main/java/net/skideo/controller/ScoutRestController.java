@@ -30,8 +30,6 @@ import java.util.List;
 public class ScoutRestController {
 
     private final ScoutService scoutService;
-    private final ScoutRepository scoutRepository;
-    private final AuthRepository authRepository;
     private final UserRepository userRepository;
 
     // для тестов
@@ -45,8 +43,11 @@ public class ScoutRestController {
     /* ------------------------------------------------- */
 
     @GetMapping("/profile")
-    public ProfileDto getProfile() {
-        return scoutService.getProfile();
+    public ProfileDto getProfile(@RequestParam(required = false) Long id) {
+        if(id==null) {
+            return scoutService.getProfile(scoutService.getId(scoutService.getLoginCurrentScout()));
+        }
+        return scoutService.getProfile(id);
     }
 
     @PutMapping("/profile")

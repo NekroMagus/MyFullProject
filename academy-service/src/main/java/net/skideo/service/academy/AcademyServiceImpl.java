@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.service.user.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,6 +43,13 @@ public class AcademyServiceImpl implements AcademyService {
         );
 
         return academy;
+    }
+
+    @Override
+    public long getId(String login) {
+        return academyRepository.findIdByInfoLogin(login).orElseThrow(
+                () -> new NotFoundException("Academy not found")
+        ).getId();
     }
 
     @Override
@@ -90,8 +98,8 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public AcademyProfileDto getProfile() {
-        return academyRepository.findProfileByInfoLogin(getLoginCurrentAcademy());
+    public AcademyProfileDto getProfile(long id) {
+        return academyRepository.findProfileById(id);
     }
 
     @Override

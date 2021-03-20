@@ -31,8 +31,6 @@ public class VideoRestController {
     private final VideoService videoService;
     private final VideoRepository repository;
 
-    Logger log = Logger.getLogger(VideoRestController.class.getName());
-
     @PostMapping
     public void addVideo(@Valid @RequestBody VideoLinkDto videoLinkDto) {
         videoService.createVideo(videoLinkDto.getLink());

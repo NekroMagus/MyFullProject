@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.RegDto;
+import net.skideo.model.Info;
 import net.skideo.model.Scout;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.scout.ScoutService;
@@ -35,7 +36,13 @@ public class AuthRestController {
         ResponseEntity<OAuth2AccessToken> response = feignClient.registration(regDto.getLogin(),regDto.getPassword(),clientId,
                                                                               clientSecret,"password", ServiceRole.SCOUT);
 
-        scoutService.createScout(new Scout(regDto.getLogin(), regDto.getPassword(), regDto.getName(), regDto.getSurname()));
+        Info info = new Info();
+        info.setLogin(regDto.getLogin());
+        info.setPassword(regDto.getPassword());
+        info.setName(regDto.getName());
+        info.setSurname(regDto.getSurname());
+
+        scoutService.createScout(new Scout(info));
 
         return response;
     }

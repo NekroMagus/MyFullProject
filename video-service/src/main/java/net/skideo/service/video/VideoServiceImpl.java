@@ -60,7 +60,7 @@ public class VideoServiceImpl implements VideoService {
 
         for(int i=1;i<=size;i++) {
             int randomIndex = (int) Math.round(Math.random() * (allVideo.size()-1));
-             videos.add(allVideo.get(randomIndex));
+            videos.add(allVideo.get(randomIndex));
         }
         return videos;
     }

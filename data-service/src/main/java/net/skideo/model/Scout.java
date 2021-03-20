@@ -28,11 +28,8 @@ public class Scout {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> favoriteUsers = new LinkedHashSet<>();
 
-    public Scout(String login,String password,String name,String surname) {
-        this.info.setLogin(login);
-        this.info.setPassword(password);
-        this.info.setName(name);
-        this.info.setSurname(surname);
+    public Scout(Info info) {
+        this.info = info;
     }
 
 }

@@ -1,13 +1,7 @@
 package net.skideo.repository;
 
-import net.skideo.dto.ProfileUserDto;
-import net.skideo.dto.SearchDto;
-import net.skideo.dto.UserNSDto;
-import net.skideo.dto.UserShortInfoDto;
-import net.skideo.dto.projections.ProfileProjection;
-import net.skideo.dto.projections.UserAuthProjection;
-import net.skideo.dto.projections.UserProfileProjection;
-import net.skideo.dto.projections.UserProjection;
+import net.skideo.dto.*;
+import net.skideo.dto.projections.*;
 import net.skideo.model.Academy;
 import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
@@ -29,9 +23,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByInfoLogin(String login);
 
-    Page<UserNSDto> findAllByInfoNameStartsWithOrInfoSurnameStartsWith(String name, String surname,Pageable pageable);
+    Page<UserNSDto> findAllByInfoNameStartsWithOrInfoSurnameStartsWith(String name, String surname, Pageable pageable);
 
-    UserProfileProjection findProjectionByInfoLoginIgnoreCase(String login);
+    Optional<IdProjection> findIdByInfoLogin(String login);
+
+    UserProfileDto findProfileById(long id);
 
     List<User> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
@@ -40,7 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByInfoCountry(String country);
 
     List<User> findByBirthDateBetweenAndInfoRoleFootballAndInfoCountry(LocalDate birth, LocalDate now,
-                                                               RoleFootball roleFootball, String country);
+                                                                       RoleFootball roleFootball, String country);
 
     List<User> findByBirthDateBetweenAndInfoRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
 

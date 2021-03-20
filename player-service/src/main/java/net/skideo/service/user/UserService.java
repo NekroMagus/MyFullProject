@@ -1,6 +1,7 @@
 package net.skideo.service.user;
 
 import net.skideo.dto.UserDto;
+import net.skideo.dto.UserProfileDto;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.dto.projections.UserAuthProjection;
 import net.skideo.dto.projections.UserProfileProjection;
@@ -39,8 +40,12 @@ public interface UserService {
 
     List<User> findAll();
 
-    UserProfileProjection getProfile();
+    UserProfileDto getProfile(long id);
+
+    long getId(String login);
 
     User getCurrentUser();
+
+    String getLoginCurrentUser();
 
 }

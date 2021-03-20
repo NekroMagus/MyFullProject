@@ -14,7 +14,9 @@ public interface ClubRepository extends JpaRepository<Club,Long> {
 
     Optional<Club> findByInfoLogin(String login);
 
-    Optional<ClubProfileDto> findProfileByInfoLogin(String login);
+    IdProjection findIdByInfoLogin(String login);
+
+    Optional<ClubProfileDto> findProfileById(long id);
 
     Optional<IdProjection> findClubIdByInfoLogin(String login);
 

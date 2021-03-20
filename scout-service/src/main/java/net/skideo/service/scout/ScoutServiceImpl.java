@@ -58,32 +58,6 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public ProfileDto getProfile() {
-        ProfileDto profile = scoutRepository.findProfileByInfoLogin(getLoginCurrentScout()).orElseThrow(
-                () -> new NotFoundException("Scout not found")
-        );
-        List<User> users = userService.findAll();
-
-        List<ProfileUserDto> players = new LinkedList<>();
-
-        if (users.size() >= 3) {
-
-            for (int i = 1; i <= 3; i++) {
-
-                int random = (int) (Math.random() * users.size() - 1);
-                User user = users.get(random);
-
-                if (videoService.findAllByInfoId(user.getInfo().getId()).size() >= 1) {
-                    players.add(new ProfileUserDto(user));
-                }
-            }
-        }
-        profile.setPlayers(players);
-
-        return profile;
-    }
-
-    @Override
     public void updateProfile(UpdateProfileDto dto) {
         Scout scout = getCurrentScout();
 
@@ -133,11 +107,45 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
+    public ProfileDto getProfile(long id) {
+        ProfileDto profile = scoutRepository.findProfileById(id).orElseThrow(
+                () -> new NotFoundException("Scout not found")
+        );
+        List<User> users = userService.findAll();
+
+        List<ProfileUserDto> players = new LinkedList<>();
+
+        if (users.size() >= 3) {
+
+            for (int i = 1; i <= 3; i++) {
+
+                int randomIndex = (int) Math.round(Math.random() * (users.size()-1));
+                User user = users.get(randomIndex);
+
+                if (videoService.findAllByInfoId(user.getInfo().getId()).size() >= 1) {
+                    players.add(new ProfileUserDto(user));
+                }
+            }
+        }
+        profile.setPlayers(players);
+
+        return profile;
+    }
+
+    @Override
+    public long getId(String login) {
+        return scoutRepository.findIdByInfoLogin(login).orElseThrow(
+                () -> new NotFoundException("Scout not found")
+        ).getId();
+    }
+
+    @Override
     public Scout getCurrentScout() {
         return findByLogin(getLoginCurrentScout());
     }
 
-    private String getLoginCurrentScout() {
+    @Override
+    public String getLoginCurrentScout() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

@@ -2,7 +2,6 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
-import net.skideo.dto.AuthDto;
 import net.skideo.dto.RegAcademyDto;
 import net.skideo.model.Academy;
 import net.skideo.model.Info;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @RestController

@@ -18,7 +18,9 @@ public interface ClubService {
 
     void save(Club club);
 
-    ClubProfileDto getProfile();
+    long getId(String login);
+
+    ClubProfileDto getProfile(long id);
 
     void updateProfile(ClubProfileDto profile);
 
@@ -27,6 +29,8 @@ public interface ClubService {
     void addUserToFavorite(long idUser);
 
     Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable);
+
+    String getLoginCurrentClub();
 
     Club getCurrentClub();
 

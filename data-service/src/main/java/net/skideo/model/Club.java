@@ -25,10 +25,8 @@ public class Club {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> favoriteUsers = new LinkedHashSet<>();
 
-    public Club(String login, String password, String titleClub, String logoLink) {
-        this.info.setLogin(login);
-        this.info.setPassword(password);
-        this.info.setName(titleClub);
+    public Club(Info info,String logoLink) {
+        this.info = info;
         this.logoLink = logoLink;
     }
 

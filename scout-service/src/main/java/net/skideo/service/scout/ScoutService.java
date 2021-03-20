@@ -23,8 +23,6 @@ public interface ScoutService {
 
     void createScout(Scout scout);
 
-    ProfileDto getProfile();
-
     void updateProfile(UpdateProfileDto profile);
 
     void updateLoginAndPassword(String token,AuthDto authDto);
@@ -33,6 +31,12 @@ public interface ScoutService {
 
     Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable);
 
+    ProfileDto getProfile(long id);
+
+    long getId(String login);
+
     Scout getCurrentScout();
+
+    String getLoginCurrentScout();
 
 }

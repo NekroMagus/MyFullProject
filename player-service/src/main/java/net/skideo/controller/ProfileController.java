@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 
 import net.skideo.dto.UserDto;
+import net.skideo.dto.UserProfileDto;
 import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,11 @@ public class ProfileController {
     private final UserService userService;
 
     @GetMapping("/profile")
-    public UserProfileProjection getProfile() {
-        return userService.getProfile();
+    public UserProfileDto getProfile(@RequestParam(required = false) Long id) {
+        if(id==null) {
+            return userService.getProfile(userService.getId(userService.getLoginCurrentUser()));
+        }
+        return userService.getProfile(id);
     }
 
     @PutMapping("/profile")
