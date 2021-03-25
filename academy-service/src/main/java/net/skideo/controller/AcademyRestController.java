@@ -2,9 +2,13 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.*;
+import net.skideo.model.User;
+import net.skideo.repository.AcademyRepository;
+import net.skideo.repository.UserRepository;
 import net.skideo.service.academy.AcademyService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -13,6 +17,9 @@ import java.util.logging.Logger;
 public class AcademyRestController {
 
     private final AcademyService academyService;
+    private final UserRepository repository;
+
+    Logger log = Logger.getLogger(AcademyRestController.class.getName());
 
     @GetMapping("/profile")
     public AcademyProfileDto getProfile(@RequestParam(required = false) Long id) {
@@ -30,6 +37,12 @@ public class AcademyRestController {
     @PutMapping("/profile")
     public void updateProfile(@RequestBody AcademyProfileDto profileDto) {
         academyService.updateProfile(profileDto);
+    }
+
+    @GetMapping("/all")
+    public List<User> all() {
+        log.info(repository.findAll() + "");
+        return null;
     }
 
 }

@@ -19,6 +19,7 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.util.Map;
@@ -53,6 +54,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Auth findByLogin(String login) {
         return authRepository.findByLogin(login).orElseThrow(
                 () -> new NotFoundException("Auth not found")
@@ -81,6 +83,7 @@ public class AuthServiceImpl implements AuthService {
         return tokenEndpoint.postAccessToken(authentication,parameters);
     }
 
+    @Transactional(readOnly = true)
     private Auth getCurrentAuth() {
         return findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }

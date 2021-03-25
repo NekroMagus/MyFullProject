@@ -14,15 +14,11 @@ public interface AcademyService {
 
     long getId(String login);
 
-    void addPlayer(long id);
-
     void updateLoginAndPassword(String token,AuthDto authDto);
 
     void updateProfile(AcademyProfileDto academyProfileDto);
 
     AcademyProfileDto getProfile(long id);
-
-    Page<UserShortInfoAcademyDto> getMyPlayers(Pageable pageable);
 
     InfoIdProjection getInfoIdCurrentAcademy();
 

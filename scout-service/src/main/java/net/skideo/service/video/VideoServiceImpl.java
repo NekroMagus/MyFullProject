@@ -5,6 +5,7 @@ import net.skideo.model.Video;
 import lombok.RequiredArgsConstructor;
 import net.skideo.repository.VideoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Video> findAllByInfoId(long id) {
         return videoRepository.findAllByInfoId(id);
     }

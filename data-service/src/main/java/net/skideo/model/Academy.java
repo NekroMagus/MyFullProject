@@ -12,11 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="academy")
-public class Academy {
+public class Academy extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private int numberPlayers;
     @OneToMany(fetch = FetchType.LAZY)
     private List<User> players = new LinkedList<>();

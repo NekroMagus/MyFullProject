@@ -13,11 +13,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "video")
-public class Video {
+public class Video extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String videoLink;
     private String description;
     private float rating;

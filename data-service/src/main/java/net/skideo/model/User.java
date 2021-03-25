@@ -1,9 +1,8 @@
 package net.skideo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 import net.skideo.model.enums.Role;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,11 +21,7 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "skideo_user")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class User extends AbstractEntity {
 
     @CreatedDate
     @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
@@ -66,4 +61,5 @@ public class User {
 
         this.role = Role.UNCONFIRMED;
     }
+
 }

@@ -10,11 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "likes")
-public class Like {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Like extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private Rating rating;

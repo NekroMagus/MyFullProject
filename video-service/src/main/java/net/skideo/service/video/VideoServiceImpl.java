@@ -10,33 +10,25 @@ import net.skideo.model.Info;
 import net.skideo.model.Like;
 import net.skideo.model.Video;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.repository.LikeRepository;
 import net.skideo.repository.VideoRepository;
 import net.skideo.service.info.InfoService;
-import net.skideo.service.user.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
 public class VideoServiceImpl implements VideoService {
 
     private final VideoRepository repository;
-    private final LikeRepository likeRepository;
     private final InfoService infoService;
-    private final UserService userService;
-
-    Logger log = Logger.getLogger(VideoServiceImpl.class.getName());
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<VideoDto> getVideos(int page, int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Pageable pageable = PageRequest.of(page,size);
@@ -44,7 +36,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<VideoDto> getPopularVideos(int page, int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Pageable pageable = PageRequest.of(page,size, Sort.by("rating"));
@@ -52,7 +44,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Set<VideoDto> getRandomVideos(int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Set<VideoDto> videos = new LinkedHashSet<>();
@@ -66,7 +58,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<VideoDto> getMyVideos(int page, int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Pageable pageable = PageRequest.of(page,size);
@@ -102,6 +94,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Video findById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("Video not found")

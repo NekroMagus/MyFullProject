@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserRestController {
 
     private final UserService userService;
-    private final AcademyService academyService;
 
     @GetMapping
     public Page<UserNSDto> findUsersByNameAndSurname(@RequestParam String name,@RequestParam String surname,
@@ -30,7 +29,7 @@ public class UserRestController {
     public Page<UserShortInfoAcademyDto> getMyPlayers(@RequestParam(defaultValue = "0") int page,
                                                       @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return academyService.getMyPlayers(pageable);
+        return userService.getMyPlayers(pageable);
     }
 
     @GetMapping("/amateurs")
@@ -42,7 +41,7 @@ public class UserRestController {
 
     @PostMapping("/{id}")
     public void addPlayer(@PathVariable("id") long id) {
-        academyService.addPlayer(id);
+        userService.addPlayer(id);
     }
 
 }

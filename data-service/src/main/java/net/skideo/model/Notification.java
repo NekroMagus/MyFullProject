@@ -1,20 +1,18 @@
 package net.skideo.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import net.skideo.model.enums.NotificationEnum;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 @Table(name = "skideo_notification")
-public class Notification {
+public class Notification extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String message;
 
     @Enumerated(EnumType.STRING)

@@ -11,11 +11,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "skideo_comment")
-public class Comment {
+public class Comment extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String text;
     private float rating;
 

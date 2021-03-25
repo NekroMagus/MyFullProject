@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,11 +25,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople,
                                   LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -36,6 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findById(long id) {
         return userRepository.findById(id).orElseThrow(
                 UserNotFoundException::new

@@ -9,7 +9,7 @@ import net.skideo.repository.CommentRepository;
 import net.skideo.service.info.InfoService;
 import net.skideo.service.video.VideoService;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -75,7 +75,8 @@ public class CommentServiceImpl implements CommentService {
         save(comment);
     }
 
-    private Comment findById(long id) {
+    @Transactional(readOnly = true)
+    public Comment findById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("Comment not found")
         );

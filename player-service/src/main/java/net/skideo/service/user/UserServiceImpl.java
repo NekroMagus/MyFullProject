@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +36,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<User> findByLogin(String login) {
         return repository.findByInfoLoginIgnoreCase(login);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("User not found")
@@ -86,47 +90,56 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByBirthDateBetween(LocalDate birth, LocalDate now) {
         return repository.findByBirthDateBetween(birth, now);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByRoleFootball(RoleFootball roleFootball) {
         return repository.findByInfoRoleFootball(roleFootball);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByCountry(String country) {
         return findByCountry(country);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
                                                                       RoleFootball roleFootball, String country) {
         return repository.findByBirthDateBetweenAndInfoRoleFootballAndInfoCountry(birth, now, roleFootball, country);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball) {
         return repository.findByBirthDateBetweenAndInfoRoleFootball(birth, now, roleFootball);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByBirthDateBetweenAndCountry(LocalDate birth, LocalDate now, String country) {
         return repository.findByBirthDateBetweenAndInfoCountry(birth, now, country);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByRoleFootballAndCountry(RoleFootball roleFootball, String country) {
         return repository.findByInfoRoleFootballAndInfoCountry(roleFootball, country);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return repository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public long getId(String login) {
         return repository.findIdByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("User not found")
@@ -134,6 +147,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserProfileDto getProfile(long id) {
         return repository.findProfileById(id);
     }
@@ -144,6 +158,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getCurrentUser() {
         return findByLogin(getLoginCurrentUser()).orElseThrow(
                 () -> new NotFoundException("User not found")

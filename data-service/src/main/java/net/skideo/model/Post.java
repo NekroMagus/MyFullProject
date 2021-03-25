@@ -13,11 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "skideo_post")
-public class Post {
+public class Post extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String country;
     private RoleFootball roleFootball;
     private boolean agent;

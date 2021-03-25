@@ -21,7 +21,7 @@ public interface ScoutService {
 
     Page<ScoutDto> findAllByRegionAndClubId(String region,long userId,Pageable pageable);
 
-    Page<ScoutDto> getScouts(int page,int size);
+    Page<ScoutDto> getMyScouts(int page,int size);
 
     void addScout(long id);
 

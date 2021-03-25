@@ -11,11 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name="auth")
-public class Auth {
+public class Auth extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String login;
     private String password;
     private Role role;

@@ -12,11 +12,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "club")
-public class Club {
+public class Club extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String logoLink;
 
     @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})

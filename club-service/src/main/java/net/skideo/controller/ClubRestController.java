@@ -35,9 +35,9 @@ public class ClubRestController {
 
 
     @GetMapping("/scouts")
-    public Page<ScoutDto> getScouts(@RequestParam(defaultValue = "0") int page,
+    public Page<ScoutDto> getMyScouts(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "50") int size) {
-        return scoutService.getScouts(page,size);
+        return scoutService.getMyScouts(page,size);
     }
 
     @PutMapping("/profile")

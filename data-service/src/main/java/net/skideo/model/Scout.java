@@ -12,11 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "scout")
-public class Scout {
+public class Scout extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String region;
 
     @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})

@@ -17,14 +17,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AcademyServiceImpl implements AcademyService {
 
-    private final UserService userService;
     private final AcademyRepository academyRepository;
     private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
@@ -37,6 +37,7 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Academy findByLogin(String login) {
         Academy academy = academyRepository.findByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Academy not found")
@@ -46,22 +47,11 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public long getId(String login) {
         return academyRepository.findIdByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Academy not found")
         ).getId();
-    }
-
-    @Override
-    @Transactional
-    public void addPlayer(long id) {
-        User user = userService.getUserById(id);
-        Academy currentAcademy = getCurrentAcademy();
-
-        currentAcademy.getPlayers().add(user);
-        currentAcademy.setNumberPlayers(currentAcademy.getNumberPlayers()+1);
-
-        academyRepository.save(currentAcademy);
     }
 
     @Override
@@ -98,16 +88,13 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AcademyProfileDto getProfile(long id) {
         return academyRepository.findProfileById(id);
     }
 
     @Override
-    public Page<UserShortInfoAcademyDto> getMyPlayers(Pageable pageable) {
-        return academyRepository.findPlayersByInfoLogin(getLoginCurrentAcademy(),pageable);
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public InfoIdProjection getInfoIdCurrentAcademy() {
         return academyRepository.getAcademyIdByInfoLogin(getLoginCurrentAcademy()).orElseThrow(
                 () -> new NotFoundException("Academy not found")
@@ -115,6 +102,7 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Academy getCurrentAcademy() {
         return findByLogin(getLoginCurrentAcademy());
     }

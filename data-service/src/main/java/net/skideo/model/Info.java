@@ -14,11 +14,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name="skideo_info")
-public class Info {
+public class Info extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @Column(unique = true)
     private String login;
     @Column(unique = true)

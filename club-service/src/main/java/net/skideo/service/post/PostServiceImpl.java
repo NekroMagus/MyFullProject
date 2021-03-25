@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Post findById(long id) {
         return postRepository.findById(id).orElseThrow(
                 () -> new PostNotFoundException("Post not found")
@@ -33,6 +35,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<PostDto> getMyPosts(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
         final IdProjection id = clubService.getIdCurrentClub();
