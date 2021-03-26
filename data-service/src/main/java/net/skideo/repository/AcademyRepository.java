@@ -26,4 +26,6 @@ public interface AcademyRepository extends JpaRepository<Academy,Long> {
 
     Optional<InfoIdProjection> getAcademyIdByInfoLogin(String login);
 
+    boolean existsByInfoLogin(String login);
+
 }

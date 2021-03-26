@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    private final String[] AUTH_URL = {"/api/authenticate","/api/registration"};
+    private final String[] AUTH_URL = {"/api/authenticate","/api/token"};
     private final String[] SWAGGER_URL = {"/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**"};
 
     @Override

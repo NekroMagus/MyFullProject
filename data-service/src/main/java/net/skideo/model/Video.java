@@ -1,7 +1,6 @@
 package net.skideo.model;
 
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,7 +12,6 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode(exclude = {"likes"})
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "video")
 public class Video extends BaseEntity {

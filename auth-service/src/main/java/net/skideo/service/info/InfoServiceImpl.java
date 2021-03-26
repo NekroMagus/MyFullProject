@@ -1,12 +1,12 @@
-package net.skideo.service.auth;
+package net.skideo.service.info;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AuthDto;
 import net.skideo.exception.NotFoundException;
-import net.skideo.model.Auth;
-import net.skideo.repository.AuthRepository;
-import net.skideo.security.JwtAuth;
+import net.skideo.model.Info;
+import net.skideo.repository.InfoRepository;
+import net.skideo.security.JwtInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,28 +14,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
-import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
-import org.springframework.security.web.header.HeaderWriterFilter;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class InfoServiceImpl implements InfoService {
 
-    private final AuthRepository authRepository;
-
-    @Autowired
-    private PasswordEncoder encoder;
+    private final InfoRepository infoRepository;
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public boolean isPasswordCorrect(String rowPassword, String encodedPassword) {
@@ -44,47 +38,41 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isAuthExists(String login) {
-        return authRepository.existsByLogin(login);
-    }
-
-    @Override
-    public void addAuth(Auth auth) {
-        auth.setPassword(encoder.encode(auth.getPassword()));
-        authRepository.save(auth);
+        return infoRepository.existsByLogin(login);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Auth findByLogin(String login) {
-        return authRepository.findByLogin(login).orElseThrow(
+    public Info findByLogin(String login) {
+        return infoRepository.findByLogin(login).orElseThrow(
                 () -> new NotFoundException("Auth not found")
         );
     }
 
     @Override
     public void updateLoginAndPassword(AuthDto authDto) {
-        Auth dbAuth = getCurrentAuth();
+        Info dbInfo = getCurrentInfo();
 
         if(StringUtils.isNotBlank(authDto.getLogin())) {
-            dbAuth.setLogin(authDto.getLogin());
+            dbInfo.setLogin(authDto.getLogin());
         }
         if(StringUtils.isNotBlank(authDto.getPassword())) {
-            dbAuth.setPassword(encoder.encode(authDto.getPassword()));
+            dbInfo.setPassword(encoder.encode(authDto.getPassword()));
         }
 
-        authRepository.save(dbAuth);
+        infoRepository.save(dbInfo);
     }
 
     @Override
     public ResponseEntity<OAuth2AccessToken> generateToken(Map<String, String> parameters, String clientId) throws HttpRequestMethodNotSupportedException {
-        JwtAuth jwtAuth = JwtAuth.authToJwtAuth(new Auth(clientId,null));
+        JwtInfo jwtAuth = JwtInfo.authToJwtAuth(new Info(clientId));
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtAuth,null,null);
 
         return tokenEndpoint.postAccessToken(authentication,parameters);
     }
 
     @Transactional(readOnly = true)
-    private Auth getCurrentAuth() {
+    public Info getCurrentInfo() {
         return findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

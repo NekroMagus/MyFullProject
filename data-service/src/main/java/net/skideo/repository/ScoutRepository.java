@@ -27,4 +27,6 @@ public interface ScoutRepository extends JpaRepository<Scout,Long> {
 
     Page<UserShortInfoClubDto> findFavoriteUsersByInfoLogin(String login,Pageable pageable);
 
+    boolean existsByInfoLogin(String login);
+
 }

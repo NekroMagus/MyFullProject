@@ -2,9 +2,11 @@ package net.skideo.controller;
 
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.UserRegistrationDto;
+import net.skideo.exception.NotFoundException;
 import net.skideo.model.Info;
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
+import net.skideo.service.info.InfoService;
 import net.skideo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RolePeople;
@@ -24,6 +26,7 @@ import javax.validation.Valid;
 public class AuthRestController {
 
     private final UserService userService;
+    private final InfoService infoService;
     private final AuthServiceFeignClient feignClient;
 
     @Value("${security.oauth2.client.clientId}")
@@ -34,19 +37,21 @@ public class AuthRestController {
 
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
-        ResponseEntity<OAuth2AccessToken> response = feignClient.registration(userRegistrationDto.getLogin(), userRegistrationDto.getPassword(), clientId,
-                clientSecret, "password", ServiceRole.USER);
+        if(infoService.isExistsByLogin(userRegistrationDto.getLogin())) {
+            throw new NotFoundException("User not found");
+        }
 
         if (userRegistrationDto.getRolePeople() == RolePeople.AMATEUR
                 && userRegistrationDto.isHasAgent()) {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
 
-        Info info = new Info();
-        info.setLogin(userRegistrationDto.getLogin());
-        info.setPassword(userRegistrationDto.getPassword());
+        Info info = new Info(userRegistrationDto.getLogin(),userRegistrationDto.getPassword());
 
         userService.create(new User(info, userRegistrationDto.getRolePeople(), userRegistrationDto.isHasAgent()));
+
+        ResponseEntity<OAuth2AccessToken> response = feignClient.generateToken(userRegistrationDto.getLogin(), userRegistrationDto.getPassword(), clientId,
+                clientSecret, "password");
 
         return response;
     }

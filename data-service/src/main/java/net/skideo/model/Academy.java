@@ -2,8 +2,6 @@ package net.skideo.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -11,7 +9,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name="academy")
 public class Academy extends BaseEntity {

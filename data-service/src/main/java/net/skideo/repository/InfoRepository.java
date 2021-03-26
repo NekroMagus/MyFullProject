@@ -9,4 +9,6 @@ public interface InfoRepository extends JpaRepository<Info,Long> {
 
     Optional<Info> findByLogin(String login);
 
+    boolean existsByLogin(String login);
+
 }

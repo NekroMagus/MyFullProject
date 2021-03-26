@@ -3,6 +3,7 @@ package net.skideo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.enums.Role;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.model.enums.ServiceRole;
@@ -32,6 +33,8 @@ public class Info extends AbstractEntity {
     private ServiceRole serviceRole;
     @Enumerated(value = EnumType.STRING)
     private RolePeople rolePeople;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
     public Info(String login,String password,String city,String country,String title) {
         this.login = login;
@@ -41,5 +44,26 @@ public class Info extends AbstractEntity {
         this.name = title;
     }
 
+    public Info(String login,String password,String name) {
+        this.login=login;
+        this.password=password;
+        this.name=name;
+    }
+
+    public Info(String login,String password) {
+        this.login=login;
+        this.password=password;
+    }
+
+    public Info(String login,String password,String name,String surname) {
+        this.login=login;
+        this.password=password;
+        this.name=name;
+        this.surname=surname;
+    }
+
+    public Info(String login) {
+        this.login=login;
+    }
 
 }

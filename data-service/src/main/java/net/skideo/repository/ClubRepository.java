@@ -22,4 +22,6 @@ public interface ClubRepository extends JpaRepository<Club,Long> {
 
     Page<UserShortInfoClubDto> findFavoriteUsersByInfoLogin(String login, Pageable pageable);
 
+    boolean existsByInfoLogin(String login);
+
 }

@@ -3,13 +3,11 @@ package net.skideo.model;
 import net.skideo.model.enums.Rating;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "likes")
 public class Like extends BaseEntity {

@@ -2,16 +2,13 @@ package net.skideo.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "club")
 public class Club extends BaseEntity {

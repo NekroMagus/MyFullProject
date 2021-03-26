@@ -1,6 +1,6 @@
 package net.skideo.security;
 
-import net.skideo.model.Auth;
+import net.skideo.model.Info;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,20 +8,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class JwtAuth implements UserDetails {
+public class JwtInfo implements UserDetails {
 
     private String login;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static JwtAuth authToJwtAuth(Auth auth) {
-        JwtAuth jwtAuth = new JwtAuth();
+    public static JwtInfo authToJwtAuth(Info info) {
+        JwtInfo jwtAuth = new JwtInfo();
 
-        jwtAuth.setLogin(auth.getLogin());
-        jwtAuth.setPassword(auth.getPassword());
+        jwtAuth.setLogin(info.getLogin());
+        jwtAuth.setPassword(info.getPassword());
 
-        if(auth.getRole()!=null) {
-            jwtAuth.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority(auth.getRole().name())));
+        if(info.getRole()!=null) {
+            jwtAuth.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority(info.getRole().name())));
         }
 
         return jwtAuth;

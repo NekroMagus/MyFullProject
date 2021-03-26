@@ -2,26 +2,14 @@ package net.skideo.controller;
 
 
 import net.skideo.dto.*;
-import net.skideo.dto.projections.ScoutProfileProjection;
-import net.skideo.model.Auth;
-import net.skideo.model.Scout;
 import net.skideo.model.User;
-import net.skideo.repository.AuthRepository;
-import net.skideo.repository.ScoutRepository;
 import net.skideo.repository.UserRepository;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
-import net.skideo.model.enums.LeadingLeg;
-import net.skideo.model.enums.RoleFootball;
-import net.skideo.model.enums.RolePeople;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

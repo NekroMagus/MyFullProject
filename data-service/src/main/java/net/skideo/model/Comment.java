@@ -2,7 +2,6 @@ package net.skideo.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -10,7 +9,6 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "skideo_comment")
 public class Comment extends BaseEntity {
