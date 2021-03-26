@@ -1,18 +1,13 @@
 package net.skideo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import net.skideo.model.enums.Role;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,15 +16,7 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "skideo_user")
-public class User extends AbstractEntity {
-
-    @CreatedDate
-    @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
-    private LocalDateTime created;
-
-    @LastModifiedDate
-    @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
-    private LocalDateTime updated;
+public class User extends BaseEntity {
 
     @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private Info info;
