@@ -13,12 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "scout")
-public class Scout extends BaseEntity {
+public class Scout extends AbstractInfoEntity {
 
     private String region;
-
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-    private Info info;
 
     @ManyToOne
     private Club club;
@@ -27,7 +24,7 @@ public class Scout extends BaseEntity {
     private Set<User> favoriteUsers = new LinkedHashSet<>();
 
     public Scout(Info info) {
-        this.info = info;
+        setInfo(info);
     }
 
 }

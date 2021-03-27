@@ -42,7 +42,6 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Info findByLogin(String login) {
         return infoRepository.findByLogin(login).orElseThrow(
                 () -> new NotFoundException("Auth not found")
@@ -71,7 +70,6 @@ public class InfoServiceImpl implements InfoService {
         return tokenEndpoint.postAccessToken(authentication,parameters);
     }
 
-    @Transactional(readOnly = true)
     public Info getCurrentInfo() {
         return findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
     }

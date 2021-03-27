@@ -38,7 +38,6 @@ public class ScoutServiceImpl implements ScoutService {
     private final AuthServiceFeignClient feignClient;
 
     @Override
-    @Transactional(readOnly = true)
     public Scout findById(long id) {
         return scoutRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Scout not found")
@@ -46,7 +45,6 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Scout findByLogin(String login) {
         return scoutRepository.findByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Scout not found")
@@ -103,14 +101,12 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable) {
         final String LOGIN_CURRENT_SCOUT = getLoginCurrentScout();
         return scoutRepository.findFavoriteUsersByInfoLogin(LOGIN_CURRENT_SCOUT, pageable);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public ProfileDto getProfile(long id) {
         ProfileDto profile = scoutRepository.findProfileById(id).orElseThrow(
                 () -> new NotFoundException("Scout not found")
@@ -137,7 +133,6 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public long getId(String login) {
         return scoutRepository.findIdByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Scout not found")
@@ -145,7 +140,6 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Scout getCurrentScout() {
         return findByLogin(getLoginCurrentScout());
     }

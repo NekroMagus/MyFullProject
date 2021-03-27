@@ -25,7 +25,7 @@ public class CommentDto {
                 .stream()
                 .map(LikeDto::new)
                 .collect(Collectors.toList());
-        this.innerComments = comment.getInnerComments()
+        this.innerComments = comment.getComments()
                 .stream()
                 .map(CommentDto::new)
                 .collect(Collectors.toList());

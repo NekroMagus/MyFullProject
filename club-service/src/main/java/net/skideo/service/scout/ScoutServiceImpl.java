@@ -29,7 +29,6 @@ public class ScoutServiceImpl implements ScoutService {
     Logger log = Logger.getLogger(ScoutServiceImpl.class.getName());
 
     @Override
-    @Transactional(readOnly = true)
     public Scout findById(long id) {
         return scoutRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Scout not found")
@@ -50,7 +49,6 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<ScoutDto> getMyScouts(int page,int size) {
         final IdProjection ID_CURRENT_CLUB = clubService.getIdCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
@@ -83,7 +81,6 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<ScoutDto> getScoutsByRegion(String region,int page,int size) {
         final IdProjection ID_CURRENT_CLUB = clubService.getIdCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
@@ -100,13 +97,11 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<ScoutDto> findAllByClubId(long idUser,Pageable pageable) {
         return scoutRepository.findAllByClubId(idUser,pageable);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<ScoutDto> findAllByRegionAndClubId(String region, long idUser, Pageable pageable) {
         return scoutRepository.findAllByRegionAndClubId(region,idUser,pageable);
     }

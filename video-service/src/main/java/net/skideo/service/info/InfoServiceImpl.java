@@ -15,7 +15,6 @@ public class InfoServiceImpl implements InfoService {
     private final InfoRepository repository;
 
     @Override
-    @Transactional(readOnly = true)
     public Info getCurrentInfo() {
         return repository.findByLogin(getLoginCurrentInfo()).orElseThrow(
                 () -> new NotFoundException("Info not found")

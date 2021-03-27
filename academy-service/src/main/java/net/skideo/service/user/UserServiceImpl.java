@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
     private final AcademyService academyService;
 
     @Override
-    @Transactional(readOnly = true)
     public User getUserById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("User not found")
@@ -52,19 +51,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<UserShortInfoDto> getAmateurPlayers(Pageable pageable) {
         return repository.findUsersByInfoRolePeople(RolePeople.AMATEUR,pageable);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<UserShortInfoAcademyDto> getMyPlayers(Pageable pageable) {
         return academyRepository.findPlayersByInfoLogin(academyService.getLoginCurrentAcademy(),pageable);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<UserNSDto> findUsersByNameAndSurname(String name, String surname, int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
         return repository.findAllByInfoNameStartsWithOrInfoSurnameStartsWith(name,surname,pageable);

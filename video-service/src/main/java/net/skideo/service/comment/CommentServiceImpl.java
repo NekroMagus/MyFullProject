@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
         Info currentInfo = infoService.getCurrentInfo();
         Comment newComment = new Comment(text,currentInfo,true);
 
-        comment.getInnerComments().add(newComment);
+        comment.getComments().add(newComment);
 
         repository.save(comment);
     }
@@ -75,8 +75,7 @@ public class CommentServiceImpl implements CommentService {
         save(comment);
     }
 
-    @Transactional(readOnly = true)
-    public Comment findById(long id) {
+    private Comment findById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("Comment not found")
         );

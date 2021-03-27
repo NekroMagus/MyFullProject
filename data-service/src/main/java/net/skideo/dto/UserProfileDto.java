@@ -34,7 +34,9 @@ public class UserProfileDto {
         this.country = user.getInfo().getCountry();
         this.leadingLeg = user.getLeadingLeg();
         this.rolePeople = user.getInfo().getRolePeople();
-        this.club = new ClubProfileDto(user.getClub());
+        if(user.getClub()!=null) {
+            this.club = new ClubProfileDto(user.getClub());
+        }
         this.agent = user.isHasAgent();
         this.birthDate = user.getBirthDate();
     }

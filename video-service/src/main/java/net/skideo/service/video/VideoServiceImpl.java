@@ -28,7 +28,6 @@ public class VideoServiceImpl implements VideoService {
     private final InfoService infoService;
 
     @Override
-    @Transactional(readOnly = true)
     public Page<VideoDto> getVideos(int page, int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Pageable pageable = PageRequest.of(page,size);
@@ -36,7 +35,6 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<VideoDto> getPopularVideos(int page, int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Pageable pageable = PageRequest.of(page,size, Sort.by("rating"));
@@ -44,7 +42,6 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Set<VideoDto> getRandomVideos(int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Set<VideoDto> videos = new LinkedHashSet<>();
@@ -58,7 +55,6 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<VideoDto> getMyVideos(int page, int size) {
         Info currentInfo = infoService.getCurrentInfo();
         Pageable pageable = PageRequest.of(page,size);
@@ -94,7 +90,6 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Video findById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("Video not found")

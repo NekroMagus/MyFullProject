@@ -26,7 +26,6 @@ public class ClubServiceImpl implements ClubService {
     private final PasswordEncoder encoder;
 
     @Override
-    @Transactional(readOnly = true)
     public Club findById(long id) {
         return clubRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Club not found")
@@ -34,7 +33,6 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Club findByLogin(String login) {
         return clubRepository.findByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Club not found")
@@ -48,7 +46,6 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public long getId(String login) {
         return clubRepository.findClubIdByInfoLogin(getLoginCurrentClub()).orElseThrow(
                 () -> new NotFoundException("Club not found")
@@ -56,7 +53,6 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public ClubProfileDto getProfile(long id) {
         return clubRepository.findProfileById(id).orElseThrow(
                 () -> new NotFoundException("Club not found")
@@ -75,7 +71,6 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable) {
         final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
         return clubRepository.findFavoriteUsersByInfoLogin(LOGIN_CURRENT_CLUB,pageable);
@@ -112,13 +107,11 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Club getCurrentClub() {
         return findByLogin(getLoginCurrentClub());
     }
 
     @Override
-    @Transactional(readOnly = true)
     public IdProjection getIdCurrentClub() {
         final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
         return clubRepository.findClubIdByInfoLogin(LOGIN_CURRENT_CLUB).orElseThrow(

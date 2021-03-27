@@ -14,10 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "skideo_user")
-public class User extends BaseEntity {
-
-    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
-    private Info info;
+public class User extends AbstractInfoEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -40,8 +37,8 @@ public class User extends BaseEntity {
     private List<Notification> notification = new LinkedList<>();
 
     public User(Info info, RolePeople rolePeople, boolean hasAgent) {
-        this.info=info;
-        this.info.setRolePeople(rolePeople);
+        setInfo(info);
+        getInfo().setRolePeople(rolePeople);
         this.hasAgent = hasAgent;
 
         this.role = Role.UNCONFIRMED;

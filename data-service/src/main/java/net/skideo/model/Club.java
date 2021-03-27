@@ -11,25 +11,22 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "club")
-public class Club extends BaseEntity {
+public class Club extends AbstractInfoEntity {
 
     private String logoLink;
-
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-    private Info info;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> favoriteUsers = new LinkedHashSet<>();
 
     public Club(Info info,String logoLink) {
-        this.info = info;
+        setInfo(info);
         this.logoLink = logoLink;
     }
 
     public Club(String login,String password,String titleClub) {
-        this.info.setLogin(login);
-        this.info.setPassword(password);
-        this.info.setName(titleClub);
+        getInfo().setLogin(login);
+        getInfo().setPassword(password);
+        getInfo().setName(titleClub);
     }
 
 }

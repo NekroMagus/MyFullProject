@@ -37,7 +37,6 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Academy findByLogin(String login) {
         Academy academy = academyRepository.findByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Academy not found")
@@ -47,7 +46,6 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public long getId(String login) {
         return academyRepository.findIdByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Academy not found")
@@ -88,13 +86,11 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public AcademyProfileDto getProfile(long id) {
         return academyRepository.findProfileById(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public InfoIdProjection getInfoIdCurrentAcademy() {
         return academyRepository.getAcademyIdByInfoLogin(getLoginCurrentAcademy()).orElseThrow(
                 () -> new NotFoundException("Academy not found")
@@ -102,7 +98,6 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Academy getCurrentAcademy() {
         return findByLogin(getLoginCurrentAcademy());
     }

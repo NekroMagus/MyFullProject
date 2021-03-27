@@ -15,7 +15,6 @@ public class InfoServiceImpl implements InfoService {
     private final InfoRepository repository;
 
     @Override
-    @Transactional(readOnly = true)
     public Info getCurrentInfo() {
         final String LOGIN_CURRENT_INFO = SecurityContextHolder.getContext().getAuthentication().getName();
         return repository.findByLogin(LOGIN_CURRENT_INFO).orElseThrow(
