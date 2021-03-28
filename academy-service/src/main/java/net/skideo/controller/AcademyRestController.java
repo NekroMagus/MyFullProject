@@ -3,6 +3,7 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.*;
 import net.skideo.service.academy.AcademyService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Level;
@@ -19,6 +20,7 @@ public class AcademyRestController {
 
     @GetMapping("/profile")
     public AcademyProfileDto getProfile(@RequestParam(required = false) Long id) {
+        LOG.info(academyService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()) + "");
         if(id==null) {
             LOG.log(Level.INFO,"Getting profile with id of current academy");
             return academyService.getProfile(academyService.getId(academyService.getLoginCurrentAcademy()));

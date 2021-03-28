@@ -3,6 +3,10 @@ package net.skideo.dto;
 import net.skideo.model.Video;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,6 +22,7 @@ public class VideoDto {
     private float rating;
     private Set<LikeDto> likes = new LinkedHashSet<>();
     private List<CommentDto> comments = new LinkedList<>();
+    private String dateCreated;
 
     public VideoDto(Video video) {
         this.id = video.getId();
@@ -33,6 +38,7 @@ public class VideoDto {
                 .stream()
                 .map(CommentDto::new)
                 .collect(Collectors.toList());
+        this.dateCreated = OffsetDateTime.of(video.getCreated(), ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSSxxx"));
     }
 
 }

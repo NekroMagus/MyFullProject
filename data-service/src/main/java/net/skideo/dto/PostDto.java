@@ -9,6 +9,9 @@ import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +25,7 @@ public class PostDto {
     private LeadingLeg leadingLeg;
     private LocalDate birthDate;
     private String videoLink;
+    private String dateCreated;
 
     public PostDto(Post post) {
         this.country=post.getCountry();
@@ -31,6 +35,7 @@ public class PostDto {
         this.leadingLeg=post.getLeadingLeg();
         this.birthDate=post.getBirthDate();
         this.videoLink=post.getVideoLink();
+        this.dateCreated = OffsetDateTime.of(post.getCreated(), ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSSxxx"));
     }
 
 }

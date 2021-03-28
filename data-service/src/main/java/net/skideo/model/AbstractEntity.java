@@ -1,4 +1,4 @@
-package net.skideo.model.abstracts;
+package net.skideo.model;
 
 import lombok.Data;
 

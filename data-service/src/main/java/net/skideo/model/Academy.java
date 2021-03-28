@@ -5,6 +5,10 @@ import lombok.NoArgsConstructor;
 import net.skideo.model.abstracts.AbstractInfoEntity;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
