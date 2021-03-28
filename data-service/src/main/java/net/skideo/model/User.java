@@ -1,6 +1,7 @@
 package net.skideo.model;
 
 import lombok.*;
+import net.skideo.model.abstracts.AbstractInfoEntity;
 import net.skideo.model.enums.Role;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;

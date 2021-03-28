@@ -1,5 +1,6 @@
 package net.skideo.model;
 
+import net.skideo.model.abstracts.BaseEntity;
 import net.skideo.model.enums.Rating;
 import lombok.Data;
 import lombok.NoArgsConstructor;

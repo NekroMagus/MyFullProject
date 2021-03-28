@@ -19,7 +19,7 @@ public interface UserService {
 
     User findById(long id);
 
-    Optional<User> findByLogin(String login);
+    User findByLogin(String login);
 
     User editUser(UserDto userDto);
 
@@ -40,9 +40,9 @@ public interface UserService {
 
     List<User> findAll();
 
-    UserProfileDto getProfile(long id);
-
     long getId(String login);
+
+    UserProfileDto getProfile(long id);
 
     User getCurrentUser();
 

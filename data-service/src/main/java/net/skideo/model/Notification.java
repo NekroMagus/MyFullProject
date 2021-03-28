@@ -1,6 +1,7 @@
 package net.skideo.model;
 
 import lombok.*;
+import net.skideo.model.abstracts.BaseEntity;
 import net.skideo.model.enums.NotificationEnum;
 
 import javax.persistence.*;

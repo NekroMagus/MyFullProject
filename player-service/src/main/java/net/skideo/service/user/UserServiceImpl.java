@@ -2,9 +2,7 @@ package net.skideo.service.user;
 
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserProfileDto;
-import net.skideo.dto.projections.UserProfileProjection;
 import net.skideo.exception.NotFoundException;
-import net.skideo.exception.UserNotFoundException;
 import net.skideo.model.User;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RoleFootball;
@@ -15,11 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,15 +31,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByLogin(String login) {
-        return repository.findByInfoLoginIgnoreCase(login);
-    }
-
-    @Override
     public User findById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("User not found")
         );
+    }
+
+    @Override
+    public User findByLogin(String login) {
+        return repository.findByInfoLogin(login).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
+    }
+
+    @Override
+    public long getId(String login) {
+        return repository.findIdByInfoLogin(login).orElseThrow(
+                () -> new NotFoundException("User not found")
+        ).getId();
     }
 
     @Override
@@ -129,15 +133,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public long getId(String login) {
-        return repository.findIdByInfoLogin(login).orElseThrow(
-                () -> new NotFoundException("User not found")
-        ).getId();
-    }
-
-    @Override
     public UserProfileDto getProfile(long id) {
-        return repository.findProfileById(id);
+        return repository.findProfileById(id).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
     }
 
     @Override
@@ -147,9 +146,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser() {
-        return findByLogin(getLoginCurrentUser()).orElseThrow(
-                () -> new NotFoundException("User not found")
-        );
+        return findByLogin(getLoginCurrentUser());
     }
 
 

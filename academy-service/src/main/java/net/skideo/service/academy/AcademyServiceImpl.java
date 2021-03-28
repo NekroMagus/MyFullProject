@@ -35,11 +35,9 @@ public class AcademyServiceImpl implements AcademyService {
 
     @Override
     public Academy findByLogin(String login) {
-        Academy academy = academyRepository.findByInfoLogin(login).orElseThrow(
+        return academyRepository.findByInfoLogin(login).orElseThrow(
                 () -> new NotFoundException("Academy not found")
         );
-
-        return academy;
     }
 
     @Override

@@ -1,6 +1,9 @@
-package net.skideo.model;
+package net.skideo.model.abstracts;
 
 import lombok.Data;
+import net.skideo.model.Comment;
+import net.skideo.model.Info;
+import net.skideo.model.Like;
 
 import javax.persistence.*;
 import java.util.LinkedList;

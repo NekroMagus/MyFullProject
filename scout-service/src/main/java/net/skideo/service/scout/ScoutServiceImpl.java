@@ -3,19 +3,12 @@ package net.skideo.service.scout;
 
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
-import net.skideo.dto.projections.PasswordProjection;
-import net.skideo.dto.projections.ProfileProjection;
-import net.skideo.dto.projections.ScoutProfileProjection;
 import net.skideo.exception.NotFoundException;
-import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
 import net.skideo.model.User;
 import net.skideo.service.video.VideoService;
 import lombok.RequiredArgsConstructor;
-import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.ScoutRepository;
-import net.skideo.model.enums.LeadingLeg;
-import net.skideo.model.enums.RoleFootball;
 import net.skideo.service.user.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
@@ -23,8 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.*;
 
 @Service

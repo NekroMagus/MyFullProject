@@ -2,6 +2,7 @@ package net.skideo.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.abstracts.BaseEntity;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;

@@ -2,6 +2,7 @@ package net.skideo.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.abstracts.AbstractComponentEntity;
 
 import javax.persistence.*;
 
