@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
@@ -30,6 +31,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final AcademyRepository academyRepository;
     private final AcademyService academyService;
+
+    private final Logger LOG = Logger.getLogger(UserServiceImpl.class.getName());
 
     @Override
     public User getUserById(long id) {
@@ -41,6 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addPlayer(long id) {
+        LOG.log(Level.INFO,"Getting user with id " + id);
         User user = getUserById(id);
         Academy currentAcademy = academyService.getCurrentAcademy();
 

@@ -31,12 +31,14 @@ public class AcademyRestController {
     public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@RequestBody AuthDto authDto) {
         LOG.log(Level.INFO,"Updating login and password...");
         academyService.updateLoginAndPassword(token,authDto);
-        LOG.log(Level.INFO, "Updating login and password success");
+        LOG.log(Level.INFO,"Updating login and password success");
     }
 
     @PutMapping("/profile")
     public void updateProfile(@RequestBody AcademyProfileDto profileDto) {
+        LOG.log(Level.INFO,"Updating profile...");
         academyService.updateProfile(profileDto);
+        LOG.log(Level.INFO,"Updating profile success");
     }
 
 }

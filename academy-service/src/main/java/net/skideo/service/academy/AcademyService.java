@@ -20,8 +20,6 @@ public interface AcademyService {
 
     AcademyProfileDto getProfile(long id);
 
-    InfoIdProjection getInfoIdCurrentAcademy();
-
     Academy getCurrentAcademy();
 
     String getLoginCurrentAcademy();

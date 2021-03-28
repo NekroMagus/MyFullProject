@@ -90,15 +90,8 @@ public class AcademyServiceImpl implements AcademyService {
 
     @Override
     public AcademyProfileDto getProfile(long id) {
-        LOG.log(Level.WARNING,"Academy can be not found");
+        LOG.log(Level.INFO,"Getting current academy...");
         return academyRepository.findProfileById(id).orElseThrow(
-                () -> new NotFoundException("Academy not found")
-        );
-    }
-
-    @Override
-    public InfoIdProjection getInfoIdCurrentAcademy() {
-        return academyRepository.getAcademyIdByInfoLogin(getLoginCurrentAcademy()).orElseThrow(
                 () -> new NotFoundException("Academy not found")
         );
     }
