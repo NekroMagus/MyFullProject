@@ -1,31 +1,26 @@
 package net.skideo.model.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import javafx.application.Application;
 import lombok.Data;
 import net.skideo.model.AbstractEntity;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
-import java.util.TimeZone;
 
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public abstract class BaseEntity extends AbstractEntity {
 
-    @CreatedDate
-    @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
-    private LocalDateTime created;
+  @CreatedDate
+  @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
+  private LocalDateTime created;
 
-    @LastModifiedDate
-    @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
-    private LocalDateTime updated;
+  @LastModifiedDate
+  @JsonFormat(pattern = "dd-MM-yyyy--HH-mm-SS")
+  private LocalDateTime updated;
 
 }

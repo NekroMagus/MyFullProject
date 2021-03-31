@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="skideo_info")
+@Table(name="info")
 public class Info extends AbstractEntity {
 
     @Column(unique = true)

@@ -3,16 +3,13 @@ package net.skideo.service.user;
 import net.skideo.dto.UserNSDto;
 import net.skideo.dto.UserShortInfoAcademyDto;
 import net.skideo.dto.UserShortInfoDto;
-import net.skideo.model.Notification;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface UserService {
 
-    User getUserById(long id);
+    Player getUserById(long id);
 
     void addPlayer(long id);
 

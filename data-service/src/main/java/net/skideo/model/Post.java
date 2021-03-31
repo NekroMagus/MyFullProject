@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "skideo_post")
+@Table(name = "post")
 public class Post extends BaseEntity {
 
     private String country;

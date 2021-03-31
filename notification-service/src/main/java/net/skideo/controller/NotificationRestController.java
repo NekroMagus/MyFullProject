@@ -3,16 +3,12 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.NotificationDto;
 import net.skideo.dto.NotificationInfoDto;
-import net.skideo.model.Notification;
-import net.skideo.model.User;
-import net.skideo.repository.UserRepository;
 import net.skideo.service.notification.NotificationService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

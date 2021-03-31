@@ -1,7 +1,7 @@
 package net.skideo.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import lombok.Data;
 import net.skideo.model.enums.RoleFootball;
 
@@ -17,11 +17,11 @@ public class SearchUserDto {
     private String country;
 
     @JsonCreator
-    public SearchUserDto(User user) {
-        this.login = user.getInfo().getLogin();
-        this.roleFootball = user.getInfo().getRoleFootball();
-        this.age = getAge(user.getBirthDate());
-        this.country = user.getInfo().getCountry();
+    public SearchUserDto(Player player) {
+        this.login = player.getInfo().getLogin();
+        this.roleFootball = player.getInfo().getRoleFootball();
+        this.age = getAge(player.getBirthDate());
+        this.country = player.getInfo().getCountry();
     }
 
     private int getAge(LocalDate birth) {

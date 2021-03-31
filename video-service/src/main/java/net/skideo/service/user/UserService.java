@@ -1,13 +1,13 @@
 package net.skideo.service.user;
 
-import net.skideo.model.User;
+import net.skideo.model.Player;
 
 import java.util.List;
 
 public interface UserService {
 
-    User findById(long id);
+    Player findById(long id);
 
-    List<User> findAll();
+    List<Player> findAll();
 
 }

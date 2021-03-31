@@ -6,21 +6,17 @@ import net.skideo.dto.UserShortInfoAcademyDto;
 import net.skideo.dto.UserShortInfoDto;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
-import net.skideo.model.Notification;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.AcademyRepository;
 import net.skideo.repository.UserRepository;
 import net.skideo.service.academy.AcademyService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +31,7 @@ public class UserServiceImpl implements UserService {
     private final Logger LOG = Logger.getLogger(UserServiceImpl.class.getName());
 
     @Override
-    public User getUserById(long id) {
+    public Player getUserById(long id) {
         return repository.findById(id).orElseThrow(
                 () -> new NotFoundException("User not found")
         );
@@ -45,10 +41,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void addPlayer(long id) {
         LOG.log(Level.INFO,"Getting user with id " + id);
-        User user = getUserById(id);
+        Player player = getUserById(id);
         Academy currentAcademy = academyService.getCurrentAcademy();
 
-        currentAcademy.getPlayers().add(user);
+        currentAcademy.getPlayers().add(player);
         currentAcademy.setNumberPlayers(currentAcademy.getNumberPlayers()+1);
 
         academyRepository.save(currentAcademy);

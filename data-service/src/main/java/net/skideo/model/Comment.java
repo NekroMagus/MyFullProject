@@ -9,7 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "skideo_comment")
+@Table(name = "comment")
 public class Comment extends AbstractComponentEntity {
 
     private String text;

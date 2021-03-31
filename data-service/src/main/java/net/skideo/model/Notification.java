@@ -11,7 +11,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-@Table(name = "skideo_notification")
+@Table(name = "notification")
 public class Notification extends BaseEntity {
 
     private String message;
@@ -23,13 +23,13 @@ public class Notification extends BaseEntity {
     private Info senderInfo;
 
     @ManyToOne
-    private User user;
+    private Player player;
 
-    public Notification(NotificationEnum notificationEnum,String message, Info senderInfo,User user) {
+    public Notification(NotificationEnum notificationEnum, String message, Info senderInfo, Player player) {
         this.notificationEnum = notificationEnum;
         this.message = message;
         this.senderInfo = senderInfo;
-        this.user = user;
+        this.player = player;
     }
 
 }

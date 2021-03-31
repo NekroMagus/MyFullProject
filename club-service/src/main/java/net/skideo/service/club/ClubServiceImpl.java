@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -63,9 +62,9 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public void addUserToFavorite(long idUser) {
         Club currentClub = getCurrentClub();
-        User user = userService.findById(idUser);
+        Player player = userService.findById(idUser);
 
-        currentClub.getFavoriteUsers().add(user);
+        currentClub.getFavoritePlayers().add(player);
 
         clubRepository.save(currentClub);
     }

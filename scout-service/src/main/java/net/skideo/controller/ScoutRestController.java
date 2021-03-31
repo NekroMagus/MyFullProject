@@ -2,7 +2,7 @@ package net.skideo.controller;
 
 
 import net.skideo.dto.*;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import net.skideo.repository.UserRepository;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class ScoutRestController {
     /* ------------------------------------------------- */
 
     @GetMapping("/all")
-    public List<User> all() {
+    public List<Player> all() {
         return userRepository.findAll();
     }
 

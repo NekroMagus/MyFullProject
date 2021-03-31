@@ -1,8 +1,6 @@
 package net.skideo.dto;
 
-import net.skideo.dto.projections.ProfileProjection;
-import net.skideo.model.Club;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,12 +19,12 @@ public class ProfileUserDto {
     private RoleFootball roleFootball;
     private ClubProfileDto club;
 
-    public ProfileUserDto(User user) {
-        this.id = user.getId();
-        this.name = user.getInfo().getName();
-        this.surname = user.getInfo().getSurname();
-        this.roleFootball = user.getInfo().getRoleFootball();
-        this.club = new ClubProfileDto(user.getClub());
+    public ProfileUserDto(Player player) {
+        this.id = player.getId();
+        this.name = player.getInfo().getName();
+        this.surname = player.getInfo().getSurname();
+        this.roleFootball = player.getInfo().getRoleFootball();
+        this.club = new ClubProfileDto(player.getClub());
     }
 
 }

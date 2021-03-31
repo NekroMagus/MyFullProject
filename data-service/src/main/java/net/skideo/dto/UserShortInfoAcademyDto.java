@@ -1,23 +1,15 @@
 package net.skideo.dto;
 
-import com.sun.istack.internal.logging.Logger;
-import lombok.Data;
-import net.skideo.model.User;
-import net.skideo.model.enums.RoleFootball;
 
-import java.util.List;
+import net.skideo.dto.base.InfoDto;
+import net.skideo.model.Player;
 
-@Data
-public class UserShortInfoAcademyDto {
+public class UserShortInfoAcademyDto extends InfoDto {
 
-    private String name;
-    private String surname;
-    private RoleFootball roleFootball;
-
-    public UserShortInfoAcademyDto(User players) {
-        this.name=players.getInfo().getName();
-        this.surname=players.getInfo().getSurname();
-        this.roleFootball=players.getInfo().getRoleFootball();
+    public UserShortInfoAcademyDto(Player players) {
+        setName(players.getInfo().getName());
+        setSurname(players.getInfo().getSurname());
+        setRoleFootball(players.getInfo().getRoleFootball());
     }
 
 }

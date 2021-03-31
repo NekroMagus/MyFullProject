@@ -14,8 +14,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "skideo_user")
-public class User extends AbstractInfoEntity {
+@Table(name = "user_player")
+public class Player extends AbstractInfoEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -37,7 +37,7 @@ public class User extends AbstractInfoEntity {
     @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.LAZY)
     private List<Notification> notification = new LinkedList<>();
 
-    public User(Info info, RolePeople rolePeople, boolean hasAgent) {
+    public Player(Info info, RolePeople rolePeople, boolean hasAgent) {
         setInfo(info);
         getInfo().setRolePeople(rolePeople);
         this.hasAgent = hasAgent;

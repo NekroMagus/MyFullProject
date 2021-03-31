@@ -4,8 +4,7 @@ import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Info;
-import net.skideo.model.User;
-import net.skideo.model.enums.ServiceRole;
+import net.skideo.model.Player;
 import net.skideo.service.info.InfoService;
 import net.skideo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +47,7 @@ public class AuthRestController {
 
         Info info = new Info(userRegistrationDto.getLogin(),userRegistrationDto.getPassword());
 
-        userService.create(new User(info, userRegistrationDto.getRolePeople(), userRegistrationDto.isHasAgent()));
+        userService.create(new Player(info, userRegistrationDto.getRolePeople(), userRegistrationDto.isHasAgent()));
 
         ResponseEntity<OAuth2AccessToken> response = feignClient.generateToken(userRegistrationDto.getLogin(), userRegistrationDto.getPassword(), clientId,
                 clientSecret, "password");

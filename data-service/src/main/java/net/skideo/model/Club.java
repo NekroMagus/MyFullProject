@@ -11,13 +11,13 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "club")
+@Table(name = "user_club")
 public class Club extends AbstractInfoEntity {
 
     private String logoLink;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<User> favoriteUsers = new LinkedHashSet<>();
+    private Set<Player> favoritePlayers = new LinkedHashSet<>();
 
     public Club(Info info,String logoLink) {
         setInfo(info);

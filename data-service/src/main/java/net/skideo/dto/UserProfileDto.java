@@ -1,6 +1,6 @@
 package net.skideo.dto;
 
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,19 +26,19 @@ public class UserProfileDto {
     private boolean agent;
     private LocalDate birthDate;
 
-    public UserProfileDto(User user) {
-        this.roleFootball = user.getInfo().getRoleFootball();
-        this.name = user.getInfo().getName();
-        this.surname = user.getInfo().getSurname();
-        this.city = user.getInfo().getCity();
-        this.country = user.getInfo().getCountry();
-        this.leadingLeg = user.getLeadingLeg();
-        this.rolePeople = user.getInfo().getRolePeople();
-        if(user.getClub()!=null) {
-            this.club = new ClubProfileDto(user.getClub());
+    public UserProfileDto(Player player) {
+        this.roleFootball = player.getInfo().getRoleFootball();
+        this.name = player.getInfo().getName();
+        this.surname = player.getInfo().getSurname();
+        this.city = player.getInfo().getCity();
+        this.country = player.getInfo().getCountry();
+        this.leadingLeg = player.getLeadingLeg();
+        this.rolePeople = player.getInfo().getRolePeople();
+        if(player.getClub()!=null) {
+            this.club = new ClubProfileDto(player.getClub());
         }
-        this.agent = user.isHasAgent();
-        this.birthDate = user.getBirthDate();
+        this.agent = player.isHasAgent();
+        this.birthDate = player.getBirthDate();
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "scout")
+@Table(name = "user_scout")
 public class Scout extends AbstractInfoEntity {
 
     private String region;
@@ -22,7 +22,7 @@ public class Scout extends AbstractInfoEntity {
     private Club club;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<User> favoriteUsers = new LinkedHashSet<>();
+    private Set<Player> favoritePlayers = new LinkedHashSet<>();
 
     public Scout(Info info) {
         setInfo(info);

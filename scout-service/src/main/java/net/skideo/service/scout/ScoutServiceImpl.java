@@ -4,8 +4,8 @@ package net.skideo.service.scout;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
 import net.skideo.exception.NotFoundException;
+import net.skideo.model.Player;
 import net.skideo.model.Scout;
-import net.skideo.model.User;
 import net.skideo.service.video.VideoService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.repository.ScoutRepository;
@@ -81,12 +81,12 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public void addUserToFavorite(long idUser) {
         Scout currentScout = getCurrentScout();
-        User user = userService.findById(idUser);
+        Player player = userService.findById(idUser);
 
-        if (currentScout.getFavoriteUsers() == null) {
-            currentScout.setFavoriteUsers(new LinkedHashSet<>());
+        if (currentScout.getFavoritePlayers() == null) {
+            currentScout.setFavoritePlayers(new LinkedHashSet<>());
         }
-        currentScout.getFavoriteUsers().add(user);
+        currentScout.getFavoritePlayers().add(player);
 
         scoutRepository.save(currentScout);
     }
@@ -102,7 +102,7 @@ public class ScoutServiceImpl implements ScoutService {
         ProfileDto profile = scoutRepository.findProfileById(id).orElseThrow(
                 () -> new NotFoundException("Scout not found")
         );
-        List<User> users = userService.findAll();
+        List<Player> users = userService.findAll();
 
         List<ProfileUserDto> players = new LinkedList<>();
 
@@ -111,10 +111,10 @@ public class ScoutServiceImpl implements ScoutService {
             for (int i = 1; i <= 3; i++) {
 
                 int randomIndex = (int) Math.round(Math.random() * (users.size()-1));
-                User user = users.get(randomIndex);
+                Player player = users.get(randomIndex);
 
-                if (videoService.findAllByInfoId(user.getInfo().getId()).size() >= 1) {
-                    players.add(new ProfileUserDto(user));
+                if (videoService.findAllByInfoId(player.getInfo().getId()).size() >= 1) {
+                    players.add(new ProfileUserDto(player));
                 }
             }
         }

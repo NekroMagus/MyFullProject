@@ -1,9 +1,8 @@
 package net.skideo.service.user;
 
 import net.skideo.dto.SearchDto;
-import net.skideo.dto.projections.ProfileProjection;
 import net.skideo.exception.UserNotFoundException;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<User> findAll() {
+    public List<Player> findAll() {
         return userRepository.findAll();
     }
 
@@ -37,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(long id) {
+    public Player findById(long id) {
         return userRepository.findById(id).orElseThrow(
                 UserNotFoundException::new
         );

@@ -1,13 +1,13 @@
 package net.skideo.service.user;
 
-import net.skideo.model.User;
+import net.skideo.model.Player;
 
 public interface UserService {
 
-    User getUserById(long idUser);
+    Player getUserById(long idUser);
 
-    void save(User user);
+    void save(Player player);
 
-    User getCurrentUser();
+    Player getCurrentUser();
 
 }

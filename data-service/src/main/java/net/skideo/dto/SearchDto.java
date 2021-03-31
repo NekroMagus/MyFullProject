@@ -1,6 +1,6 @@
 package net.skideo.dto;
 
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +13,9 @@ public class SearchDto {
     private String name;
     private String surname;
 
-    public SearchDto(User user) {
-        this.name=user.getInfo().getName();
-        this.surname=user.getInfo().getSurname();
+    public SearchDto(Player player) {
+        this.name= player.getInfo().getName();
+        this.surname= player.getInfo().getSurname();
     }
 
 }

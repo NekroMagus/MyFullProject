@@ -1,7 +1,6 @@
 package net.skideo.repository;
 
-import net.skideo.dto.projections.UserProjection;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import net.skideo.JpaTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @JpaTest
-public class UserRepositoryTest {
+public class PlayerRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
@@ -19,36 +18,36 @@ public class UserRepositoryTest {
 
     @Test
     public void givenScript_whenFindByLogin_thenFoundUser() {
-        User user = userRepository.findByInfoLogin(USER_LOGIN).orElse(null);
+        Player player = userRepository.findByInfoLogin(USER_LOGIN).orElse(null);
 
-        assertNotNull(user);
-        assertEquals(USER_LOGIN, user.getInfo().getLogin());
+        assertNotNull(player);
+        assertEquals(USER_LOGIN, player.getInfo().getLogin());
     }
 
     @Test
     public void givenInvalidLogin_whenFindByLogin_thenNotFound() {
-        User user = userRepository.findByInfoLogin("INVALID LOGIN").orElse(null);
+        Player player = userRepository.findByInfoLogin("INVALID LOGIN").orElse(null);
 
-        assertNull(user);
+        assertNull(player);
     }
 
     @Test
     public void givenScriptWithId_whenFindById_thenFoundUser() {
         final Long id = 1L;
 
-        User user = userRepository.findById(id).orElse(null);
+        Player player = userRepository.findById(id).orElse(null);
 
-        assertNotNull(user);
-        assertThat(user.getId()).isEqualTo(id);
+        assertNotNull(player);
+        assertThat(player.getId()).isEqualTo(id);
     }
 
     @Test
     public void givenInvalidId_whenFindById_thenNotFound() {
         final Long id = 10000000000L;
 
-        User user = userRepository.findById(id).orElse(null);
+        Player player = userRepository.findById(id).orElse(null);
 
-        assertNull(user);
+        assertNull(player);
     }
 
 }

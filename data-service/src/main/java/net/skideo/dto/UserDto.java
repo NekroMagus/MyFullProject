@@ -1,7 +1,7 @@
 package net.skideo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import net.skideo.model.User;
+import net.skideo.model.Player;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.enums.LeadingLeg;
@@ -33,18 +33,18 @@ public class UserDto {
     private LeadingLeg leadingLeg;
     private boolean agent;
 
-    public UserDto(User user) {
-        this.id = user.getId();
-        this.name = user.getInfo().getName();
-        this.surname = user.getInfo().getSurname();
-        this.roleFootball = user.getInfo().getRoleFootball();
-        this.email = user.getInfo().getEmail();
-        this.phone = user.getPhone();
-        this.birthDate = user.getBirthDate();
-        this.country = user.getInfo().getCountry();
-        this.city = user.getInfo().getCity();
-        this.linkSocialNetwork = user.getLinkSocialNetwork();
-        this.leadingLeg = user.getLeadingLeg();
-        this.agent = user.isHasAgent();
+    public UserDto(Player player) {
+        this.id = player.getId();
+        this.name = player.getInfo().getName();
+        this.surname = player.getInfo().getSurname();
+        this.roleFootball = player.getInfo().getRoleFootball();
+        this.email = player.getInfo().getEmail();
+        this.phone = player.getPhone();
+        this.birthDate = player.getBirthDate();
+        this.country = player.getInfo().getCountry();
+        this.city = player.getInfo().getCity();
+        this.linkSocialNetwork = player.getLinkSocialNetwork();
+        this.leadingLeg = player.getLeadingLeg();
+        this.agent = player.isHasAgent();
     }
 }
