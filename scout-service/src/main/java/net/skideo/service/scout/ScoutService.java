@@ -23,7 +23,7 @@ public interface ScoutService {
 
     ProfileDto getProfile(long id);
 
-    long getId(String login);
+    long getIdByLogin(String login);
 
     Scout getCurrentScout();
 

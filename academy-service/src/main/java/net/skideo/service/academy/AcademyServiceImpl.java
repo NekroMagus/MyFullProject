@@ -1,8 +1,6 @@
 package net.skideo.service.academy;
 
-import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
-import net.skideo.dto.projections.InfoIdProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.model.enums.ServiceRole;
@@ -21,52 +19,44 @@ import java.util.logging.Logger;
 public class AcademyServiceImpl implements AcademyService {
 
     private final AcademyRepository academyRepository;
-    private final AuthServiceFeignClient feignClient;
     private final PasswordEncoder passwordEncoder;
 
     private final Logger LOG = Logger.getLogger(AcademyServiceImpl.class.getName());
 
     @Override
     public void createAcademy(Academy academy) {
-        academy.getInfo().setPassword(passwordEncoder.encode(academy.getInfo().getPassword()));
-        academy.getInfo().setServiceRole(ServiceRole.ACADEMY);
+        academy.getUser().setPassword(passwordEncoder.encode(academy.getUser().getPassword()));
         academyRepository.save(academy);
     }
 
     @Override
     public Academy findByLogin(String login) {
-        return academyRepository.findByInfoLogin(login).orElseThrow(
+        return academyRepository.findByUserLogin(login).orElseThrow(
                 () -> new NotFoundException("Academy not found")
         );
     }
 
     @Override
     public long getId(String login) {
-        return academyRepository.findIdByInfoLogin(login).orElseThrow(
+        return academyRepository.findIdByUserLogin(login).orElseThrow(
                 () -> new NotFoundException("Academy not found")
         ).getId();
     }
 
     @Override
-    public void updateLoginAndPassword(String token,AuthDto authDto) {
-        LOG.log(Level.INFO,"Updating login and password on auth-service side...");
-        feignClient.updateLoginAndPassword(token,new AuthDto(authDto.getLogin(),authDto.getPassword()));
-        LOG.log(Level.INFO,"Updating login and password pn auth-serivce side success");
-
-        LOG.log(Level.INFO,"Updating login and password on academy-service side...");
+    public void updateLoginAndPassword(AuthDto authDto) {
         Academy dbAcademy = getCurrentAcademy();
 
         if(StringUtils.isNotBlank(authDto.getLogin())) {
             LOG.log(Level.INFO,"Updating login");
-            dbAcademy.getInfo().setLogin(authDto.getLogin());
+            dbAcademy.getUser().setLogin(authDto.getLogin());
         }
         if(StringUtils.isNotBlank(authDto.getPassword())) {
             LOG.log(Level.INFO,"Updating password");
-            dbAcademy.getInfo().setPassword(passwordEncoder.encode(authDto.getPassword()));
+            dbAcademy.getUser().setPassword(passwordEncoder.encode(authDto.getPassword()));
         }
 
         academyRepository.save(dbAcademy);
-        LOG.log(Level.INFO,"Updating login and password on academy-service side success");
     }
 
     @Override
@@ -74,13 +64,13 @@ public class AcademyServiceImpl implements AcademyService {
         Academy dbAcademy = getCurrentAcademy();
 
         if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
-            dbAcademy.getInfo().setCity(academyProfileDto.getCity());
+            dbAcademy.getUser().setCity(academyProfileDto.getCity());
         }
         if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
-            dbAcademy.getInfo().setCountry(academyProfileDto.getCountry());
+            dbAcademy.getUser().setCountry(academyProfileDto.getCountry());
         }
         if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
-            dbAcademy.getInfo().setName(academyProfileDto.getTitleClub());
+            dbAcademy.getUser().setName(academyProfileDto.getTitleClub());
         }
 
         academyRepository.save(dbAcademy);

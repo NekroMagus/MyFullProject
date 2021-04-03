@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.Academy;
-import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,9 +22,9 @@ public class AcademyProfileDto {
 
     public AcademyProfileDto(Academy academy) {
         this.id=academy.getId();
-        this.city = academy.getInfo().getCity();
-        this.country = academy.getInfo().getCountry();
-        this.titleClub = academy.getInfo().getName();
+        this.city = academy.getUser().getCity();
+        this.country = academy.getUser().getCountry();
+        this.titleClub = academy.getUser().getName();
     }
 
 }

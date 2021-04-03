@@ -18,12 +18,12 @@ public class AuthExceptionController {
                 .body("Already exists");
     }
 
-    //@ExceptionHandler(value = NotFoundException.class)
-    //public ResponseEntity<?>  notFound() {
-    //    return ResponseEntity
-    //            .status(HttpStatus.NOT_FOUND)
-    //            .body("Auth not found");
-    //}
+    @ExceptionHandler(value = NotFoundException.class)
+    public ResponseEntity<?>  notFound() {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("User not found");
+    }
 
     @ExceptionHandler(value = IllegalAccessException.class)
     public ResponseEntity<?> illegalAccessException() {

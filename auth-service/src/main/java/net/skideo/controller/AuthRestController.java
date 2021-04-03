@@ -1,13 +1,10 @@
 package net.skideo.controller;
 
-import net.skideo.dto.AuthDto;
-import net.skideo.exception.NotFoundException;
 import net.skideo.exception.WrongLoginOrPasswordException;
-import net.skideo.model.Info;
+import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.service.info.InfoService;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -20,18 +17,18 @@ import java.util.Map;
 public class AuthRestController {
 
     @Autowired
-    private InfoService infoService;
+    private UserService userService;
 
     @PostMapping("/authenticate")
     public ResponseEntity<OAuth2AccessToken> authenticate(@RequestParam String login, @RequestParam String password, @RequestParam String clientId,
                                                           @RequestParam String clientSecret, @RequestParam String grantType, @RequestParam ServiceRole serviceRole) throws IllegalAccessException, HttpRequestMethodNotSupportedException {
-        Info auth = infoService.findByLogin(login);
+        User user = userService.findByLogin(login);
 
-        if (auth.getServiceRole() != serviceRole) {
+        if (user.getServiceRole() != serviceRole) {
             throw new IllegalAccessException();
         }
 
-        if (!infoService.isPasswordCorrect(password, auth.getPassword())) {
+        if (!userService.isPasswordCorrect(password, user.getPassword())) {
             throw new WrongLoginOrPasswordException();
         }
 
@@ -42,12 +39,12 @@ public class AuthRestController {
         parameters.put("grant_type", grantType);
         parameters.put("scope", "read write");
 
-        return infoService.generateToken(parameters, clientId);
+        return userService.generateToken(parameters, clientId);
     }
 
     @PostMapping("/token")
     public ResponseEntity<OAuth2AccessToken> generateToken(@RequestParam String login, @RequestParam String password, @RequestParam String clientId,
-                                                   @RequestParam String clientSecret, @RequestParam String grantType) throws HttpRequestMethodNotSupportedException {
+                                                           @RequestParam String clientSecret, @RequestParam String grantType) throws HttpRequestMethodNotSupportedException {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("username", login);
         parameters.put("password", password);
@@ -55,12 +52,7 @@ public class AuthRestController {
         parameters.put("grant_type", grantType);
         parameters.put("scope", "read write");
 
-        return infoService.generateToken(parameters, clientId);
-    }
-
-    @PutMapping("/auth/data")
-    public void updateLoginAndPassword(@RequestBody AuthDto authDto) {
-        infoService.updateLoginAndPassword(authDto);
+        return userService.generateToken(parameters, clientId);
     }
 
 }

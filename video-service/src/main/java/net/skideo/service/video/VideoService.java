@@ -2,7 +2,6 @@ package net.skideo.service.video;
 
 import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
-import net.skideo.model.Info;
 import net.skideo.model.Video;
 import org.springframework.data.domain.Page;
 

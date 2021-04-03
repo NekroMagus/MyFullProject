@@ -1,10 +1,7 @@
 package net.skideo.service.academy;
 
 import net.skideo.dto.*;
-import net.skideo.dto.projections.InfoIdProjection;
 import net.skideo.model.Academy;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface AcademyService {
 
@@ -14,7 +11,7 @@ public interface AcademyService {
 
     long getId(String login);
 
-    void updateLoginAndPassword(String token,AuthDto authDto);
+    void updateLoginAndPassword(AuthDto authDto);
 
     void updateProfile(AcademyProfileDto academyProfileDto);
 

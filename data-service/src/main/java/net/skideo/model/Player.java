@@ -1,7 +1,7 @@
 package net.skideo.model;
 
 import lombok.*;
-import net.skideo.model.abstracts.AbstractInfoEntity;
+import net.skideo.model.abstracts.AbstractUserEntity;
 import net.skideo.model.enums.Role;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RolePeople;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "user_player")
-public class Player extends AbstractInfoEntity {
+public class Player extends AbstractUserEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -37,9 +37,8 @@ public class Player extends AbstractInfoEntity {
     @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.LAZY)
     private List<Notification> notification = new LinkedList<>();
 
-    public Player(Info info, RolePeople rolePeople, boolean hasAgent) {
-        setInfo(info);
-        getInfo().setRolePeople(rolePeople);
+    public Player(User user, boolean hasAgent) {
+        setUser(user);
         this.hasAgent = hasAgent;
 
         this.role = Role.UNCONFIRMED;

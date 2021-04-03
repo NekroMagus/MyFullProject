@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface NotificationRepository extends JpaRepository<Notification,Long> {
 
-    Page<NotificationInfoDto> findByPlayerId(long playerId, Pageable pageable);
+    Page<NotificationInfoDto> findByUserId(long userId, Pageable pageable);
 
 }

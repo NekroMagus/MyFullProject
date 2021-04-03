@@ -24,7 +24,7 @@ public class NotificationRestController {
 
     @GetMapping("/notifications")
     public Page<NotificationInfoDto> getMyNotifications(@RequestParam(defaultValue = "0") int page,
-                                                 @RequestParam(defaultValue = "50") int size) {
+                                                        @RequestParam(defaultValue = "50") int size) {
         return notificationService.getMyNotifications(page,size);
     }
 

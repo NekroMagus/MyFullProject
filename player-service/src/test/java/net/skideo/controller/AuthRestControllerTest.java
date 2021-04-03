@@ -2,12 +2,9 @@ package net.skideo.controller;
 
 import net.skideo.annotations.ControllerTest;
 import net.skideo.dto.UserAuthDto;
-import net.skideo.repository.UserRepository;
-//import net.skideo.security.jwt.JwtTokenUtil;
-import net.skideo.service.user.UserService;
+import net.skideo.repository.PlayerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.skideo.model.enums.RolePeople;
-import net.skideo.service.info.InfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -30,24 +27,11 @@ public class AuthRestControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private InfoService authService;
-
-    @MockBean
-    private UserService userService;
-
-    @MockBean
-    private UserRepository userRepository;
+    private PlayerRepository playerRepository;
 
   //  @MockBean
   //  private JwtTokenUtil jwtTokenUtil;
 
-    @Test
-    public void contextLoads() {
-        assertNotNull(mockMvc);
-        assertNotNull(authService);
-        assertNotNull(userService);
-     //   assertNotNull(jwtTokenUtil);
-    }
 
 
     @Test

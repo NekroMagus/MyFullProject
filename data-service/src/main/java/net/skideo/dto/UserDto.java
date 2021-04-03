@@ -35,14 +35,14 @@ public class UserDto {
 
     public UserDto(Player player) {
         this.id = player.getId();
-        this.name = player.getInfo().getName();
-        this.surname = player.getInfo().getSurname();
-        this.roleFootball = player.getInfo().getRoleFootball();
-        this.email = player.getInfo().getEmail();
+        this.name = player.getUser().getName();
+        this.surname = player.getUser().getSurname();
+        this.roleFootball = player.getUser().getRoleFootball();
+        this.email = player.getUser().getEmail();
         this.phone = player.getPhone();
         this.birthDate = player.getBirthDate();
-        this.country = player.getInfo().getCountry();
-        this.city = player.getInfo().getCity();
+        this.country = player.getUser().getCountry();
+        this.city = player.getUser().getCity();
         this.linkSocialNetwork = player.getLinkSocialNetwork();
         this.leadingLeg = player.getLeadingLeg();
         this.agent = player.isHasAgent();

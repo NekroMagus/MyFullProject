@@ -2,12 +2,12 @@ package net.skideo.service.notification;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.NotificationInfoDto;
-import net.skideo.model.Info;
+import net.skideo.model.User;
 import net.skideo.model.Notification;
 import net.skideo.model.Player;
 import net.skideo.model.enums.NotificationEnum;
 import net.skideo.repository.NotificationRepository;
-import net.skideo.service.info.InfoService;
+import net.skideo.service.player.PlayerService;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
 
-    private final InfoService infoService;
     private final UserService userService;
+    private final PlayerService playerService;
     private final NotificationRepository repository;
     private final JavaMailSender mailSender;
 
@@ -31,24 +31,24 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void addNotification(NotificationEnum notificationEnum, String message, long idUser) {
-        Info currentInfo = infoService.getCurrentInfo();
-        Player player = userService.getUserById(idUser);
+        User currentUser = userService.getCurrentUser();
+        Player player = playerService.getUserById(idUser);
 
-        Notification notification = new Notification(notificationEnum, message,currentInfo, player);
+        Notification notification = new Notification(notificationEnum, message, currentUser, player.getUser());
 
         player.getNotification().add(notification);
 
-        userService.save(player);
+        playerService.save(player);
 
-        sendNotification(player.getInfo().getEmail(),notificationEnum.getNotification() + " from " + currentInfo.getName() + ": \n" + message);
+        sendNotification(player.getUser().getEmail(),notificationEnum.getNotification() + " from " + currentUser.getName() + ": \n" + message);
     }
 
     @Override
     public Page<NotificationInfoDto> getMyNotifications(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
-        Player currentPlayer = userService.getCurrentUser();
+        Player currentPlayer = playerService.getCurrentUser();
 
-        return repository.findByPlayerId(currentPlayer.getId(),pageable);
+        return repository.findByUserId(currentPlayer.getId(),pageable);
     }
 
     private void sendNotification(String email,String message) {

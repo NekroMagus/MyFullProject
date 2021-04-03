@@ -20,16 +20,16 @@ public class Notification extends BaseEntity {
     private NotificationEnum notificationEnum;
 
     @ManyToOne
-    private Info senderInfo;
+    private User senderUser;
 
     @ManyToOne
-    private Player player;
+    private User user;
 
-    public Notification(NotificationEnum notificationEnum, String message, Info senderInfo, Player player) {
+    public Notification(NotificationEnum notificationEnum, String message, User senderUser, User user) {
         this.notificationEnum = notificationEnum;
         this.message = message;
-        this.senderInfo = senderInfo;
-        this.player = player;
+        this.senderUser = senderUser;
+        this.user = user;
     }
 
 }

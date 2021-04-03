@@ -66,7 +66,7 @@ public class VideoRestController {
 
     @GetMapping("/all")
     public List<Video> all() {
-        return repository.findAllByInfoServiceRole(ServiceRole.USER);
+        return repository.findAllByUserServiceRole(ServiceRole.PLAYER);
     }
 
 }

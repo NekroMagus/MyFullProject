@@ -1,8 +1,5 @@
 package net.skideo.repository;
 
-import net.skideo.dto.ClubProfileDto;
-import net.skideo.dto.projections.ClubProfileProjection;
-import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ClubNotFoundException;
 import net.skideo.model.Club;
 import net.skideo.JpaTest;
@@ -43,20 +40,7 @@ public class ClubRepositoryTest {
 
 
 
-    @Test
-    public void givenInvalidIdAndClub_whenSaveScriptAndFindById_thenEquals() {
-        Club newClub = new Club();
-        newClub.setId(ID);
-        newClub.getInfo().setLogin("egor");
 
-        repository.save(newClub);
-
-        Club club = repository.findById(ID).orElseThrow(
-                () -> new ClubNotFoundException("Club not found")
-        );
-
-        assertEquals(club.getInfo().getLogin(), "egor");
-    }
 
     @Test
     public void givenInvalidId_whenDeleteScriptAndFindById_thenNotFoundClub() {

@@ -13,6 +13,7 @@ import net.skideo.service.club.ClubService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +26,6 @@ public class ScoutServiceImpl implements ScoutService {
 
     private final ScoutRepository scoutRepository;
     private final ClubService clubService;
-
-    Logger log = Logger.getLogger(ScoutServiceImpl.class.getName());
 
     @Override
     public Scout findById(long id) {
@@ -50,9 +49,10 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public Page<ScoutDto> getMyScouts(int page,int size) {
-        final IdProjection ID_CURRENT_CLUB = clubService.getIdCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
-        return findAllByClubId(ID_CURRENT_CLUB.getId(),pageable);
+        final String LOGIN_CURRENT_CLUB = clubService.getLoginCurrentClub();
+        final long ID_CURRENT_CLUB = clubService.getIdByLogin(LOGIN_CURRENT_CLUB);
+        return findAllByClubId(ID_CURRENT_CLUB,pageable);
     }
 
 
@@ -82,9 +82,10 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public Page<ScoutDto> getScoutsByRegion(String region,int page,int size) {
-        final IdProjection ID_CURRENT_CLUB = clubService.getIdCurrentClub();
         Pageable pageable = PageRequest.of(page,size);
-        return findAllByRegionAndClubId(region,ID_CURRENT_CLUB.getId(),pageable);
+        final String LOGIN_CURRENT_CLUB = clubService.getLoginCurrentClub();
+        final long ID_CURRENT_CLUB = clubService.getIdByLogin(LOGIN_CURRENT_CLUB);
+        return findAllByRegionAndClubId(region,ID_CURRENT_CLUB,pageable);
     }
 
     @Override

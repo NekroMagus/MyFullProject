@@ -3,7 +3,7 @@ package net.skideo.controller;
 
 import net.skideo.dto.*;
 import net.skideo.model.Player;
-import net.skideo.repository.UserRepository;
+import net.skideo.repository.PlayerRepository;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,14 +18,14 @@ import java.util.List;
 public class ScoutRestController {
 
     private final ScoutService scoutService;
-    private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
 
     // для тестов
     /* ------------------------------------------------- */
 
     @GetMapping("/all")
     public List<Player> all() {
-        return userRepository.findAll();
+        return playerRepository.findAll();
     }
 
     /* ------------------------------------------------- */
@@ -33,7 +33,7 @@ public class ScoutRestController {
     @GetMapping("/profile")
     public ProfileDto getProfile(@RequestParam(required = false) Long id) {
         if(id==null) {
-            return scoutService.getProfile(scoutService.getId(scoutService.getLoginCurrentScout()));
+            return scoutService.getProfile(scoutService.getIdByLogin(scoutService.getLoginCurrentScout()));
         }
         return scoutService.getProfile(id);
     }

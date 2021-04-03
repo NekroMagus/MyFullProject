@@ -15,12 +15,11 @@ public class Comment extends AbstractComponentEntity {
     private String text;
     private float rating;
 
-
     private boolean isInnerComment;
 
-    public Comment(String text,Info info,boolean isInnerComment) {
+    public Comment(String text, User user, boolean isInnerComment) {
         this.text=text;
-        setInfo(info);
+        setUser(user);
         this.isInnerComment=isInnerComment;
     }
 

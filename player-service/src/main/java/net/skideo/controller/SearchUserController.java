@@ -2,7 +2,7 @@ package net.skideo.controller;
 
 import net.skideo.dto.SearchUserDto;
 import net.skideo.exception.UserNotFoundException;
-import net.skideo.service.user.UserService;
+import net.skideo.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,29 +14,29 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class SearchUserController {
 
-    private final UserService userService;
+    private final PlayerService playerService;
 
     @PostMapping("/search")
     public ResponseEntity<?> getSearchResult(@RequestBody SearchUserDto search) {
         if (search.getAge() != 0 && !search.getCountry().equals("") && search.getRoleFootball() != null) {
-            return ResponseEntity.ok(userService.findByBirthDateBetweenAndRoleFootballAndCountry(getDateBirthStart(search.getAge()),
+            return ResponseEntity.ok(playerService.findByBirthDateBetweenAndRoleFootballAndCountry(getDateBirthStart(search.getAge()),
                     getDateBirthEnd(search.getAge()), search.getRoleFootball(), search.getCountry()));
         } else if (search.getAge() != 0 && search.getRoleFootball() != null) {
-            return ResponseEntity.ok(userService.findByBirthDateBetweenAndRoleFootball(getDateBirthStart(search.getAge()),
+            return ResponseEntity.ok(playerService.findByBirthDateBetweenAndRoleFootball(getDateBirthStart(search.getAge()),
                     getDateBirthEnd(search.getAge()), search.getRoleFootball()));
         } else if (search.getAge() != 0 && !search.getCountry().equals("")) {
-            return ResponseEntity.ok(userService.findByBirthDateBetweenAndCountry(getDateBirthStart(search.getAge()),
+            return ResponseEntity.ok(playerService.findByBirthDateBetweenAndCountry(getDateBirthStart(search.getAge()),
                     getDateBirthEnd(search.getAge()), search.getCountry()));
         } else if (search.getRoleFootball() != null && !search.getCountry().equals("")) {
-            return ResponseEntity.ok(userService.findByRoleFootballAndCountry(search.getRoleFootball(),
+            return ResponseEntity.ok(playerService.findByRoleFootballAndCountry(search.getRoleFootball(),
                     search.getCountry()));
         } else if (search.getAge() != 0) {
-            return ResponseEntity.ok(userService.findByBirthDateBetween(getDateBirthStart(search.getAge()),
+            return ResponseEntity.ok(playerService.findByBirthDateBetween(getDateBirthStart(search.getAge()),
                     getDateBirthEnd(search.getAge())));
         } else if (!search.getCountry().equals("")) {
-            return ResponseEntity.ok(userService.findByCountry(search.getCountry()));
+            return ResponseEntity.ok(playerService.findByCountry(search.getCountry()));
         } else if (search.getRoleFootball() != null) {
-            return ResponseEntity.ok(userService.findByRoleFootball(search.getRoleFootball()));
+            return ResponseEntity.ok(playerService.findByRoleFootball(search.getRoleFootball()));
         } else {
             throw new UserNotFoundException();
         }
@@ -44,7 +44,7 @@ public class SearchUserController {
 
     @GetMapping("/id{id}")
     public ResponseEntity<?> getUserById(@PathVariable("id") long id) {
-        return ResponseEntity.ok(new SearchUserDto(userService.findById(id)));
+        return ResponseEntity.ok(new SearchUserDto(playerService.findById(id)));
     }
 
     private LocalDate getDateBirthStart(int age) {

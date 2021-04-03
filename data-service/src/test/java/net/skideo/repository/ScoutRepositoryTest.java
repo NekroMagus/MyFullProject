@@ -1,10 +1,8 @@
 package net.skideo.repository;
 
-import net.skideo.dto.projections.PasswordProjection;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Scout;
 import net.skideo.JpaTest;
-import net.skideo.dto.projections.ScoutProfileProjection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,14 +29,7 @@ public class ScoutRepositoryTest {
         assertNotNull(scout);
     }
 
-    @Test
-    public void givenValidLogin_whenFindByLogin_thenNotNull() {
-        Scout scout = repository.findByInfoLogin(LOGIN).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
-        );
 
-        assertNotNull(scout);
-    }
 
 
     @Test
@@ -53,22 +44,6 @@ public class ScoutRepositoryTest {
         assertThrows(ScoutNotFoundException.class,() -> repository.findById(ID).orElseThrow(
                 () -> new ScoutNotFoundException("Scout not found")
         ));
-    }
-
-    @Test
-    public void givenValidIdAndNewLoginAndScout_whenSaveAndFindById_thenEquals() {
-        final String LOGIN = "egor";
-        Scout newScout = new Scout();
-        newScout.setId(ID);
-        newScout.getInfo().setLogin(LOGIN);
-
-        repository.save(newScout);
-
-        Scout scout = repository.findById(ID).orElseThrow(
-                () -> new ScoutNotFoundException("Scout not found")
-        );
-
-        assertEquals(newScout.getInfo().getLogin(),scout.getInfo().getLogin());
     }
 
 

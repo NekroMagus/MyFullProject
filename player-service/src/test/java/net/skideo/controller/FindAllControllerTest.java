@@ -1,6 +1,5 @@
 package net.skideo.controller;
 
-import net.skideo.service.user.UserService;
 import net.skideo.annotations.ControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +18,12 @@ class FindAllControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private UserService userService;
+
 
     @Test
     public void contextLoads() {
         assertNotNull(mockMvc);
-        assertNotNull(userService);
+       // assertNotNull(userService);
     }
 
     @Test

@@ -21,9 +21,9 @@ public class ProfileUserDto {
 
     public ProfileUserDto(Player player) {
         this.id = player.getId();
-        this.name = player.getInfo().getName();
-        this.surname = player.getInfo().getSurname();
-        this.roleFootball = player.getInfo().getRoleFootball();
+        this.name = player.getUser().getName();
+        this.surname = player.getUser().getSurname();
+        this.roleFootball = player.getUser().getRoleFootball();
         this.club = new ClubProfileDto(player.getClub());
     }
 

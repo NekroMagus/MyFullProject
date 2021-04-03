@@ -3,7 +3,7 @@ package net.skideo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.abstracts.AbstractInfoEntity;
+import net.skideo.model.abstracts.AbstractUserEntity;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "user_scout")
-public class Scout extends AbstractInfoEntity {
+public class Scout extends AbstractUserEntity {
 
     private String region;
 
@@ -24,8 +24,8 @@ public class Scout extends AbstractInfoEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Player> favoritePlayers = new LinkedHashSet<>();
 
-    public Scout(Info info) {
-        setInfo(info);
+    public Scout(User user) {
+        setUser(user);
     }
 
 }

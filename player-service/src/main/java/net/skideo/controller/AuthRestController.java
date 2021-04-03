@@ -3,10 +3,11 @@ package net.skideo.controller;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.UserRegistrationDto;
 import net.skideo.exception.NotFoundException;
-import net.skideo.model.Info;
+import net.skideo.model.User;
 import net.skideo.model.Player;
-import net.skideo.service.info.InfoService;
+import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.user.UserService;
+import net.skideo.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RolePeople;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +25,8 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AuthRestController {
 
+    private final PlayerService playerService;
     private final UserService userService;
-    private final InfoService infoService;
     private final AuthServiceFeignClient feignClient;
 
     @Value("${security.oauth2.client.clientId}")
@@ -36,7 +37,7 @@ public class AuthRestController {
 
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
-        if(infoService.isExistsByLogin(userRegistrationDto.getLogin())) {
+        if(userService.isExistsByLogin(userRegistrationDto.getLogin())) {
             throw new NotFoundException("User not found");
         }
 
@@ -45,9 +46,9 @@ public class AuthRestController {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
 
-        Info info = new Info(userRegistrationDto.getLogin(),userRegistrationDto.getPassword());
+        User user = new User(userRegistrationDto.getLogin(),userRegistrationDto.getPassword(),userRegistrationDto.getRolePeople(),ServiceRole.PLAYER);
 
-        userService.create(new Player(info, userRegistrationDto.getRolePeople(), userRegistrationDto.isHasAgent()));
+        playerService.create(new Player(user,userRegistrationDto.isHasAgent()));
 
         ResponseEntity<OAuth2AccessToken> response = feignClient.generateToken(userRegistrationDto.getLogin(), userRegistrationDto.getPassword(), clientId,
                 clientSecret, "password");

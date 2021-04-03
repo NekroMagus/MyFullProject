@@ -3,7 +3,6 @@ package net.skideo.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.Notification;
-import net.skideo.model.enums.NotificationEnum;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -20,7 +19,7 @@ public class NotificationInfoDto {
 
     public NotificationInfoDto(Notification notification) {
         this.notificationValue=notification.getNotificationEnum().getNotification();
-        this.academyTitle=notification.getSenderInfo().getName();
+        this.academyTitle=notification.getSenderUser().getName();
         this.text=notification.getMessage();
         this.dateCreated = OffsetDateTime.of(notification.getCreated(), ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSSxxx"));
     }

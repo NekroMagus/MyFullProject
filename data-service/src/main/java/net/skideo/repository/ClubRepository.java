@@ -18,10 +18,8 @@ public interface ClubRepository extends BaseRepository<Club> {
 
     Optional<ClubProfileDto> findProfileById(long id);
 
-    Optional<IdProjection> findClubIdByInfoLogin(String login);
+    Optional<IdProjection> findClubIdByUserLogin(String login);
 
-    Page<UserShortInfoClubDto> findFavoriteUsersByInfoLogin(String login, Pageable pageable);
-
-    boolean existsByInfoLogin(String login);
+    Page<UserShortInfoClubDto> findFavoriteUsersByUserLogin(String login, Pageable pageable);
 
 }

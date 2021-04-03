@@ -14,8 +14,8 @@ public class SearchDto {
     private String surname;
 
     public SearchDto(Player player) {
-        this.name= player.getInfo().getName();
-        this.surname= player.getInfo().getSurname();
+        this.name= player.getUser().getName();
+        this.surname= player.getUser().getSurname();
     }
 
 }

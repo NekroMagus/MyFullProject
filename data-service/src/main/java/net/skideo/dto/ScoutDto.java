@@ -22,7 +22,7 @@ public class ScoutDto {
 
     public ScoutDto(Scout scout) {
         this.region=scout.getRegion();
-        this.name=scout.getInfo().getName();
-        this.surname=scout.getInfo().getSurname();
+        this.name=scout.getUser().getName();
+        this.surname=scout.getUser().getSurname();
     }
 }

@@ -15,9 +15,6 @@ public interface AuthServiceFeignClient {
 
     @PostMapping("/api/token")
     ResponseEntity<OAuth2AccessToken> generateToken(@RequestParam String login, @RequestParam String password, @RequestParam String clientId,
-                                                   @RequestParam String clientSecret, @RequestParam String grantType);
-
-    @PutMapping("/api/auth/data")
-    void updateLoginAndPassword(@RequestHeader("Authorization") String token,@RequestBody AuthDto authDto);
+                                                    @RequestParam String clientSecret, @RequestParam String grantType);
 
 }

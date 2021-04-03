@@ -19,18 +19,18 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
     Optional<Video> findById(long id);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.LOAD,attributePaths = {"likes","comments"})
-    Page<VideoDto> findAllByInfoId(long infoId, Pageable pageable);
+    Page<VideoDto> findAllByUserId(long userId, Pageable pageable);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.LOAD,attributePaths = {"likes","comments"})
-    Page<VideoDto> findByInfoIdNotAndInfoServiceRole(long infoId, ServiceRole serviceRole, Pageable pageable);
+    Page<VideoDto> findByUserIdNotAndUserServiceRole(long userId, ServiceRole serviceRole, Pageable pageable);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.LOAD, attributePaths = {"likes","comments"})
-    List<VideoDto> findAllByInfoIdNotAndInfoServiceRole(long infoId,ServiceRole serviceRole);
+    List<VideoDto> findAllByUserIdNotAndUserServiceRole(long userId,ServiceRole serviceRole);
 
-    List<Video> findAllByInfoId(long infoId);
+    List<Video> findAllByUserId(long userId);
 
-    Page<VideoDto> findAllByInfoServiceRole(ServiceRole serviceRole,Pageable pageable);
+    Page<VideoDto> findAllByUserServiceRole(ServiceRole serviceRole,Pageable pageable);
 
-    List<Video> findAllByInfoServiceRole(ServiceRole serviceRole);
+    List<Video> findAllByUserServiceRole(ServiceRole serviceRole);
 
 }

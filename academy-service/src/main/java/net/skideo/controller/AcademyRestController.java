@@ -20,7 +20,6 @@ public class AcademyRestController {
 
     @GetMapping("/profile")
     public AcademyProfileDto getProfile(@RequestParam(required = false) Long id) {
-        LOG.info(academyService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()) + "");
         if(id==null) {
             LOG.log(Level.INFO,"Getting profile with id of current academy");
             return academyService.getProfile(academyService.getId(academyService.getLoginCurrentAcademy()));
@@ -30,9 +29,9 @@ public class AcademyRestController {
     }
 
     @PutMapping("/auth")
-    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@RequestBody AuthDto authDto) {
+    public void updateLoginAndPassword(@RequestBody AuthDto authDto) {
         LOG.log(Level.INFO,"Updating login and password...");
-        academyService.updateLoginAndPassword(token,authDto);
+        academyService.updateLoginAndPassword(authDto);
         LOG.log(Level.INFO,"Updating login and password success");
     }
 

@@ -6,10 +6,11 @@ import net.skideo.dto.*;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Player;
 import net.skideo.model.Scout;
+import net.skideo.service.player.PlayerService;
 import net.skideo.service.video.VideoService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.repository.ScoutRepository;
-import net.skideo.service.user.UserService;
+import net.skideo.service.player.PlayerService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ import java.util.*;
 public class ScoutServiceImpl implements ScoutService {
 
     private final ScoutRepository scoutRepository;
-    private final UserService userService;
+    private final PlayerService playerService;
     private final VideoService videoService;
     private final PasswordEncoder encoder;
     private final AuthServiceFeignClient feignClient;
@@ -37,14 +38,14 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public Scout findByLogin(String login) {
-        return scoutRepository.findByInfoLogin(login).orElseThrow(
+        return scoutRepository.findByUserLogin(login).orElseThrow(
                 () -> new NotFoundException("Scout not found")
         );
     }
 
     @Override
     public void createScout(Scout scout) {
-        scout.getInfo().setPassword(encoder.encode(scout.getInfo().getPassword()));
+        scout.getUser().setPassword(encoder.encode(scout.getUser().getPassword()));
         scoutRepository.save(scout);
     }
 
@@ -53,10 +54,10 @@ public class ScoutServiceImpl implements ScoutService {
         Scout scout = getCurrentScout();
 
         if (StringUtils.isNotBlank(dto.getName())) {
-            scout.getInfo().setName(dto.getName());
+            scout.getUser().setName(dto.getName());
         }
         if (StringUtils.isNotBlank(dto.getSurname())) {
-            scout.getInfo().setSurname(dto.getSurname());
+            scout.getUser().setSurname(dto.getSurname());
         }
 
         scoutRepository.save(scout);
@@ -64,15 +65,13 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public void updateLoginAndPassword(String token, AuthDto authDto) {
-        feignClient.updateLoginAndPassword(token, authDto);
-
         Scout dbScout = getCurrentScout();
 
         if (StringUtils.isNotBlank(authDto.getLogin())) {
-            dbScout.getInfo().setLogin(authDto.getLogin());
+            dbScout.getUser().setLogin(authDto.getLogin());
         }
         if (StringUtils.isNotBlank(authDto.getPassword())) {
-            dbScout.getInfo().setPassword(encoder.encode(authDto.getPassword()));
+            dbScout.getUser().setPassword(encoder.encode(authDto.getPassword()));
         }
 
         scoutRepository.save(dbScout);
@@ -81,7 +80,7 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public void addUserToFavorite(long idUser) {
         Scout currentScout = getCurrentScout();
-        Player player = userService.findById(idUser);
+        Player player = playerService.findById(idUser);
 
         if (currentScout.getFavoritePlayers() == null) {
             currentScout.setFavoritePlayers(new LinkedHashSet<>());
@@ -94,7 +93,7 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable) {
         final String LOGIN_CURRENT_SCOUT = getLoginCurrentScout();
-        return scoutRepository.findFavoriteUsersByInfoLogin(LOGIN_CURRENT_SCOUT, pageable);
+        return scoutRepository.findFavoriteUsersByUserLogin(LOGIN_CURRENT_SCOUT, pageable);
     }
 
     @Override
@@ -102,7 +101,7 @@ public class ScoutServiceImpl implements ScoutService {
         ProfileDto profile = scoutRepository.findProfileById(id).orElseThrow(
                 () -> new NotFoundException("Scout not found")
         );
-        List<Player> users = userService.findAll();
+        List<Player> users = playerService.findAll();
 
         List<ProfileUserDto> players = new LinkedList<>();
 
@@ -113,7 +112,7 @@ public class ScoutServiceImpl implements ScoutService {
                 int randomIndex = (int) Math.round(Math.random() * (users.size()-1));
                 Player player = users.get(randomIndex);
 
-                if (videoService.findAllByInfoId(player.getInfo().getId()).size() >= 1) {
+                if (videoService.findAllByUserId(player.getUser().getId()).size() >= 1) {
                     players.add(new ProfileUserDto(player));
                 }
             }
@@ -124,8 +123,8 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public long getId(String login) {
-        return scoutRepository.findIdByInfoLogin(login).orElseThrow(
+    public long getIdByLogin(String login) {
+        return scoutRepository.findIdByUserLogin(login).orElseThrow(
                 () -> new NotFoundException("Scout not found")
         ).getId();
     }

@@ -14,11 +14,7 @@ public interface ClubService {
 
     Club findByLogin(String login);
 
-    Club findById(long id);
-
     void save(Club club);
-
-    long getId(String login);
 
     ClubProfileDto getProfile(long id);
 
@@ -30,10 +26,10 @@ public interface ClubService {
 
     Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable);
 
+    long getIdByLogin(String login);
+
     String getLoginCurrentClub();
 
     Club getCurrentClub();
-
-    IdProjection getIdCurrentClub();
 
 }

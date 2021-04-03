@@ -2,7 +2,7 @@ package net.skideo.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.skideo.model.Info;
+import net.skideo.model.User;
 import net.skideo.model.Player;
 
 @Data
@@ -13,14 +13,14 @@ public class UserNSDto {
     private String surname;
 
     public UserNSDto(Player player) {
-        this.name= player.getInfo().getName();
-        this.surname= player.getInfo().getSurname();
+        this.name= player.getUser().getName();
+        this.surname= player.getUser().getSurname();
     }
 
-    public UserNSDto(Info info) {
-        if(info!=null) {
-            this.name = info.getName();
-            this.name = info.getSurname();
+    public UserNSDto(User user) {
+        if(user !=null) {
+            this.name = user.getName();
+            this.name = user.getSurname();
         }
     }
 

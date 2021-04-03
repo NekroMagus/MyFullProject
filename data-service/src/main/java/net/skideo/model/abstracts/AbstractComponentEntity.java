@@ -2,7 +2,7 @@ package net.skideo.model.abstracts;
 
 import lombok.Data;
 import net.skideo.model.Comment;
-import net.skideo.model.Info;
+import net.skideo.model.User;
 import net.skideo.model.Like;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class AbstractComponentEntity extends BaseEntity {
 
     @ManyToOne
-    private Info info;
+    private User user;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private List<Like> likes=new LinkedList<>();

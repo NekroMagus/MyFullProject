@@ -2,27 +2,25 @@ package net.skideo.service.user;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.exception.NotFoundException;
-import net.skideo.model.Player;
+import net.skideo.model.User;
 import net.skideo.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
     @Override
-    public Player findById(long id) {
-        return userRepository.findById(id).orElseThrow(
+    public User getCurrentUser() {
+        return repository.findByLogin(getLoginCurrentUser()).orElseThrow(
                 () -> new NotFoundException("User not found")
         );
     }
 
-    @Override
-    public List<Player> findAll() {
-        return userRepository.findAll();
+    private String getLoginCurrentUser() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

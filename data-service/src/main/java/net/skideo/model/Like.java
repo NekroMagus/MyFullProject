@@ -18,11 +18,11 @@ public class Like extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "info_id")
-    private Info info;
+    private User user;
 
-    public Like(Rating rating,Info info) {
+    public Like(Rating rating, User user) {
         this.rating=rating;
-        this.info=info;
+        this.user = user;
     }
 
 

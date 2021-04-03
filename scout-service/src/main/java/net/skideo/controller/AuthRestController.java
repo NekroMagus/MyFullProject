@@ -3,10 +3,10 @@ package net.skideo.controller;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.RegDto;
 import net.skideo.exception.AlreadyExistsException;
-import net.skideo.model.Info;
+import net.skideo.model.User;
 import net.skideo.model.Scout;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.service.info.InfoService;
+import net.skideo.service.user.UserService;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,7 @@ public class AuthRestController {
 
     private final AuthServiceFeignClient feignClient;
     private final ScoutService scoutService;
-    private final InfoService infoService;
+    private final UserService userService;
 
     @Value("${security.oauth2.client.clientId}")
     private String clientId;
@@ -36,15 +36,16 @@ public class AuthRestController {
 
     @PostMapping("/registration")
     public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody RegDto regDto) {
-        if(infoService.isExistsByLogin(regDto.getLogin())) {
+        if(userService.isExistsByLogin(regDto.getLogin())) {
             throw new AlreadyExistsException("Scout already exists");
         }
 
-        Info info = new Info(regDto.getLogin(),regDto.getPassword(),regDto.getName(),regDto.getSurname());
-        scoutService.createScout(new Scout(info));
+        User user = new User(regDto.getLogin(),regDto.getPassword(),regDto.getName(),regDto.getSurname(),ServiceRole.SCOUT);
+
+        scoutService.createScout(new Scout(user));
 
         ResponseEntity<OAuth2AccessToken> response = feignClient.generateToken(regDto.getLogin(),regDto.getPassword(),clientId,
-                                                                              clientSecret,"password");
+                                                                               clientSecret,"password");
 
         return response;
     }

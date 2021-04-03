@@ -18,10 +18,10 @@ public class SearchUserDto {
 
     @JsonCreator
     public SearchUserDto(Player player) {
-        this.login = player.getInfo().getLogin();
-        this.roleFootball = player.getInfo().getRoleFootball();
+        this.login = player.getUser().getLogin();
+        this.roleFootball = player.getUser().getRoleFootball();
         this.age = getAge(player.getBirthDate());
-        this.country = player.getInfo().getCountry();
+        this.country = player.getUser().getCountry();
     }
 
     private int getAge(LocalDate birth) {

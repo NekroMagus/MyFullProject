@@ -24,7 +24,7 @@ public class CommentDto {
         this.id=comment.getId();
         this.text=comment.getText();
         this.rating=comment.getRating();
-        this.user=new UserNSDto(comment.getInfo());
+        this.user=new UserNSDto(comment.getUser());
         this.likes = comment.getLikes()
                 .stream()
                 .map(LikeDto::new)

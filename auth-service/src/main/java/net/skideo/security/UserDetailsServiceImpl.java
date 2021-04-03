@@ -1,7 +1,7 @@
 package net.skideo.security;
 
-import net.skideo.model.Info;
-import net.skideo.service.info.InfoService;
+import net.skideo.model.User;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private InfoService authService;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Info auth = authService.findByLogin(login);
-        return JwtInfo.authToJwtAuth(auth);
+        User user = userService.findByLogin(login);
+        return JwtUser.userToJwtUser(user);
     }
 }

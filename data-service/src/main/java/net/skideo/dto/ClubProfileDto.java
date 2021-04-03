@@ -19,7 +19,7 @@ public class ClubProfileDto {
     private String logoLink;
 
     public ClubProfileDto(Club club) {
-        this.titleClub=club.getInfo().getName();
+        this.titleClub=club.getUser().getName();
         this.logoLink=club.getLogoLink();
     }
 

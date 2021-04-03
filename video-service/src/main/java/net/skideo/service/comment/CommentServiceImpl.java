@@ -6,7 +6,7 @@ import net.skideo.exception.AlreadyRatedException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.*;
 import net.skideo.repository.CommentRepository;
-import net.skideo.service.info.InfoService;
+import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
-    private final InfoService infoService;
+    private final UserService userService;
     private final VideoService videoService;
     private final CommentRepository repository;
 
     @Override
     public void addComment(long videoId, String text) {
-        Info currentInfo = infoService.getCurrentInfo();
-        Comment comment = new Comment(text, currentInfo,false);
+        User currentUser = userService.getCurrentUser();
+        Comment comment = new Comment(text, currentUser,false);
 
         Video video = videoService.findById(videoId);
         video.getComments().add(comment);
@@ -38,8 +38,8 @@ public class CommentServiceImpl implements CommentService {
             throw new IllegalArgumentException("This comment is inner");
         }
 
-        Info currentInfo = infoService.getCurrentInfo();
-        Comment newComment = new Comment(text,currentInfo,true);
+        User currentUser = userService.getCurrentUser();
+        Comment newComment = new Comment(text, currentUser,true);
 
         comment.getComments().add(newComment);
 
@@ -49,9 +49,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void updateComment(long commentId, String text) {
         Comment dbComment = findById(commentId);
-        Info currentInfo = infoService.getCurrentInfo();
+        User currentUser = userService.getCurrentUser();
 
-        if(dbComment.getInfo().equals(currentInfo)) {
+        if(dbComment.getUser().equals(currentUser)) {
             dbComment.setText(text);
         }
 
@@ -61,13 +61,13 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void estimateComment(RatingDto ratingDto) {
         Comment comment = findById(ratingDto.getId());
-        Info currentInfo = infoService.getCurrentInfo();
+        User currentUser = userService.getCurrentUser();
 
-        if(isAlreadyLiked(comment,currentInfo)) {
+        if(isAlreadyLiked(comment, currentUser)) {
             throw new AlreadyRatedException("You already liked this comment");
         }
 
-        Like newLike = new Like(ratingDto.getRating(),currentInfo);
+        Like newLike = new Like(ratingDto.getRating(), currentUser);
 
         comment.setRating((comment.getLikes().size() * comment.getRating() + ratingDto.getRating().getRating()) / (comment.getLikes().size()+1));
         comment.getLikes().add(newLike);
@@ -85,9 +85,9 @@ public class CommentServiceImpl implements CommentService {
         repository.save(comment);
     }
 
-    private boolean isAlreadyLiked(Comment comment,Info currentInfo) {
+    private boolean isAlreadyLiked(Comment comment, User currentUser) {
         for(Like like : comment.getLikes()) {
-            if(like.getInfo().equals(currentInfo)) {
+            if(like.getUser().equals(currentUser)) {
                 return true;
             }
         }

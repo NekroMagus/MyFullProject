@@ -28,7 +28,7 @@ public class ClubRestController {
     @GetMapping("/profile")
     public ClubProfileDto getProfile(@RequestParam(required = false) Long id) {
         if(id==null) {
-            return clubService.getProfile(clubService.getId(clubService.getLoginCurrentClub()));
+            return clubService.getProfile(clubService.getIdByLogin(clubService.getLoginCurrentClub()));
         }
         return clubService.getProfile(id);
     }

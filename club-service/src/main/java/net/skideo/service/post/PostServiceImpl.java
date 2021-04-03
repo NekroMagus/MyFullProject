@@ -11,6 +11,7 @@ import net.skideo.service.club.ClubService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDto> getMyPosts(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
-        final IdProjection id = clubService.getIdCurrentClub();
-        return postRepository.findAllByClubId(id.getId(),pageable);
+        final String LOGIN_CURRENT_CLUB = clubService.getLoginCurrentClub();
+        final long ID_CURRENT_CLUB = clubService.getIdByLogin(LOGIN_CURRENT_CLUB);
+        return postRepository.findAllByClubId(ID_CURRENT_CLUB,pageable);
     }
 }

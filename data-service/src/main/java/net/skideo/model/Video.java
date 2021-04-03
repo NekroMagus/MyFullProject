@@ -17,17 +17,15 @@ public class Video extends AbstractComponentEntity {
     private String description;
     private float rating;
 
-
-
-    public Video(String link, Info info) {
-        setInfo(info);
+    public Video(String link, User user) {
+        setUser(user);
         this.videoLink = link;
     }
 
-    public Video(String description,String link, Info info) {
+    public Video(String description,String link, User user) {
         this.description = description;
         this.videoLink = link;
-        setInfo(info);
+        setUser(user);
     }
 
 }

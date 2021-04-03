@@ -21,6 +21,6 @@ public interface ScoutRepository extends BaseRepository<Scout> {
 
     Page<ScoutDto> findAllByRegionAndClubId(String region,long id,Pageable pageable);
 
-    Page<UserShortInfoClubDto> findFavoriteUsersByInfoLogin(String login,Pageable pageable);
+    Page<UserShortInfoClubDto> findFavoriteUsersByUserLogin(String login,Pageable pageable);
 
 }
