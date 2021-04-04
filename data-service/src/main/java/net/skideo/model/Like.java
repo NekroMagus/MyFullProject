@@ -17,7 +17,6 @@ public class Like extends BaseEntity {
     private Rating rating;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "info_id")
     private User user;
 
     public Like(Rating rating, User user) {

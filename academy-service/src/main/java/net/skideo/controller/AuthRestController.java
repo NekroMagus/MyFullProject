@@ -5,15 +5,19 @@ import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.RegAcademyDto;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.model.Academy;
+import net.skideo.model.City;
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.academy.AcademyService;
+import net.skideo.service.city.CityService;
+import net.skideo.service.country.CountryService;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +26,8 @@ public class AuthRestController {
 
     private final AcademyService academyService;
     private final UserService userService;
+    private final CountryService countryService;
+    private final CityService cityService;
     private final AuthServiceFeignClient feignClient;
 
     @Value("${security.oauth2.client.clientId}")
@@ -37,8 +43,8 @@ public class AuthRestController {
             throw new AlreadyExistsException("Academy already exists");
         }
 
-        User user = new User(regAcademyDto.getLogin(),regAcademyDto.getPassword(),regAcademyDto.getCity(),
-                             regAcademyDto.getCountry(),regAcademyDto.getTitle(), ServiceRole.ACADEMY);
+        User user = new User(regAcademyDto.getLogin(),regAcademyDto.getPassword(),cityService.getCity(regAcademyDto.getCity()),
+                             countryService.getCountry(regAcademyDto.getCountry()),regAcademyDto.getTitle(), ServiceRole.ACADEMY);
 
         academyService.createAcademy(new Academy(user,regAcademyDto.getNumberPlayers()));
 

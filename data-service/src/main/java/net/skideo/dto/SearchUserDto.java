@@ -21,7 +21,7 @@ public class SearchUserDto {
         this.login = player.getUser().getLogin();
         this.roleFootball = player.getUser().getRoleFootball();
         this.age = getAge(player.getBirthDate());
-        this.country = player.getUser().getCountry();
+        this.country = player.getUser().getCountry().getName();
     }
 
     private int getAge(LocalDate birth) {

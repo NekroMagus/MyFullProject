@@ -25,8 +25,10 @@ public class User extends AbstractEntity {
     private String email;
     private String name;
     private String surname;
-    private String city;
-    private String country;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private City city;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Country country;
     @Enumerated(value = EnumType.STRING)
     private ServiceRole serviceRole;
 
@@ -45,7 +47,7 @@ public class User extends AbstractEntity {
         this.serviceRole=serviceRole;
     }
 
-    public User(String login,String password,String city,String country,String title,ServiceRole serviceRole) {
+    public User(String login,String password,City city,Country country,String title,ServiceRole serviceRole) {
         this.login=login;
         this.password=password;
         this.city = city;
@@ -58,6 +60,13 @@ public class User extends AbstractEntity {
         this.login=login;
         this.password=password;
         this.rolePeople=rolePeople;
+        this.serviceRole=serviceRole;
+    }
+
+    public User(String login,String password,String name,ServiceRole serviceRole) {
+        this.login=login;
+        this.password=password;
+        this.name=name;
         this.serviceRole=serviceRole;
     }
 

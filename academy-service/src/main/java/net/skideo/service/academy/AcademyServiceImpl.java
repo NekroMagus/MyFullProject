@@ -6,6 +6,8 @@ import net.skideo.model.Academy;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.AcademyRepository;
 import lombok.RequiredArgsConstructor;
+import net.skideo.service.city.CityService;
+import net.skideo.service.country.CountryService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,8 @@ import java.util.logging.Logger;
 public class AcademyServiceImpl implements AcademyService {
 
     private final AcademyRepository academyRepository;
+    private final CountryService countryService;
+    private final CityService cityService;
     private final PasswordEncoder passwordEncoder;
 
     private final Logger LOG = Logger.getLogger(AcademyServiceImpl.class.getName());
@@ -64,12 +68,12 @@ public class AcademyServiceImpl implements AcademyService {
         Academy dbAcademy = getCurrentAcademy();
 
         if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
-            dbAcademy.getUser().setCity(academyProfileDto.getCity());
+            dbAcademy.getUser().setCity(cityService.getCity(academyProfileDto.getCity()));
         }
-        if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
-            dbAcademy.getUser().setCountry(academyProfileDto.getCountry());
+        if(StringUtils.isNotBlank(academyProfileDto.getCountry())) {
+            dbAcademy.getUser().setCountry(countryService.getCountry(academyProfileDto.getCountry()));
         }
-        if(StringUtils.isNotBlank(academyProfileDto.getCity())) {
+        if(StringUtils.isNotBlank(academyProfileDto.getTitleClub())) {
             dbAcademy.getUser().setName(academyProfileDto.getTitleClub());
         }
 

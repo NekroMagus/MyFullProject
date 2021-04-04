@@ -30,8 +30,12 @@ public class UserProfileDto {
         this.roleFootball = player.getUser().getRoleFootball();
         this.name = player.getUser().getName();
         this.surname = player.getUser().getSurname();
-        this.city = player.getUser().getCity();
-        this.country = player.getUser().getCountry();
+        if(player.getUser().getCountry()!=null) {
+            this.country = player.getUser().getCountry().getName();
+        }
+        if(player.getUser().getCity()!=null) {
+            this.city = player.getUser().getCity().getName();
+        }
         this.leadingLeg = player.getLeadingLeg();
         this.rolePeople = player.getUser().getRolePeople();
         if(player.getClub()!=null) {

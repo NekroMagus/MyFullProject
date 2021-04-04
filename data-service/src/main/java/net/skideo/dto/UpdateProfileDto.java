@@ -16,10 +16,12 @@ import javax.validation.constraints.Size;
 public class UpdateProfileDto {
 
     @NotBlank
-    @Size(min=2)
     private String name;
     @NotBlank
-    @Size(min=2)
     private String surname;
+    @NotBlank
+    private String city;
+    @NotBlank
+    private String country;
 
 }

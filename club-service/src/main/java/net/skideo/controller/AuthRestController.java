@@ -38,7 +38,7 @@ public class AuthRestController {
             throw new AlreadyExistsException("Club already exists");
         }
 
-        User user = new User(regDto.getLogin(),regDto.getLogin(),regDto.getLogin(),regDto.getPassword(),regDto.getTitle(), ServiceRole.CLUB);
+        User user = new User(regDto.getLogin(),regDto.getPassword(),regDto.getTitle(), ServiceRole.CLUB);
 
         clubService.save(new Club(user,regDto.getLogoLink()));
 

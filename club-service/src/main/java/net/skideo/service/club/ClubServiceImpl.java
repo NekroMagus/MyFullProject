@@ -7,6 +7,8 @@ import net.skideo.dto.projections.IdProjection;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.*;
 import net.skideo.repository.ClubRepository;
+import net.skideo.service.city.CityService;
+import net.skideo.service.country.CountryService;
 import net.skideo.service.player.PlayerService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,8 @@ public class ClubServiceImpl implements ClubService {
 
     private final ClubRepository clubRepository;
     private final PlayerService playerService;
+    private final CountryService countryService;
+    private final CityService cityService;
     private final PasswordEncoder encoder;
 
     @Override
@@ -69,6 +73,12 @@ public class ClubServiceImpl implements ClubService {
         }
         if(StringUtils.isNotBlank(profile.getTitleClub())) {
             dbClub.getUser().setName(profile.getTitleClub());
+        }
+        if(StringUtils.isNotBlank(profile.getCountry())) {
+            dbClub.getUser().setCountry(countryService.getCountry(profile.getCountry()));
+        }
+        if(StringUtils.isNotBlank(profile.getCity())) {
+            dbClub.getUser().setCity(cityService.getCity(profile.getCity()));
         }
 
         clubRepository.save(dbClub);

@@ -32,7 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
     public Page<SearchDto> search(String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople,
                                   LeadingLeg leadingLeg, LocalDate dateOfBirth, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return playerRepository.findAllByUserCountryOrUserRoleFootballOrHasAgentOrUserRolePeopleOrLeadingLegOrBirthDate(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth,pageable);
+        return playerRepository.findAllByUserCountryNameOrUserRoleFootballOrHasAgentOrUserRolePeopleOrLeadingLegOrBirthDate(country,roleFootball,agent,rolePeople,leadingLeg,dateOfBirth,pageable);
     }
 
     @Override

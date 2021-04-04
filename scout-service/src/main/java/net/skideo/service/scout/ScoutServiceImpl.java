@@ -6,6 +6,8 @@ import net.skideo.dto.*;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Player;
 import net.skideo.model.Scout;
+import net.skideo.service.city.CityService;
+import net.skideo.service.country.CountryService;
 import net.skideo.service.player.PlayerService;
 import net.skideo.service.video.VideoService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +28,9 @@ public class ScoutServiceImpl implements ScoutService {
     private final ScoutRepository scoutRepository;
     private final PlayerService playerService;
     private final VideoService videoService;
+    private final CityService cityService;
+    private final CountryService countryService;
     private final PasswordEncoder encoder;
-    private final AuthServiceFeignClient feignClient;
 
     @Override
     public Scout findById(long id) {
@@ -58,6 +61,13 @@ public class ScoutServiceImpl implements ScoutService {
         }
         if (StringUtils.isNotBlank(dto.getSurname())) {
             scout.getUser().setSurname(dto.getSurname());
+        }
+
+        if (StringUtils.isNotBlank(dto.getCity())) {
+            scout.getUser().setCity(cityService.getCity(dto.getCity()));
+        }
+        if (StringUtils.isNotBlank(dto.getCountry())) {
+            scout.getUser().setCountry(countryService.getCountry(dto.getCountry()));
         }
 
         scoutRepository.save(scout);

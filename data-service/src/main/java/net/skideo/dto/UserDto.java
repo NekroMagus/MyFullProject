@@ -41,8 +41,8 @@ public class UserDto {
         this.email = player.getUser().getEmail();
         this.phone = player.getPhone();
         this.birthDate = player.getBirthDate();
-        this.country = player.getUser().getCountry();
-        this.city = player.getUser().getCity();
+        this.country = player.getUser().getCountry().getName();
+        this.city = player.getUser().getCity().getName();
         this.linkSocialNetwork = player.getLinkSocialNetwork();
         this.leadingLeg = player.getLeadingLeg();
         this.agent = player.isHasAgent();

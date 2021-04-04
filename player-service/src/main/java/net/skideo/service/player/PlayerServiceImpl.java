@@ -9,6 +9,8 @@ import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.PlayerRepository;
+import net.skideo.service.city.CityService;
+import net.skideo.service.country.CountryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,8 @@ import java.util.List;
 public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository repository;
+    private final CityService cityService;
+    private final CountryService countryService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -75,10 +79,10 @@ public class PlayerServiceImpl implements PlayerService {
             player.setBirthDate(dto.getBirthDate());
         }
         if (StringUtils.isNotBlank(dto.getCountry())) {
-            player.getUser().setCountry(dto.getCountry());
+            player.getUser().setCountry(countryService.getCountry(dto.getCountry()));
         }
         if (StringUtils.isNotBlank(dto.getCity())) {
-            player.getUser().setCity(dto.getCity());
+            player.getUser().setCity(cityService.getCity(dto.getCity()));
         }
         if (StringUtils.isNotBlank(dto.getLinkSocialNetwork())) {
             player.setLinkSocialNetwork(dto.getLinkSocialNetwork());
@@ -102,13 +106,13 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> findByCountry(String country) {
-        return findByCountry(country);
+        return repository.findByUserCountryName(country);
     }
 
     @Override
     public List<Player> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
                                                                         RoleFootball roleFootball, String country) {
-        return repository.findByBirthDateBetweenAndUserRoleFootballAndUserCountry(birth, now, roleFootball, country);
+        return repository.findByBirthDateBetweenAndUserRoleFootballAndUserCountryName(birth, now, roleFootball, country);
     }
 
     @Override
@@ -118,12 +122,12 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> findByBirthDateBetweenAndCountry(LocalDate birth, LocalDate now, String country) {
-        return repository.findByBirthDateBetweenAndUserCountry(birth, now, country);
+        return repository.findByBirthDateBetweenAndUserCountryName(birth, now, country);
     }
 
     @Override
     public List<Player> findByRoleFootballAndCountry(RoleFootball roleFootball, String country) {
-        return repository.findByUserRoleFootballAndUserCountry(roleFootball, country);
+        return repository.findByUserRoleFootballAndUserCountryName(roleFootball, country);
     }
 
     @Override
