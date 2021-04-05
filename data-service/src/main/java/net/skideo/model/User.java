@@ -25,9 +25,9 @@ public class User extends AbstractEntity {
     private String email;
     private String name;
     private String surname;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private City city;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Country country;
     @Enumerated(value = EnumType.STRING)
     private ServiceRole serviceRole;
