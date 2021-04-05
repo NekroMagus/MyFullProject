@@ -16,7 +16,7 @@ public class Club extends AbstractUserEntity {
 
     private String logoLink;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Player> favoritePlayers = new LinkedHashSet<>();
 
     public Club(User user, String logoLink) {
