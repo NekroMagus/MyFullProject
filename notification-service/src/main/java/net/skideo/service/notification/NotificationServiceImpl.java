@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
 import java.util.logging.Logger;
 
 @Service
@@ -39,7 +38,6 @@ public class NotificationServiceImpl implements NotificationService {
         Player player = playerService.getUserById(idUser);
 
         Notification notification = new Notification(notificationEnum, message, currentUser, player.getUser());
-
         player.getUser().getNotification().add(notification);
 
         playerService.save(player);
