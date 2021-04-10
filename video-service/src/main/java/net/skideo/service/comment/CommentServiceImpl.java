@@ -69,7 +69,6 @@ public class CommentServiceImpl implements CommentService {
 
         Like newLike = new Like(ratingDto.getRating(), currentUser);
 
-        comment.setRating((comment.getLikes().size() * comment.getRating() + ratingDto.getRating().getRating()) / (comment.getLikes().size()+1));
         comment.getLikes().add(newLike);
 
         save(comment);

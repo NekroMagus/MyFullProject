@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -33,4 +34,8 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 
     List<Video> findAllByUserServiceRole(ServiceRole serviceRole);
 
+    @Query(value = "select new net.skideo.dto.VideoDto(v) from Video v inner join v.likes l group by v.id order by cast(sum(l.rating) as float)/v.likes.size", countQuery = "select count(v) from Video v")
+    Page<VideoDto> findPopularVideoByUserServiceRole(ServiceRole serviceRole,Pageable pageable);
+
 }
+

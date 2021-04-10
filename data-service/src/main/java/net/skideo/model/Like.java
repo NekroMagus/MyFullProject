@@ -1,5 +1,6 @@
 package net.skideo.model;
 
+import net.skideo.converter.RatingConverter;
 import net.skideo.model.abstracts.BaseEntity;
 import net.skideo.model.enums.Rating;
 import lombok.Data;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "likes")
 public class Like extends BaseEntity {
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = RatingConverter.class)
     private Rating rating;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

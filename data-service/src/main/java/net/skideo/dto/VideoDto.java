@@ -19,7 +19,6 @@ public class VideoDto {
     private String videoLink;
     private String description;
     private UserShortInfoDto author;
-    private float rating;
     private Set<LikeDto> likes = new LinkedHashSet<>();
     private List<CommentDto> comments = new LinkedList<>();
     private String dateCreated;
@@ -28,7 +27,6 @@ public class VideoDto {
         this.id = video.getId();
         this.videoLink = video.getLink();
         this.description = video.getDescription();
-        this.rating = video.getRating();
         this.author = new UserShortInfoDto(video.getUser());
         this.likes = video.getLikes()
                 .stream()

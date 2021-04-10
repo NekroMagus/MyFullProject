@@ -35,9 +35,8 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public Page<VideoDto> getPopularVideos(int page, int size) {
-        User currentUser = userService.getCurrentUser();
-        Pageable pageable = PageRequest.of(page,size, Sort.by("rating"));
-        return repository.findByUserIdNotAndUserServiceRole(currentUser.getId(),ServiceRole.PLAYER,pageable);
+        Pageable pageable = PageRequest.of(page,size);
+        return repository.findPopularVideoByUserServiceRole(ServiceRole.PLAYER,pageable);
     }
 
     @Override
@@ -63,8 +62,10 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void createVideo(String link) {
         User currentUser = userService.getCurrentUser();
-        Video video = new Video(link,currentUser);
-        save(video);
+        if(currentUser.getServiceRole()==ServiceRole.PLAYER || currentUser.getServiceRole()==ServiceRole.ACADEMY) {
+            Video video = new Video(link, currentUser);
+            save(video);
+        }
     }
 
     @Override
@@ -82,7 +83,6 @@ public class VideoServiceImpl implements VideoService {
 
         Like newLike = new Like(dto.getRating(),currentUser);
 
-        video.setRating((video.getLikes().size() * video.getRating() + dto.getRating().getRating()) / (video.getLikes().size()+1));
         video.getLikes().add(newLike);
 
         save(video);

@@ -15,7 +15,6 @@ public class Video extends AbstractComponentEntity {
 
     private String link;
     private String description;
-    private float rating;
 
     public Video(String link, User user) {
         setUser(user);

@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 public class VideoRestController {
 
     private final VideoService videoService;
-    private final VideoRepository repository;
 
     @PostMapping
     public void addVideo(@Valid @RequestBody VideoLinkDto videoLinkDto) {
@@ -62,11 +61,6 @@ public class VideoRestController {
     @PostMapping("/estimate")
     public void estimateVideo(@Valid @RequestBody RatingDto ratingDto) {
         videoService.estimateVideo(ratingDto);
-    }
-
-    @GetMapping("/all")
-    public List<Video> all() {
-        return repository.findAllByUserServiceRole(ServiceRole.PLAYER);
     }
 
 }

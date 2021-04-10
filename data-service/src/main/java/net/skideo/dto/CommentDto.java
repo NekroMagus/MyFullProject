@@ -14,7 +14,6 @@ public class CommentDto {
 
     private long id;
     private String text;
-    private float rating;
     private UserNSDto user;
     private List<LikeDto> likes;
     private List<CommentDto> innerComments;
@@ -23,7 +22,6 @@ public class CommentDto {
     public CommentDto(Comment comment) {
         this.id=comment.getId();
         this.text=comment.getText();
-        this.rating=comment.getRating();
         this.user=new UserNSDto(comment.getUser());
         this.likes = comment.getLikes()
                 .stream()

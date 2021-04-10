@@ -13,7 +13,6 @@ import javax.persistence.*;
 public class Comment extends AbstractComponentEntity {
 
     private String text;
-    private float rating;
 
     private boolean isInnerComment;
 
