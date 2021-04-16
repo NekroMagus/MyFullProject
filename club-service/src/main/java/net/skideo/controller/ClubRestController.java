@@ -1,16 +1,20 @@
 package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
 import net.skideo.exception.ClubNotFoundException;
 import net.skideo.model.Club;
 import net.skideo.repository.ClubRepository;
 import net.skideo.service.club.ClubService;
 import net.skideo.service.scout.ScoutService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,7 +27,14 @@ public class ClubRestController {
 
     private final ClubService clubService;
     private final ScoutService scoutService;
+    private final AuthServiceFeignClient feignClient;
     private final ClubRepository clubRepository;
+
+    @Value("${security.oauth2.client.clientId}")
+    private String clientId;
+
+    @Value("${security.oauth2.client.clientSecret}")
+    private String clientSecret;
 
     @GetMapping("/profile")
     public ClubProfileDto getProfile(@RequestParam(required = false) Long id) {
@@ -46,8 +57,10 @@ public class ClubRestController {
     }
 
     @PutMapping("/auth")
-    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@RequestBody AuthDto authDto) {
-        clubService.updateLoginAndPassword(token,authDto);
+    public ResponseEntity<OAuth2AccessToken> updateLoginAndPassword(@RequestBody AuthDto authDto) {
+        clubService.updateLoginAndPassword(authDto);
+
+        return feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password");
     }
 
     @PostMapping("/user/favorite/{id}")

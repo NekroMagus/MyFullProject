@@ -8,6 +8,5 @@ public class UserShortInfoDto extends InfoDto {
     public UserShortInfoDto(User user) {
         setName(user.getName());
         setSurname(user.getSurname());
-        setRoleFootball(user.getRoleFootball());
     }
 }

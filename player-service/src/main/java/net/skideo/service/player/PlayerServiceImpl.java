@@ -1,7 +1,9 @@
 package net.skideo.service.player;
 
+import net.skideo.dto.AuthDto;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserProfileDto;
+import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Player;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +13,13 @@ import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.PlayerRepository;
 import net.skideo.service.city.CityService;
 import net.skideo.service.country.CountryService;
+import net.skideo.service.user.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,7 +29,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository repository;
     private final CityService cityService;
-    private final CountryService countryService;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -55,9 +60,28 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    @Transactional
+    public void updateLoginAndPassword(AuthDto authDto) {
+        Player currentPlayer = getCurrentUser();
+
+        if(StringUtils.isNotBlank(authDto.getLogin())) {
+            if(userService.isExistsByLogin(authDto.getLogin())) {
+                throw new AlreadyExistsException("User already exists");
+            }
+            currentPlayer.getUser().setLogin(authDto.getLogin());
+        }
+        if(StringUtils.isNotBlank(authDto.getPassword())) {
+            currentPlayer.getUser().setPassword(passwordEncoder.encode(authDto.getPassword()));
+        }
+
+        repository.save(currentPlayer);
+    }
+
+    @Override
+    @Transactional
     public Player editUser(UserDto dto) {
         Player player = getCurrentUser();
-        if (player.getUser().getRolePeople() == RolePeople.AMATEUR && dto.isAgent()) {
+        if (player.getRolePeople() == RolePeople.AMATEUR && dto.isAgent()) {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
         if (StringUtils.isNotBlank(dto.getEmail())) {
@@ -70,7 +94,7 @@ public class PlayerServiceImpl implements PlayerService {
             player.getUser().setSurname(dto.getSurname());
         }
         if (dto.getRoleFootball() != null) {
-            player.getUser().setRoleFootball(dto.getRoleFootball());
+            player.setRoleFootball(dto.getRoleFootball());
         }
         if (StringUtils.isNotBlank(dto.getPhone())) {
             player.setPhone(dto.getPhone());
@@ -98,7 +122,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> findByRoleFootball(RoleFootball roleFootball) {
-        return repository.findByUserRoleFootball(roleFootball);
+        return repository.findByRoleFootball(roleFootball);
     }
 
     @Override
@@ -109,12 +133,12 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public List<Player> findByBirthDateBetweenAndRoleFootballAndCountry(LocalDate birth, LocalDate now,
                                                                         RoleFootball roleFootball, String country) {
-        return repository.findByBirthDateBetweenAndUserRoleFootballAndUserCityCountryName(birth, now, roleFootball, country);
+        return repository.findByBirthDateBetweenAndRoleFootballAndUserCityCountryName(birth, now, roleFootball, country);
     }
 
     @Override
     public List<Player> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball) {
-        return repository.findByBirthDateBetweenAndUserRoleFootball(birth, now, roleFootball);
+        return repository.findByBirthDateBetweenAndRoleFootball(birth, now, roleFootball);
     }
 
     @Override
@@ -124,7 +148,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> findByRoleFootballAndCountry(RoleFootball roleFootball, String country) {
-        return repository.findByUserRoleFootballAndUserCityCountryName(roleFootball, country);
+        return repository.findByRoleFootballAndUserCityCountryName(roleFootball, country);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class UserDto {
         this.id = player.getId();
         this.name = player.getUser().getName();
         this.surname = player.getUser().getSurname();
-        this.roleFootball = player.getUser().getRoleFootball();
+        this.roleFootball = player.getRoleFootball();
         this.email = player.getUser().getEmail();
         this.phone = player.getPhone();
         this.birthDate = player.getBirthDate();

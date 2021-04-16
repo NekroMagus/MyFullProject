@@ -9,7 +9,7 @@ public class UserShortInfoAcademyDto extends InfoDto {
     public UserShortInfoAcademyDto(Player players) {
         setName(players.getUser().getName());
         setSurname(players.getUser().getSurname());
-        setRoleFootball(players.getUser().getRoleFootball());
+        setRoleFootball(players.getRoleFootball());
     }
 
 }

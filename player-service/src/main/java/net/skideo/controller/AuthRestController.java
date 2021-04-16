@@ -46,9 +46,13 @@ public class AuthRestController {
             throw new IllegalArgumentException("Amateur player can not have agent");
         }
 
-        User user = new User(userRegistrationDto.getLogin(),userRegistrationDto.getPassword(),userRegistrationDto.getRolePeople(),ServiceRole.PLAYER);
+        User user = new User(userRegistrationDto.getLogin(),userRegistrationDto.getPassword(),ServiceRole.PLAYER);
 
-        playerService.create(new Player(user,userRegistrationDto.isHasAgent()));
+        Player player = new Player(user,userRegistrationDto.getRolePeople(),userRegistrationDto.isHasAgent());
+
+        user.setPlayer(player);
+
+        playerService.create(player);
 
         ResponseEntity<OAuth2AccessToken> response = feignClient.generateToken(userRegistrationDto.getLogin(), userRegistrationDto.getPassword(), clientId,
                 clientSecret, "password");

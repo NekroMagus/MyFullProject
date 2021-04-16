@@ -27,17 +27,17 @@ public class UserProfileDto {
     private LocalDate birthDate;
 
     public UserProfileDto(Player player) {
-        this.roleFootball = player.getUser().getRoleFootball();
+        this.roleFootball = player.getRoleFootball();
         this.name = player.getUser().getName();
         this.surname = player.getUser().getSurname();
-        if(player.getUser().getCity().getCountry()!=null) {
+        if(player.getUser().getCity()!=null && player.getUser().getCity().getCountry()!=null) {
             this.country = player.getUser().getCity().getCountry().getName();
         }
         if(player.getUser().getCity()!=null) {
             this.city = player.getUser().getCity().getName();
         }
         this.leadingLeg = player.getLeadingLeg();
-        this.rolePeople = player.getUser().getRolePeople();
+        this.rolePeople = player.getRolePeople();
         if(player.getClub()!=null) {
             this.club = new ClubProfileDto(player.getClub());
         }

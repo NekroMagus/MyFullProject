@@ -3,12 +3,14 @@ package net.skideo.service.scout;
 
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
+import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Player;
 import net.skideo.model.Scout;
 import net.skideo.service.city.CityService;
 import net.skideo.service.country.CountryService;
 import net.skideo.service.player.PlayerService;
+import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.repository.ScoutRepository;
@@ -29,7 +31,7 @@ public class ScoutServiceImpl implements ScoutService {
     private final PlayerService playerService;
     private final VideoService videoService;
     private final CityService cityService;
-    private final CountryService countryService;
+    private final UserService userService;
     private final PasswordEncoder encoder;
 
     @Override
@@ -71,10 +73,13 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public void updateLoginAndPassword(String token, AuthDto authDto) {
+    public void updateLoginAndPassword(AuthDto authDto) {
         Scout dbScout = getCurrentScout();
 
         if (StringUtils.isNotBlank(authDto.getLogin())) {
+            if(userService.isExistsByLogin(authDto.getLogin())) {
+                throw new AlreadyExistsException("User already exists");
+            }
             dbScout.getUser().setLogin(authDto.getLogin());
         }
         if (StringUtils.isNotBlank(authDto.getPassword())) {

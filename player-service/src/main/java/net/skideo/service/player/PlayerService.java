@@ -1,5 +1,6 @@
 package net.skideo.service.player;
 
+import net.skideo.dto.AuthDto;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserProfileDto;
 import net.skideo.model.Player;
@@ -15,6 +16,8 @@ public interface PlayerService {
     Player findById(long id);
 
     Player findByLogin(String login);
+
+    void updateLoginAndPassword(AuthDto authDto);
 
     Player editUser(UserDto userDto);
 

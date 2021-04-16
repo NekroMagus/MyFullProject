@@ -52,7 +52,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Page<UserShortInfoDto> getAmateurPlayers(Pageable pageable) {
-        return repository.findUsersByUserRolePeople(RolePeople.AMATEUR,pageable);
+        return repository.findUsersByRolePeople(RolePeople.AMATEUR,pageable);
     }
 
     @Override

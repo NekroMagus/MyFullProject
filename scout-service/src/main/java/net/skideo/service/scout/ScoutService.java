@@ -15,7 +15,7 @@ public interface ScoutService {
 
     void updateProfile(UpdateProfileDto profile);
 
-    void updateLoginAndPassword(String token,AuthDto authDto);
+    void updateLoginAndPassword(AuthDto authDto);
 
     void addUserToFavorite(long idUser);
 

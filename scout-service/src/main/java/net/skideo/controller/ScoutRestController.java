@@ -1,14 +1,18 @@
 package net.skideo.controller;
 
 
+import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
 import net.skideo.model.Player;
 import net.skideo.repository.PlayerRepository;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -18,7 +22,14 @@ import java.util.List;
 public class ScoutRestController {
 
     private final ScoutService scoutService;
+    private final AuthServiceFeignClient feignClient;
     private final PlayerRepository playerRepository;
+
+    @Value("${security.oauth2.client.clientId}")
+    private String clientId;
+
+    @Value("${security.oauth2.client.clientSecret}")
+    private String clientSecret;
 
     // для тестов
     /* ------------------------------------------------- */
@@ -44,8 +55,10 @@ public class ScoutRestController {
     }
 
     @PutMapping("/auth")
-    public void updateLoginAndPassword(@RequestHeader("Authorization") String token,@RequestBody AuthDto authDto) {
-        scoutService.updateLoginAndPassword(token,authDto);
+    public ResponseEntity<OAuth2AccessToken> updateLoginAndPassword(@RequestBody AuthDto authDto) {
+        scoutService.updateLoginAndPassword(authDto);
+
+        return feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password");
     }
 
     @PostMapping("/user/favorite/{id}")

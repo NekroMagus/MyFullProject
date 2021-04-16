@@ -8,7 +8,7 @@ public class UserShortInfoClubDto extends InfoDto {
     public UserShortInfoClubDto(Player favoriteUsers) {
         setName(favoriteUsers.getUser().getName());
         setSurname(favoriteUsers.getUser().getSurname());
-        setRoleFootball(favoriteUsers.getUser().getRoleFootball());
+        setRoleFootball(favoriteUsers.getRoleFootball());
     }
 
 }

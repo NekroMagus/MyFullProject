@@ -4,6 +4,7 @@ import lombok.*;
 import net.skideo.model.abstracts.AbstractUserEntity;
 import net.skideo.model.enums.Role;
 import net.skideo.model.enums.LeadingLeg;
+import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
@@ -23,19 +24,22 @@ public class Player extends AbstractUserEntity {
 
     @Enumerated(value = EnumType.STRING)
     private LeadingLeg leadingLeg;
+    @Enumerated(value = EnumType.STRING)
+    private RoleFootball roleFootball;
+    @Enumerated(value = EnumType.STRING)
+    private RolePeople rolePeople;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
 
     private boolean hasAgent;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-
     private String linkSocialNetwork;
 
-    public Player(User user, boolean hasAgent) {
+    public Player(User user,RolePeople rolePeople, boolean hasAgent) {
         setUser(user);
+        this.rolePeople=rolePeople;
         this.hasAgent = hasAgent;
 
         this.role = Role.UNCONFIRMED;

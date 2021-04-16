@@ -22,22 +22,22 @@ public interface PlayerRepository extends BaseRepository<Player> {
 
     List<Player> findByBirthDateBetween(LocalDate birth, LocalDate now);
 
-    List<Player> findByUserRoleFootball(RoleFootball roleFootball);
+    List<Player> findByRoleFootball(RoleFootball roleFootball);
 
-    List<Player> findByBirthDateBetweenAndUserRoleFootballAndUserCityCountryName(LocalDate birth, LocalDate now,
+    List<Player> findByBirthDateBetweenAndRoleFootballAndUserCityCountryName(LocalDate birth, LocalDate now,
                                                                          RoleFootball roleFootball, String name);
 
-    List<Player> findByBirthDateBetweenAndUserRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
+    List<Player> findByBirthDateBetweenAndRoleFootball(LocalDate birth, LocalDate now, RoleFootball roleFootball);
 
     List<Player> findByBirthDateBetweenAndUserCityCountryName(LocalDate birth, LocalDate now, String name);
 
-    List<Player> findByUserRoleFootballAndUserCityCountryName(RoleFootball roleFootball, String name);
+    List<Player> findByRoleFootballAndUserCityCountryName(RoleFootball roleFootball, String name);
 
     Page<Player> findAll(Pageable pageable);
 
-    Page<UserShortInfoDto> findUsersByUserRolePeople(RolePeople rolePeople, Pageable pageable);
+    Page<UserShortInfoDto> findUsersByRolePeople(RolePeople rolePeople, Pageable pageable);
 
-    Page<SearchDto> findAllByUserCityCountryNameOrUserRoleFootballOrHasAgentOrUserRolePeopleOrLeadingLegOrBirthDate(String name, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
+    Page<SearchDto> findAllByUserCityCountryNameOrRoleFootballOrHasAgentOrRolePeopleOrLeadingLegOrBirthDate(String name, RoleFootball roleFootball, boolean agent, RolePeople rolePeople, LeadingLeg leadingLeg, LocalDate birthDate, Pageable pageable);
 
     List<Player> findByUserCityCountryName(String name);
 

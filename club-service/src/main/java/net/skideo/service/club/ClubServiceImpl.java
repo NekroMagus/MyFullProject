@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
 import net.skideo.dto.projections.IdProjection;
+import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.*;
 import net.skideo.repository.ClubRepository;
 import net.skideo.service.city.CityService;
 import net.skideo.service.country.CountryService;
 import net.skideo.service.player.PlayerService;
+import net.skideo.service.user.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +25,7 @@ public class ClubServiceImpl implements ClubService {
 
     private final ClubRepository clubRepository;
     private final PlayerService playerService;
-    private final CountryService countryService;
+    private final UserService userService;
     private final CityService cityService;
     private final PasswordEncoder encoder;
 
@@ -82,10 +84,13 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void updateLoginAndPassword(String token, AuthDto authDto) {
+    public void updateLoginAndPassword(AuthDto authDto) {
         Club dbClub = getCurrentClub();
 
         if(StringUtils.isNotBlank(authDto.getLogin())) {
+            if(userService.isExistsByLogin(authDto.getLogin())) {
+                throw new AlreadyExistsException("User already exists");
+            }
             dbClub.getUser().setLogin(authDto.getLogin());
         }
         if(StringUtils.isNotBlank(authDto.getPassword())) {

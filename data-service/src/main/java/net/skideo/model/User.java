@@ -10,8 +10,6 @@ import net.skideo.model.enums.ServiceRole;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -35,14 +33,10 @@ public class User extends AbstractEntity {
     private ServiceRole serviceRole;
 
     @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.LAZY)
-    private Set<Notification> notification = new LinkedHashSet<>();
+    private Set<Notification> notifications = new LinkedHashSet<>();
 
-    /* Fields for players */
-    @Enumerated(value = EnumType.STRING)
-    private RoleFootball roleFootball;
-    @Enumerated(value = EnumType.STRING)
-    private RolePeople rolePeople;
-    /* ------------------ */
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    private Player player;
 
     public User(String login,String password,String name,String surname,ServiceRole serviceRole) {
         this.login=login;
@@ -60,10 +54,9 @@ public class User extends AbstractEntity {
         this.serviceRole=serviceRole;
     }
 
-    public User(String login,String password,RolePeople rolePeople,ServiceRole serviceRole) {
+    public User(String login,String password,ServiceRole serviceRole) {
         this.login=login;
         this.password=password;
-        this.rolePeople=rolePeople;
         this.serviceRole=serviceRole;
     }
 
