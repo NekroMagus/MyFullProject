@@ -94,9 +94,6 @@ public class ScoutServiceImpl implements ScoutService {
         Scout currentScout = getCurrentScout();
         Player player = playerService.findById(idUser);
 
-        if (currentScout.getFavoritePlayers() == null) {
-            currentScout.setFavoritePlayers(new LinkedHashSet<>());
-        }
         currentScout.getFavoritePlayers().add(player);
 
         scoutRepository.save(currentScout);

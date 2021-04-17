@@ -1,6 +1,5 @@
 package net.skideo.controller;
 
-import net.skideo.exception.WrongLoginOrPasswordException;
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.user.UserService;
@@ -26,10 +25,6 @@ public class AuthRestController {
 
         if (user.getServiceRole() != serviceRole) {
             throw new IllegalAccessException();
-        }
-
-        if (!userService.isPasswordCorrect(password, user.getPassword())) {
-            throw new WrongLoginOrPasswordException();
         }
 
         Map<String, String> parameters = new HashMap<>();
