@@ -18,8 +18,8 @@ public class NotificationInfoDto {
     private String dateCreated;
 
     public NotificationInfoDto(Notification notification) {
-        this.notificationValue=notification.getNotificationEnum().getNotification();
-        this.academyTitle=notification.getSenderUser().getName();
+        this.notificationValue=notification.getNotificationType().getNotification();
+        this.academyTitle=notification.getFrom().getName();
         this.text=notification.getMessage();
         this.dateCreated = OffsetDateTime.of(notification.getCreated(), ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSSxxx"));
     }

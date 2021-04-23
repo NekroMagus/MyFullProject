@@ -21,7 +21,6 @@ public class Player extends AbstractUserEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String phone;
-
     @Enumerated(value = EnumType.STRING)
     private LeadingLeg leadingLeg;
     @Enumerated(value = EnumType.STRING)

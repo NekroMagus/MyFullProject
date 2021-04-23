@@ -21,7 +21,7 @@ public abstract class AbstractComponentEntity extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private Set<Like> likes=new LinkedHashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private Set<Comment> comments = new LinkedHashSet<>();
 
 }

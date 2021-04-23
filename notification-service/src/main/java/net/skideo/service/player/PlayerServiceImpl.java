@@ -26,7 +26,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player getCurrentUser() {
+    public Player getCurrentPlayer() {
         return findUserByLogin(getLoginCurrentUser());
     }
 

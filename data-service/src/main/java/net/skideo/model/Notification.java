@@ -3,8 +3,10 @@ package net.skideo.model;
 import lombok.*;
 import net.skideo.model.abstracts.BaseEntity;
 import net.skideo.model.enums.NotificationEnum;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,21 +17,29 @@ import javax.persistence.*;
 public class Notification extends BaseEntity {
 
     private String message;
-
+    private boolean isHighLevel;
     @Enumerated(EnumType.STRING)
-    private NotificationEnum notificationEnum;
+    private NotificationEnum notificationType;
 
     @ManyToOne
-    private User senderUser;
+    private User from;
 
     @ManyToOne
-    private User user;
+    private User to;
 
-    public Notification(NotificationEnum notificationEnum, String message, User senderUser, User user) {
-        this.notificationEnum = notificationEnum;
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private Set<Notification> similarNotifications;
+
+    @ManyToOne(optional = false)
+    private Notification highLevelNotification;
+
+    public Notification(NotificationEnum notificationType, String message, User from, User to,boolean isHighLevel,Notification highLevelNotification) {
+        this.notificationType = notificationType;
         this.message = message;
-        this.senderUser = senderUser;
-        this.user = user;
+        this.from = from;
+        this.to = to;
+        this.isHighLevel=isHighLevel;
+        this.highLevelNotification=highLevelNotification;
     }
 
 }

@@ -13,20 +13,7 @@ import java.util.logging.Logger;
 @MappedSuperclass
 public abstract class AbstractUserEntity extends BaseEntity {
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<User> user = new LinkedList<>();
-
-    public User getUser() {
-        return user.get(0);
-    }
-
-    public void setUser(User user) {
-        if(this.user.isEmpty()) {
-            this.user.add(user);
-        }
-        else {
-            this.user.set(0, user);
-        }
-    }
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    private User user;
 
 }

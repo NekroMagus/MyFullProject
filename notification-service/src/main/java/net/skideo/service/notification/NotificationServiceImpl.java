@@ -16,6 +16,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @Service
@@ -34,23 +39,38 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void addNotification(NotificationEnum notificationEnum, String message, long idUser) {
-        User currentUser = userService.getCurrentUser();
-        Player player = playerService.getUserById(idUser);
+        User currentUser = userService.getCurrentUser(); // from
+        Player player = playerService.getUserById(idUser); // to
 
-        Notification notification = new Notification(notificationEnum, message, currentUser, player.getUser());
-        player.getUser().getNotification().add(notification);
+        Notification similarNotification = getSimilarNotification(notificationEnum,message,player.getUser().getId());
 
-        playerService.save(player);
+        if(similarNotification==null) {
+            Notification notification = new Notification(notificationEnum, message, currentUser, player.getUser(),true,null);
+            player.getUser().getNotifications().add(notification);
 
-        sendNotification(player.getUser().getEmail(),notificationEnum.getNotification() + " from " + currentUser.getName() + ": \n" + message);
+            playerService.save(player);
+
+            sendNotification(player.getUser().getEmail(), notificationEnum.getNotification() + " from " + currentUser.getName() + ": \n" + message);
+        }
+        else {
+            Notification notification = new Notification(notificationEnum,message,currentUser,player.getUser(),false,similarNotification);
+            player.getUser().getNotifications().add(notification);
+
+            similarNotification.getSimilarNotifications().add(notification);
+
+            repository.save(similarNotification);
+
+            Set<Notification> similarNotifications = similarNotification.getSimilarNotifications();
+            sendNotification(player.getUser().getEmail(), notificationEnum.getNotification() + " from " + currentUser.getName() + " and " + (similarNotifications.size()>1 ? similarNotifications.size() + " more people" : get(0,similarNotifications).getFrom().getNameAndSurname()) + ": \n" + similarNotification.getMessage());
+        }
     }
 
     @Override
-    public Page<NotificationInfoDto> getMyNotifications(int page, int size) {
+    public Page<Notification> getMyNotifications(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
-        Player currentPlayer = playerService.getCurrentUser();
+        Player currentPlayer = playerService.getCurrentPlayer();
 
-        return repository.findByUserId(currentPlayer.getId(),pageable);
+        return repository.findByToId(currentPlayer.getUser().getId(),pageable);
     }
 
     private void sendNotification(String email,String message) {
@@ -62,6 +82,27 @@ public class NotificationServiceImpl implements NotificationService {
         mailMessage.setText(message);
 
         mailSender.send(mailMessage);
+    }
+
+    private Notification getSimilarNotification(NotificationEnum notificationType,String message, long idUser) {
+        List<Notification> notifications = repository.findByNotificationTypeAndMessageAndToId(notificationType,message,idUser);
+        for(Notification notification : notifications) {
+            if (Duration.between(LocalDateTime.now(), notification.getCreated()).toHours() <= 5) {
+                return notification;
+            }
+        }
+        return null;
+    }
+
+    private Notification get(int index, Set<Notification> notifications) {
+        int i = 0;
+        for(Notification notification : notifications) {
+            if(i==index) {
+                return notification;
+            }
+            i++;
+        }
+        return null;
     }
 
 }

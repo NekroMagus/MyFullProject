@@ -12,7 +12,7 @@ public class NotificationDto {
     @NotBlank
     private String message;
     @NotNull
-    private NotificationEnum notificationEnum;
+    private NotificationEnum notificationType;
     @NotNull
     private long idUser;
 

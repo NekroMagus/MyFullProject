@@ -77,7 +77,7 @@ public class VideoServiceImpl implements VideoService {
             throw new AlreadyRatedException("You already liked this video");
         }
 
-        if (currentUser.getRolePeople() == video.getUser().getRolePeople()) {
+        if (currentUser.getServiceRole()==ServiceRole.PLAYER && video.getUser().getServiceRole()==ServiceRole.PLAYER && currentUser.getPlayer().getRolePeople() == video.getUser().getPlayer().getRolePeople()) {
             throw new ForbiddenException("Player with same rolePlayer cannot like video each other");
         }
 

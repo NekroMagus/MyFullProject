@@ -8,6 +8,6 @@ public interface PlayerService {
 
     void save(Player player);
 
-    Player getCurrentUser();
+    Player getCurrentPlayer();
 
 }
