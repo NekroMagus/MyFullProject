@@ -46,7 +46,7 @@ public class NotificationServiceImpl implements NotificationService {
         User currentUser = userService.getCurrentUser(); // from
         Player player = playerService.getPlayerById(idUser); // to
 
-        Notification similarNotification = repository.findTopByNotificationTypeAndMessageAndToUserIdAndCreatedBetween(notificationEnum,message,player.getUser().getId(),LocalDateTime.now().minusHours(5),LocalDateTime.now());
+        Notification similarNotification = repository.findFirstByNotificationTypeAndMessageAndToUserIdAndCreatedBetween(notificationEnum,message,player.getUser().getId(),LocalDateTime.now().minusHours(5),LocalDateTime.now());
 
         if(similarNotification==null) {
             Notification notification = new Notification(notificationEnum, message, currentUser, player.getUser(),true,null);
