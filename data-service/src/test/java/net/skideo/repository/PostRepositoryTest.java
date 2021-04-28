@@ -58,7 +58,7 @@ public class PostRepositoryTest {
         );
 
         assertEquals(post.getCountry(),newPost.getCountry());
-        assertEquals(post.isAgent(),newPost.isAgent());
+        assertEquals(post.getAgent(),newPost.getAgent());
     }
 
 }

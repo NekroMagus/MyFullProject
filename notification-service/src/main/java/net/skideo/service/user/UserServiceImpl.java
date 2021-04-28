@@ -14,6 +14,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     @Override
+    public void save(User user) {
+        repository.save(user);
+    }
+
+    @Override
     public User getCurrentUser() {
         final String LOGIN_CURRENT_USER = SecurityContextHolder.getContext().getAuthentication().getName();
         return repository.findByLogin(LOGIN_CURRENT_USER).orElseThrow(

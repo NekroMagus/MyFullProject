@@ -4,7 +4,7 @@ import net.skideo.model.Player;
 
 public interface PlayerService {
 
-    Player getUserById(long idUser);
+    Player getPlayerById(long idUser);
 
     void save(Player player);
 

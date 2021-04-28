@@ -44,6 +44,6 @@ public class UserDto {
         this.city = player.getUser().getCity();
         this.linkSocialNetwork = player.getLinkSocialNetwork();
         this.leadingLeg = player.getLeadingLeg();
-        this.agent = player.isHasAgent();
+        this.agent = player.getHasAgent();
     }
 }

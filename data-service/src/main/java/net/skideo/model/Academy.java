@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name="user_academy")
 public class Academy extends AbstractUserEntity {
 
-    private int numberPlayers;
+    private Integer numberPlayers;
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Player> players = new LinkedHashSet<>();
 

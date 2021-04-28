@@ -17,8 +17,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -38,17 +41,18 @@ public class NotificationServiceImpl implements NotificationService {
     private String username;
 
     @Override
+    @Transactional
     public void addNotification(NotificationEnum notificationEnum, String message, long idUser) {
         User currentUser = userService.getCurrentUser(); // from
-        Player player = playerService.getUserById(idUser); // to
+        Player player = playerService.getPlayerById(idUser); // to
 
-        Notification similarNotification = getSimilarNotification(notificationEnum,message,player.getUser().getId());
+        Notification similarNotification = repository.findTopByNotificationTypeAndMessageAndToUserIdAndCreatedBetween(notificationEnum,message,player.getUser().getId(),LocalDateTime.now().minusHours(5),LocalDateTime.now());
 
         if(similarNotification==null) {
             Notification notification = new Notification(notificationEnum, message, currentUser, player.getUser(),true,null);
             player.getUser().getNotifications().add(notification);
 
-            playerService.save(player);
+            userService.save(player.getUser());
 
             sendNotification(player.getUser().getEmail(), notificationEnum.getNotification() + " from " + currentUser.getName() + ": \n" + message);
         }
@@ -58,19 +62,20 @@ public class NotificationServiceImpl implements NotificationService {
 
             similarNotification.getSimilarNotifications().add(notification);
 
+            userService.save(player.getUser());
             repository.save(similarNotification);
 
-            Set<Notification> similarNotifications = similarNotification.getSimilarNotifications();
-            sendNotification(player.getUser().getEmail(), notificationEnum.getNotification() + " from " + currentUser.getName() + " and " + (similarNotifications.size()>1 ? similarNotifications.size() + " more people" : get(0,similarNotifications).getFrom().getNameAndSurname()) + ": \n" + similarNotification.getMessage());
+            List<Notification> similarNotifications = similarNotification.getSimilarNotifications();
+            sendNotification(player.getUser().getEmail(), notificationEnum.getNotification() + " from " + currentUser.getName() + " and " + (similarNotifications.size()>1 ? similarNotifications.size() + " more people" : similarNotifications.get(0).getFromUser().getNameAndSurname()) + ": \n" + similarNotification.getMessage());
         }
     }
 
     @Override
-    public Page<Notification> getMyNotifications(int page, int size) {
+    public Page<NotificationInfoDto> getMyNotifications(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
         Player currentPlayer = playerService.getCurrentPlayer();
 
-        return repository.findByToId(currentPlayer.getUser().getId(),pageable);
+        return repository.findByToUserId(currentPlayer.getUser().getId(),pageable);
     }
 
     private void sendNotification(String email,String message) {
@@ -82,27 +87,6 @@ public class NotificationServiceImpl implements NotificationService {
         mailMessage.setText(message);
 
         mailSender.send(mailMessage);
-    }
-
-    private Notification getSimilarNotification(NotificationEnum notificationType,String message, long idUser) {
-        List<Notification> notifications = repository.findByNotificationTypeAndMessageAndToId(notificationType,message,idUser);
-        for(Notification notification : notifications) {
-            if (Duration.between(LocalDateTime.now(), notification.getCreated()).toHours() <= 5) {
-                return notification;
-            }
-        }
-        return null;
-    }
-
-    private Notification get(int index, Set<Notification> notifications) {
-        int i = 0;
-        for(Notification notification : notifications) {
-            if(i==index) {
-                return notification;
-            }
-            i++;
-        }
-        return null;
     }
 
 }

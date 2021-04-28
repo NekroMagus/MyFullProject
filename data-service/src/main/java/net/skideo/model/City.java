@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Table(name = "city")
 public class City extends AbstractLocationEntity {
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Country country;
 
-    public City(String city,Country country) {
-        setName(city);
+    public City(String name,Country country) {
+        setName(name);
         setCountry(country);
     }
 

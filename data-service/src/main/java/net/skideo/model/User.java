@@ -23,7 +23,6 @@ public class User extends AbstractEntity {
 
     @Column(unique = true)
     private String login;
-    @Column(unique = true)
     private String password;
     @Column(unique = true)
     private String email;
@@ -35,18 +34,18 @@ public class User extends AbstractEntity {
     private ServiceRole serviceRole;
 
     @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY)
-    private Set<Notification> notifications = new TreeSet<>();
+    private List<Notification> notifications = new LinkedList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private List<Player> player = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private List<Scout> scout = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private List<Academy> academy = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private List<Club> club = new ArrayList<>();
 
     public User(String login,String password,String name,String surname,ServiceRole serviceRole) {
@@ -112,6 +111,42 @@ public class User extends AbstractEntity {
 
     public String getNameAndSurname() {
         return name + " " + surname;
+    }
+
+    public void setPlayer(Player player) {
+        if(this.player.isEmpty()) {
+            this.player.add(player);
+        }
+        else {
+            this.player.set(0,player);
+        }
+    }
+
+    public void setScout(Scout scout) {
+        if(this.scout.isEmpty()) {
+            this.scout.add(scout);
+        }
+        else {
+            this.scout.set(0,scout);
+        }
+    }
+
+    public void setClub(Club club) {
+        if(this.club.isEmpty()) {
+            this.club.add(club);
+        }
+        else {
+            this.club.set(0,club);
+        }
+    }
+
+    public void setAcademy(Academy academy) {
+        if(this.academy.isEmpty()) {
+            this.academy.add(academy);
+        }
+        else {
+            this.academy.set(0,academy);
+        }
     }
 
 }

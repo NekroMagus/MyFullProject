@@ -18,7 +18,7 @@ public class Scout extends AbstractUserEntity {
 
     private String region;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     private Club club;
 
     @ManyToMany(fetch = FetchType.LAZY)

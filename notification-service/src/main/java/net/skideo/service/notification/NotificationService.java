@@ -12,6 +12,6 @@ public interface NotificationService {
 
     void addNotification(NotificationEnum notificationEnum, String message, long idUser) throws MessagingException;
 
-    Page<Notification> getMyNotifications(int page, int size);
+    Page<NotificationInfoDto> getMyNotifications(int page, int size);
 
 }

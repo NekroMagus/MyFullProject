@@ -31,7 +31,7 @@ public class Player extends AbstractUserEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Club club;
 
-    private boolean hasAgent;
+    private Boolean hasAgent;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String linkSocialNetwork;

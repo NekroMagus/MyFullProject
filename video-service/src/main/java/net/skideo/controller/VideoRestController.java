@@ -29,6 +29,9 @@ import java.util.logging.Logger;
 public class VideoRestController {
 
     private final VideoService videoService;
+    private final VideoRepository repository;
+
+    Logger log = Logger.getLogger(VideoRestController.class.getName());
 
     @PostMapping
     public void addVideo(@Valid @RequestBody VideoLinkDto videoLinkDto) {
@@ -38,7 +41,9 @@ public class VideoRestController {
     @GetMapping("/my")
     public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "50") int size) {
-        return videoService.getMyVideos(page,size);
+        log.info(repository.findById(32).get().getLikes() + "");
+        //return videoService.getMyVideos(page,size);
+        return null;
     }
 
     @GetMapping("/other")

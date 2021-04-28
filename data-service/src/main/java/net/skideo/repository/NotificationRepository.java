@@ -8,13 +8,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional(readOnly = true)
 public interface NotificationRepository extends JpaRepository<Notification,Long> {
 
-    Page<Notification> findByToId(long toId, Pageable pageable);
+    Page<NotificationInfoDto> findByToUserId(long toUserId, Pageable pageable);
 
-    List<Notification> findByNotificationTypeAndMessageAndToId(NotificationEnum notificationType,String message, long toId);
+    Notification findTopByNotificationTypeAndMessageAndToUserIdAndCreatedBetween(NotificationEnum notificationType, String message, long toUserId,LocalDateTime created,LocalDateTime now);
 
 }

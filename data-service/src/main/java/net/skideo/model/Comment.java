@@ -13,8 +13,7 @@ import javax.persistence.*;
 public class Comment extends AbstractComponentEntity {
 
     private String text;
-
-    private boolean isInnerComment;
+    private Boolean isInnerComment;
 
     public Comment(String text, User user, boolean isInnerComment) {
         this.text=text;

@@ -41,7 +41,7 @@ public class UserProfileDto {
         if(player.getClub()!=null) {
             this.club = new ClubProfileDto(player.getClub());
         }
-        this.agent = player.isHasAgent();
+        this.agent = player.getHasAgent();
         this.birthDate = player.getBirthDate();
     }
 

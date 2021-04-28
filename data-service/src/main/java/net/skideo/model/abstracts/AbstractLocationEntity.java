@@ -9,11 +9,8 @@ import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
-public abstract class AbstractLocationEntity {
+public abstract class AbstractLocationEntity extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String name;
 
 }

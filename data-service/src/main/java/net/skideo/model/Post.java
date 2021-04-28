@@ -18,12 +18,12 @@ public class Post extends BaseEntity {
 
     private String country;
     private RoleFootball roleFootball;
-    private boolean agent;
+    private Boolean agent;
     private RolePeople rolePeople;
     private LeadingLeg leadingLeg;
     private LocalDate birthDate;
     private String videoLink;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     private Club club;
 
     public Post(Club club, String country, RoleFootball roleFootball, boolean agent, RolePeople rolePeople,

@@ -14,7 +14,7 @@ public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
 
     @Override
-    public Player getUserById(long idUser) {
+    public Player getPlayerById(long idUser) {
         return playerRepository.findById(idUser).orElseThrow(
                 () -> new NotFoundException("User not found")
         );

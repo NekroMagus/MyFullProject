@@ -30,7 +30,7 @@ public class PostDto {
     public PostDto(Post post) {
         this.country=post.getCountry();
         this.roleFootball=post.getRoleFootball();
-        this.agent=post.isAgent();
+        this.agent=post.getAgent();
         this.rolePeople=post.getRolePeople();
         this.leadingLeg=post.getLeadingLeg();
         this.birthDate=post.getBirthDate();

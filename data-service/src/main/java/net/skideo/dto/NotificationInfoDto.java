@@ -19,7 +19,7 @@ public class NotificationInfoDto {
 
     public NotificationInfoDto(Notification notification) {
         this.notificationValue=notification.getNotificationType().getNotification();
-        this.academyTitle=notification.getFrom().getName();
+        this.academyTitle=notification.getFromUser().getName();
         this.text=notification.getMessage();
         this.dateCreated = OffsetDateTime.of(notification.getCreated(), ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSSxxx"));
     }
