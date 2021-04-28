@@ -17,6 +17,6 @@ public interface NotificationRepository extends JpaRepository<Notification,Long>
 
     Page<NotificationInfoDto> findByToUserId(long toUserId, Pageable pageable);
 
-    Notification findTopByNotificationTypeAndMessageAndToUserIdAndCreatedBetween(NotificationEnum notificationType, String message, long toUserId,LocalDateTime created,LocalDateTime now);
+    Notification findFirstByNotificationTypeAndMessageAndToUserIdAndCreatedBetween(NotificationEnum notificationType, String message, long toUserId,LocalDateTime created,LocalDateTime now);
 
 }
