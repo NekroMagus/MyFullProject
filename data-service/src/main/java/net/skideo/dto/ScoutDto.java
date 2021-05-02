@@ -5,6 +5,7 @@ import net.skideo.model.Scout;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.model.enums.Region;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +14,7 @@ public class ScoutDto {
 
     private String name;
     private String surname;
-    private String region;
+    private Region region;
 
     public ScoutDto(ScoutProjection scoutProjection) {
         this.name=scoutProjection.getName();

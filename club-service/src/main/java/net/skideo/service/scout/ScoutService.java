@@ -4,6 +4,7 @@ import net.skideo.dto.ScoutDto;
 import net.skideo.dto.projections.ScoutProjection;
 import net.skideo.model.Club;
 import net.skideo.model.Scout;
+import net.skideo.model.enums.Region;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,15 +20,13 @@ public interface ScoutService {
 
     Page<ScoutDto> findAllByClubId(long userId, Pageable pageable);
 
-    Page<ScoutDto> findAllByRegionAndClubId(String region,long userId,Pageable pageable);
-
     Page<ScoutDto> getMyScouts(int page,int size);
 
     void addScout(long id);
 
     void removeScout(long id);
 
-    void setRegionScout(long id, String region);
+    void setRegionScout(long id, Region region);
 
-    Page<ScoutDto> getScoutsByRegion(String region,int page,int size);
+    Page<ScoutDto> getScoutsByRegion(Region region,int page,int size);
 }

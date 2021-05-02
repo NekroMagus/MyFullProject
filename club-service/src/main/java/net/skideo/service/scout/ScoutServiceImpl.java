@@ -8,6 +8,7 @@ import net.skideo.exception.NotFoundException;
 import net.skideo.exception.ScoutNotFoundException;
 import net.skideo.model.Club;
 import net.skideo.model.Scout;
+import net.skideo.model.enums.Region;
 import net.skideo.repository.ScoutRepository;
 import net.skideo.service.club.ClubService;
 import org.springframework.data.domain.Page;
@@ -69,7 +70,7 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public void setRegionScout(long id, String region) {
+    public void setRegionScout(long id, Region region) {
         Club currentClub = clubService.getCurrentClub();
         Scout scout = findById(id);
 
@@ -81,11 +82,11 @@ public class ScoutServiceImpl implements ScoutService {
     }
 
     @Override
-    public Page<ScoutDto> getScoutsByRegion(String region,int page,int size) {
+    public Page<ScoutDto> getScoutsByRegion(Region region,int page,int size) {
         Pageable pageable = PageRequest.of(page,size);
         final String LOGIN_CURRENT_CLUB = clubService.getLoginCurrentClub();
         final long ID_CURRENT_CLUB = clubService.getIdByLogin(LOGIN_CURRENT_CLUB);
-        return findAllByRegionAndClubId(region,ID_CURRENT_CLUB,pageable);
+        return scoutRepository.findAllByRegionAndClubId(region,ID_CURRENT_CLUB,pageable);
     }
 
     @Override
@@ -102,8 +103,4 @@ public class ScoutServiceImpl implements ScoutService {
         return scoutRepository.findAllByClubId(idUser,pageable);
     }
 
-    @Override
-    public Page<ScoutDto> findAllByRegionAndClubId(String region, long idUser, Pageable pageable) {
-        return scoutRepository.findAllByRegionAndClubId(region,idUser,pageable);
-    }
 }

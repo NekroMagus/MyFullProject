@@ -4,6 +4,7 @@ import net.skideo.dto.ProfileDto;
 import net.skideo.dto.ScoutDto;
 import net.skideo.dto.UserShortInfoClubDto;
 import net.skideo.model.Scout;
+import net.skideo.model.enums.Region;
 import net.skideo.repository.base.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ public interface ScoutRepository extends BaseRepository<Scout> {
 
     Page<ScoutDto> findAllByClubId(long id, Pageable pageable);
 
-    Page<ScoutDto> findAllByRegionAndClubId(String region,long id,Pageable pageable);
+    Page<ScoutDto> findAllByRegionAndClubId(Region region, long id, Pageable pageable);
 
     Page<UserShortInfoClubDto> findFavoriteUsersByUserLogin(String login,Pageable pageable);
 

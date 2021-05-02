@@ -24,6 +24,7 @@
     </properties>
 
     <modules>
+        <module>admin-service</module>
         <module>scout-service</module>
         <module>academy-service</module>
         <module>player-service</module>

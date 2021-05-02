@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import net.skideo.model.abstracts.AbstractEntity;
+import net.skideo.model.enums.Role;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.model.enums.ServiceRole;
@@ -28,12 +29,12 @@ public class User extends AbstractEntity {
     private String email;
     private String name;
     private String surname;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     private City city;
     @Enumerated(value = EnumType.STRING)
     private ServiceRole serviceRole;
 
-    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY,mappedBy = "toUser")
     private List<Notification> notifications = new LinkedList<>();
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")

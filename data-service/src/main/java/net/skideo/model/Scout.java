@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.skideo.model.abstracts.AbstractUserEntity;
+import net.skideo.model.enums.Region;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Table(name = "user_scout")
 public class Scout extends AbstractUserEntity {
 
-    private String region;
+    private Region region;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     private Club club;

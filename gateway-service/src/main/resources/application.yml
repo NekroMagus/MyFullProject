@@ -22,3 +22,6 @@ zuul:
     notification:
       path: /notification/**
       url: http://localhost:9030
+    admin:
+      path: /admin/**
+      url: http://localhost:7070

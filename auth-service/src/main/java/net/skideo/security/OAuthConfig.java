@@ -101,6 +101,15 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
                 .refreshTokenValiditySeconds(TOKEN_VALIDITY)
                 .accessTokenValiditySeconds(TOKEN_VALIDITY)
                 .authorizedGrantTypes(GRANT_TYPES)
+                .scopes(SCOPES)
+
+                .and()
+
+                .withClient("admin-service")
+                .secret(passwordEncoder.encode("admin-service"))
+                .refreshTokenValiditySeconds(TOKEN_VALIDITY)
+                .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                .authorizedGrantTypes(GRANT_TYPES)
                 .scopes(SCOPES);
     }
 

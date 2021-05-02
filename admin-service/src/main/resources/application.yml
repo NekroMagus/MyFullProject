@@ -1,0 +1,13 @@
+ribbon:
+  listOfServers: localhost:9080
+  ServerListRefreshInterval: 20000
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9080/oauth/token_key
+       ## client:
+         # provider:
+          #  token-uri: http://localhost:9080/oauth/token
+          # authorization-uri: http://localhost:9080/oauth/authorize

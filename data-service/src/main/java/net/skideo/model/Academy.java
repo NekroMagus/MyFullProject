@@ -17,7 +17,7 @@ import java.util.Set;
 public class Academy extends AbstractUserEntity {
 
     private Integer numberPlayers;
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Player> players = new LinkedHashSet<>();
 
     public Academy(User user, int numberPlayers) {

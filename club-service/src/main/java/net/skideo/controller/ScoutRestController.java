@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.ScoutDto;
+import net.skideo.model.enums.Region;
 import net.skideo.service.scout.ScoutService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +25,12 @@ public class ScoutRestController {
     }
 
     @PutMapping("/{id}")
-    public void setRegionScout(@PathVariable("id") long id, @RequestParam String region) {
+    public void setRegionScout(@PathVariable("id") long id, @RequestParam Region region) {
         scoutService.setRegionScout(id, region);
     }
 
     @GetMapping
-    public Page<ScoutDto> getScoutsByRegion(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size, @RequestParam String region) {
+    public Page<ScoutDto> getScoutsByRegion(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size, @RequestParam Region region) {
         return scoutService.getScoutsByRegion(region,page,size);
     }
 
