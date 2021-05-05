@@ -17,7 +17,7 @@ public class SessionFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         if(httpServletRequest.getSession().isNew()) {
-            httpServletRequest.getSession().setMaxInactiveInterval(60);
+            httpServletRequest.getSession().setMaxInactiveInterval(900);
         }
         filterChain.doFilter(httpServletRequest,httpServletResponse);
     }
