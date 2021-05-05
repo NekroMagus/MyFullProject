@@ -1,4 +1,4 @@
-package net.skideo.service.academy;
+package net.skideo.service.user;
 
 import net.skideo.dto.*;
 import net.skideo.model.Academy;

@@ -1,15 +1,12 @@
-package net.skideo.service.academy;
+package net.skideo.service.user;
 
 import net.skideo.dto.*;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
-import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.AcademyRepository;
 import lombok.RequiredArgsConstructor;
 import net.skideo.service.city.CityService;
-import net.skideo.service.country.CountryService;
-import net.skideo.service.user.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;

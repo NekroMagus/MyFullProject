@@ -2,7 +2,6 @@ package net.skideo.model;
 
 import lombok.*;
 import net.skideo.model.abstracts.AbstractUserEntity;
-import net.skideo.model.enums.Role;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
@@ -18,8 +17,6 @@ import java.util.List;
 @Table(name = "user_player")
 public class Player extends AbstractUserEntity {
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
     private String phone;
     @Enumerated(value = EnumType.STRING)
     private LeadingLeg leadingLeg;
@@ -40,8 +37,6 @@ public class Player extends AbstractUserEntity {
         setUser(user);
         this.rolePeople=rolePeople;
         this.hasAgent = hasAgent;
-
-        this.role = Role.UNCONFIRMED;
     }
 
 }

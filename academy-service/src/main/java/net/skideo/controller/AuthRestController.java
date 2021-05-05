@@ -6,19 +6,16 @@ import net.skideo.dto.RegAcademyDto;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.model.Academy;
 import net.skideo.model.City;
-import net.skideo.model.Country;
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.service.academy.AcademyService;
+import net.skideo.service.user.AcademyService;
 import net.skideo.service.city.CityService;
-import net.skideo.service.country.CountryService;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")

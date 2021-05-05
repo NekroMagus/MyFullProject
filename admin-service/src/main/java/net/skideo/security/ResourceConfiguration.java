@@ -17,7 +17,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     @Autowired
     private JwtTokenStore tokenStore;
 
-    private final String[] SWAGGER_URL = {"/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**"};
+    private final String[] SWAGGER_URL = {"/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**","/api/user/all"};
 
     @Override
     public void configure(HttpSecurity http) throws Exception {

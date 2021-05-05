@@ -3,14 +3,12 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
-import net.skideo.service.academy.AcademyService;
+import net.skideo.service.user.AcademyService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

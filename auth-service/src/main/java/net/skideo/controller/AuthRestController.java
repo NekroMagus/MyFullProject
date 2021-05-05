@@ -1,7 +1,6 @@
 package net.skideo.controller;
 
 import net.skideo.model.User;
-import net.skideo.model.enums.Role;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
