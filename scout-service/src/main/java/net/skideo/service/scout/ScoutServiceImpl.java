@@ -1,20 +1,17 @@
 package net.skideo.service.scout;
 
 
-import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Player;
 import net.skideo.model.Scout;
 import net.skideo.service.city.CityService;
-import net.skideo.service.country.CountryService;
 import net.skideo.service.player.PlayerService;
-import net.skideo.service.user.UserService;
+import net.skideo.service.UserService;
 import net.skideo.service.video.VideoService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.repository.ScoutRepository;
-import net.skideo.service.player.PlayerService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

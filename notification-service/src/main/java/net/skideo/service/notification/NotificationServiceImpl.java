@@ -8,7 +8,7 @@ import net.skideo.model.Player;
 import net.skideo.model.enums.NotificationEnum;
 import net.skideo.repository.NotificationRepository;
 import net.skideo.service.player.PlayerService;
-import net.skideo.service.user.UserService;
+import net.skideo.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,12 +18,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 @Service

@@ -1,4 +1,4 @@
-package net.skideo.service.user;
+package net.skideo.service;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.exception.NotFoundException;

@@ -6,7 +6,7 @@ import net.skideo.exception.AlreadyExistsException;
 import net.skideo.model.User;
 import net.skideo.model.Scout;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.service.user.UserService;
+import net.skideo.service.UserService;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

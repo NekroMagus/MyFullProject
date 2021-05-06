@@ -17,7 +17,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
     @Autowired
     private JwtTokenStore tokenStore;
 
-    private final String[] SWAGGER_URL = {"/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**","/api/user/all"};
+    private final String[] SWAGGER_URL = {"/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**","/api/player/all"};
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -29,7 +29,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.tokenStore(tokenStore).resourceId("admin-service");
+        resources.tokenStore(tokenStore);
     }
 
 }

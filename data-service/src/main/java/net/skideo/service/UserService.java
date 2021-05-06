@@ -1,4 +1,4 @@
-package net.skideo.service.user;
+package net.skideo.service;
 
 public interface UserService {
 
