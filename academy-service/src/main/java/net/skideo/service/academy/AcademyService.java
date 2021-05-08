@@ -1,4 +1,4 @@
-package net.skideo.service;
+package net.skideo.service.academy;
 
 import net.skideo.dto.*;
 import net.skideo.model.Academy;
@@ -18,7 +18,5 @@ public interface AcademyService {
     AcademyProfileDto getProfile(long id);
 
     Academy getCurrentAcademy();
-
-    String getLoginCurrentAcademy();
 
 }

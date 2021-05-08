@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Player;
 import net.skideo.repository.PlayerRepository;
+import net.skideo.util.SecurityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -27,17 +28,13 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player getCurrentPlayer() {
-        return findUserByLogin(getLoginCurrentUser());
+        return findUserByLogin(SecurityUtils.getLogin());
     }
 
     private Player findUserByLogin(String login) {
         return playerRepository.findByUserLogin(login).orElseThrow(
                 () -> new NotFoundException("User not found")
         );
-    }
-
-    private String getLoginCurrentUser() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
 }

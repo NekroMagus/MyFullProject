@@ -6,7 +6,7 @@ import net.skideo.exception.NotFoundException;
 import net.skideo.model.User;
 import net.skideo.model.Player;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import net.skideo.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RolePeople;

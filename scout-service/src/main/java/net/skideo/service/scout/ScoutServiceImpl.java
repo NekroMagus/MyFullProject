@@ -8,14 +8,14 @@ import net.skideo.model.Player;
 import net.skideo.model.Scout;
 import net.skideo.service.city.CityService;
 import net.skideo.service.player.PlayerService;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.repository.ScoutRepository;
+import net.skideo.util.SecurityUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -98,7 +98,7 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable) {
-        final String LOGIN_CURRENT_SCOUT = getLoginCurrentScout();
+        final String LOGIN_CURRENT_SCOUT = SecurityUtils.getLogin();
         return scoutRepository.findFavoriteUsersByUserLogin(LOGIN_CURRENT_SCOUT, pageable);
     }
 
@@ -137,11 +137,7 @@ public class ScoutServiceImpl implements ScoutService {
 
     @Override
     public Scout getCurrentScout() {
-        return findByLogin(getLoginCurrentScout());
+        return findByLogin(SecurityUtils.getLogin());
     }
 
-    @Override
-    public String getLoginCurrentScout() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
 }

@@ -1,9 +1,9 @@
 package net.skideo.repository;
 
 import net.skideo.model.Country;
-import net.skideo.repository.base.LocationRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
-public interface CountryRepository extends LocationRepository<Country> {
+public interface CountryRepository extends JpaRepository<Country,Long> {
 }

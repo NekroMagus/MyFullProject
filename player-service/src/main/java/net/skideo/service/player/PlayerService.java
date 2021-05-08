@@ -44,6 +44,4 @@ public interface PlayerService {
 
     Player getCurrentUser();
 
-    String getLoginCurrentUser();
-
 }

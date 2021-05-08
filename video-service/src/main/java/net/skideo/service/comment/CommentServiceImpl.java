@@ -6,7 +6,7 @@ import net.skideo.exception.AlreadyRatedException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.*;
 import net.skideo.repository.CommentRepository;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import net.skideo.service.video.VideoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void addInnerComment(long commentId, String text) {
         Comment comment = findById(commentId);
-        if(comment.isInnerComment()) {
+        if(comment.getIsInnerComment()) {
             throw new IllegalArgumentException("This comment is inner");
         }
 

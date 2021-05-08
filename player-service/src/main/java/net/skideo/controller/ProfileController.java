@@ -9,6 +9,7 @@ import net.skideo.repository.PlayerRepository;
 import net.skideo.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import net.skideo.model.enums.RoleFootball;
+import net.skideo.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -28,10 +29,10 @@ public class ProfileController {
     @Value("${security.oauth2.client.clientSecret}")
     private String clientSecret;
 
-    @GetMapping("/profile")
-    public UserProfileDto getProfile(@RequestParam(required = false) Long id) {
+    @GetMapping("/profile/{id}")
+    public UserProfileDto getProfile(@PathVariable(required = false) Long id) {
         if(id==null) {
-            return playerService.getProfile(playerService.getIdByLogin(playerService.getLoginCurrentUser()));
+            return playerService.getProfile(playerService.getIdByLogin(SecurityUtils.getLogin()));
         }
         return playerService.getProfile(id);
     }

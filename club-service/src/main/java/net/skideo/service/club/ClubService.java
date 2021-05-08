@@ -28,8 +28,6 @@ public interface ClubService {
 
     long getIdByLogin(String login);
 
-    String getLoginCurrentClub();
-
     Club getCurrentClub();
 
 }

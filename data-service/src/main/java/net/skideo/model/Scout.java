@@ -23,6 +23,7 @@ public class Scout extends AbstractUserEntity {
     private Club club;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "scout_player", joinColumns = @JoinColumn(name = "scout_id"), inverseJoinColumns = @JoinColumn(name = "player_id"))
     private Set<Player> favoritePlayers = new LinkedHashSet<>();
 
     public Scout(User user) {

@@ -8,6 +8,7 @@ import net.skideo.model.Club;
 import net.skideo.repository.ClubRepository;
 import net.skideo.service.club.ClubService;
 import net.skideo.service.scout.ScoutService;
+import net.skideo.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,10 +37,10 @@ public class ClubRestController {
     @Value("${security.oauth2.client.clientSecret}")
     private String clientSecret;
 
-    @GetMapping("/profile")
-    public ClubProfileDto getProfile(@RequestParam(required = false) Long id) {
+    @GetMapping("/profile/{id}")
+    public ClubProfileDto getProfile(@PathVariable(required = false) Long id) {
         if(id==null) {
-            return clubService.getProfile(clubService.getIdByLogin(clubService.getLoginCurrentClub()));
+            return clubService.getProfile(clubService.getIdByLogin(SecurityUtils.getLogin()));
         }
         return clubService.getProfile(id);
     }

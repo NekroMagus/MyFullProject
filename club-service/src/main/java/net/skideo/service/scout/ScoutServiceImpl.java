@@ -11,6 +11,7 @@ import net.skideo.model.Scout;
 import net.skideo.model.enums.Region;
 import net.skideo.repository.ScoutRepository;
 import net.skideo.service.club.ClubService;
+import net.skideo.util.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -51,7 +52,7 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public Page<ScoutDto> getMyScouts(int page,int size) {
         Pageable pageable = PageRequest.of(page,size);
-        final String LOGIN_CURRENT_CLUB = clubService.getLoginCurrentClub();
+        final String LOGIN_CURRENT_CLUB = SecurityUtils.getLogin();
         final long ID_CURRENT_CLUB = clubService.getIdByLogin(LOGIN_CURRENT_CLUB);
         return findAllByClubId(ID_CURRENT_CLUB,pageable);
     }
@@ -84,7 +85,7 @@ public class ScoutServiceImpl implements ScoutService {
     @Override
     public Page<ScoutDto> getScoutsByRegion(Region region,int page,int size) {
         Pageable pageable = PageRequest.of(page,size);
-        final String LOGIN_CURRENT_CLUB = clubService.getLoginCurrentClub();
+        final String LOGIN_CURRENT_CLUB = SecurityUtils.getLogin();
         final long ID_CURRENT_CLUB = clubService.getIdByLogin(LOGIN_CURRENT_CLUB);
         return scoutRepository.findAllByRegionAndClubId(region,ID_CURRENT_CLUB,pageable);
     }

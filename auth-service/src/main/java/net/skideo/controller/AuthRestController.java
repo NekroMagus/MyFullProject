@@ -2,7 +2,7 @@ package net.skideo.controller;
 
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

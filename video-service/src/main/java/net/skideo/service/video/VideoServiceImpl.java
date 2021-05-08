@@ -11,7 +11,7 @@ import net.skideo.model.Like;
 import net.skideo.model.Video;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.VideoRepository;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

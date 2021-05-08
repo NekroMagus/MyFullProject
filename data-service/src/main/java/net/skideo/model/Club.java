@@ -17,6 +17,7 @@ public class Club extends AbstractUserEntity {
     private String logoLink;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "club_player",joinColumns = @JoinColumn(name = "club_id"), inverseJoinColumns = @JoinColumn(name = "player_id"))
     private Set<Player> favoritePlayers = new LinkedHashSet<>();
 
     public Club(User user, String logoLink) {

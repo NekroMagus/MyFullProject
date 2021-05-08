@@ -1,4 +1,4 @@
-package net.skideo.service;
+package net.skideo.service.academy;
 
 import net.skideo.dto.*;
 import net.skideo.exception.AlreadyExistsException;
@@ -6,9 +6,10 @@ import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
 import net.skideo.repository.AcademyRepository;
 import lombok.RequiredArgsConstructor;
+import net.skideo.service.user.UserService;
 import net.skideo.service.city.CityService;
+import net.skideo.util.SecurityUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,8 +70,8 @@ public class AcademyServiceImpl implements AcademyService {
     public void updateProfile(AcademyProfileDto academyProfileDto) {
         Academy dbAcademy = getCurrentAcademy();
 
-        if(StringUtils.isNotBlank(academyProfileDto.getCity().getName()) && StringUtils.isNotBlank(academyProfileDto.getCity().getCountry().getName())) {
-            dbAcademy.getUser().setCity(cityService.getCity(academyProfileDto.getCity().getName(),academyProfileDto.getCity().getCountry().getName()));
+        if(StringUtils.isNotBlank(academyProfileDto.getCityName()) && StringUtils.isNotBlank(academyProfileDto.getCountryName())) {
+            dbAcademy.getUser().setCity(cityService.getCity(academyProfileDto.getCityName(),academyProfileDto.getCountryName()));
         }
         if(StringUtils.isNotBlank(academyProfileDto.getTitleClub())) {
             dbAcademy.getUser().setName(academyProfileDto.getTitleClub());
@@ -89,12 +90,7 @@ public class AcademyServiceImpl implements AcademyService {
 
     @Override
     public Academy getCurrentAcademy() {
-        return findByLogin(getLoginCurrentAcademy());
-    }
-
-    @Override
-    public String getLoginCurrentAcademy() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        return findByLogin(SecurityUtils.getLogin());
     }
 
 

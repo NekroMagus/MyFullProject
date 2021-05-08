@@ -11,9 +11,9 @@ import net.skideo.model.enums.RoleFootball;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.PlayerRepository;
 import net.skideo.service.city.CityService;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
+import net.skideo.util.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -162,13 +162,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public String getLoginCurrentUser() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    @Override
     public Player getCurrentUser() {
-        return findByLogin(getLoginCurrentUser());
+        return findByLogin(SecurityUtils.getLogin());
     }
 
 

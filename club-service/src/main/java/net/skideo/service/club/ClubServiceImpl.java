@@ -8,11 +8,11 @@ import net.skideo.model.*;
 import net.skideo.repository.ClubRepository;
 import net.skideo.service.city.CityService;
 import net.skideo.service.player.PlayerService;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
+import net.skideo.util.SecurityUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +59,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Page<UserShortInfoClubDto> getFavoriteUsers(Pageable pageable) {
-        final String LOGIN_CURRENT_CLUB = getLoginCurrentClub();
+        final String LOGIN_CURRENT_CLUB = SecurityUtils.getLogin();
         return clubRepository.findFavoriteUsersByUserLogin(LOGIN_CURRENT_CLUB,pageable);
     }
 
@@ -73,8 +73,8 @@ public class ClubServiceImpl implements ClubService {
         if(StringUtils.isNotBlank(profile.getTitleClub())) {
             dbClub.getUser().setName(profile.getTitleClub());
         }
-        if(StringUtils.isNotBlank(profile.getCity().getName()) && StringUtils.isNotBlank(profile.getCity().getCountry().getName())) {
-            dbClub.getUser().setCity(cityService.getCity(profile.getCity().getName(),profile.getCity().getCountry().getName()));
+        if(StringUtils.isNotBlank(profile.getCityName()) && StringUtils.isNotBlank(profile.getCountryName())) {
+            dbClub.getUser().setCity(cityService.getCity(profile.getCityName(),profile.getCountryName()));
         }
 
         clubRepository.save(dbClub);
@@ -99,12 +99,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Club getCurrentClub() {
-        return findByLogin(getLoginCurrentClub());
-    }
-
-    @Override
-    public String getLoginCurrentClub() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        return findByLogin(SecurityUtils.getLogin());
     }
 
     @Override

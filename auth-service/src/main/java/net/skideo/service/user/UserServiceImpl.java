@@ -1,10 +1,11 @@
-package net.skideo.service;
+package net.skideo.service.user;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.User;
 import net.skideo.repository.UserRepository;
 import net.skideo.security.JwtUser;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

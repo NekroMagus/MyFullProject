@@ -1,4 +1,4 @@
-package net.skideo.service;
+package net.skideo.service.user;
 
 import net.skideo.model.User;
 

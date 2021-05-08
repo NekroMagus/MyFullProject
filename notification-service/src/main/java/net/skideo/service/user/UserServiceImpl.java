@@ -1,9 +1,10 @@
-package net.skideo.service;
+package net.skideo.service.user;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.User;
 import net.skideo.repository.UserRepository;
+import net.skideo.util.SecurityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     @Override
+    public void save(User user) {
+        repository.save(user);
+    }
+
+    @Override
     public User getCurrentUser() {
-        return repository.findByLogin(getLoginCurrentUser()).orElseThrow(
+        final String LOGIN_CURRENT_USER = SecurityUtils.getLogin();
+        return repository.findByLogin(LOGIN_CURRENT_USER).orElseThrow(
                 () -> new NotFoundException("User not found")
         );
     }
 
-    private String getLoginCurrentUser() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
 }

@@ -27,6 +27,4 @@ public interface ScoutService {
 
     Scout getCurrentScout();
 
-    String getLoginCurrentScout();
-
 }

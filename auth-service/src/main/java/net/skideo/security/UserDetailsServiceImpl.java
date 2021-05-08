@@ -2,7 +2,7 @@ package net.skideo.security;
 
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
-import net.skideo.service.UserService;
+import net.skideo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;

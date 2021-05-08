@@ -17,11 +17,14 @@ public class ClubProfileDto {
     @NotBlank
     private String logoLink;
     @NotBlank
-    private City city;
+    private String cityName;
+    @NotBlank
+    private String countryName;
 
     public ClubProfileDto(Club club) {
         if(club.getUser().getCity()!=null) {
-            this.city = club.getUser().getCity();
+            this.cityName = club.getUser().getCity().getName();
+            this.countryName = club.getUser().getCity().getCountry().getName();
         }
         this.titleClub=club.getUser().getName();
         this.logoLink=club.getLogoLink();

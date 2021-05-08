@@ -1,9 +1,13 @@
 package net.skideo.repository;
 
 import net.skideo.model.City;
-import net.skideo.repository.base.LocationRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional(readOnly = true)
-public interface CityRepository extends LocationRepository<City> {
+public interface CityRepository extends JpaRepository<City,Long> {
+
+    Optional<City> findByNameAndCountryName(String cityName, String countryName);
 }

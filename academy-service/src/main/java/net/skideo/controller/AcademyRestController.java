@@ -3,7 +3,8 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
-import net.skideo.service.AcademyService;
+import net.skideo.service.academy.AcademyService;
+import net.skideo.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -28,11 +29,11 @@ public class AcademyRestController {
 
     private final Logger LOG = Logger.getLogger(AcademyRestController.class.getName());
 
-    @GetMapping("/profile")
-    public AcademyProfileDto getProfile(@RequestParam(required = false) Long id) {
+    @GetMapping("/profile/{id}")
+    public AcademyProfileDto getProfile(@PathVariable(required = false,name = "id") Long id) {
         if(id==null) {
             LOG.log(Level.INFO,"Getting profile with id of current academy");
-            return academyService.getProfile(academyService.getId(academyService.getLoginCurrentAcademy()));
+            return academyService.getProfile(academyService.getId(SecurityUtils.getLogin()));
         }
         LOG.log(Level.INFO,"Getting profile with id " + id);
         return academyService.getProfile(id);

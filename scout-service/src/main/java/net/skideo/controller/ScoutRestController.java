@@ -7,6 +7,7 @@ import net.skideo.model.Player;
 import net.skideo.repository.PlayerRepository;
 import net.skideo.service.scout.ScoutService;
 import lombok.RequiredArgsConstructor;
+import net.skideo.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,10 +42,10 @@ public class ScoutRestController {
 
     /* ------------------------------------------------- */
 
-    @GetMapping("/profile")
-    public ProfileDto getProfile(@RequestParam(required = false) Long id) {
+    @GetMapping("/profile/{id}")
+    public ProfileDto getProfile(@PathVariable(required = false) Long id) {
         if(id==null) {
-            return scoutService.getProfile(scoutService.getIdByLogin(scoutService.getLoginCurrentScout()));
+            return scoutService.getProfile(scoutService.getIdByLogin(SecurityUtils.getLogin()));
         }
         return scoutService.getProfile(id);
     }

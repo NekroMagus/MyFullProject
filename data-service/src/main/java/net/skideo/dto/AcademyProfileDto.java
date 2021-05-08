@@ -16,13 +16,16 @@ public class AcademyProfileDto {
 
     private long id;
     @NotBlank
-    private City city;
+    private String cityName;
+    @NotBlank
+    private String countryName;
     @NotBlank
     private String titleClub;
 
     public AcademyProfileDto(Academy academy) {
         this.id=academy.getId();
-        this.city = academy.getUser().getCity();
+        this.cityName = academy.getUser().getCity().getName();
+        this.countryName = academy.getUser().getCity().getCountry().getName();
         this.titleClub = academy.getUser().getName();
     }
 

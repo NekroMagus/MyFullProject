@@ -10,7 +10,8 @@ import net.skideo.model.Player;
 import net.skideo.model.enums.RolePeople;
 import net.skideo.repository.AcademyRepository;
 import net.skideo.repository.PlayerRepository;
-import net.skideo.service.AcademyService;
+import net.skideo.service.academy.AcademyService;
+import net.skideo.util.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,7 +58,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Page<UserShortInfoAcademyDto> getMyPlayers(Pageable pageable) {
-        return academyRepository.findPlayersByUserLogin(academyService.getLoginCurrentAcademy(),pageable);
+        return academyRepository.findPlayersByUserLogin(SecurityUtils.getLogin(),pageable);
     }
 
     @Override
