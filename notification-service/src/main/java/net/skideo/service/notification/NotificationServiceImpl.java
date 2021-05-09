@@ -46,11 +46,12 @@ public class NotificationServiceImpl implements NotificationService {
 
         if(similarNotification==null) {
             Notification notification = new Notification(notificationEnum, message, currentUser, player.getUser(),true,null);
-            player.getUser().getNotifications().add(notification);
+            repository.save(notification);
+            //player.getUser().getNotifications().add(notification);
 
-            userService.save(player.getUser());
+            //userService.save(player.getUser());
 
-            sendNotification(player.getUser().getEmail(), notificationEnum.getNotification() + " from " + currentUser.getName() + ": \n" + message);
+           // sendNotification(player.getUser().getEmail(), notificationEnum.getNotification() + " from " + currentUser.getName() + ": \n" + message);
         }
         else {
             Notification notification = new Notification(notificationEnum,message,currentUser,player.getUser(),false,similarNotification);

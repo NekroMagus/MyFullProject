@@ -4,7 +4,7 @@ import lombok.Data;
 import net.skideo.model.enums.RoleFootball;
 
 @Data
-public abstract class InfoDto {
+public abstract class InfoDto extends Dto {
 
     private String name;
     private String surname;

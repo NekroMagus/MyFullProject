@@ -2,6 +2,7 @@ package net.skideo.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.User;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class AdminClubInfoDto {
+public class AdminClubInfoDto extends Dto {
 
     private long id;
     private String name;

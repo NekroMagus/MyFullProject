@@ -1,6 +1,7 @@
 package net.skideo.service.academy;
 
 import net.skideo.dto.*;
+import net.skideo.dto.base.SkideoDto;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.Academy;
@@ -81,11 +82,11 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public AcademyProfileDto getProfile(long id) {
+    public SkideoDto<AcademyProfileDto> getProfile(long id) {
         LOG.log(Level.INFO,"Getting current academy...");
-        return academyRepository.findProfileById(id).orElseThrow(
+        return new SkideoDto<AcademyProfileDto>(academyRepository.findProfileById(id).orElseThrow(
                 () -> new NotFoundException("Academy not found")
-        );
+        ));
     }
 
     @Override

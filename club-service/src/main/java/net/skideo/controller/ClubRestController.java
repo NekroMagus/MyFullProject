@@ -3,6 +3,8 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
+import net.skideo.dto.base.SkideoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.exception.ClubNotFoundException;
 import net.skideo.model.Club;
 import net.skideo.repository.ClubRepository;
@@ -38,18 +40,18 @@ public class ClubRestController {
     private String clientSecret;
 
     @GetMapping("/profile/{id}")
-    public ClubProfileDto getProfile(@PathVariable(required = false) Long id) {
+    public SkideoDto<ClubProfileDto> getProfile(@PathVariable(required = false) Long id) {
         if(id==null) {
-            return clubService.getProfile(clubService.getIdByLogin(SecurityUtils.getLogin()));
+            return new SkideoDto<ClubProfileDto>(clubService.getProfile(clubService.getIdByLogin(SecurityUtils.getLogin())));
         }
-        return clubService.getProfile(id);
+        return new SkideoDto<ClubProfileDto>(clubService.getProfile(id));
     }
 
 
     @GetMapping("/scouts")
-    public Page<ScoutDto> getMyScouts(@RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "50") int size) {
-        return scoutService.getMyScouts(page,size);
+    public SkideoListDto<ScoutDto> getMyScouts(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "50") int size) {
+        return new SkideoListDto<ScoutDto>(scoutService.getMyScouts(page,size));
     }
 
     @PutMapping("/profile")
@@ -70,10 +72,10 @@ public class ClubRestController {
     }
 
     @GetMapping("/users/favorite")
-    public Page<UserShortInfoClubDto> getFavoriteUsers(@RequestParam(defaultValue = "0") int page,
+    public SkideoListDto<UserShortInfoClubDto> getFavoriteUsers(@RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return clubService.getFavoriteUsers(pageable);
+        return new SkideoListDto<UserShortInfoClubDto>(clubService.getFavoriteUsers(pageable));
     }
 
     // для тестов

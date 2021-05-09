@@ -1,6 +1,7 @@
 package net.skideo.controller;
 
 import net.skideo.dto.SearchUserDto;
+import net.skideo.dto.base.SkideoDto;
 import net.skideo.exception.UserNotFoundException;
 import net.skideo.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -43,8 +44,8 @@ public class SearchUserController {
     }
 
     @GetMapping("/id{id}")
-    public ResponseEntity<?> getUserById(@PathVariable("id") long id) {
-        return ResponseEntity.ok(new SearchUserDto(playerService.findById(id)));
+    public SkideoDto<SearchUserDto> getUserById(@PathVariable("id") long id) {
+        return new SkideoDto<SearchUserDto>(new SearchUserDto(playerService.findById(id)));
     }
 
     private LocalDate getDateBirthStart(int age) {

@@ -3,6 +3,7 @@ package net.skideo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.Academy;
 import net.skideo.model.City;
 import net.skideo.model.Country;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AcademyProfileDto {
+public class AcademyProfileDto extends Dto {
 
     private long id;
     @NotBlank

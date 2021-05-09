@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.PostDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.model.Club;
 import net.skideo.model.Post;
 import net.skideo.service.club.ClubService;
@@ -25,9 +26,9 @@ public class PostRestController {
      }
 
      @GetMapping("/posts")
-     public Page<PostDto> getMyPosts(@RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "50") int size) {
-         return postService.getMyPosts(page,size);
+     public SkideoListDto<PostDto> getMyPosts(@RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "50") int size) {
+         return new SkideoListDto<PostDto>(postService.getMyPosts(page,size));
      }
 
 }

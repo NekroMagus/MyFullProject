@@ -2,12 +2,13 @@ package net.skideo.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.User;
 import net.skideo.model.Player;
 
 @Data
 @NoArgsConstructor
-public class UserNSDto {
+public class UserNSDto extends Dto {
 
     private String name;
     private String surname;

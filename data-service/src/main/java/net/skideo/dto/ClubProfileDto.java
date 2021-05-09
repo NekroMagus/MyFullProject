@@ -1,5 +1,6 @@
 package net.skideo.dto;
 
+import net.skideo.dto.base.Dto;
 import net.skideo.model.City;
 import net.skideo.model.Club;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClubProfileDto {
+public class ClubProfileDto extends Dto {
 
     @NotBlank
     private String titleClub;

@@ -3,6 +3,8 @@ package net.skideo.controller;
 
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.*;
+import net.skideo.dto.base.SkideoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.model.Player;
 import net.skideo.repository.PlayerRepository;
 import net.skideo.service.scout.ScoutService;
@@ -43,11 +45,11 @@ public class ScoutRestController {
     /* ------------------------------------------------- */
 
     @GetMapping("/profile/{id}")
-    public ProfileDto getProfile(@PathVariable(required = false) Long id) {
+    public SkideoDto<ProfileDto> getProfile(@PathVariable(required = false) Long id) {
         if(id==null) {
-            return scoutService.getProfile(scoutService.getIdByLogin(SecurityUtils.getLogin()));
+            return new SkideoDto<ProfileDto>(scoutService.getProfile(scoutService.getIdByLogin(SecurityUtils.getLogin())));
         }
-        return scoutService.getProfile(id);
+        return new SkideoDto<ProfileDto>(scoutService.getProfile(id));
     }
 
     @PutMapping("/profile")
@@ -68,10 +70,10 @@ public class ScoutRestController {
     }
 
     @GetMapping("/user/favorite")
-    public Page<UserShortInfoClubDto> getFavoriteUsers(@RequestParam(defaultValue = "0") int page,
-                                                       @RequestParam(defaultValue = "50") int size) {
+    public SkideoListDto<UserShortInfoClubDto> getFavoriteUsers(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page,size);
-        return scoutService.getFavoriteUsers(pageable);
+        return new SkideoListDto<UserShortInfoClubDto>(scoutService.getFavoriteUsers(pageable));
     }
 
 }

@@ -2,6 +2,7 @@ package net.skideo.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.User;
 import net.skideo.model.enums.LeadingLeg;
 import net.skideo.model.enums.RoleFootball;
@@ -9,7 +10,7 @@ import net.skideo.model.enums.RolePeople;
 
 @Data
 @NoArgsConstructor
-public class AdminPlayerInfoDto {
+public class AdminPlayerInfoDto extends Dto {
 
     private long id;
     private String name;

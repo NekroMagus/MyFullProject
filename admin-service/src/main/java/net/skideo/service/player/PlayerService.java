@@ -1,12 +1,13 @@
 package net.skideo.service.player;
 
 import net.skideo.dto.AdminPlayerInfoDto;
+import net.skideo.dto.base.SkideoListDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface PlayerService {
 
-    List<AdminPlayerInfoDto> findAllPlayers(int page, int size);
+    SkideoListDto<AdminPlayerInfoDto> findAllPlayers(int page, int size);
 
 }

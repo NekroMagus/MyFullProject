@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AdminClubInfoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.service.club.ClubService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ClubRestController {
     private final ClubService clubService;
 
     @GetMapping("/all")
-    public List<AdminClubInfoDto> findAllClubs(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) {
+    public SkideoListDto<AdminClubInfoDto> findAllClubs(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) {
         return clubService.findAllClubs(page,size);
     }
 

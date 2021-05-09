@@ -1,6 +1,7 @@
 package net.skideo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.City;
 import net.skideo.model.Player;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-public class UserDto {
+public class UserDto extends Dto {
 
     private long id;
     private String name;

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.skideo.dto.UserNSDto;
 import net.skideo.dto.UserShortInfoAcademyDto;
 import net.skideo.dto.UserShortInfoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.service.player.PlayerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,27 +24,27 @@ public class PlayerRestController {
     private final Logger LOG = Logger.getLogger(PlayerRestController.class.getName());
 
     @GetMapping
-    public Page<UserNSDto> findUsersByNameAndSurname(@RequestParam String name,@RequestParam String surname,
-                                                     @RequestParam(defaultValue = "0") int page,
-                                                     @RequestParam(defaultValue = "50") int size) {
+    public SkideoListDto<UserNSDto> findUsersByNameAndSurname(@RequestParam String name, @RequestParam String surname,
+                                                                   @RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "50") int size) {
         LOG.log(Level.INFO,"Getting users by username " + name + " and surname " + surname);
-        return playerService.findUsersByNameAndSurname(name,surname,page,size);
+        return new SkideoListDto<UserNSDto>(playerService.findUsersByNameAndSurname(name,surname,page,size));
     }
 
     @GetMapping("/all")
-    public Page<UserShortInfoAcademyDto> getMyPlayers(@RequestParam(defaultValue = "0") int page,
+    public SkideoListDto<UserShortInfoAcademyDto> getMyPlayers(@RequestParam(defaultValue = "0") int page,
                                                       @RequestParam(defaultValue = "50") int size) {
         LOG.log(Level.INFO,"Getting users of current academy");
         Pageable pageable = PageRequest.of(page,size);
-        return playerService.getMyPlayers(pageable);
+        return new SkideoListDto<UserShortInfoAcademyDto>(playerService.getMyPlayers(pageable));
     }
 
     @GetMapping("/amateurs")
-    public Page<UserShortInfoDto> getAmateurPlayers(@RequestParam(defaultValue = "0") int page,
+    public SkideoListDto<UserShortInfoDto> getAmateurPlayers(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "50") int size) {
         LOG.log(Level.INFO,"Getting amateur players");
         Pageable pageable = PageRequest.of(page,size);
-        return playerService.getAmateurPlayers(pageable);
+        return new SkideoListDto<UserShortInfoDto>(playerService.getAmateurPlayers(pageable));
     }
 
     @PostMapping("/{id}")

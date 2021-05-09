@@ -1,6 +1,7 @@
 package net.skideo.service.academy;
 
 import net.skideo.dto.*;
+import net.skideo.dto.base.SkideoDto;
 import net.skideo.model.Academy;
 
 public interface AcademyService {
@@ -15,7 +16,7 @@ public interface AcademyService {
 
     void updateProfile(AcademyProfileDto academyProfileDto);
 
-    AcademyProfileDto getProfile(long id);
+    SkideoDto<AcademyProfileDto> getProfile(long id);
 
     Academy getCurrentAcademy();
 

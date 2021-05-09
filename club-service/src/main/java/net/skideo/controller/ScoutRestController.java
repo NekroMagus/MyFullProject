@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.ScoutDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.model.enums.Region;
 import net.skideo.service.scout.ScoutService;
 import org.springframework.data.domain.Page;
@@ -30,8 +31,8 @@ public class ScoutRestController {
     }
 
     @GetMapping
-    public Page<ScoutDto> getScoutsByRegion(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size, @RequestParam Region region) {
-        return scoutService.getScoutsByRegion(region,page,size);
+    public SkideoListDto<ScoutDto> getScoutsByRegion(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size, @RequestParam Region region) {
+        return new SkideoListDto<ScoutDto>(scoutService.getScoutsByRegion(region,page,size));
     }
 
 }

@@ -2,6 +2,7 @@ package net.skideo.service.scout;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AdminScoutInfoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.admin.SearchUserRepository;
@@ -20,9 +21,9 @@ public class ScoutServiceImpl implements ScoutService {
     private final SearchUserRepository searchUserRepository;
 
     @Override
-    public List<AdminScoutInfoDto> findAllScouts(int page, int size) {
+    public SkideoListDto<AdminScoutInfoDto> findAllScouts(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
         Page<User> users = searchUserRepository.findAllByServiceRole(ServiceRole.SCOUT,pageable);
-        return users.stream().map(u -> new AdminScoutInfoDto(u)).collect(Collectors.toList());
+        return new SkideoListDto<AdminScoutInfoDto>(users.stream().map(u -> new AdminScoutInfoDto(u)).collect(Collectors.toList()),users.getPageable().getPageNumber(),users.getPageable().getPageSize(),users.getTotalPages(),users.getNumberOfElements());
     }
 }

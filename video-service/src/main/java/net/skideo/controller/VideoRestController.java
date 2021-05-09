@@ -5,6 +5,7 @@ import net.skideo.dto.CommentADto;
 import net.skideo.dto.RatingDto;
 import net.skideo.dto.VideoDto;
 import net.skideo.dto.VideoLinkDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.model.Comment;
 import net.skideo.model.Video;
 import net.skideo.model.enums.ServiceRole;
@@ -39,23 +40,21 @@ public class VideoRestController {
     }
 
     @GetMapping("/my")
-    public Page<VideoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "50") int size) {
-        log.info(repository.findById(32).get().getLikes() + "");
-        //return videoService.getMyVideos(page,size);
-        return null;
+    public SkideoListDto<VideoDto> getMyVideos(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "50") int size) {
+        return new SkideoListDto<VideoDto>(videoService.getMyVideos(page,size));
     }
 
     @GetMapping("/other")
-    public Page<VideoDto> getOtherVideos(@RequestParam(defaultValue = "0") int page,
+    public SkideoListDto<VideoDto> getOtherVideos(@RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "50") int size) {
-        return videoService.getVideos(page,size);
+        return new SkideoListDto<VideoDto>(videoService.getVideos(page,size));
     }
 
     @GetMapping("/other/popular")
-    public Page<VideoDto> getPopularVideos(@RequestParam(defaultValue = "0") int page,
+    public SkideoListDto<VideoDto> getPopularVideos(@RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "50") int size) {
-        return videoService.getPopularVideos(page,size);
+        return new SkideoListDto<VideoDto>(videoService.getPopularVideos(page,size));
     }
 
     @GetMapping("/other/random")

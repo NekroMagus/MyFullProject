@@ -2,6 +2,7 @@ package net.skideo.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.Notification;
 
 import java.time.OffsetDateTime;
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
-public class NotificationInfoDto {
+public class NotificationInfoDto extends Dto {
 
     private String notificationValue;
     private String academyTitle;

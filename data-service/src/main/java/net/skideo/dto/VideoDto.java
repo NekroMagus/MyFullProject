@@ -1,5 +1,6 @@
 package net.skideo.dto;
 
+import net.skideo.dto.base.Dto;
 import net.skideo.model.Video;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class VideoDto {
+public class VideoDto extends Dto {
 
     private long id;
     private String videoLink;

@@ -1,5 +1,6 @@
 package net.skideo.dto;
 
+import net.skideo.dto.base.Dto;
 import net.skideo.dto.projections.ScoutProjection;
 import net.skideo.model.Scout;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,7 @@ import net.skideo.model.enums.Region;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScoutDto {
+public class ScoutDto extends Dto {
 
     private String name;
     private String surname;

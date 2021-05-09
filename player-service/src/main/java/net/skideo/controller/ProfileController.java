@@ -5,6 +5,7 @@ import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.AuthDto;
 import net.skideo.dto.UserDto;
 import net.skideo.dto.UserProfileDto;
+import net.skideo.dto.base.SkideoDto;
 import net.skideo.repository.PlayerRepository;
 import net.skideo.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +31,16 @@ public class ProfileController {
     private String clientSecret;
 
     @GetMapping("/profile/{id}")
-    public UserProfileDto getProfile(@PathVariable(required = false) Long id) {
+    public SkideoDto<UserProfileDto> getProfile(@PathVariable(required = false) Long id) {
         if(id==null) {
-            return playerService.getProfile(playerService.getIdByLogin(SecurityUtils.getLogin()));
+            return new SkideoDto<UserProfileDto>(playerService.getProfile(playerService.getIdByLogin(SecurityUtils.getLogin())));
         }
-        return playerService.getProfile(id);
+        return new SkideoDto<UserProfileDto>(playerService.getProfile(id));
     }
 
     @PutMapping("/profile")
-    public UserDto editProfile(@RequestBody UserDto newUser) {
-        return new UserDto(playerService.editUser(newUser));
+    public SkideoDto<UserDto> editProfile(@RequestBody UserDto newUser) {
+        return new SkideoDto<UserDto>(new UserDto(playerService.editUser(newUser)));
     }
 
     @PutMapping("/auth")

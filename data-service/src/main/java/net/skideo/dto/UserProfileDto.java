@@ -1,5 +1,6 @@
 package net.skideo.dto;
 
+import net.skideo.dto.base.Dto;
 import net.skideo.model.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserProfileDto {
+public class UserProfileDto extends Dto {
 
     private RoleFootball roleFootball;
     private String name;

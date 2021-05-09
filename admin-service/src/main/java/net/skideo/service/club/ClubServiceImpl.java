@@ -2,6 +2,7 @@ package net.skideo.service.club;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AdminClubInfoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.repository.admin.SearchUserRepository;
@@ -20,9 +21,9 @@ public class ClubServiceImpl implements ClubService {
     private final SearchUserRepository searchUserRepository;
 
     @Override
-    public List<AdminClubInfoDto> findAllClubs(int page, int size) {
+    public SkideoListDto<AdminClubInfoDto> findAllClubs(int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
         Page<User> users = searchUserRepository.findAllByServiceRole(ServiceRole.CLUB,pageable);
-        return users.stream().map(u -> new AdminClubInfoDto(u)).collect(Collectors.toList());
+        return new SkideoListDto<AdminClubInfoDto>(users.stream().map(u -> new AdminClubInfoDto(u)).collect(Collectors.toList()),users.getPageable().getPageNumber(),users.getPageable().getPageSize(),users.getTotalPages(),users.getNumberOfElements());
     }
 }

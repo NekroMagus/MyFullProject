@@ -2,6 +2,7 @@ package net.skideo.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AdminScoutInfoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.service.scout.ScoutService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ScoutRestController {
     private final ScoutService scoutService;
 
     @GetMapping("/all")
-    public List<AdminScoutInfoDto> findAllScouts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) {
+    public SkideoListDto<AdminScoutInfoDto> findAllScouts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) {
         return scoutService.findAllScouts(page,size);
     }
 

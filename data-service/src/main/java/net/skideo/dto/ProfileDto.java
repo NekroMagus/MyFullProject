@@ -3,6 +3,7 @@ package net.skideo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.Scout;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfileDto {
+public class ProfileDto extends Dto {
 
     private String name;
     private String surname;

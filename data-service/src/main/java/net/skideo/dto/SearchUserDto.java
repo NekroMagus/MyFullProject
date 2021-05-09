@@ -1,6 +1,7 @@
 package net.skideo.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.Player;
 import lombok.Data;
 import net.skideo.model.enums.RoleFootball;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Data
-public class SearchUserDto {
+public class SearchUserDto extends Dto {
 
     private String login;
     private RoleFootball roleFootball;

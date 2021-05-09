@@ -2,6 +2,7 @@ package net.skideo.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.skideo.dto.base.Dto;
 import net.skideo.model.User;
 import net.skideo.model.enums.Region;
 
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class AdminScoutInfoDto {
+public class AdminScoutInfoDto extends Dto {
 
     private long id;
     private String name;
