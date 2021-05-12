@@ -1,7 +1,9 @@
 package net.skideo.controller;
 
 import net.skideo.client.AuthServiceFeignClient;
+import net.skideo.dto.TokenDto;
 import net.skideo.dto.UserRegistrationDto;
+import net.skideo.dto.base.SkideoDto;
 import net.skideo.exception.NotFoundException;
 import net.skideo.model.User;
 import net.skideo.model.Player;
@@ -36,7 +38,7 @@ public class AuthRestController {
     private String clientSecret;
 
     @PostMapping("/registration")
-    public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
+    public SkideoDto<TokenDto> registration(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
         if(userService.isExistsByLogin(userRegistrationDto.getLogin())) {
             throw new NotFoundException("User not found");
         }
@@ -57,7 +59,7 @@ public class AuthRestController {
         ResponseEntity<OAuth2AccessToken> response = feignClient.generateToken(userRegistrationDto.getLogin(), userRegistrationDto.getPassword(), clientId,
                 clientSecret, "password");
 
-        return response;
+        return new SkideoDto<TokenDto>(new TokenDto(response.getBody()));
     }
 
 }

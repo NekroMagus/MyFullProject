@@ -2,10 +2,9 @@ package net.skideo.controller;
 
 
 import net.skideo.client.AuthServiceFeignClient;
-import net.skideo.dto.AuthDto;
-import net.skideo.dto.UserDto;
-import net.skideo.dto.UserProfileDto;
+import net.skideo.dto.*;
 import net.skideo.dto.base.SkideoDto;
+import net.skideo.dto.base.SkideoListDto;
 import net.skideo.repository.PlayerRepository;
 import net.skideo.service.player.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/player")
@@ -44,15 +46,16 @@ public class ProfileController {
     }
 
     @PutMapping("/auth")
-    public ResponseEntity<OAuth2AccessToken> updateLoginAndPassword(@RequestBody AuthDto authDto) {
+    public SkideoDto<TokenDto> updateLoginAndPassword(@RequestBody AuthDto authDto) {
         playerService.updateLoginAndPassword(authDto);
 
-        return feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password");
+        return new SkideoDto<TokenDto>(new TokenDto(feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password").getBody()));
     }
 
     @GetMapping("/roleFootball")
-    public RoleFootball[] getRoleFootball() {
-        return RoleFootball.values();
+    public SkideoListDto<RoleFootballDto> getRoleFootball() {
+        RoleFootball[] values = RoleFootball.values();
+        return new SkideoListDto<RoleFootballDto>(Arrays.stream(values).map(rl -> new RoleFootballDto(rl)).collect(Collectors.toList()),0,0,0,0);
     }
 
 }

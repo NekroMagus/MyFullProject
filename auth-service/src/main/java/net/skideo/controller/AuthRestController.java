@@ -1,5 +1,7 @@
 package net.skideo.controller;
 
+import net.skideo.dto.TokenDto;
+import net.skideo.dto.base.SkideoDto;
 import net.skideo.model.User;
 import net.skideo.model.enums.ServiceRole;
 import net.skideo.service.user.UserService;
@@ -21,8 +23,8 @@ public class AuthRestController {
     private UserService userService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<OAuth2AccessToken> authenticate(@RequestParam String login, @RequestParam String password, @RequestParam String clientId,
-                                                          @RequestParam String clientSecret, @RequestParam String grantType, @RequestParam ServiceRole serviceRole, HttpServletRequest request) throws IllegalAccessException, HttpRequestMethodNotSupportedException {
+    public SkideoDto<TokenDto> authenticate(@RequestParam String login, @RequestParam String password, @RequestParam String clientId,
+                                            @RequestParam String clientSecret, @RequestParam String grantType, @RequestParam ServiceRole serviceRole, HttpServletRequest request) throws IllegalAccessException, HttpRequestMethodNotSupportedException {
         if(serviceRole!=ServiceRole.ADMIN) {
             User user = userService.findByLogin(login);
 
@@ -38,7 +40,7 @@ public class AuthRestController {
         parameters.put("grant_type", grantType);
         parameters.put("scope", "read write");
 
-        return userService.generateToken(parameters, clientId);
+        return new SkideoDto<TokenDto>(new TokenDto(userService.generateToken(parameters, clientId).getBody()));
     }
 
     @PostMapping("/token")

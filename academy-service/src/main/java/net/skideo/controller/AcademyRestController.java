@@ -41,12 +41,12 @@ public class AcademyRestController {
     }
 
     @PutMapping("/auth")
-    public ResponseEntity<OAuth2AccessToken> updateLoginAndPassword(@RequestBody AuthDto authDto) {
+    public SkideoDto<TokenDto> updateLoginAndPassword(@RequestBody AuthDto authDto) {
         LOG.log(Level.INFO,"Updating login and password...");
         academyService.updateLoginAndPassword(authDto);
         LOG.log(Level.INFO,"Updating login and password success");
 
-        return feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password");
+        return new SkideoDto<TokenDto>(new TokenDto(feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password").getBody()));
     }
 
     @PutMapping("/profile")

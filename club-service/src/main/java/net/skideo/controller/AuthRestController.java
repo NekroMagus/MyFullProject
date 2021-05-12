@@ -3,6 +3,8 @@ package net.skideo.controller;
 import lombok.RequiredArgsConstructor;
 import net.skideo.client.AuthServiceFeignClient;
 import net.skideo.dto.ClubRegDto;
+import net.skideo.dto.TokenDto;
+import net.skideo.dto.base.SkideoDto;
 import net.skideo.exception.AlreadyExistsException;
 import net.skideo.model.User;
 import net.skideo.model.Club;
@@ -32,7 +34,7 @@ public class AuthRestController {
     private String clientSecret;
 
     @PostMapping("/registration")
-    public ResponseEntity<OAuth2AccessToken> registration(@Valid @RequestBody ClubRegDto regDto) {
+    public SkideoDto<TokenDto> registration(@Valid @RequestBody ClubRegDto regDto) {
         if(userService.isExistsByLogin(regDto.getLogin())) {
             throw new AlreadyExistsException("Club already exists");
         }
@@ -44,7 +46,7 @@ public class AuthRestController {
         ResponseEntity<OAuth2AccessToken> response = feignClient.generateToken(regDto.getLogin(),regDto.getPassword(),clientId,
                                                                               clientSecret,"password");
 
-        return response;
+        return new SkideoDto<TokenDto>(new TokenDto(response.getBody()));
     }
 
 }

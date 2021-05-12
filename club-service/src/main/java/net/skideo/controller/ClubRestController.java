@@ -60,10 +60,10 @@ public class ClubRestController {
     }
 
     @PutMapping("/auth")
-    public ResponseEntity<OAuth2AccessToken> updateLoginAndPassword(@RequestBody AuthDto authDto) {
+    public SkideoDto<TokenDto> updateLoginAndPassword(@RequestBody AuthDto authDto) {
         clubService.updateLoginAndPassword(authDto);
 
-        return feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password");
+        return new SkideoDto<TokenDto>(new TokenDto(feignClient.generateToken(authDto.getLogin(),authDto.getPassword(),clientId,clientSecret,"password").getBody()));
     }
 
     @PostMapping("/user/favorite/{id}")

@@ -20,7 +20,7 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/api/registration").permitAll()
-                .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**").permitAll()
+                .antMatchers("/swagger-ui.html","/v2/api-docs","/swagger-resources", "/webjars/**","/api/player/roleFootball").permitAll()
                 .antMatchers().permitAll()
                 .anyRequest().authenticated();
     }
