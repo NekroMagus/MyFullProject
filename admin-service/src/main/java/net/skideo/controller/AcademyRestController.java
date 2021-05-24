@@ -5,11 +5,9 @@ import net.skideo.dto.AdminAcademyInfoDto;
 import net.skideo.dto.base.SkideoListDto;
 import net.skideo.service.academy.AcademyService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,8 +18,15 @@ public class AcademyRestController {
     private final AcademyService academyService;
 
     @GetMapping("/all")
-    public SkideoListDto<AdminAcademyInfoDto> findAllAcademies(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) {
-        return academyService.findAllAcademies(page,size);
+    public SkideoListDto<AdminAcademyInfoDto> findAllAcademies(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) throws IOException {
+        SkideoListDto<AdminAcademyInfoDto> academies = academyService.findAllAcademies(page,size);
+        academyService.loadAcademiesCsvFile("test.csv",academies.getData());
+        return null;
+    }
+
+    @PostMapping("/all/csv")
+    public void loadAcademiesCsvFile(@RequestParam(required = false) String fileName,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) throws IOException {
+        academyService.loadAcademiesCsvFile("./csv/" + fileName,academyService.findAllAcademies(page,size).getData());
     }
 
 }

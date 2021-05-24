@@ -22,7 +22,7 @@ public class AdminAcademyInfoDto extends Dto {
 
     public AdminAcademyInfoDto(User user) {
         setId(user.getId());
-        setName(user.getName());
+        setName(user.getLogin());
         setSurname(user.getSurname());
         setEmail(user.getEmail());
         if(user.getCity()!=null) {

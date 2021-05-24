@@ -51,7 +51,7 @@ public class PlayerRestController {
     public void addPlayer(@PathVariable("id") long id) {
         LOG.log(Level.INFO,"Adding player with id " + id);
         playerService.addPlayer(id);
-        LOG.log(Level.INFO,"Adding player wuth id " + id + " success");
+        LOG.log(Level.INFO,"Adding player with id " + id + " success");
     }
 
 }
