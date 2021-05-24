@@ -17,8 +17,8 @@ import java.util.List;
 public class PlayerFileServiceImpl implements FileService<AdminPlayerInfoDto> {
 
     @Override
-    public void writeHeaders(File file) {
-        try(CSVWriter csvWriter = new CSVWriter(new FileWriter(file))) {
+    public void writeHeaders(File file, CSVWriter csvWriter) throws IOException {
+        try {
             csvWriter.writeNext(new String[]
                     {
                             "id", "name", "surname", "email", "cityTitle", "countryTitle",
@@ -32,8 +32,8 @@ public class PlayerFileServiceImpl implements FileService<AdminPlayerInfoDto> {
     }
 
     @Override
-    public void writeData(File file, List<AdminPlayerInfoDto> data) {
-        try(CSVWriter csvWriter = new CSVWriter(new FileWriter(file))) {
+    public void writeData(File file, List<AdminPlayerInfoDto> data, CSVWriter csvWriter) throws IOException {
+        try {
             for (AdminPlayerInfoDto player : data) {
                 csvWriter.writeNext(new String[]
                         {
@@ -46,6 +46,8 @@ public class PlayerFileServiceImpl implements FileService<AdminPlayerInfoDto> {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            csvWriter.close();
         }
     }
 }

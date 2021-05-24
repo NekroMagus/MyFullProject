@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class ScoutFileServiceImpl implements FileService<AdminScoutInfoDto> {
 
     @Override
-    public void writeHeaders(File file) {
-        try(CSVWriter csvWriter = new CSVWriter(new FileWriter(file))) {
+    public void writeHeaders(File file, CSVWriter csvWriter) throws IOException {
+        try {
             csvWriter.writeNext(new String[]
                     {
                             "id", "name", "surname", "email", "cityTitle",
@@ -31,8 +31,8 @@ public class ScoutFileServiceImpl implements FileService<AdminScoutInfoDto> {
     }
 
     @Override
-    public void writeData(File file, List<AdminScoutInfoDto> data) {
-        try(CSVWriter csvWriter = new CSVWriter(new FileWriter(file))) {
+    public void writeData(File file, List<AdminScoutInfoDto> data, CSVWriter csvWriter) throws IOException {
+        try {
             for (AdminScoutInfoDto scout : data) {
                 csvWriter.writeNext(new String[]
                         {
@@ -44,6 +44,8 @@ public class ScoutFileServiceImpl implements FileService<AdminScoutInfoDto> {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            csvWriter.close();
         }
     }
 }

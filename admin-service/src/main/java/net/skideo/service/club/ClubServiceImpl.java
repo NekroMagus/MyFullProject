@@ -1,5 +1,6 @@
 package net.skideo.service.club;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AdminClubInfoDto;
 import net.skideo.dto.base.SkideoListDto;
@@ -11,8 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import sun.util.resources.cldr.es.CalendarData_es_SV;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +40,8 @@ public class ClubServiceImpl implements ClubService {
         if(!file.exists()) {
             file.createNewFile();
         }
-        fileService.writeHeaders(file);
-        fileService.writeData(file,clubs);
+        CSVWriter csvWriter = new CSVWriter(new FileWriter(fileName));
+        fileService.writeHeaders(file,csvWriter);
+        fileService.writeData(file,clubs,csvWriter);
     }
 }

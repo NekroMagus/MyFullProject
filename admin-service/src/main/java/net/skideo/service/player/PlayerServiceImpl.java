@@ -1,5 +1,6 @@
 package net.skideo.service.player;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import lombok.RequiredArgsConstructor;
 import net.skideo.dto.AdminPlayerInfoDto;
 import net.skideo.dto.base.SkideoListDto;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,7 +40,8 @@ public class PlayerServiceImpl implements PlayerService {
         if(!file.exists()) {
             file.createNewFile();
         }
-        fileService.writeHeaders(file);
-        fileService.writeData(file,players);
+        CSVWriter csvWriter = new CSVWriter(new FileWriter(fileName));
+        fileService.writeHeaders(file,csvWriter);
+        fileService.writeData(file,players,csvWriter);
     }
 }

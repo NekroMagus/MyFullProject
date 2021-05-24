@@ -26,7 +26,7 @@ public class AcademyRestController {
 
     @PostMapping("/all/csv")
     public void loadAcademiesCsvFile(@RequestParam(required = false) String fileName,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "50") int size) throws IOException {
-        academyService.loadAcademiesCsvFile("./csv/" + fileName,academyService.findAllAcademies(page,size).getData());
+        academyService.loadAcademiesCsvFile("./csv/" + "test.csv",academyService.findAllAcademies(page,size).getData());
     }
 
 }

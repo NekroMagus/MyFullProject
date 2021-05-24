@@ -40,7 +40,8 @@ public class AcademyServiceImpl implements AcademyService {
         if(!file.exists()) {
             file.createNewFile();
         }
-        fileService.writeHeaders(file);
-        fileService.writeData(file,academies);
+        CSVWriter csvWriter = new CSVWriter(new FileWriter(file));
+        fileService.writeHeaders(file,csvWriter);
+        fileService.writeData(file,academies,csvWriter);
     }
 }

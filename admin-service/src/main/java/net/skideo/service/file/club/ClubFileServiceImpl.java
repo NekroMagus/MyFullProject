@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class ClubFileServiceImpl implements FileService<AdminClubInfoDto> {
 
     @Override
-    public void writeHeaders(File file) {
-        try(CSVWriter csvWriter = new CSVWriter(new FileWriter(file))) {
+    public void writeHeaders(File file, CSVWriter csvWriter) throws IOException {
+        try {
             csvWriter.writeNext(new String[]{"id", "name", "surname", "email", "cityTitle", "countryTitle","logoLink","favoritePlayers"});
             csvWriter.flush();
         } catch (IOException e) {
@@ -27,8 +27,8 @@ public class ClubFileServiceImpl implements FileService<AdminClubInfoDto> {
     }
 
     @Override
-    public void writeData(File file, List<AdminClubInfoDto> data) {
-        try(CSVWriter csvWriter = new CSVWriter(new FileWriter(file))) {
+    public void writeData(File file, List<AdminClubInfoDto> data, CSVWriter csvWriter) throws IOException {
+        try {
             for (AdminClubInfoDto club : data) {
                 csvWriter.writeNext(new String[]
                         {
@@ -40,6 +40,8 @@ public class ClubFileServiceImpl implements FileService<AdminClubInfoDto> {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            csvWriter.close();
         }
     }
 }
